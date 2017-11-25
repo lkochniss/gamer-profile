@@ -1,4 +1,6 @@
 {
+    "name":"lkochniss/gamer-profile",
+    "description":"Show your gaming stats to the world",
     "type": "project",
     "license": "proprietary",
     "minimum-stability": "beta",
