@@ -30,4 +30,26 @@ class ReportService
         return [$list => count($this->report[$list])];
     }
 
+    /**
+     * @return array
+     */
+    public function getSummary(): array
+    {
+        $summary = [];
+        foreach ($this->report as $list => $listArray) {
+            $summary[$list] = count($listArray);
+        }
+
+        return $summary;
+    }
+
+    /**
+     * @param string $list
+     * @return array
+     */
+    public function getDetailsFor(string $list): array
+    {
+        return $this->report[$list];
+    }
+
 }
