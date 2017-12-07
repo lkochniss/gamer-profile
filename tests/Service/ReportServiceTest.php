@@ -16,7 +16,7 @@ class ReportServiceTest extends TestCase
         $reportService = new ReportService();
         $actualReturn = $reportService->addEntryToList('new entry', 'list one');
 
-        $this->assertEquals(['list one' => 1], $actualReturn);
+        $this->assertEquals(1, $actualReturn);
     }
 
     public function testAddMultipleEntriesToOneList(): void
@@ -28,7 +28,7 @@ class ReportServiceTest extends TestCase
         $reportService->addEntryToList('new entry', 'list one');
         $actualReturn = $reportService->addEntryToList('last entry', 'list one');
 
-        $this->assertEquals(['list one' => 5], $actualReturn);
+        $this->assertEquals( 5, $actualReturn);
     }
 
     public function testAddSingleEntriesToMultipleLists(): void
@@ -38,9 +38,9 @@ class ReportServiceTest extends TestCase
         $actualListTwo = $reportService->addEntryToList('first entry', 'list two');
         $actualListThree = $reportService->addEntryToList('second entry', 'list three');
 
-        $this->assertEquals(['list one' => 1], $actualListOne);
-        $this->assertEquals(['list two' => 1], $actualListTwo);
-        $this->assertEquals(['list three' => 1], $actualListThree);
+        $this->assertEquals(1, $actualListOne);
+        $this->assertEquals(1, $actualListTwo);
+        $this->assertEquals(1, $actualListThree);
     }
 
     public function testAddMultipleEntriesToMultipleLists(): void
@@ -53,9 +53,9 @@ class ReportServiceTest extends TestCase
         $reportService->addEntryToList('first entry', 'list three');
         $actualListThree = $reportService->addEntryToList('second entry', 'list three');
 
-        $this->assertEquals(['list one' => 3], $actualListOne);
-        $this->assertEquals(['list two' => 1], $actualListTwo);
-        $this->assertEquals(['list three' => 2], $actualListThree);
+        $this->assertEquals(3, $actualListOne);
+        $this->assertEquals( 1, $actualListTwo);
+        $this->assertEquals( 2, $actualListThree);
     }
 
     public function testSummaryForOneEntryInOneList(): void

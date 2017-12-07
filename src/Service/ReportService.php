@@ -20,14 +20,20 @@ class ReportService
         $this->report = [];
     }
 
-    public function addEntryToList($entry, $list)
+    /**
+     * @param string $entry
+     * @param string $list
+     *
+     * @return int
+     */
+    public function addEntryToList(string $entry, string $list): int
     {
-        if (!array_key_exists($list, $this->report)){
+        if (!array_key_exists($list, $this->report)) {
             $this->report[$list] = [];
         }
         $this->report[$list][] = $entry;
 
-        return [$list => count($this->report[$list])];
+        return count($this->report[$list]);
     }
 
     /**
