@@ -7,6 +7,9 @@ namespace App\Service;
  */
 class ReportService
 {
+    const NEW_GAME = 'new game';
+    const UPDATED_GAME = 'updated game';
+
     /**
      * @var array
      */

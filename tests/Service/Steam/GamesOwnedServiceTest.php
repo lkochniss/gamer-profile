@@ -4,11 +4,13 @@ namespace tests\App\Service\Steam;
 
 use App\Entity\Game;
 use App\Repository\GameRepository;
+use App\Service\ReportService;
 use App\Service\Steam\GameInformationService;
 use App\Service\Steam\GamesOwnedService;
 use App\Service\Steam\Api\UserApiClientService;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use SebastianBergmann\CodeCoverage\Report\Xml\Report;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
@@ -42,7 +44,7 @@ class GamesOwnedServiceTest extends TestCase
     {
         $this->setSteamUserApiClientMock();
 
-        $gamesOwnedService = new GamesOwnedService($this->steamUserApiServiceMock, $this->steamGameInformationServiceMock, $this->gameRepositoryMock);
+        $gamesOwnedService = $this->getGamesOwendService();
         $gamesOwned = $gamesOwnedService->getMyGames();
 
         $this->assertEquals($this->getGamesArray(), $gamesOwned);
@@ -54,22 +56,22 @@ class GamesOwnedServiceTest extends TestCase
         $this->setSteamGameInformationServiceMock();
         $this->setGameRepositoryMockWithGame();
 
-        $gamesOwnedService = new GamesOwnedService($this->steamUserApiServiceMock, $this->steamGameInformationServiceMock, $this->gameRepositoryMock);
+        $gamesOwnedService = $this->getGamesOwendService();
         $synchronizeStatus = $gamesOwnedService->synchronizeMyGames();
 
-        $this->assertTrue($synchronizeStatus);
+        $this->assertEquals([ReportService::UPDATED_GAME => 1], $synchronizeStatus);
     }
 
     public function testSynchronizeMyGamesWithoutExistingGame(): void
     {
         $this->setSteamUserApiClientMock();
         $this->setSteamGameInformationServiceMock();
-        $this->setGameRepositoryMockWithGame();
+        $this->setGameRepositoryMockWithoutGame();
 
-        $gamesOwnedService = new GamesOwnedService($this->steamUserApiServiceMock, $this->steamGameInformationServiceMock, $this->gameRepositoryMock);
+        $gamesOwnedService = $this->getGamesOwendService();
         $synchronizeStatus = $gamesOwnedService->synchronizeMyGames();
 
-        $this->assertTrue($synchronizeStatus);
+        $this->assertEquals([ReportService::NEW_GAME => 1], $synchronizeStatus);
     }
 
     private function setSteamUserApiClientMock(): void
@@ -88,15 +90,15 @@ class GamesOwnedServiceTest extends TestCase
     }
 
     private function setGameRepositoryMockWithGame(): void
-    {;
+    {
         $this->gameRepositoryMock->expects($this->any())
             ->method('findOneBySteamAppId')
             ->with(1)
             ->willReturn(new Game());
     }
 
-    private function setGameRepositoryMockWithOutGame(): void
-    {;
+    private function setGameRepositoryMockWithoutGame(): void
+    {
         $this->gameRepositoryMock->expects($this->any())
             ->method('findOneBySteamAppId')
             ->with(1)
@@ -140,5 +142,17 @@ class GamesOwnedServiceTest extends TestCase
             'steam_appid' => 1,
             'required_age' => 0,
         ];
+    }
+
+    /**
+     * @return GamesOwnedService
+     */
+    private function getGamesOwendService(): GamesOwnedService
+    {
+        return  new GamesOwnedService(
+            $this->steamUserApiServiceMock,
+            $this->steamGameInformationServiceMock,
+            $this->gameRepositoryMock
+        );
     }
 }

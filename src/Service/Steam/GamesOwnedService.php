@@ -4,6 +4,7 @@ namespace App\Service\Steam;
 
 use App\Entity\Game;
 use App\Repository\GameRepository;
+use App\Service\ReportService;
 use App\Service\Steam\Api\UserApiClientService;
 
 /**
@@ -27,6 +28,11 @@ class GamesOwnedService
     private $gameRepository;
 
     /**
+     * @var ReportService
+     */
+    private $reportService;
+
+    /**
      * GamesOwnedService constructor.
      *
      * @param UserApiClientService $userApiClientService
@@ -38,6 +44,7 @@ class GamesOwnedService
         $this->userApiClientService = $userApiClientService;
         $this->gameInformationService = $gameInformationService;
         $this->gameRepository = $gameRepository;
+        $this->reportService = new ReportService();
     }
 
     /**
@@ -52,9 +59,9 @@ class GamesOwnedService
     }
 
     /**
-     * @return bool
+     * @return array
      */
-    public function synchronizeMyGames() : bool
+    public function synchronizeMyGames() : array
     {
         $mySteamGames = $this->getMyGames();
 
@@ -63,21 +70,23 @@ class GamesOwnedService
             $this->createOrUpdateGame($myGame);
         }
 
-        return true;
+        return $this->reportService->getSummary();
     }
 
     /**
-     * @param array $game
+     * @param array $gameArray
      */
-    private function createOrUpdateGame(array $game) : void
+    private function createOrUpdateGame(array $gameArray) : void
     {
-        $game = $this->gameRepository->findOneBySteamAppId($game['steam_appid']);
+        $gameEntity = $this->gameRepository->findOneBySteamAppId($gameArray['steam_appid']);
 
-        if (is_null($game)){
-            $game = new Game();
-            // TODO: Log
+        if (is_null($gameEntity)){
+            $gameEntity = new Game();
+            $this->reportService->addEntryToList('New game ' . $gameArray['name'], ReportService::NEW_GAME);
+        }else {
+            $this->reportService->addEntryToList('Updated game ' . $gameArray['name'], ReportService::UPDATED_GAME);
         }
 
-        $this->gameRepository->save($game);
+        $this->gameRepository->save($gameEntity);
     }
 }
