@@ -3,6 +3,7 @@
 namespace tests\App\Command\Steam;
 
 use App\Command\Steam\UpdateAllGamesCommand;
+use App\Service\Steam\GamesOwnedService;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
@@ -20,8 +21,10 @@ class UpdateAllGamesCommandTest extends KernelTestCase
         $kernel = static::createKernel();
         $kernel->boot();
 
+        $gamesOwnedServiceMock = $this->createMock(GamesOwnedService::class);
+
         $application = new Application($kernel);
-        $application->add(new UpdateAllGamesCommand());
+
 
         $this->command = $application->find('gamerprofile:synchronize:steam');
     }
@@ -33,5 +36,21 @@ class UpdateAllGamesCommandTest extends KernelTestCase
 
         $output = $commandTester->getDisplay();
         $this->assertContains('Added 1 new game', $output);
+    }
+
+    private function addCommandToKernel()
+    {
+        $application->add(new UpdateAllGamesCommand());
+    }
+
+    private function setUpGamesOwnedService()
+    {
+
+        $gamesOwnedServiceMock->expects($this->any())
+            ->method('get')
+            ->with('/api/appdetails?appids=1')
+            ->willReturn(new JsonResponse($this->getGameResponseData()));
+
+        return $gamesOwnedServiceMock;
     }
 }
