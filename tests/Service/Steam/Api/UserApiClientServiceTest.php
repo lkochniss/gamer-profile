@@ -4,9 +4,9 @@ namespace tests\App\Service\Steam\Api;
 
 use App\Service\Steam\Api\UserApiClientService;
 use GuzzleHttp\Client as GuzzleClient;
+use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
  * Class UserApiClientServiceTest
@@ -28,13 +28,13 @@ class UserApiClientServiceTest extends TestCase
         $this->setGuzzleClientMock();
         $steamApiClient = new UserApiClientService($this->guzzleClientMock);
 
-        $this->assertEquals(new JsonResponse('ok'), $steamApiClient->get(''));
+        $this->assertEquals(new Response(), $steamApiClient->get(''));
     }
 
     private function setGuzzleClientMock(): void
     {
         $this->guzzleClientMock->expects($this->any())
             ->method('request')
-            ->willReturn(new JsonResponse('ok'));
+            ->willReturn(new Response());
     }
 }

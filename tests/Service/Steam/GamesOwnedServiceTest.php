@@ -8,10 +8,9 @@ use App\Service\ReportService;
 use App\Service\Steam\GameInformationService;
 use App\Service\Steam\GamesOwnedService;
 use App\Service\Steam\Api\UserApiClientService;
+use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use SebastianBergmann\CodeCoverage\Report\Xml\Report;
-use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
  * Class GamesOwnedServiceTest
@@ -79,7 +78,7 @@ class GamesOwnedServiceTest extends TestCase
         $this->steamUserApiServiceMock->expects($this->any())
             ->method('get')
             ->with('/IPlayerService/GetOwnedGames/v0001/')
-            ->willReturn(new JsonResponse($this->getOwnedGamesResponseData()));
+            ->willReturn(new Response(200, [], json_encode($this->getOwnedGamesResponseData())));
     }
 
     private function setSteamGameInformationServiceMock(): void

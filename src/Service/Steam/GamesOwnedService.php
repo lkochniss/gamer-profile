@@ -53,7 +53,7 @@ class GamesOwnedService
     public function getMyGames() : array
     {
         $gamesOwnedResponse = $this->userApiClientService->get('/IPlayerService/GetOwnedGames/v0001/');
-        $myGames = \GuzzleHttp\json_decode($gamesOwnedResponse->getContent(), true);
+        $myGames = \GuzzleHttp\json_decode($gamesOwnedResponse->getBody(), true);
 
         return $myGames['response']['games'];
     }

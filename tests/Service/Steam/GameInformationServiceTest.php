@@ -4,9 +4,9 @@ namespace tests\App\Service\Steam;
 
 use App\Service\Steam\Api\GameApiClientService;
 use App\Service\Steam\GameInformationService;
+use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
  * Class GameInformationServiceTest
@@ -38,7 +38,7 @@ class GameInformationServiceTest extends TestCase
         $this->steamGameApiServiceMock->expects($this->any())
             ->method('get')
             ->with('/api/appdetails?appids=1')
-            ->willReturn(new JsonResponse($this->getGameResponseData()));
+            ->willReturn(new Response(200,[], json_encode($this->getGameResponseData())));
     }
 
     /**

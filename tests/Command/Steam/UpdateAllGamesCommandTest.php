@@ -4,12 +4,12 @@ namespace tests\App\Command\Steam;
 
 use App\Command\Steam\UpdateAllGamesCommand;
 use App\Service\Steam\GamesOwnedService;
+use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Tester\CommandTester;
-use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
  * Class UpdateAllGamesCommandTest
@@ -63,7 +63,7 @@ class UpdateAllGamesCommandTest extends KernelTestCase
     {
         $this->gamesOwnedServiceMock->expects($this->any())
             ->method('getMyGames')
-            ->willReturn(new JsonResponse($this->getGameResponseData()));
+            ->willReturn(new Response(200,[], json_encode($this->getGameResponseData())));
     }
 
     /**

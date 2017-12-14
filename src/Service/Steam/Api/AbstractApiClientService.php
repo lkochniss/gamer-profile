@@ -2,7 +2,7 @@
 
 namespace App\Service\Steam\Api;
 
-use Symfony\Component\HttpFoundation\JsonResponse;
+use GuzzleHttp\Psr7\Response;
 use GuzzleHttp\Client as GuzzleClient;
 
 /**
@@ -28,9 +28,9 @@ abstract class AbstractApiClientService
     /**
      * @param string $endpoint
      *
-     * @return JsonResponse
+     * @return Response
      */
-    public function get($endpoint) : JsonResponse
+    public function get($endpoint) : Response
     {
         return $this->guzzleClient->request(
             'GET',

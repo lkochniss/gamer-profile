@@ -32,7 +32,7 @@ class GameInformationService
     public function getInformationForAppId(int $appId) : array
     {
         $gamesOwnedResponse = $this->gameApiClientService->get('/api/appdetails?appids=' . $appId);
-        $game = \GuzzleHttp\json_decode($gamesOwnedResponse->getContent(), true);
+        $game = json_decode($gamesOwnedResponse->getBody(), true);
 
         return $game[$appId]['data'];
     }
