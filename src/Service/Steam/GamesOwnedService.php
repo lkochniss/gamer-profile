@@ -60,6 +60,7 @@ class GamesOwnedService
 
     /**
      * @return array
+     * @throws \Doctrine\ORM\OptimisticLockException
      */
     public function synchronizeMyGames() : array
     {
@@ -67,7 +68,13 @@ class GamesOwnedService
 
         foreach ($mySteamGames as $mySteamGame) {
             $myGame = $this->gameInformationService->getInformationForAppId($mySteamGame['appid']);
-            $this->createOrUpdateGame($myGame);
+
+            if (!empty($myGame)){
+                $this->createOrUpdateGame($myGame);
+                $this->reportService->addEntryToList('Success on appId ' . $mySteamGame['appid'], ReportService::FIND_GAME_SUCCESS);
+            }else{
+                $this->reportService->addEntryToList('Error on appId ' . $mySteamGame['appid'], ReportService::FIND_GAME_ERROR);
+            }
         }
 
         return $this->reportService->getSummary();
@@ -75,6 +82,7 @@ class GamesOwnedService
 
     /**
      * @param array $gameArray
+     * @throws \Doctrine\ORM\OptimisticLockException
      */
     private function createOrUpdateGame(array $gameArray) : void
     {
@@ -82,6 +90,8 @@ class GamesOwnedService
 
         if (is_null($gameEntity)){
             $gameEntity = new Game();
+            $gameEntity->setName($gameArray['name']);
+            $gameEntity->setSteamAppId($gameArray['steam_appid']);
             $this->reportService->addEntryToList('New game ' . $gameArray['name'], ReportService::NEW_GAME);
         }else {
             $this->reportService->addEntryToList('Updated game ' . $gameArray['name'], ReportService::UPDATED_GAME);

@@ -35,6 +35,6 @@ class GameRepository extends ServiceEntityRepository
     public function save(Game $game): void
     {
         $this->getEntityManager()->persist($game);
-        $this->getEntityManager()->flush();
+        $this->getEntityManager()->flush($game);
     }
 }

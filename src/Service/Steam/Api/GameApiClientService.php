@@ -9,7 +9,7 @@ class GameApiClientService extends AbstractApiClientService
 {
     protected function getBasePath() : string
     {
-        return 'https://store.steampowered.com/api';
+        return 'https://store.steampowered.com';
     }
 
     /**

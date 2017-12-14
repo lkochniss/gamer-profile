@@ -9,6 +9,8 @@ class ReportService
 {
     const NEW_GAME = 'new game';
     const UPDATED_GAME = 'updated game';
+    const FIND_GAME_SUCCESS = 'find game success';
+    const FIND_GAME_ERROR = 'find game error';
 
     /**
      * @var array

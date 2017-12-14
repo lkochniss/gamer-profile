@@ -3,6 +3,7 @@
 namespace App\Service\Steam;
 
 use App\Service\Steam\Api\GameApiClientService;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * Class GameInformationService
@@ -33,6 +34,10 @@ class GameInformationService
     {
         $gamesOwnedResponse = $this->gameApiClientService->get('/api/appdetails?appids=' . $appId);
         $game = json_decode($gamesOwnedResponse->getBody(), true);
+
+        if ($game[$appId]['success'] === false){
+            return [];
+        }
 
         return $game[$appId]['data'];
     }
