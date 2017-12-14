@@ -4,9 +4,12 @@ namespace tests\App\Command\Steam;
 
 use App\Command\Steam\UpdateAllGamesCommand;
 use App\Service\Steam\GamesOwnedService;
+use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Tester\CommandTester;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
  * Class UpdateAllGamesCommandTest
@@ -14,23 +17,36 @@ use Symfony\Component\Console\Tester\CommandTester;
 class UpdateAllGamesCommandTest extends KernelTestCase
 {
 
+    /**
+     * @var Command
+     */
     private $command;
+
+    /**
+     * @var Application
+     */
+    private $application;
+
+    /**
+     * @var MockObject
+     */
+    private $gamesOwnedServiceMock;
 
     public function setUp(): void
     {
         $kernel = static::createKernel();
         $kernel->boot();
 
-        $gamesOwnedServiceMock = $this->createMock(GamesOwnedService::class);
-
-        $application = new Application($kernel);
-
-
-        $this->command = $application->find('gamerprofile:synchronize:steam');
+        $this->gamesOwnedServiceMock = $this->createMock(GamesOwnedService::class);
+        $this->application = new Application($kernel);
     }
 
     public function testCommandExecute(): void
     {
+        $this->setGamesOwnedServiceMock();
+        $this->addCommandToKernel();
+
+        $this->command = $this->application->find('gamerprofile:synchronize:steam');
         $commandTester = new CommandTester($this->command);
         $commandTester->execute([]);
 
@@ -38,19 +54,41 @@ class UpdateAllGamesCommandTest extends KernelTestCase
         $this->assertContains('Added 1 new game', $output);
     }
 
-    private function addCommandToKernel()
+    private function addCommandToKernel(): void
     {
-        $application->add(new UpdateAllGamesCommand());
+        $this->application->add(new UpdateAllGamesCommand($this->gamesOwnedServiceMock));
     }
 
-    private function setUpGamesOwnedService()
+    private function setGamesOwnedServiceMock():void
     {
-
-        $gamesOwnedServiceMock->expects($this->any())
-            ->method('get')
-            ->with('/api/appdetails?appids=1')
+        $this->gamesOwnedServiceMock->expects($this->any())
+            ->method('getMyGames')
             ->willReturn(new JsonResponse($this->getGameResponseData()));
+    }
 
-        return $gamesOwnedServiceMock;
+    /**
+     * @return array
+     */
+    private function getGameResponseData(): array
+    {
+        return [
+            'response' => [
+                'games_count' => 2,
+                'games' => $this->getGamesArray()
+            ]
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    private function getGamesArray(): array
+    {
+        return [
+            [
+                'appid' => 1,
+                'playtime_forever' => 0
+            ]
+        ];
     }
 }
