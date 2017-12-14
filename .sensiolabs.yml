@@ -19,7 +19,7 @@ pre_composer_script: |
 post_composer_script: |
     #!/bin/bash
 
-    .bin/console ca:c --env=dev
-    .bin/console ca:c --env=test
-    .bin/console ca:c --env=prod
+    ./bin/console ca:c --env=dev
+    ./bin/console ca:c --env=test
+    ./bin/console ca:c --env=prod
     ./bin/console se:ch
