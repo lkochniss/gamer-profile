@@ -15,6 +15,7 @@
         "symfony/flex": "^1.0",
         "symfony/framework-bundle": "^4.0",
         "symfony/lts": "^4@dev",
+        "symfony/maker-bundle": "^1.0",
         "symfony/twig-bundle": "^4.0@RC",
         "symfony/yaml": "^4.0"
     },
