@@ -48,12 +48,10 @@
             "security-checker security:check": "script"
         },
         "post-install-cmd": [
-            "@auto-scripts",
-            "ln -fs vendor/lkochniss/docker-symfony/docker-compose.yml docker-compose.yml"
+            "@auto-scripts"
         ],
         "post-update-cmd": [
-            "@auto-scripts",
-            "ln -fs vendor/lkochniss/docker-symfony/docker-compose.yml docker-compose.yml"
+            "@auto-scripts"
         ]
     },
     "conflict": {
