@@ -15,11 +15,3 @@ pre_composer_script: |
     #!/bin/bash
 
     cp .env.dist .env
-
-post_composer_script: |
-    #!/bin/bash
-
-    ./bin/console ca:c
-    ./bin/console ca:c --env=test
-    ./bin/console ca:c --env=prod
-    ./bin/console se:ch
