@@ -15,9 +15,3 @@ pre_composer_script: |
     #!/bin/bash
 
     cp .env.dist .env
-
-post_composer_script: |
-    #!/bin/bash
-
-    ./bin/console do:da:cr --no-interaction
-    ./bin/console do:mi:mi -y
