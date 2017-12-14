@@ -15,3 +15,8 @@ pre_composer_script: |
     #!/bin/bash
 
     cp .env.dist .env
+
+post_composer_script: |
+    #!/bin/bash
+
+    ./bin/console se:ch
