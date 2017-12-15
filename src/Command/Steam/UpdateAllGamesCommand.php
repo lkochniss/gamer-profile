@@ -33,11 +33,16 @@ class UpdateAllGamesCommand extends ContainerAwareCommand
     }
 
     /**
-     * @param InputInterface  $input
+     * @param InputInterface $input
      * @param OutputInterface $output
+     * @return int|null|void
+     * @throws \Doctrine\ORM\OptimisticLockException
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $this->gamesOwnedService->synchronizeMyGames();
+        $status = $this->gamesOwnedService->synchronizeMyGames();
+        foreach ($status as $key => $value) {
+            print_r( $key . $value);
+        }
     }
 }

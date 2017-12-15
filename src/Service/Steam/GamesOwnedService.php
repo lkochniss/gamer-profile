@@ -67,35 +67,42 @@ class GamesOwnedService
         $mySteamGames = $this->getMyGames();
 
         foreach ($mySteamGames as $mySteamGame) {
-            $myGame = $this->gameInformationService->getInformationForAppId($mySteamGame['appid']);
-
-            if (!empty($myGame)){
-                $this->createOrUpdateGame($myGame);
-                $this->reportService->addEntryToList('Success on appId ' . $mySteamGame['appid'], ReportService::FIND_GAME_SUCCESS);
-            }else{
-                $this->reportService->addEntryToList('Error on appId ' . $mySteamGame['appid'], ReportService::FIND_GAME_ERROR);
-            }
+            $this->getGameInformationBySteamAppId($mySteamGame['appid']);
         }
 
         return $this->reportService->getSummary();
     }
 
     /**
+     * @param $steamAppId
+     */
+    private function createOrUpdateGame($steamAppId): void
+    {
+        $myGame = $this->gameInformationService->getInformationForAppId($steamAppId);
+        if (!empty($myGame)){
+            $this->createOrUpdateGame($myGame);
+        }else{
+            $this->reportService->addEntryToList('Error on appId ' . $steamAppId, ReportService::FIND_GAME_ERROR);
+        }
+    }
+
+    /**
      * @param array $gameArray
      * @throws \Doctrine\ORM\OptimisticLockException
      */
-    private function createOrUpdateGame(array $gameArray) : void
+    private function getGameInformationBySteamAppId(array $gameArray) : void
     {
         $gameEntity = $this->gameRepository->findOneBySteamAppId($gameArray['steam_appid']);
 
         if (is_null($gameEntity)){
             $gameEntity = new Game();
-            $gameEntity->setName($gameArray['name']);
-            $gameEntity->setSteamAppId($gameArray['steam_appid']);
             $this->reportService->addEntryToList('New game ' . $gameArray['name'], ReportService::NEW_GAME);
         }else {
             $this->reportService->addEntryToList('Updated game ' . $gameArray['name'], ReportService::UPDATED_GAME);
         }
+
+        $gameEntity->setName($gameArray['name']);
+        $gameEntity->setSteamAppId($gameArray['steam_appid']);
 
         $this->gameRepository->save($gameEntity);
     }

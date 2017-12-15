@@ -73,7 +73,7 @@ class UpdateAllGamesCommandTest extends KernelTestCase
     {
         return [
             'response' => [
-                'games_count' => 2,
+                'games_count' => 1,
                 'games' => $this->getGamesArray()
             ]
         ];
