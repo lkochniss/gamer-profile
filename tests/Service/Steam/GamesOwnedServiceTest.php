@@ -57,29 +57,6 @@ class GamesOwnedServiceTest extends TestCase
             ->willReturn(new Response(200, [], json_encode($this->getOwnedGamesResponseData())));
     }
 
-    private function setSteamGameInformationServiceMock(): void
-    {
-        $this->steamGameInformationServiceMock->expects($this->any())
-            ->method('getInformationForAppId')
-            ->willReturn($this->getGameInformationArray());
-    }
-
-    private function setGameRepositoryMockWithGame(): void
-    {
-        $this->gameRepositoryMock->expects($this->any())
-            ->method('findOneBySteamAppId')
-            ->with(1)
-            ->willReturn(new Game());
-    }
-
-    private function setGameRepositoryMockWithoutGame(): void
-    {
-        $this->gameRepositoryMock->expects($this->any())
-            ->method('findOneBySteamAppId')
-            ->with(1)
-            ->willReturn(null);
-    }
-
     /**
      * @return array
      */
