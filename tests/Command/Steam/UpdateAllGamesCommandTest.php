@@ -46,7 +46,7 @@ class UpdateAllGamesCommandTest extends KernelTestCase
         $this->setGamesOwnedServiceMock();
         $this->addCommandToKernel();
 
-        $this->command = $this->application->find('gamerprofile:synchronize:steam');
+        $this->command = $this->application->find('steam:update:all');
         $commandTester = new CommandTester($this->command);
         $commandTester->execute([]);
 
@@ -62,7 +62,24 @@ class UpdateAllGamesCommandTest extends KernelTestCase
     private function setGamesOwnedServiceMock():void
     {
         $this->gamesOwnedServiceMock->expects($this->any())
-            ->method('synchronizeMyGames')
+            ->method('getMyGames')
+            ->willReturn($this->getGamesArray());
+
+        $this->gamesOwnedServiceMock->expects($this->any())
+            ->method('getSummary')
             ->willReturn([ReportService::NEW_GAME => 1]);
+    }
+
+    /**
+     * @return array
+     */
+    private function getGamesArray(): array
+    {
+        return [
+            [
+                'appid' => 1,
+                'playtime_forever' => 0
+            ]
+        ];
     }
 }

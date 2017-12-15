@@ -28,7 +28,7 @@ class UpdateAllGamesCommand extends ContainerAwareCommand
 
     protected function configure(): void
     {
-        $this->setName('gamerprofile:synchronize:steam');
+        $this->setName('steam:update:all');
         $this->setDescription('Synchronizes local game information with steam');
     }
 
@@ -48,7 +48,7 @@ class UpdateAllGamesCommand extends ContainerAwareCommand
             sleep(1);
         }
 
-        $status = $this->gamesOwnedService->synchronizeMyGames();
+        $status = $this->gamesOwnedService->getSummary();
         foreach ($status as $key => $value) {
             $output->writeln( sprintf($key, $value));
         }

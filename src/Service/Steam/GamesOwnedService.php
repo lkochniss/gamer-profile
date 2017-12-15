@@ -75,6 +75,14 @@ class GamesOwnedService
     }
 
     /**
+     * @return array
+     */
+    public function getSummary(): array
+    {
+        return $this->reportService->getSummary();
+    }
+
+    /**
      * @param array $gameArray
      * @return string
      * @throws \Doctrine\ORM\OptimisticLockException
