@@ -43,7 +43,7 @@ class GamesOwnedServiceTest extends TestCase
     {
         $this->setSteamUserApiClientMock();
 
-        $gamesOwnedService = $this->getGamesOwendService();
+        $gamesOwnedService = $this->getGamesOwnedService();
         $gamesOwned = $gamesOwnedService->getMyGames();
 
         $this->assertEquals($this->getGamesArray(), $gamesOwned);
@@ -84,22 +84,9 @@ class GamesOwnedServiceTest extends TestCase
     }
 
     /**
-     * @return array
-     */
-    private function getGameInformationArray(): array
-    {
-        return [
-            'type' => 'game',
-            'name' => 'Demo game',
-            'steam_appid' => 1,
-            'required_age' => 0,
-        ];
-    }
-
-    /**
      * @return GamesOwnedService
      */
-    private function getGamesOwendService(): GamesOwnedService
+    private function getGamesOwnedService(): GamesOwnedService
     {
         return new GamesOwnedService(
             $this->steamUserApiServiceMock,
