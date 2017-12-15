@@ -67,7 +67,7 @@ class GamesOwnedService
         $mySteamGames = $this->getMyGames();
 
         foreach ($mySteamGames as $mySteamGame) {
-            $this->getGameInformationBySteamAppId($mySteamGame['appid']);
+            $this->createOrUpdateGame($mySteamGame['appid']);
         }
 
         return $this->reportService->getSummary();
@@ -75,12 +75,13 @@ class GamesOwnedService
 
     /**
      * @param $steamAppId
+     * @throws \Doctrine\ORM\OptimisticLockException
      */
     private function createOrUpdateGame($steamAppId): void
     {
         $myGame = $this->gameInformationService->getInformationForAppId($steamAppId);
         if (!empty($myGame)){
-            $this->createOrUpdateGame($myGame);
+            $this->getGameInformationBySteamAppId($myGame);
         }else{
             $this->reportService->addEntryToList('Error on appId ' . $steamAppId, ReportService::FIND_GAME_ERROR);
         }
