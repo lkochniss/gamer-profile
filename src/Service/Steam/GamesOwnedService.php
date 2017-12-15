@@ -59,53 +59,44 @@ class GamesOwnedService
     }
 
     /**
-     * @return array
-     * @throws \Doctrine\ORM\OptimisticLockException
-     */
-    public function synchronizeMyGames() : array
-    {
-        $mySteamGames = $this->getMyGames();
-
-        foreach ($mySteamGames as $mySteamGame) {
-            $this->createOrUpdateGame($mySteamGame['appid']);
-            break;
-        }
-
-        return $this->reportService->getSummary();
-    }
-
-    /**
      * @param $steamAppId
+     * @return string
      * @throws \Doctrine\ORM\OptimisticLockException
      */
-    private function createOrUpdateGame($steamAppId): void
+    public function createOrUpdateGame($steamAppId): string
     {
         $myGame = $this->gameInformationService->getInformationForAppId($steamAppId);
         if (!empty($myGame)){
-            $this->getGameInformationBySteamAppId($myGame);
+            return $this->getGameInformationBySteamAppId($myGame);
         }else{
             $this->reportService->addEntryToList($steamAppId, ReportService::FIND_GAME_ERROR);
+            return 'F';
         }
     }
 
     /**
      * @param array $gameArray
+     * @return string
      * @throws \Doctrine\ORM\OptimisticLockException
      */
-    private function getGameInformationBySteamAppId(array $gameArray) : void
+    private function getGameInformationBySteamAppId(array $gameArray) : string
     {
         $gameEntity = $this->gameRepository->findOneBySteamAppId($gameArray['steam_appid']);
 
         if (is_null($gameEntity)){
             $gameEntity = new Game();
             $this->reportService->addEntryToList('New game ' . $gameArray['name'], ReportService::NEW_GAME);
+            $status = 'N';
         }else {
             $this->reportService->addEntryToList('Updated game ' . $gameArray['name'], ReportService::UPDATED_GAME);
+            $status = 'U';
         }
 
         $gameEntity->setName($gameArray['name']);
         $gameEntity->setSteamAppId($gameArray['steam_appid']);
 
         $this->gameRepository->save($gameEntity);
+
+        return $status;
     }
 }

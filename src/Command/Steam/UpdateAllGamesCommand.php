@@ -40,6 +40,14 @@ class UpdateAllGamesCommand extends ContainerAwareCommand
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        $mySteamGames = $this->gamesOwnedService->getMyGames();
+
+        foreach ($mySteamGames as $mySteamGame) {
+            $status = $this->gamesOwnedService->createOrUpdateGame($mySteamGame['appid']);
+            $output->write($status);
+            sleep(1);
+        }
+
         $status = $this->gamesOwnedService->synchronizeMyGames();
         foreach ($status as $key => $value) {
             $output->writeln( sprintf($key, $value));

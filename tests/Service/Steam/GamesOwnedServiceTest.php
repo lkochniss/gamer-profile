@@ -49,30 +49,6 @@ class GamesOwnedServiceTest extends TestCase
         $this->assertEquals($this->getGamesArray(), $gamesOwned);
     }
 
-    public function testSynchronizeMyGamesWithExistingGame(): void
-    {
-        $this->setSteamUserApiClientMock();
-        $this->setSteamGameInformationServiceMock();
-        $this->setGameRepositoryMockWithGame();
-
-        $gamesOwnedService = $this->getGamesOwendService();
-        $synchronizeStatus = $gamesOwnedService->synchronizeMyGames();
-
-        $this->assertEquals([ReportService::UPDATED_GAME => 1], $synchronizeStatus);
-    }
-
-    public function testSynchronizeMyGamesWithoutExistingGame(): void
-    {
-        $this->setSteamUserApiClientMock();
-        $this->setSteamGameInformationServiceMock();
-        $this->setGameRepositoryMockWithoutGame();
-
-        $gamesOwnedService = $this->getGamesOwendService();
-        $synchronizeStatus = $gamesOwnedService->synchronizeMyGames();
-
-        $this->assertEquals([ReportService::NEW_GAME => 1], $synchronizeStatus);
-    }
-
     private function setSteamUserApiClientMock(): void
     {
         $this->steamUserApiServiceMock->expects($this->any())
