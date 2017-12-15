@@ -42,10 +42,15 @@ class UpdateAllGamesCommand extends ContainerAwareCommand
     {
         $mySteamGames = $this->gamesOwnedService->getMyGames();
 
+        $sleepCounter = 0;
         foreach ($mySteamGames as $mySteamGame) {
+            $sleepCounter++;
             $status = $this->gamesOwnedService->createOrUpdateGame($mySteamGame['appid']);
             $output->write($status);
-            sleep(1);
+
+            if ($sleepCounter % 100 === 0){
+                sleep(5);
+            }
         }
 
         $status = $this->gamesOwnedService->getSummary();
