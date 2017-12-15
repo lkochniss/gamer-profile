@@ -55,16 +55,17 @@ class GamesOwnedService
     /**
      * @return array
      */
-    public function getMyGames() : array
+    public function getAllMyGames() : array
     {
-        $gamesOwnedResponse = $this->userApiClientService->get('/IPlayerService/GetOwnedGames/v0001/');
-        $myGames = \GuzzleHttp\json_decode($gamesOwnedResponse->getBody(), true);
+        return $this->getGamesFromApiEndpoint('/IPlayerService/GetOwnedGames/v0001/');
+    }
 
-        foreach ($myGames['response']['games'] as $game) {
-            $this->myGames[$game['appid']] = $game;
-        }
-
-        return $this->myGames;
+    /**
+     * @return array
+     */
+    public function getMyRecentlyPlayedGames() : array
+    {
+        return $this->getGamesFromApiEndpoint('/IPlayerService/GetRecentlyPlayedGames/v0001/');
     }
 
     /**
@@ -89,6 +90,22 @@ class GamesOwnedService
     public function getSummary(): array
     {
         return $this->reportService->getSummary();
+    }
+
+    /**
+     * @param string $apiEndpoint
+     * @return array
+     */
+    private function getGamesFromApiEndpoint(string $apiEndpoint): array
+    {
+        $gamesOwnedResponse = $this->userApiClientService->get($apiEndpoint);
+        $myGames = \GuzzleHttp\json_decode($gamesOwnedResponse->getBody(), true);
+
+        foreach ($myGames['response']['games'] as $game) {
+            $this->myGames[$game['appid']] = $game;
+        }
+
+        return $this->myGames;
     }
 
     /**

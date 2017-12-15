@@ -39,12 +39,12 @@ class GamesOwnedServiceTest extends TestCase
         $this->gameRepositoryMock = $this->createMock(GameRepository::class);
     }
 
-    public function testGetMyGames(): void
+    public function testGetAllMyGames(): void
     {
         $this->setSteamUserApiClientMock();
 
         $gamesOwnedService = $this->getGamesOwnedService();
-        $gamesOwned = $gamesOwnedService->getMyGames();
+        $gamesOwned = $gamesOwnedService->getAllMyGames();
 
         $this->assertEquals($this->getGamesArray(), $gamesOwned);
     }

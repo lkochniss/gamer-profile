@@ -2,7 +2,7 @@
 
 namespace tests\App\Command\Steam;
 
-use App\Command\Steam\UpdateAllGamesCommand;
+use App\Command\Steam\UpdateRecentlyPlayedGamesCommand;
 use App\Service\ReportService;
 use App\Service\Steam\GamesOwnedService;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -12,9 +12,9 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Tester\CommandTester;
 
 /**
- * Class UpdateAllGamesCommandTest
+ * Class UpdateRecentlyPlayedGamesCommandTest
  */
-class UpdateAllGamesCommandTest extends KernelTestCase
+class UpdateRecentlyPlayedGamesCommandTest extends KernelTestCase
 {
 
     /**
@@ -46,7 +46,7 @@ class UpdateAllGamesCommandTest extends KernelTestCase
         $this->setGamesOwnedServiceMock();
         $this->addCommandToKernel();
 
-        $this->command = $this->application->find('steam:update:all');
+        $this->command = $this->application->find('steam:update:recent');
         $commandTester = new CommandTester($this->command);
         $commandTester->execute([]);
 
@@ -56,13 +56,13 @@ class UpdateAllGamesCommandTest extends KernelTestCase
 
     private function addCommandToKernel(): void
     {
-        $this->application->add(new UpdateAllGamesCommand($this->gamesOwnedServiceMock));
+        $this->application->add(new UpdateRecentlyPlayedGamesCommand($this->gamesOwnedServiceMock));
     }
 
     private function setGamesOwnedServiceMock():void
     {
         $this->gamesOwnedServiceMock->expects($this->any())
-            ->method('getAllMyGames')
+            ->method('getMyRecentlyPlayedGames')
             ->willReturn($this->getGamesArray());
 
         $this->gamesOwnedServiceMock->expects($this->any())
