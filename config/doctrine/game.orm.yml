@@ -1,0 +1,16 @@
+App\Entity\Game:
+    type: entity
+    repositoryClass: App\Repository\GameRepository
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        steamAppId:
+            column: steam_app_id
+            type: integer
+            nullable: false
+        name:
+            type: string
+            nullable: false
+            length: 100

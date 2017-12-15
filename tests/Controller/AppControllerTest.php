@@ -17,7 +17,7 @@ class AppControllerTest extends WebTestCase
         $this->client = static::createClient();
     }
 
-    public function testIndexActionIsAccessable()
+    public function testIndexActionIsAccessable(): void
     {
         $this->client->request('GET', '/');
         $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
