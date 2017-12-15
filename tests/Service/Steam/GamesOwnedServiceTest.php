@@ -76,7 +76,7 @@ class GamesOwnedServiceTest extends TestCase
     private function getGamesArray(): array
     {
         return [
-            [
+            1 => [
                 'appid' => 1,
                 'playtime_forever' => 0
             ]

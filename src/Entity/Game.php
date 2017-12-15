@@ -23,6 +23,11 @@ class Game
     private $name;
 
     /**
+     * @var int
+     */
+    private $timePlayed;
+
+    /**
      * @return int
      */
     public function getId(): int
@@ -68,5 +73,21 @@ class Game
     public function setName(string $name): void
     {
         $this->name = $name;
+    }
+
+    /**
+     * @return int
+     */
+    public function getTimePlayed(): int
+    {
+        return $this->timePlayed;
+    }
+
+    /**
+     * @param int $timePlayed
+     */
+    public function setTimePlayed(int $timePlayed): void
+    {
+        $this->timePlayed = $timePlayed;
     }
 }

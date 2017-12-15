@@ -33,6 +33,11 @@ class GamesOwnedService
     private $reportService;
 
     /**
+     * @var array
+     */
+    private $myGames = [];
+
+    /**
      * GamesOwnedService constructor.
      *
      * @param UserApiClientService $userApiClientService
@@ -55,7 +60,11 @@ class GamesOwnedService
         $gamesOwnedResponse = $this->userApiClientService->get('/IPlayerService/GetOwnedGames/v0001/');
         $myGames = \GuzzleHttp\json_decode($gamesOwnedResponse->getBody(), true);
 
-        return $myGames['response']['games'];
+        foreach ($myGames['response']['games'] as $game) {
+            $this->myGames[$game['appid']] = $game;
+        }
+
+        return $this->myGames;
     }
 
     /**
@@ -89,7 +98,8 @@ class GamesOwnedService
      */
     private function getGameInformationBySteamAppId(array $gameArray) : string
     {
-        $gameEntity = $this->gameRepository->findOneBySteamAppId($gameArray['steam_appid']);
+        $steamAppId = $gameArray['steam_appid'];
+        $gameEntity = $this->gameRepository->findOneBySteamAppId($steamAppId);
 
         if (is_null($gameEntity)){
             $gameEntity = new Game();
@@ -101,7 +111,8 @@ class GamesOwnedService
         }
 
         $gameEntity->setName($gameArray['name']);
-        $gameEntity->setSteamAppId($gameArray['steam_appid']);
+        $gameEntity->setSteamAppId($steamAppId);
+        $gameEntity->setTimePlayed($this->myGames[$steamAppId]['playtime_forever']);
 
         $this->gameRepository->save($gameEntity);
 
