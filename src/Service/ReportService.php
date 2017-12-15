@@ -7,9 +7,9 @@ namespace App\Service;
  */
 class ReportService
 {
-    const NEW_GAME = 'new game';
-    const UPDATED_GAME = 'updated game';
-    const FIND_GAME_ERROR = 'find game error';
+    const NEW_GAME = 'Added %s new games';
+    const UPDATED_GAME = 'Updated %s games';
+    const FIND_GAME_ERROR = 'Error getting game information on appId %s';
 
     /**
      * @var array

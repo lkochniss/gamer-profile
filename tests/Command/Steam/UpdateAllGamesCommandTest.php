@@ -3,8 +3,8 @@
 namespace tests\App\Command\Steam;
 
 use App\Command\Steam\UpdateAllGamesCommand;
+use App\Service\ReportService;
 use App\Service\Steam\GamesOwnedService;
-use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
@@ -51,7 +51,7 @@ class UpdateAllGamesCommandTest extends KernelTestCase
         $commandTester->execute([]);
 
         $output = $commandTester->getDisplay();
-        $this->assertContains('Added 1 new game', $output);
+        $this->assertContains('Added 1 new games', $output);
     }
 
     private function addCommandToKernel(): void
@@ -62,33 +62,7 @@ class UpdateAllGamesCommandTest extends KernelTestCase
     private function setGamesOwnedServiceMock():void
     {
         $this->gamesOwnedServiceMock->expects($this->any())
-            ->method('getMyGames')
-            ->willReturn(new Response(200,[], json_encode($this->getGameResponseData())));
-    }
-
-    /**
-     * @return array
-     */
-    private function getGameResponseData(): array
-    {
-        return [
-            'response' => [
-                'games_count' => 1,
-                'games' => $this->getGamesArray()
-            ]
-        ];
-    }
-
-    /**
-     * @return array
-     */
-    private function getGamesArray(): array
-    {
-        return [
-            [
-                'appid' => 1,
-                'playtime_forever' => 0
-            ]
-        ];
+            ->method('synchronizeMyGames')
+            ->willReturn([ReportService::NEW_GAME => 1]);
     }
 }

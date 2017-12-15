@@ -148,7 +148,7 @@ class GamesOwnedServiceTest extends TestCase
      */
     private function getGamesOwendService(): GamesOwnedService
     {
-        return  new GamesOwnedService(
+        return new GamesOwnedService(
             $this->steamUserApiServiceMock,
             $this->steamGameInformationServiceMock,
             $this->gameRepositoryMock

@@ -68,6 +68,7 @@ class GamesOwnedService
 
         foreach ($mySteamGames as $mySteamGame) {
             $this->createOrUpdateGame($mySteamGame['appid']);
+            break;
         }
 
         return $this->reportService->getSummary();
@@ -83,7 +84,7 @@ class GamesOwnedService
         if (!empty($myGame)){
             $this->getGameInformationBySteamAppId($myGame);
         }else{
-            $this->reportService->addEntryToList('Error on appId ' . $steamAppId, ReportService::FIND_GAME_ERROR);
+            $this->reportService->addEntryToList($steamAppId, ReportService::FIND_GAME_ERROR);
         }
     }
 

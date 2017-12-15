@@ -42,7 +42,7 @@ class UpdateAllGamesCommand extends ContainerAwareCommand
     {
         $status = $this->gamesOwnedService->synchronizeMyGames();
         foreach ($status as $key => $value) {
-            print_r( $key . $value);
+            $output->writeln( sprintf($key, $value));
         }
     }
 }
