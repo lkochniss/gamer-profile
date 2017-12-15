@@ -49,16 +49,16 @@ class UpdateRecentlyPlayedGamesCommand extends ContainerAwareCommand
             $sleepCounter++;
             $status = $this->gamesOwnedService->createOrUpdateGame($mySteamGame['appid']);
             $output->write($status);
-
-            if ($sleepCounter % 100 === 0){
-                sleep(5);
-            }
         }
 
         $status = $this->gamesOwnedService->getSummary();
         foreach ($status as $key => $value) {
             $output->writeln('');
             $output->writeln( sprintf($key, $value));
+        }
+
+        foreach ($this->gamesOwnedService->getErrors() as $error) {
+            $output->writeln($error);
         }
     }
 }

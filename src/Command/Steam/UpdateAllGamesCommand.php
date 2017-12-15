@@ -49,6 +49,7 @@ class UpdateAllGamesCommand extends ContainerAwareCommand
             $output->write($status);
 
             if ($sleepCounter % 100 === 0){
+                $output->writeln('S');
                 sleep(5);
             }
         }
@@ -57,6 +58,10 @@ class UpdateAllGamesCommand extends ContainerAwareCommand
         foreach ($status as $key => $value) {
             $output->writeln('');
             $output->writeln( sprintf($key, $value));
+        }
+
+        foreach ($this->gamesOwnedService->getErrors() as $error) {
+            $output->writeln($error);
         }
     }
 }

@@ -92,6 +92,11 @@ class GamesOwnedService
         return $this->reportService->getSummary();
     }
 
+    public function getErrors(): array
+    {
+        return $this->reportService->getDetailsFor(ReportService::FIND_GAME_ERROR);
+    }
+
     /**
      * @param string $apiEndpoint
      * @return array
