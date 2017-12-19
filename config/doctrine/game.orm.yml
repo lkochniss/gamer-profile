@@ -18,6 +18,10 @@ App\Entity\Game:
             column: time_played
             type: integer
             nullable: false
+        recentlyPlayed:
+            column: recently_played
+            type: integer
+            nullable: false
         createdAt:
             column: created_at
             type: datetime

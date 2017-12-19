@@ -92,6 +92,9 @@ class GamesOwnedService
         return $this->reportService->getSummary();
     }
 
+    /**
+     * @return array
+     */
     public function getErrors(): array
     {
         return $this->reportService->getDetailsFor(ReportService::FIND_GAME_ERROR);
@@ -132,8 +135,11 @@ class GamesOwnedService
             $status = 'U';
         }
 
+        $recentlyPlayed = array_key_exists('playtime_2weeks', $this->myGames[$steamAppId]) ? $this->myGames[$steamAppId]['playtime_2weeks'] : 0;
+
         $gameEntity->setName($gameArray['name']);
         $gameEntity->setSteamAppId($steamAppId);
+        $gameEntity->setRecentlyPlayed($recentlyPlayed);
         $gameEntity->setTimePlayed($this->myGames[$steamAppId]['playtime_forever']);
 
         $this->gameRepository->save($gameEntity);

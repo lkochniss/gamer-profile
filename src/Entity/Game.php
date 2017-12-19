@@ -25,6 +25,11 @@ class Game
     /**
      * @var int
      */
+    private $recentlyPlayed;
+
+    /**
+     * @var int
+     */
     private $timePlayed;
 
     /**
@@ -86,6 +91,22 @@ class Game
     public function setName(string $name): void
     {
         $this->name = $name;
+    }
+
+    /**
+     * @return int
+     */
+    public function getRecentlyPlayed(): int
+    {
+        return $this->recentlyPlayed;
+    }
+
+    /**
+     * @param int $recentlyPlayed
+     */
+    public function setRecentlyPlayed(int $recentlyPlayed): void
+    {
+        $this->recentlyPlayed = $recentlyPlayed;
     }
 
     /**

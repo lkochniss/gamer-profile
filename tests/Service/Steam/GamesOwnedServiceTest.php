@@ -41,7 +41,7 @@ class GamesOwnedServiceTest extends TestCase
 
     public function testGetAllMyGames(): void
     {
-        $this->setSteamUserApiClientMock();
+        $this->setGamesOwnedSteamUserApiClientMock();
 
         $gamesOwnedService = $this->getGamesOwnedService();
         $gamesOwned = $gamesOwnedService->getAllMyGames();
@@ -49,12 +49,66 @@ class GamesOwnedServiceTest extends TestCase
         $this->assertEquals($this->getGamesArray(), $gamesOwned);
     }
 
-    private function setSteamUserApiClientMock(): void
+    public function testGetMyRecentlyPlayedGames(): void
+    {
+        $this->setRecentGamesSteamUserApiClientMock();
+
+        $gamesOwnedService = $this->getGamesOwnedService();
+        $recentlyPlayedGames = $gamesOwnedService->getMyRecentlyPlayedGames();
+
+        $this->assertEquals($this->getRecentlyPlayedGamesArray(), $recentlyPlayedGames);
+    }
+
+    public function testCreateGame(): void
+    {
+        $this->setGamesOwnedSteamUserApiClientMock();
+        $this->setGameInformationServiceMockWithoutGame();
+
+        $gamesOwnedService = $this->getGamesOwnedService();
+        $gamesOwnedService->getAllMyGames();
+
+        $this->assertEquals('N', $gamesOwnedService->createOrUpdateGame('1'));
+    }
+
+    public function testUpdateGame(): void
+    {
+        $this->setGamesOwnedSteamUserApiClientMock();
+        $this->setGameInformationServiceMockWithGame();
+
+        $gamesOwnedService = $this->getGamesOwnedService();
+        $gamesOwnedService->getAllMyGames();
+
+        $this->assertEquals('U', $gamesOwnedService->createOrUpdateGame('1'));
+    }
+
+    private function setGamesOwnedSteamUserApiClientMock(): void
     {
         $this->steamUserApiServiceMock->expects($this->any())
             ->method('get')
             ->with('/IPlayerService/GetOwnedGames/v0001/')
             ->willReturn(new Response(200, [], json_encode($this->getOwnedGamesResponseData())));
+    }
+
+    private function setRecentGamesSteamUserApiClientMock(): void
+    {
+        $this->steamUserApiServiceMock->expects($this->any())
+            ->method('get')
+            ->with('/IPlayerService/GetRecentlyPlayedGames/v0001/')
+            ->willReturn(new Response(200, [], json_encode($this->getRecentlyPlayedGamesResponseData())));
+    }
+
+    private function setGameInformationServiceMockWithGame(): void
+    {
+        $this->steamGameInformationServiceMock->expects($this->any())
+            ->method('getInformationForAppId')
+            ->willReturn($this->getGameInformation());
+    }
+
+    private function setGameInformationServiceMockWithoutGame(): void
+    {
+        $this->steamGameInformationServiceMock->expects($this->any())
+            ->method('getInformationForAppId')
+            ->willReturn([]);
     }
 
     /**
@@ -64,8 +118,35 @@ class GamesOwnedServiceTest extends TestCase
     {
         return [
             'response' => [
-                'games_count' => 2,
+                'games_count' => 1,
                 'games' => $this->getGamesArray()
+            ]
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    private function getRecentlyPlayedGamesResponseData(): array
+    {
+        return [
+            'response' => [
+                'games_count' => 1,
+                'games' => $this->getRecentlyPlayedGamesArray()
+            ]
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    private function getRecentlyPlayedGamesArray(): array
+    {
+        return [
+            1 => [
+                'appid' => 1,
+                'playtime_forever' => 0,
+                'playtime_2weeks' => 216
             ]
         ];
     }
@@ -80,6 +161,19 @@ class GamesOwnedServiceTest extends TestCase
                 'appid' => 1,
                 'playtime_forever' => 0
             ]
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    private function getGameInformation(): array
+    {
+        return[
+            'type' => 'game',
+            'name' => 'Demo game',
+            'steam_appid' => 1,
+            'required_age' => 0,
         ];
     }
 
