@@ -95,6 +95,38 @@ class GamesOwnedServiceTest extends TestCase
         $this->assertEquals('F', $gamesOwnedService->createOrUpdateGame('1'));
     }
 
+    public function testGetEmptySummary(): void
+    {
+        $gamesOwnedService = $this->getGamesOwnedService();
+        $this->assertEquals([], $gamesOwnedService->getSummary());
+    }
+
+    public function testGetSuccessSummary(): void
+    {
+        $this->setGamesOwnedSteamUserApiClientMock();
+        $this->setGameInformationServiceMockWithGame();
+        $this->setGameRepositoryMockWithoutGame();
+
+        $gamesOwnedService = $this->getGamesOwnedService();
+        $gamesOwnedService->getAllMyGames();
+        $gamesOwnedService->createOrUpdateGame('1');
+
+        $this->assertEquals(['Added %s new games' => 1], $gamesOwnedService->getSummary());
+    }
+
+    public function testGetErrors(): void
+    {
+        $this->setGamesOwnedSteamUserApiClientMock();
+        $this->setGameInformationServiceMockWithoutGame();
+        $this->setGameRepositoryMockWithGame();
+
+        $gamesOwnedService = $this->getGamesOwnedService();
+        $gamesOwnedService->getAllMyGames();
+        $gamesOwnedService->createOrUpdateGame('1');
+
+        $this->assertEquals([1], $gamesOwnedService->getErrors());
+    }
+
     private function setGamesOwnedSteamUserApiClientMock(): void
     {
         $this->steamUserApiServiceMock->expects($this->any())
