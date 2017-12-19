@@ -62,7 +62,8 @@ class GamesOwnedServiceTest extends TestCase
     public function testCreateGame(): void
     {
         $this->setGamesOwnedSteamUserApiClientMock();
-        $this->setGameInformationServiceMockWithoutGame();
+        $this->setGameInformationServiceMockWithGame();
+        $this->setGameRepositoryMockWithoutGame();
 
         $gamesOwnedService = $this->getGamesOwnedService();
         $gamesOwnedService->getAllMyGames();
@@ -74,11 +75,24 @@ class GamesOwnedServiceTest extends TestCase
     {
         $this->setGamesOwnedSteamUserApiClientMock();
         $this->setGameInformationServiceMockWithGame();
+        $this->setGameRepositoryMockWithGame();
 
         $gamesOwnedService = $this->getGamesOwnedService();
         $gamesOwnedService->getAllMyGames();
 
         $this->assertEquals('U', $gamesOwnedService->createOrUpdateGame('1'));
+    }
+
+    public function testCreateOrUpdateGameFailure(): void
+    {
+        $this->setGamesOwnedSteamUserApiClientMock();
+        $this->setGameInformationServiceMockWithoutGame();
+        $this->setGameRepositoryMockWithGame();
+
+        $gamesOwnedService = $this->getGamesOwnedService();
+        $gamesOwnedService->getAllMyGames();
+
+        $this->assertEquals('F', $gamesOwnedService->createOrUpdateGame('1'));
     }
 
     private function setGamesOwnedSteamUserApiClientMock(): void
@@ -109,6 +123,20 @@ class GamesOwnedServiceTest extends TestCase
         $this->steamGameInformationServiceMock->expects($this->any())
             ->method('getInformationForAppId')
             ->willReturn([]);
+    }
+
+    private function setGameRepositoryMockWithGame(): void
+    {
+        $this->gameRepositoryMock->expects($this->any())
+            ->method('findOneBySteamAppId')
+            ->willReturn(new Game());
+    }
+
+    private function setGameRepositoryMockWithoutGame(): void
+    {
+        $this->gameRepositoryMock->expects($this->any())
+            ->method('findOneBySteamAppId')
+            ->willReturn(null);
     }
 
     /**
