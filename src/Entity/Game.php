@@ -28,6 +28,19 @@ class Game
     private $timePlayed;
 
     /**
+     * @var \DateTime
+     *
+     * @Assert\DateTime()
+     */
+    private $createdAt;
+    /**
+     * @var \DateTime
+     *
+     * @Assert\DateTime()
+     */
+    private $modifiedAt;
+
+    /**
      * @return int
      */
     public function getId(): int
@@ -89,5 +102,31 @@ class Game
     public function setTimePlayed(int $timePlayed): void
     {
         $this->timePlayed = $timePlayed;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getCreatedAt(): \DateTime
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(): void
+    {
+        $this->createdAt = new \DateTime();
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getModifiedAt(): \DateTime
+    {
+        return $this->modifiedAt;
+    }
+
+    public function setModifiedAt(): void
+    {
+        $this->modifiedAt = new \DateTime();
     }
 }
