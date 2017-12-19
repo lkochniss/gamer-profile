@@ -2,7 +2,7 @@
 
 namespace tests\App\Service\Steam\Api;
 
-use App\Service\Steam\Api\UserApiClientService;
+use App\Service\Steam\Api\GameApiClientService;
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -26,7 +26,7 @@ class GameApiClientServiceTest extends TestCase
     public function testGet(): void
     {
         $this->setGuzzleClientMock();
-        $steamApiClient = new UserApiClientService($this->client);
+        $steamApiClient = new GameApiClientService($this->client);
 
         $this->assertEquals(new Response(), $steamApiClient->get(''));
     }
