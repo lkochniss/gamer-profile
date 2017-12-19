@@ -105,7 +105,7 @@ class ReportServiceTest extends TestCase
         $this->assertEquals(['list one' => 3, 'list two' => 1, 'list three' => 2], $summary);
     }
 
-    public function testGetDetailsForListWithExistingListKey()
+    public function testGetDetailsForListWithExistingListKey(): void
     {
         $reportService = new ReportService();
         $reportService->addEntryToList('first entry', 'list one');
@@ -117,7 +117,7 @@ class ReportServiceTest extends TestCase
         $this->assertEquals(['first entry', 'second entry', 'last entry'], $details);
     }
 
-    public function testGetDeetailsForListWithoutExistingListKey()
+    public function testGetDeetailsForListWithoutExistingListKey(): void
     {
         $reportService = new ReportService();
         $reportService->addEntryToList('first entry', 'list one');
