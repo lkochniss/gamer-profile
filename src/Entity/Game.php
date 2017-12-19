@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Symfony\Component\Validator\Constraints as Assert;
+
 /**
  * Class Game
  */
@@ -21,6 +23,29 @@ class Game
      * @var string
      */
     private $name;
+
+    /**
+     * @var int
+     */
+    private $recentlyPlayed;
+
+    /**
+     * @var int
+     */
+    private $timePlayed;
+
+    /**
+     * @var \DateTime
+     *
+     * @Assert\DateTime()
+     */
+    private $createdAt;
+    /**
+     * @var \DateTime
+     *
+     * @Assert\DateTime()
+     */
+    private $modifiedAt;
 
     /**
      * @return int
@@ -68,5 +93,63 @@ class Game
     public function setName(string $name): void
     {
         $this->name = $name;
+    }
+
+    /**
+     * @return int
+     */
+    public function getRecentlyPlayed(): int
+    {
+        return $this->recentlyPlayed;
+    }
+
+    /**
+     * @param int $recentlyPlayed
+     */
+    public function setRecentlyPlayed(int $recentlyPlayed): void
+    {
+        $this->recentlyPlayed = $recentlyPlayed;
+    }
+
+    /**
+     * @return int
+     */
+    public function getTimePlayed(): int
+    {
+        return $this->timePlayed;
+    }
+
+    /**
+     * @param int $timePlayed
+     */
+    public function setTimePlayed(int $timePlayed): void
+    {
+        $this->timePlayed = $timePlayed;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getCreatedAt(): \DateTime
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(): void
+    {
+        $this->createdAt = new \DateTime();
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getModifiedAt(): \DateTime
+    {
+        return $this->modifiedAt;
+    }
+
+    public function setModifiedAt(): void
+    {
+        $this->modifiedAt = new \DateTime();
     }
 }

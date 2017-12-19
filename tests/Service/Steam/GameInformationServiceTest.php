@@ -33,12 +33,30 @@ class GameInformationServiceTest extends TestCase
         $this->assertEquals($this->getGameArray(), $gameInformation);
     }
 
+    public function testGetInformationForAppIdWithFailure(): void
+    {
+        $this->setFailingSteamGameApiClientMock();
+
+        $gameInformationService = new GameInformationService($this->steamGameApiServiceMock);
+        $gameInformation = $gameInformationService->getInformationForAppId(1);
+
+        $this->assertEquals([], $gameInformation);
+    }
+
     private function setSteamGameApiClientMock(): void
     {
         $this->steamGameApiServiceMock->expects($this->any())
             ->method('get')
             ->with('/api/appdetails?appids=1')
             ->willReturn(new Response(200,[], json_encode($this->getGameResponseData())));
+    }
+
+    private function setFailingSteamGameApiClientMock(): void
+    {
+        $this->steamGameApiServiceMock->expects($this->any())
+            ->method('get')
+            ->with('/api/appdetails?appids=1')
+            ->willReturn(new Response(200,[], json_encode($this->getErrorResponseData())));
     }
 
     /**
@@ -50,6 +68,18 @@ class GameInformationServiceTest extends TestCase
             '1' => [
                 'success' => true,
                 'data' => $this->getGameArray()
+            ]
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    private function getErrorResponseData(): array
+    {
+        return [
+            '1' => [
+                'success' => false
             ]
         ];
     }

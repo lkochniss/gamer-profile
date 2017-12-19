@@ -33,6 +33,11 @@ class GamesOwnedService
     private $reportService;
 
     /**
+     * @var array
+     */
+    private $myGames = [];
+
+    /**
      * GamesOwnedService constructor.
      *
      * @param UserApiClientService $userApiClientService
@@ -50,62 +55,95 @@ class GamesOwnedService
     /**
      * @return array
      */
-    public function getMyGames() : array
+    public function getAllMyGames() : array
     {
-        $gamesOwnedResponse = $this->userApiClientService->get('/IPlayerService/GetOwnedGames/v0001/');
-        $myGames = \GuzzleHttp\json_decode($gamesOwnedResponse->getBody(), true);
-
-        return $myGames['response']['games'];
+        return $this->getGamesFromApiEndpoint('/IPlayerService/GetOwnedGames/v0001/');
     }
 
     /**
      * @return array
-     * @throws \Doctrine\ORM\OptimisticLockException
      */
-    public function synchronizeMyGames() : array
+    public function getMyRecentlyPlayedGames() : array
     {
-        $mySteamGames = $this->getMyGames();
-
-        foreach ($mySteamGames as $mySteamGame) {
-            $this->createOrUpdateGame($mySteamGame['appid']);
-            break;
-        }
-
-        return $this->reportService->getSummary();
+        return $this->getGamesFromApiEndpoint('/IPlayerService/GetRecentlyPlayedGames/v0001/');
     }
 
     /**
      * @param $steamAppId
+     * @return string
      * @throws \Doctrine\ORM\OptimisticLockException
      */
-    private function createOrUpdateGame($steamAppId): void
+    public function createOrUpdateGame($steamAppId): string
     {
         $myGame = $this->gameInformationService->getInformationForAppId($steamAppId);
         if (!empty($myGame)){
-            $this->getGameInformationBySteamAppId($myGame);
+            return $this->getGameInformationBySteamAppId($myGame);
         }else{
             $this->reportService->addEntryToList($steamAppId, ReportService::FIND_GAME_ERROR);
+            return 'F';
         }
     }
 
     /**
+     * @return array
+     */
+    public function getSummary(): array
+    {
+        return $this->reportService->getSummary();
+    }
+
+    /**
+     * @return array
+     */
+    public function getErrors(): array
+    {
+        return $this->reportService->getDetailsFor(ReportService::FIND_GAME_ERROR);
+    }
+
+    /**
+     * @param string $apiEndpoint
+     * @return array
+     */
+    private function getGamesFromApiEndpoint(string $apiEndpoint): array
+    {
+        $gamesOwnedResponse = $this->userApiClientService->get($apiEndpoint);
+        $myGames = \GuzzleHttp\json_decode($gamesOwnedResponse->getBody(), true);
+
+        foreach ($myGames['response']['games'] as $game) {
+            $this->myGames[$game['appid']] = $game;
+        }
+
+        return $this->myGames;
+    }
+
+    /**
      * @param array $gameArray
+     * @return string
      * @throws \Doctrine\ORM\OptimisticLockException
      */
-    private function getGameInformationBySteamAppId(array $gameArray) : void
+    private function getGameInformationBySteamAppId(array $gameArray) : string
     {
-        $gameEntity = $this->gameRepository->findOneBySteamAppId($gameArray['steam_appid']);
+        $steamAppId = $gameArray['steam_appid'];
+        $gameEntity = $this->gameRepository->findOneBySteamAppId($steamAppId);
 
         if (is_null($gameEntity)){
             $gameEntity = new Game();
             $this->reportService->addEntryToList('New game ' . $gameArray['name'], ReportService::NEW_GAME);
+            $status = 'N';
         }else {
             $this->reportService->addEntryToList('Updated game ' . $gameArray['name'], ReportService::UPDATED_GAME);
+            $status = 'U';
         }
 
+        $recentlyPlayed = array_key_exists('playtime_2weeks', $this->myGames[$steamAppId]) ? $this->myGames[$steamAppId]['playtime_2weeks'] : 0;
+
         $gameEntity->setName($gameArray['name']);
-        $gameEntity->setSteamAppId($gameArray['steam_appid']);
+        $gameEntity->setSteamAppId($steamAppId);
+        $gameEntity->setRecentlyPlayed($recentlyPlayed);
+        $gameEntity->setTimePlayed($this->myGames[$steamAppId]['playtime_forever']);
 
         $this->gameRepository->save($gameEntity);
+
+        return $status;
     }
 }

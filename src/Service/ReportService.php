@@ -9,7 +9,7 @@ class ReportService
 {
     const NEW_GAME = 'Added %s new games';
     const UPDATED_GAME = 'Updated %s games';
-    const FIND_GAME_ERROR = 'Error getting game information on appId %s';
+    const FIND_GAME_ERROR = 'Error getting game information on %s games';
 
     /**
      * @var array
@@ -59,7 +59,11 @@ class ReportService
      */
     public function getDetailsFor(string $list): array
     {
-        return $this->report[$list];
+        if (array_key_exists($list, $this->report)){
+            return $this->report[$list];
+        }
+
+        return [];
     }
 
 }

@@ -5,10 +5,12 @@ use App\Service\Steam\GamesOwnedService;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Style\SymfonyStyle;
+
 /**
- * Class UpdateAllGamesCommand
+ * Class UpdateRecentlyPlayedGamesCommand
  */
-class UpdateAllGamesCommand extends ContainerAwareCommand
+class UpdateRecentlyPlayedGamesCommand extends ContainerAwareCommand
 {
     /**
      * @var GamesOwnedService
@@ -28,8 +30,8 @@ class UpdateAllGamesCommand extends ContainerAwareCommand
 
     protected function configure(): void
     {
-        $this->setName('steam:update:all');
-        $this->setDescription('Synchronizes local game information with steam');
+        $this->setName('steam:update:recent');
+        $this->setDescription('Synchronizes local game information with recently played steam games');
     }
 
     /**
@@ -40,18 +42,13 @@ class UpdateAllGamesCommand extends ContainerAwareCommand
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $mySteamGames = $this->gamesOwnedService->getAllMyGames();
+        $mySteamGames = $this->gamesOwnedService->getMyRecentlyPlayedGames();
 
         $sleepCounter = 0;
         foreach ($mySteamGames as $mySteamGame) {
             $sleepCounter++;
             $status = $this->gamesOwnedService->createOrUpdateGame($mySteamGame['appid']);
             $output->write($status);
-
-            if ($sleepCounter % 100 === 0){
-                $output->writeln('S');
-                sleep(5);
-            }
         }
 
         $status = $this->gamesOwnedService->getSummary();

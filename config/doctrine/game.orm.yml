@@ -14,3 +14,25 @@ App\Entity\Game:
             type: string
             nullable: false
             length: 100
+        timePlayed:
+            column: time_played
+            type: integer
+            nullable: false
+        recentlyPlayed:
+            column: recently_played
+            type: integer
+            nullable: false
+        createdAt:
+            column: created_at
+            type: datetime
+            nullable: false
+        modifiedAt:
+            column: modified_at
+            type: datetime
+            nullable: false
+    lifecycleCallbacks:
+          prePersist:
+                  - setModifiedAt
+                  - setCreatedAt
+          preUpdate:
+                  - setModifiedAt
