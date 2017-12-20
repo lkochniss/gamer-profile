@@ -7,7 +7,7 @@ jobs:
   build:
     docker:
       # specify the version you desire here
-      - image: epcallan/php7-testing-phpunit:7.1-phpunit5
+      - image: lkochniss/php-composer-alpine
 
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
@@ -44,12 +44,5 @@ jobs:
           command: bin/console cache:clear
 
       - run:
-          name: Creating Artifacts Directory
-          command: mkdir /tmp/artifacts;
-
-      - run:
           name: Run UnitTests
-          command: vendor/bin/phpunit --coverage-html /tmp/artifacts/phpunit/ --colors=never
-
-      - store_artifacts:
-          path: /tmp/artifacts
+          command: vendor/bin/phpunit
