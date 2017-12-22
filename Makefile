@@ -36,6 +36,8 @@ start:
 	docker-compose start
 stop:
 	docker-compose stop
+enter:
+	docker-compose exec php sh
 ps:
 	docker-compose ps
 

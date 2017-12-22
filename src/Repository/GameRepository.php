@@ -29,6 +29,19 @@ class GameRepository extends ServiceEntityRepository
     }
 
     /**
+     * @return array
+     */
+    public function getRecentlyPlayedGames()
+    {
+        $query = $this->createQueryBuilder('game')
+            ->where('game.recentlyPlayed > 0')
+            ->orderBy('game.recentlyPlayed', 'DESC')
+            ->getQuery();
+
+        return $query->getResult();
+    }
+
+    /**
      * @param Game $game
      * @throws \Doctrine\ORM\OptimisticLockException
      */

@@ -1,0 +1,7 @@
+{% include 'base.html.twig' %}
+{% block body %}
+    Recently Played Games
+    {% for game in recentlyGames %}
+        {{ game.name }} {{ game.recentlyPlayed }} minutes
+    {% endfor %}
+{% endblock %}

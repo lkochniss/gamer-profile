@@ -2,9 +2,8 @@
 
 namespace App\Controller;
 
+use App\Repository\GameRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Class AppController
@@ -13,13 +12,14 @@ class AppController extends Controller
 {
 
     /**
-     * @param Request $request
-     *
-     * @return Response
+     * @param GameRepository $gameRepository
+     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function indexAction(Request $request)
+    public function indexAction(GameRepository $gameRepository)
     {
 
-        return $this->render('base.html.twig');
+        return $this->render('homepage/homepage.html.twig', array(
+            'recentlyGames' => $gameRepository->getRecentlyPlayedGames()
+        ));
     }
 }
