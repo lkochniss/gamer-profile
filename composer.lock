@@ -4461,12 +4461,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/lkochniss/docker-symfony.git",
-                "reference": "8e7000ce41c94fb82cf5dca9770ad1fce7ad2fd6"
+                "reference": "8876d5b680d5b953420459de1f6a836797d864fe"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lkochniss/docker-symfony/zipball/8e7000ce41c94fb82cf5dca9770ad1fce7ad2fd6",
-                "reference": "8e7000ce41c94fb82cf5dca9770ad1fce7ad2fd6",
+                "url": "https://api.github.com/repos/lkochniss/docker-symfony/zipball/8876d5b680d5b953420459de1f6a836797d864fe",
+                "reference": "8876d5b680d5b953420459de1f6a836797d864fe",
                 "shasum": ""
             },
             "type": "library",
@@ -4482,7 +4482,7 @@
                 "php",
                 "symfony"
             ],
-            "time": "2017-11-22T08:42:45+00:00"
+            "time": "2017-12-22T17:56:15+00:00"
         },
         {
             "name": "myclabs/deep-copy",
