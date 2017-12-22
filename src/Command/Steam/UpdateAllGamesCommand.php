@@ -1,10 +1,12 @@
 <?php
 
 namespace App\Command\Steam;
+
 use App\Service\Steam\GamesOwnedService;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+
 /**
  * Class UpdateAllGamesCommand
  */
@@ -33,7 +35,7 @@ class UpdateAllGamesCommand extends ContainerAwareCommand
     }
 
     /**
-     * @param InputInterface $input
+     * @param InputInterface  $input
      * @param OutputInterface $output
      * @return int|null|void
      * @throws \Doctrine\ORM\OptimisticLockException
@@ -48,7 +50,7 @@ class UpdateAllGamesCommand extends ContainerAwareCommand
             $status = $this->gamesOwnedService->createOrUpdateGame($mySteamGame['appid']);
             $output->write($status);
 
-            if ($sleepCounter % 100 === 0){
+            if ($sleepCounter % 100 === 0) {
                 $output->writeln('S');
                 sleep(5);
             }
@@ -57,7 +59,7 @@ class UpdateAllGamesCommand extends ContainerAwareCommand
         $status = $this->gamesOwnedService->getSummary();
         foreach ($status as $key => $value) {
             $output->writeln('');
-            $output->writeln( sprintf($key, $value));
+            $output->writeln(sprintf($key, $value));
         }
 
         foreach ($this->gamesOwnedService->getErrors() as $error) {

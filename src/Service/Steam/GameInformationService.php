@@ -35,7 +35,7 @@ class GameInformationService
         $gamesOwnedResponse = $this->gameApiClientService->get('/api/appdetails?appids=' . $appId);
         $game = json_decode($gamesOwnedResponse->getBody(), true);
 
-        if ($game[$appId]['success'] === false){
+        if ($game[$appId]['success'] === false) {
             return [];
         }
 

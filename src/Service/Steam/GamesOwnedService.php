@@ -40,12 +40,15 @@ class GamesOwnedService
     /**
      * GamesOwnedService constructor.
      *
-     * @param UserApiClientService $userApiClientService
+     * @param UserApiClientService   $userApiClientService
      * @param GameInformationService $gameInformationService
-     * @param GameRepository $gameRepository
+     * @param GameRepository         $gameRepository
      */
-    public function __construct(UserApiClientService $userApiClientService, GameInformationService $gameInformationService, GameRepository $gameRepository)
-    {
+    public function __construct(
+        UserApiClientService $userApiClientService,
+        GameInformationService $gameInformationService,
+        GameRepository $gameRepository
+    ) {
         $this->userApiClientService = $userApiClientService;
         $this->gameInformationService = $gameInformationService;
         $this->gameRepository = $gameRepository;
@@ -76,9 +79,9 @@ class GamesOwnedService
     public function createOrUpdateGame($steamAppId): string
     {
         $myGame = $this->gameInformationService->getInformationForAppId($steamAppId);
-        if (!empty($myGame)){
+        if (!empty($myGame)) {
             return $this->getGameInformationBySteamAppId($myGame);
-        }else{
+        } else {
             $this->reportService->addEntryToList($steamAppId, ReportService::FIND_GAME_ERROR);
             return 'F';
         }
@@ -126,16 +129,19 @@ class GamesOwnedService
         $steamAppId = $gameArray['steam_appid'];
         $gameEntity = $this->gameRepository->findOneBySteamAppId($steamAppId);
 
-        if (is_null($gameEntity)){
+        if (is_null($gameEntity)) {
             $gameEntity = new Game();
             $this->reportService->addEntryToList('New game ' . $gameArray['name'], ReportService::NEW_GAME);
             $status = 'N';
-        }else {
+        } else {
             $this->reportService->addEntryToList('Updated game ' . $gameArray['name'], ReportService::UPDATED_GAME);
             $status = 'U';
         }
 
-        $recentlyPlayed = array_key_exists('playtime_2weeks', $this->myGames[$steamAppId]) ? $this->myGames[$steamAppId]['playtime_2weeks'] : 0;
+        $recentlyPlayed = array_key_exists(
+            'playtime_2weeks',
+            $this->myGames[$steamAppId]
+        ) ? $this->myGames[$steamAppId]['playtime_2weeks'] : 0;
 
         $gameEntity->setName($gameArray['name']);
         $gameEntity->setSteamAppId($steamAppId);

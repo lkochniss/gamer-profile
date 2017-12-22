@@ -59,11 +59,10 @@ class ReportService
      */
     public function getDetailsFor(string $list): array
     {
-        if (array_key_exists($list, $this->report)){
+        if (array_key_exists($list, $this->report)) {
             return $this->report[$list];
         }
 
         return [];
     }
-
 }

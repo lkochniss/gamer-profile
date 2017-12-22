@@ -19,6 +19,7 @@ class UserApiClientService extends AbstractApiClientService
      */
     protected function generateRequestUrl($endpoint) : string
     {
-        return $this->getBasePath() . $endpoint . '?key='. getenv('STEAM_API_KEY') .'&steamid='. getenv('STEAM_USER_ID').'&format=json';
+        return $this->getBasePath() . $endpoint .
+            '?key='. getenv('STEAM_API_KEY') .'&steamid='. getenv('STEAM_USER_ID').'&format=json';
     }
 }

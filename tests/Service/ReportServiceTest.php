@@ -28,7 +28,7 @@ class ReportServiceTest extends TestCase
         $reportService->addEntryToList('new entry', 'list one');
         $actualReturn = $reportService->addEntryToList('last entry', 'list one');
 
-        $this->assertEquals( 5, $actualReturn);
+        $this->assertEquals(5, $actualReturn);
     }
 
     public function testAddSingleEntriesToMultipleLists(): void
@@ -54,8 +54,8 @@ class ReportServiceTest extends TestCase
         $actualListThree = $reportService->addEntryToList('second entry', 'list three');
 
         $this->assertEquals(3, $actualListOne);
-        $this->assertEquals( 1, $actualListTwo);
-        $this->assertEquals( 2, $actualListThree);
+        $this->assertEquals(1, $actualListTwo);
+        $this->assertEquals(2, $actualListThree);
     }
 
     public function testSummaryForOneEntryInOneList(): void
