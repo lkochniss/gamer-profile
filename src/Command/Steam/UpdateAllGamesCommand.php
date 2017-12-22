@@ -52,7 +52,7 @@ class UpdateAllGamesCommand extends ContainerAwareCommand
 
             if ($sleepCounter % 100 === 0) {
                 $output->writeln('S');
-                sleep(5);
+                sleep(10);
             }
         }
 
