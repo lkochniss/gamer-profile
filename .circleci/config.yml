@@ -7,7 +7,7 @@ jobs:
   build:
     docker:
       # specify the version you desire here
-      - image: lkochniss/php-composer-alpine
+      - image: ckappen/php-composer-alpine
 
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
@@ -25,24 +25,39 @@ jobs:
           - v1-dependencies-{{ checksum "composer.lock" }}
           # fallback to using the latest cache if no exact match is found
           - v1-dependencies-
-
       - run:
-          name: composer install
+          name: Composer Install
           command: composer install --no-interaction --prefer-dist --no-scripts --no-progress
-
       - save_cache:
           paths:
             - ./vendor
           key: v1-dependencies-{{ checksum "composer.lock" }}
-
       - run:
-          name: copy environmenmt
-          command: cp .env.dist .env
-
+          name: Copy Environmenmt
+          command: make copy-environment
+      - run:
+          name: Create Artifacts Directory
+          command: make build-artifacts
       - run:
           name: Clear Cache
-          command: bin/console cache:clear
-
+          command: make cache
+      - run:
+          name: CodeSniff
+          command: make codesniff
+      - run:
+          name: Copy & Paste
+          command: make copypaste
+      - run:
+          name: Lines of Code
+          command: make lines
+      - run:
+          name: Mess Detector
+          command: make copypaste
+      - run:
+          name: PHPStan
+          command: make phpstan
       - run:
           name: Run UnitTests
-          command: vendor/bin/phpunit
+          command: make phpunit
+      - store_artifacts:
+          path: build-artifacts/

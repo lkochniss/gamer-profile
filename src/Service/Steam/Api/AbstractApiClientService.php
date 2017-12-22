@@ -47,12 +47,12 @@ abstract class AbstractApiClientService
     /**
      * @return string
      */
-    protected abstract function getBasePath() : string;
+    abstract protected function getBasePath() : string;
 
     /**
      * @param $endpoint
      *
      * @return string
      */
-    protected abstract function generateRequestUrl($endpoint) : string;
+    abstract protected function generateRequestUrl($endpoint) : string;
 }

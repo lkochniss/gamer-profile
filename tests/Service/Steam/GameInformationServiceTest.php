@@ -48,7 +48,7 @@ class GameInformationServiceTest extends TestCase
         $this->steamGameApiServiceMock->expects($this->any())
             ->method('get')
             ->with('/api/appdetails?appids=1')
-            ->willReturn(new Response(200,[], json_encode($this->getGameResponseData())));
+            ->willReturn(new Response(200, [], json_encode($this->getGameResponseData())));
     }
 
     private function setFailingSteamGameApiClientMock(): void
@@ -56,7 +56,7 @@ class GameInformationServiceTest extends TestCase
         $this->steamGameApiServiceMock->expects($this->any())
             ->method('get')
             ->with('/api/appdetails?appids=1')
-            ->willReturn(new Response(200,[], json_encode($this->getErrorResponseData())));
+            ->willReturn(new Response(200, [], json_encode($this->getErrorResponseData())));
     }
 
     /**
