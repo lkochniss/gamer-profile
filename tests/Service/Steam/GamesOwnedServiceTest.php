@@ -87,7 +87,7 @@ class GamesOwnedServiceTest extends TestCase
     {
         $this->setGamesOwnedSteamUserApiClientMock();
         $this->setGameInformationServiceMockWithoutGame();
-        $this->setGameRepositoryMockWithGame();
+        $this->setGameRepositoryMockWithoutGame();
 
         $gamesOwnedService = $this->getGamesOwnedService();
         $gamesOwnedService->getAllMyGames();
@@ -118,7 +118,7 @@ class GamesOwnedServiceTest extends TestCase
     {
         $this->setGamesOwnedSteamUserApiClientMock();
         $this->setGameInformationServiceMockWithoutGame();
-        $this->setGameRepositoryMockWithGame();
+        $this->setGameRepositoryMockWithoutGame();
 
         $gamesOwnedService = $this->getGamesOwnedService();
         $gamesOwnedService->getAllMyGames();
@@ -159,9 +159,12 @@ class GamesOwnedServiceTest extends TestCase
 
     private function setGameRepositoryMockWithGame(): void
     {
+        $game = new Game();
+        $game->setSteamAppId(1);
+        $game->setName('Demo game');
         $this->gameRepositoryMock->expects($this->any())
             ->method('findOneBySteamAppId')
-            ->willReturn(new Game());
+            ->willReturn($game);
     }
 
     private function setGameRepositoryMockWithoutGame(): void

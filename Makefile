@@ -3,6 +3,8 @@ BUILD_ARTIFACTS_DIRECTORY=build-artifacts/
 # CircleCI
 build-artifacts:
 	@mkdir -p ${BUILD_ARTIFACTS_DIRECTORY}/
+copy-ci-environment:
+	cp .env.circleci .env
 
 # Analysis
 phpunit:
@@ -21,6 +23,9 @@ phpstan:
 	@if ./vendor/bin/phpstan --autoload-file=vendor/autoload.php analyse src/ | tee ${BUILD_ARTIFACTS_DIRECTORY}phpstan.log; then exit 0; fi
 security:
 	./bin/console se:c | tee ${BUILD_ARTIFACTS_DIRECTORY}security-check.log
+translation:
+	./bin/console d:tr de | tee ${BUILD_ARTIFACTS_DIRECTORY}translation-de.log
+	./bin/console d:tr en | tee ${BUILD_ARTIFACTS_DIRECTORY}translation-en.log
 analyse:
 	make codesniff
 	make lines
@@ -36,6 +41,8 @@ start:
 	docker-compose start
 stop:
 	docker-compose stop
+enter:
+	docker-compose exec php sh
 ps:
 	docker-compose ps
 

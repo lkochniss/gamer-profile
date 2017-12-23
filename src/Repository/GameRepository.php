@@ -29,6 +29,34 @@ class GameRepository extends ServiceEntityRepository
     }
 
     /**
+     * @return array
+     */
+    public function getRecentlyPlayedGames(): array
+    {
+        $query = $this->createQueryBuilder('game')
+            ->where('game.recentlyPlayed > 0')
+            ->orderBy('game.recentlyPlayed', 'DESC')
+            ->getQuery();
+
+        return $query->getResult();
+    }
+
+    /**
+     * @param int $number
+     * @return array
+     */
+    public function getMostPlayedGames(int $number): array
+    {
+        $query = $this->createQueryBuilder('game')
+            ->where('game.timePlayed > 0')
+            ->orderBy('game.timePlayed', 'DESC')
+            ->setMaxResults($number)
+            ->getQuery();
+
+        return $query->getResult();
+    }
+
+    /**
      * @param Game $game
      * @throws \Doctrine\ORM\OptimisticLockException
      */
