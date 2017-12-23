@@ -49,11 +49,6 @@ class UpdateAllGamesCommand extends ContainerAwareCommand
             $sleepCounter++;
             $status = $this->gamesOwnedService->createOrUpdateGame($mySteamGame['appid']);
             $output->write($status);
-
-            if ($sleepCounter % 100 === 0) {
-                $output->writeln('S');
-                sleep(10);
-            }
         }
 
         $status = $this->gamesOwnedService->getSummary();

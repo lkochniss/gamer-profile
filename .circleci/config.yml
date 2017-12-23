@@ -34,7 +34,7 @@ jobs:
           key: v1-dependencies-{{ checksum "composer.lock" }}
       - run:
           name: Copy Environmenmt
-          command: make copy-environment
+          command: make copy-ci-environment
       - run:
           name: Create Artifacts Directory
           command: make build-artifacts

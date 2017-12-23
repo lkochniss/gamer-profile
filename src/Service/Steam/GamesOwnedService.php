@@ -78,13 +78,17 @@ class GamesOwnedService
      */
     public function createOrUpdateGame($steamAppId): string
     {
-        $myGame = $this->gameInformationService->getInformationForAppId($steamAppId);
-        if (!empty($myGame)) {
-            return $this->getGameInformationBySteamAppId($myGame);
+        $gameEntity = $this->gameRepository->findOneBySteamAppId($steamAppId);
+
+        if (is_null($gameEntity)) {
+            $status = $this->createGame($steamAppId);
         } else {
-            $this->reportService->addEntryToList($steamAppId, ReportService::FIND_GAME_ERROR);
-            return 'F';
+            $this->persistGame($gameEntity);
+            $this->reportService->addEntryToList('Updated game ' . $gameEntity->getName(), ReportService::UPDATED_GAME);
+            $status = 'U';
         }
+
+        return $status;
     }
 
     /**
@@ -120,36 +124,43 @@ class GamesOwnedService
     }
 
     /**
-     * @param array $gameArray
+     * @param $steamAppId
      * @return string
      * @throws \Doctrine\ORM\OptimisticLockException
      */
-    private function getGameInformationBySteamAppId(array $gameArray) : string
+    private function createGame($steamAppId): string
     {
-        $steamAppId = $gameArray['steam_appid'];
-        $gameEntity = $this->gameRepository->findOneBySteamAppId($steamAppId);
-
-        if (is_null($gameEntity)) {
+        $gameArray = $this->gameInformationService->getInformationForAppId($steamAppId);
+        if (!empty($gameArray)) {
             $gameEntity = new Game();
-            $this->reportService->addEntryToList('New game ' . $gameArray['name'], ReportService::NEW_GAME);
+            $gameEntity->setName($gameArray['name']);
+            $gameEntity->setSteamAppId($steamAppId);
+            $this->reportService->addEntryToList('New game ' . $gameEntity->getName(), ReportService::NEW_GAME);
+            $this->persistGame($gameEntity);
             $status = 'N';
         } else {
-            $this->reportService->addEntryToList('Updated game ' . $gameArray['name'], ReportService::UPDATED_GAME);
-            $status = 'U';
+            $this->reportService->addEntryToList($steamAppId, ReportService::FIND_GAME_ERROR);
+            $status = 'F';
         }
+
+        return $status;
+    }
+
+    /**
+     * @param Game $gameEntity
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    private function persistGame(Game $gameEntity): void
+    {
+        $steamAppId = $gameEntity->getSteamAppId();
 
         $recentlyPlayed = array_key_exists(
             'playtime_2weeks',
             $this->myGames[$steamAppId]
         ) ? $this->myGames[$steamAppId]['playtime_2weeks'] : 0;
 
-        $gameEntity->setName($gameArray['name']);
-        $gameEntity->setSteamAppId($steamAppId);
         $gameEntity->setRecentlyPlayed($recentlyPlayed);
         $gameEntity->setTimePlayed($this->myGames[$steamAppId]['playtime_forever']);
-
         $this->gameRepository->save($gameEntity);
-
-        return $status;
     }
 }

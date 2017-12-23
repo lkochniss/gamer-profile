@@ -3,6 +3,8 @@ BUILD_ARTIFACTS_DIRECTORY=build-artifacts/
 # CircleCI
 build-artifacts:
 	@mkdir -p ${BUILD_ARTIFACTS_DIRECTORY}/
+copy-ci-environment:
+	cp .env.circleci .env
 
 # Analysis
 phpunit:
