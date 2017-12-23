@@ -57,6 +57,9 @@ jobs:
           name: PHPStan
           command: make phpstan
       - run:
+          name: Translation
+          command: make translation
+      - run:
           name: Run UnitTests
           command: make phpunit
       - store_artifacts:
