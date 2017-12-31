@@ -38,6 +38,7 @@ abstract class AbstractSteamCommand extends ContainerAwareCommand
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $output->writeln(['', 'Starting:']);
+        $this->gamesOwnedService->resetRecentGames();
         $mySteamGames = $this->getMyGames();
 
         foreach ($mySteamGames as $mySteamGame) {
@@ -52,7 +53,7 @@ abstract class AbstractSteamCommand extends ContainerAwareCommand
         }
 
         $errors = $this->gamesOwnedService->getErrors();
-        if (!empty($errors)){
+        if (!empty($errors)) {
             $output->writeln(['', 'Following Steam AppIDs threw errors while receiving information']);
             foreach ($errors as $error) {
                 $output->writeln('- '. $error);

@@ -32,11 +32,17 @@ class GamesOwnedServiceTest extends TestCase
      */
     private $gameRepositoryMock;
 
+    /**
+     * @var MockObject
+     */
+    private $gameMock;
+
     public function setUp(): void
     {
         $this->steamUserApiServiceMock = $this->createMock(UserApiClientService::class);
         $this->steamGameInformationServiceMock = $this->createMock(GameInformationService::class);
         $this->gameRepositoryMock = $this->createMock(GameRepository::class);
+        $this->gameMock = $this->createMock(Game::class);
     }
 
     public function testGetAllMyGames(): void
@@ -127,6 +133,13 @@ class GamesOwnedServiceTest extends TestCase
         $this->assertEquals([1], $gamesOwnedService->getErrors());
     }
 
+    public function testResetRecentGames(): void
+    {
+        $this->setGameRepositoryRecentlyPlayedGame();
+        $gamesOwnedService = $this->getGamesOwnedService();
+        $this->assertTrue($gamesOwnedService->resetRecentGames());
+    }
+
     private function setGamesOwnedSteamUserApiClientMock(): void
     {
         $this->steamUserApiServiceMock->expects($this->any())
@@ -172,6 +185,16 @@ class GamesOwnedServiceTest extends TestCase
         $this->gameRepositoryMock->expects($this->any())
             ->method('findOneBySteamAppId')
             ->willReturn(null);
+    }
+
+    private function setGameRepositoryRecentlyPlayedGame(): void
+    {
+        $this->gameMock->expects($this->any())
+            ->method('setRecentlyPlayed')
+            ->with(0);
+        $this->gameRepositoryMock->expects($this->any())
+            ->method('getRecentlyPlayedGames')
+            ->willReturn([$this->gameMock]);
     }
 
     /**

@@ -2,8 +2,8 @@
 
 namespace tests\App\Controller;
 
-use App\Controller\AppController;
-use App\Repository\GameRepository;
+use App\Service\TranslationService;
+use App\Service\Twig\HomepageTransformatorService;
 use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpKernel\Client;
@@ -18,31 +18,53 @@ class AppControllerTest extends WebTestCase
     /**
      * @var MockObject
      */
-    private $gameRepositoryMock;
+    private $translationServiceMock;
+
+    /**
+     * @var MockObject
+     */
+    private $homepageTransformationServiceMock;
 
     public function setUp()
     {
         $this->client = static::createClient();
-        $this->gameRepositoryMock = $this->createMock(GameRepository::class);
+        $this->translationServiceMock = $this->createMock(TranslationService::class);
+        $this->homepageTransformationServiceMock = $this->createMock(HomepageTransformatorService::class);
     }
 
     public function testIndexActionIsAccessable(): void
     {
-        $this->setGameRepositoryMock();
-        $this->client->getContainer()->set('App\Repository\GameRepository', $this->gameRepositoryMock);
+        $this->setTranslationServiceMock();
+        $this->client->getContainer()->set('App\Service\TranslationService', $this->translationServiceMock);
+
+        $this->setHomepageTransformationServiceMock();
+        $this->client->getContainer()->set(
+            'App\Service\Twig\HomepageTransformatorService',
+            $this->homepageTransformationServiceMock
+        );
 
         $this->client->request('GET', '/');
         $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
     }
 
-    private function setGameRepositoryMock():void
+    private function setHomepageTransformationServiceMock():void
     {
-        $this->gameRepositoryMock->expects($this->any())
-            ->method('getRecentlyPlayedGames')
+        $this->homepageTransformationServiceMock->expects($this->any())
+            ->method('transformRecentlyPlayedGames')
             ->willReturn([]);
 
-        $this->gameRepositoryMock->expects($this->any())
-            ->method('getMostPlayedGames')
+        $this->homepageTransformationServiceMock->expects($this->any())
+            ->method('transformTopPlayedGames')
             ->willReturn([]);
+    }
+
+    private function setTranslationServiceMock()
+    {
+        $this->translationServiceMock->expects($this->any())
+            ->method('trans')
+            ->willReturn('');
+        $this->translationServiceMock->expects($this->any())
+            ->method('transChoice')
+            ->willReturn('');
     }
 }

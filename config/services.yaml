@@ -27,8 +27,11 @@ services:
     App\Controller\:
         resource: '../src/Controller'
         tags: ['controller.service_arguments']
-    App\Repository\GameRepository:
+    App\Service\Twig\HomepageTransformatorService:
         public: true
+    App\Service\TranslationService:
+        public: true
+        arguments: ['%locale%', '%kernel.project_dir%']
 
     GuzzleHttp\Client:
         autowire: true

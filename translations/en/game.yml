@@ -1,3 +1,5 @@
 game:
-  top: Top 5 Most Played Games
-  recent: Recently Played Games
+  most_played.title: Top 5 Most Played Games
+  recently_played.title: Recently Played Games
+  '%name% played for %time% recently': '%name% was played for %time% within the last two weeks'
+  '%name% overall played for %time%': '%name% with an overall playtime of %time%'
