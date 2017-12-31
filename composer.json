@@ -13,9 +13,10 @@
         "symfony/browser-kit": "^4.0@RC",
         "symfony/console": "^4.0@beta",
         "symfony/flex": "^1.0",
+        "symfony/form": "^4.0",
         "symfony/framework-bundle": "^4.0",
         "symfony/lts": "^4@dev",
-        "symfony/maker-bundle": "^1.0",
+        "symfony/translation": "^4.0",
         "symfony/twig-bundle": "^4.0@RC",
         "symfony/yaml": "^4.0"
     },
@@ -29,6 +30,7 @@
         "sebastian/phpcpd": "^3.0",
         "squizlabs/php_codesniffer": "^3.2",
         "symfony/dotenv": "^4.0",
+        "symfony/maker-bundle": "^1.0",
         "symfony/profiler-pack": "^1.0"
     },
     "config": {

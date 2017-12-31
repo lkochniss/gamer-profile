@@ -32,7 +32,7 @@ class AppControllerTest extends WebTestCase
         $this->homepageTransformationServiceMock = $this->createMock(HomepageTransformatorService::class);
     }
 
-    public function testIndexActionIsAccessable(): void
+    public function testIndexIsAccessable(): void
     {
         $this->setTranslationServiceMock();
         $this->client->getContainer()->set('App\Service\TranslationService', $this->translationServiceMock);

@@ -22,17 +22,13 @@ App\Entity\Game:
             column: recently_played
             type: integer
             nullable: false
-        createdAt:
-            column: created_at
-            type: datetime
-            nullable: false
-        modifiedAt:
-            column: modified_at
-            type: datetime
-            nullable: false
         headerImagePath:
             column: header_image_path
             type: string
+    oneToMany:
+          blogPosts:
+              targetEntity: BlogPost
+              mappedBy: game
     lifecycleCallbacks:
           prePersist:
                   - setModifiedAt
