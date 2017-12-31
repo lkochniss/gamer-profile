@@ -48,6 +48,11 @@ class Game
     private $modifiedAt;
 
     /**
+     * @var string
+     */
+    private $headerImagePath;
+
+    /**
      * @return int
      */
     public function getId(): int
@@ -151,5 +156,21 @@ class Game
     public function setModifiedAt(): void
     {
         $this->modifiedAt = new \DateTime();
+    }
+
+    /**
+     * @return string
+     */
+    public function getHeaderImagePath(): string
+    {
+        return $this->headerImagePath;
+    }
+
+    /**
+     * @param string $headerImagePath
+     */
+    public function setHeaderImagePath(string $headerImagePath): void
+    {
+        $this->headerImagePath = $headerImagePath;
     }
 }

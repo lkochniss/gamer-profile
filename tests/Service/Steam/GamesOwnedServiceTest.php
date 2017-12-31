@@ -259,7 +259,7 @@ class GamesOwnedServiceTest extends TestCase
             'type' => 'game',
             'name' => 'Demo game',
             'steam_appid' => 1,
-            'required_age' => 0,
+            'header_image' => 'http://header.image/src.jpg',
         ];
     }
 
