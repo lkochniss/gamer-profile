@@ -1,0 +1,11 @@
+{% include 'base.html.twig' %}
+{% block body %}
+   {{ games.mostPlayed.title }}
+    {% for game in games.mostPlayed.content %}
+        {{ game }}
+    {% endfor %}
+    {{ games.recentlyPlayed.title }}
+    {% for game in games.recentlyPlayed.content %}
+        {{ game }}
+    {% endfor %}
+{% endblock %}

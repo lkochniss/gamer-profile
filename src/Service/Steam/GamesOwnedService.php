@@ -108,6 +108,21 @@ class GamesOwnedService
     }
 
     /**
+     * @return bool
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function resetRecentGames(): bool
+    {
+        $games = $this->gameRepository->getRecentlyPlayedGames();
+        foreach ($games as $game) {
+            $game->setRecentlyPlayed(0);
+            $this->gameRepository->save($game);
+        }
+
+        return true;
+    }
+
+    /**
      * @param string $apiEndpoint
      * @return array
      */
