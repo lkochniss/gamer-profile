@@ -30,6 +30,9 @@ App\Entity\Game:
             column: modified_at
             type: datetime
             nullable: false
+        headerImagePath:
+            column: header_image_path
+            type: string
     lifecycleCallbacks:
           prePersist:
                   - setModifiedAt

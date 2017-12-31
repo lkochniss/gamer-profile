@@ -58,6 +58,7 @@ abstract class AbstractSteamCommand extends ContainerAwareCommand
             foreach ($errors as $error) {
                 $output->writeln('- '. $error);
             }
+            $output->writeln(['', 'Info: Most errors occur due to country restrictions for a game.']);
         }
     }
 

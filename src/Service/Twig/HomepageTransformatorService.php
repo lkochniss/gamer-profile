@@ -39,13 +39,16 @@ class HomepageTransformatorService
     {
         $transformedPlayedGames = [];
         foreach ($this->gameRepository->getMostPlayedGames(5) as $game) {
-            $transformedPlayedGames[] = $this->translator->trans(
-                'game.%name% overall played for %time%',
-                [
-                    '%name%' => $game->getName(),
-                    '%time%' => $this->translateTime(new TimeTransformator($game->getTimePlayed()))
-                ]
-            );
+            $transformedPlayedGames[] = [
+                'image' => $game->getHeaderImagePath(),
+                'playtime' => $this->translator->trans(
+                    'game.%name% overall played for %time%',
+                    [
+                        '%name%' => $game->getName(),
+                        '%time%' => $this->translateTime(new TimeTransformator($game->getTimePlayed()))
+                    ]
+                )
+            ];
         }
 
         return $transformedPlayedGames;
@@ -58,13 +61,16 @@ class HomepageTransformatorService
     {
         $transformedPlayedGames = [];
         foreach ($this->gameRepository->getRecentlyPlayedGames() as $game) {
-            $transformedPlayedGames[] = $this->translator->trans(
-                'game.%name% played for %time% recently',
-                [
-                    '%name%' => $game->getName(),
-                    '%time%' => $this->translateTime(new TimeTransformator($game->getRecentlyPlayed()))
-                ]
-            );
+            $transformedPlayedGames[] = [
+                'image' => $game->getHeaderImagePath(),
+                'playtime' => $this->translator->trans(
+                    'game.%name% played for %time% recently',
+                    [
+                        '%name%' => $game->getName(),
+                        '%time%' => $this->translateTime(new TimeTransformator($game->getRecentlyPlayed()))
+                    ]
+                )
+            ];
         }
 
         return $transformedPlayedGames;
@@ -136,7 +142,7 @@ class HomepageTransformatorService
                     );
                 }
             } else {
-                $output =  sprintf(
+                $output = sprintf(
                     '%s, %s and %s',
                     $days,
                     $hours,

@@ -149,6 +149,7 @@ class GamesOwnedService
         if (!empty($gameArray)) {
             $gameEntity = new Game();
             $gameEntity->setName($gameArray['name']);
+            $gameEntity->setHeaderImagePath($gameArray['header_image']);
             $gameEntity->setSteamAppId($steamAppId);
             $this->reportService->addEntryToList('New game ' . $gameEntity->getName(), ReportService::NEW_GAME);
             $this->persistGame($gameEntity);
