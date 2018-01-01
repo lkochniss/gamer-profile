@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Form;
+namespace App\Form\Type;
 
 use App\Entity\BlogPost;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
