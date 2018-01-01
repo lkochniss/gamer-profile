@@ -12,11 +12,11 @@
             </trans-unit>
              <trans-unit id="played for %time% recently">
                 <source>played for %time% recently</source>
-                <target>played for %time% minutes within the last two weeks</target>
+                <target>played for %time% within the last two weeks</target>
             </trans-unit>
             <trans-unit id="overall played for %time%">
                 <source>overall played for %time%</source>
-                <target>played for %time% minutes since bought</target>
+                <target>played for %time% since purchase</target>
             </trans-unit>
         </body>
     </file>
