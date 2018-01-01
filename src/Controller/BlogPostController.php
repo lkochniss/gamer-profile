@@ -1,9 +1,9 @@
 <?php
 
 namespace App\Controller;
+
 use App\Entity\BlogPost;
-use App\Form\BlogPostType;
-use Symfony\Component\Form\AbstractType;
+use App\Form\Type\BlogPostType;
 
 /**
  * Class BlogPostController
