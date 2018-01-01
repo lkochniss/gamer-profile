@@ -15,4 +15,14 @@ class BlogPostRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, BlogPost::class);
     }
+
+    /**
+     * @param BlogPost $blogPost
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function save(BlogPost $blogPost): void
+    {
+        $this->getEntityManager()->persist($blogPost);
+        $this->getEntityManager()->flush($blogPost);
+    }
 }

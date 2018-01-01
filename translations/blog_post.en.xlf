@@ -6,6 +6,10 @@
                 <source>title</source>
                 <target>Title</target>
             </trans-unit>
+             <trans-unit id="edit">
+                <source>edit</source>
+                <target>edit</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

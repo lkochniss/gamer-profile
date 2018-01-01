@@ -3,13 +3,13 @@ index:
     defaults: { _controller: 'App\Controller\AppController::index' }
 blog_list:
     path: /blog
-    defaults: { _controller: 'App\Controller\BlogController::list' }
+    defaults: { _controller: 'App\Controller\BlogPostController::list' }
 blog_create:
     path: /blog/create
-    defaults: { _controller: 'App\Controller\BlogController::create' }
+    defaults: { _controller: 'App\Controller\BlogPostController::create' }
 blog_edit:
     path: /blog/{id}/edit
-    defaults: { _controller: 'App\Controller\BlogController::edit' }
+    defaults: { _controller: 'App\Controller\BlogPostController::edit' }
 blog_show:
     path: /blog/{id}/show
-    defaults: { _controller: 'App\Controller\BlogController::show' }
+    defaults: { _controller: 'App\Controller\BlogPostController::show' }
