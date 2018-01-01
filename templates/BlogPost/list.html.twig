@@ -1,0 +1,6 @@
+{% include 'base.html.twig' %}
+{% block body %}
+    {% for post in entities %}
+        {{ post.title }}<a href="{{ path('blog_edit', {'id': post.id}) }}">{% trans from 'blog_post' %}edit{% endtrans %}</a>
+    {% endfor %}
+{% endblock %}

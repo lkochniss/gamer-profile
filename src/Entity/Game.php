@@ -2,18 +2,14 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class Game
  */
-class Game
+class Game extends AbstractEntity
 {
-    /**
-     * @var int
-     */
-    private $id;
-
     /**
      * @var int
      */
@@ -35,22 +31,14 @@ class Game
     private $timePlayed;
 
     /**
-     * @var \DateTime
-     *
-     * @Assert\DateTime()
-     */
-    private $createdAt;
-    /**
-     * @var \DateTime
-     *
-     * @Assert\DateTime()
-     */
-    private $modifiedAt;
-
-    /**
      * @var string
      */
     private $headerImagePath;
+
+    /**
+     * @var ArrayCollection
+     */
+    private $blogPosts;
 
     /**
      * @return int
@@ -133,32 +121,6 @@ class Game
     }
 
     /**
-     * @return \DateTime
-     */
-    public function getCreatedAt(): \DateTime
-    {
-        return $this->createdAt;
-    }
-
-    public function setCreatedAt(): void
-    {
-        $this->createdAt = new \DateTime();
-    }
-
-    /**
-     * @return \DateTime
-     */
-    public function getModifiedAt(): \DateTime
-    {
-        return $this->modifiedAt;
-    }
-
-    public function setModifiedAt(): void
-    {
-        $this->modifiedAt = new \DateTime();
-    }
-
-    /**
      * @return string
      */
     public function getHeaderImagePath(): string
@@ -172,5 +134,31 @@ class Game
     public function setHeaderImagePath(string $headerImagePath): void
     {
         $this->headerImagePath = $headerImagePath;
+    }
+
+    /**
+     * @param BlogPost $blogPost
+     */
+    public function addBlogPost(BlogPost $blogPost): void
+    {
+        if (!$this->blogPosts->contains($blogPost)) {
+            $this->blogPosts->add($blogPost);
+            $blogPost->setGame($this);
+        }
+    }
+
+    /**
+     * @param BlogPost $blogPost
+     */
+    public function removeBlogPost(BlogPost $blogPost): void
+    {
+        $this->blogPosts->remove($blogPost);
+    }
+    /**
+     * @return array
+     */
+    public function getBlogPosts(): array
+    {
+        return $this->blogPosts->toArray();
     }
 }

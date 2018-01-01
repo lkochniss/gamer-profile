@@ -2,8 +2,7 @@
 
 namespace App\Controller;
 
-use App\Service\TranslationService;
-use App\Service\Twig\HomepageTransformatorService;
+use App\Repository\GameRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -14,24 +13,14 @@ class AppController extends Controller
 {
 
     /**
-     * @param HomepageTransformatorService $homepageTransformatorService
-     * @param TranslationService $translator
+     * @param GameRepository $gameRepository
      * @return Response
      */
-    public function indexAction(
-        HomepageTransformatorService $homepageTransformatorService,
-        TranslationService $translator
-    ) {
+    public function index(GameRepository $gameRepository) {
         return $this->render('homepage/index.html.twig', array(
             'games' => [
-                'recentlyPlayed' => [
-                    'title' => $translator->trans('game.recently_played.title'),
-                    'content' => $homepageTransformatorService->transformRecentlyPlayedGames(),
-                ],
-                'mostPlayed'  => [
-                    'title' => $translator->trans('game.most_played.title'),
-                    'content' => $homepageTransformatorService->transformTopPlayedGames()
-                ]
+                'recentlyPlayed' => $gameRepository->getRecentlyPlayedGames(),
+                'mostPlayed'  =>  $gameRepository->getMostPlayedGames(5)
             ]
         ));
     }

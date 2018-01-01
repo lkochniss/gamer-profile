@@ -1,21 +1,15 @@
 {% include 'base.html.twig' %}
 {% block body %}
-    <h2>{{ games.mostPlayed.title }}</h2>
-    <ul>
-        {% for game in games.mostPlayed.content %}
-            <li>
-                <img src="{{ game.image }}" />
-                {{ game.playtime }}
-            </li>
-        {% endfor %}
-    </ul>
-    <h2>{{ games.recentlyPlayed.title }}</h2>
-    <ul>
-        {% for game in games.recentlyPlayed.content %}
-            <li>
-                <img src="{{ game.image }}" />
-                {{ game.playtime }}
-            </li>
-        {% endfor %}
-    </ul>
+    <p>
+    <h2>{% trans from "game" %}most_played.title{% endtrans %}</h2>
+    {% for game in games.mostPlayed %}
+        {% include '_modules/game/mostPlayedOverview.html.twig' with {'game': game } %}
+    {% endfor %}
+    </p>
+    <p>
+    <h2>{% trans from "game" %}recently_played.title{% endtrans %}</h2>
+    {% for game in games.recentlyPlayed %}
+        {% include '_modules/game/recentlyPlayedOverview.html.twig' with {'game': game } %}
+    {% endfor %}
+    </p>
 {% endblock %}
