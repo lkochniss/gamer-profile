@@ -57,7 +57,23 @@ class GameRepository extends ServiceEntityRepository
     }
 
     /**
+     * @param int $number
+     * @return array
+     */
+    public function getLeastUpdatedGames(int $number): array
+    {
+        $query = $this->createQueryBuilder('game')
+            ->where('game.recentlyPlayed = 0')
+            ->orderBy('game.modifiedAt', 'ASC')
+            ->setMaxResults($number)
+            ->getQuery();
+
+        return $query->getResult();
+    }
+
+    /**
      * @param Game $game
+     * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
     public function save(Game $game): void

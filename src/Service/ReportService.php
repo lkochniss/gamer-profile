@@ -9,6 +9,7 @@ class ReportService
 {
     const NEW_GAME = 'Added %s new games';
     const UPDATED_GAME = 'Updated %s games';
+    const SKIPPED_GAME = 'Skipped %s already existing games';
     const FIND_GAME_ERROR = 'Error getting game information on %s games';
 
     /**

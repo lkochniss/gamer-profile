@@ -52,7 +52,7 @@ jobs:
           command: make lines
       - run:
           name: Mess Detector
-          command: make copypaste
+          command: make mess
       - run:
           name: PHPStan
           command: make phpstan

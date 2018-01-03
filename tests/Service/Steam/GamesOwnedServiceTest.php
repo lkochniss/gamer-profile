@@ -65,7 +65,7 @@ class GamesOwnedServiceTest extends TestCase
         $this->assertEquals($this->getRecentlyPlayedGamesArray(), $recentlyPlayedGames);
     }
 
-    public function testCreateGame(): void
+    public function testCreateOrUpdateGameWithoutExistingGame(): void
     {
         $this->setGamesOwnedSteamUserApiClientMock();
         $this->setGameInformationServiceMockWithGame();
@@ -77,7 +77,7 @@ class GamesOwnedServiceTest extends TestCase
         $this->assertEquals('N', $gamesOwnedService->createOrUpdateGame('1'));
     }
 
-    public function testUpdateGame(): void
+    public function testCreateOrUpdateGameWithExistingGame(): void
     {
         $this->setGamesOwnedSteamUserApiClientMock();
         $this->setGameInformationServiceMockWithGame();
@@ -87,6 +87,30 @@ class GamesOwnedServiceTest extends TestCase
         $gamesOwnedService->getAllMyGames();
 
         $this->assertEquals('U', $gamesOwnedService->createOrUpdateGame('1'));
+    }
+
+    public function testCreateGameIfNotExistWithoutExistingGame(): void
+    {
+        $this->setGamesOwnedSteamUserApiClientMock();
+        $this->setGameInformationServiceMockWithGame();
+        $this->setGameRepositoryMockWithoutGame();
+
+        $gamesOwnedService = $this->getGamesOwnedService();
+        $gamesOwnedService->getAllMyGames();
+
+        $this->assertEquals('N', $gamesOwnedService->createGameIfNotExist('1'));
+    }
+
+    public function testCreateGameIfNotExistWithExistingGame(): void
+    {
+        $this->setGamesOwnedSteamUserApiClientMock();
+        $this->setGameInformationServiceMockWithGame();
+        $this->setGameRepositoryMockWithGame();
+
+        $gamesOwnedService = $this->getGamesOwnedService();
+        $gamesOwnedService->getAllMyGames();
+
+        $this->assertEquals('S', $gamesOwnedService->createGameIfNotExist('1'));
     }
 
     public function testCreateOrUpdateGameFailure(): void

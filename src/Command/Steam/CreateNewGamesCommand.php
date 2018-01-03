@@ -9,9 +9,9 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
 /**
- * Class AbstractSteamCommand
+ * Class CreateNewGamesCommand
  */
-abstract class AbstractSteamCommand extends ContainerAwareCommand
+class CreateNewGamesCommand extends ContainerAwareCommand
 {
     /**
      * @var GamesOwnedService
@@ -29,20 +29,26 @@ abstract class AbstractSteamCommand extends ContainerAwareCommand
         $this->gamesOwnedService = $gamesOwnedService;
     }
 
+    protected function configure(): void
+    {
+        $this->setName('steam:create:new');
+        $this->setDescription('Creates new games based on steam');
+    }
+
     /**
-     * @param InputInterface  $input
+     * @param InputInterface $input
      * @param OutputInterface $output
      * @return int|null|void
+     * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $output->writeln(['', 'Starting:']);
-        $this->gamesOwnedService->resetRecentGames();
-        $mySteamGames = $this->getMyGames();
+        $mySteamGames = $this->gamesOwnedService->getAllMyGames();
 
         foreach ($mySteamGames as $mySteamGame) {
-            $status = $this->gamesOwnedService->createOrUpdateGame($mySteamGame['appid']);
+            $status = $this->gamesOwnedService->createGameIfNotExist($mySteamGame['appid']);
             $output->write($status);
         }
 
@@ -61,11 +67,6 @@ abstract class AbstractSteamCommand extends ContainerAwareCommand
             $output->writeln(['', 'Info: Most errors occur due to country restrictions for a game.']);
         }
     }
-
-    /**
-     * @return array
-     */
-    abstract protected function getMyGames(): array;
 
     /**
      * @return GamesOwnedService
