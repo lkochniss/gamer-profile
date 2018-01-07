@@ -5,10 +5,10 @@
             <h1 class="col">{{ entity.title }}</h1>
             <div class="col pull-right">
                 <div class="row">
-                    {% trans from "blog_post" %}posted at{% endtrans %} {{ entity.createdAt|date("m.d.Y H:i") }}
+                    {% trans from "blog_post" %}posted at{% endtrans %} {{ entity.createdAt|date("d.m.Y H:i") }}
                 </div>
                 <div class="row">
-                    {% trans from "blog_post" %}updated at{% endtrans %} {{ entity.modifiedAt|date("m.d.Y H:i") }}
+                    {% trans from "blog_post" %}updated at{% endtrans %} {{ entity.modifiedAt|date("d.m.Y H:i") }}
                 </div>
             </div>
         </div>
