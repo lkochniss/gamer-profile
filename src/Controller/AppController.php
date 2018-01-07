@@ -20,7 +20,7 @@ class AppController extends Controller
         return $this->render('homepage/index.html.twig', array(
             'games' => [
                 'recentlyPlayed' => $gameRepository->getRecentlyPlayedGames(),
-                'mostPlayed'  =>  $gameRepository->getMostPlayedGames(5)
+                'mostPlayed'  =>  $gameRepository->getMostPlayedGames(9)
             ]
         ));
     }
