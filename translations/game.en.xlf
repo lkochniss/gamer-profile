@@ -4,7 +4,7 @@
         <body>
             <trans-unit id="most_played.title">
                 <source>most_played.title</source>
-                <target>Top 5 Most Played Games</target>
+                <target>Most Played Games</target>
             </trans-unit>
              <trans-unit id="recently_played.title">
                 <source>recently_played.title</source>

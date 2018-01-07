@@ -84,7 +84,7 @@ class GamesOwnedService
         if (is_null($gameEntity)) {
             $status = $this->createNewGame($steamAppId);
         } else {
-            $this->reportService->addEntryToList('Skipped ' . $gameEntity->getName(), ReportService::SKIPPED_GAME);
+            $this->reportService->addEntryToList($gameEntity->getName(), ReportService::SKIPPED_GAME);
             $status = 'S';
         }
 
@@ -125,7 +125,7 @@ class GamesOwnedService
             $gameEntity->setHeaderImagePath($gameArray['header_image']);
             $gameEntity->setSteamAppId($steamAppId);
             $gameEntity->setModifiedAt();
-            $this->reportService->addEntryToList('Updated game ' . $gameEntity->getName(), ReportService::UPDATED_GAME);
+            $this->reportService->addEntryToList($gameEntity->getName(), ReportService::UPDATED_GAME);
             $this->persistGame($gameEntity);
             $status = 'U';
         } else {
@@ -206,7 +206,7 @@ class GamesOwnedService
             $gameEntity->setName($gameArray['name']);
             $gameEntity->setHeaderImagePath($gameArray['header_image']);
             $gameEntity->setSteamAppId($steamAppId);
-            $this->reportService->addEntryToList('New game ' . $gameEntity->getName(), ReportService::NEW_GAME);
+            $this->reportService->addEntryToList($gameEntity->getName(), ReportService::NEW_GAME);
             $this->persistGame($gameEntity);
             $status = 'N';
         } else {

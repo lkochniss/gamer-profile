@@ -62,7 +62,7 @@ class UpdateOldestGamesCommand extends ContainerAwareCommand
 
         $updates = $this->gamesOwnedService->getUpdates();
         if (!empty($updates)) {
-            $output->writeln(['', 'Following Steam AppIDs were updated']);
+            $output->writeln(['', 'Following Steam Games were updated']);
             foreach ($updates as $update) {
                 $output->writeln('- '. $update);
             }

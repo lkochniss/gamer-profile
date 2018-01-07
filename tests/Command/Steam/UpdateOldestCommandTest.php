@@ -60,7 +60,8 @@ class UpdateOldestCommandTest extends KernelTestCase
         $commandTester->execute([]);
 
         $output = $commandTester->getDisplay();
-        $this->assertContains('Updated 1 games', $output);
+        $this->assertContains('Following Steam Games were updated', $output);
+        $this->assertContains('Demo Game', $output);
     }
 
     private function addCommandToKernel(): void
@@ -79,8 +80,8 @@ class UpdateOldestCommandTest extends KernelTestCase
             ->willReturn('U');
 
         $this->gamesOwnedServiceMock->expects($this->any())
-            ->method('getSummary')
-            ->willReturn([ReportService::UPDATED_GAME => 1]);
+            ->method('getUpdates')
+            ->willReturn([ReportService::UPDATED_GAME => 'Demo Game']);
     }
 
     private function setGameRepositoryMock():void
