@@ -124,6 +124,7 @@ class GamesOwnedService
             $gameEntity->setName($gameArray['name']);
             $gameEntity->setHeaderImagePath($gameArray['header_image']);
             $gameEntity->setSteamAppId($steamAppId);
+            $gameEntity->setModifiedAt();
             $this->reportService->addEntryToList('Updated game ' . $gameEntity->getName(), ReportService::UPDATED_GAME);
             $this->persistGame($gameEntity);
             $status = 'U';
