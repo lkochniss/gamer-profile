@@ -36,13 +36,19 @@ analyse:
 
 # Docker Compose
 build:
+	make stop
 	docker-compose build
+	make up
+up:
+	docker-compose up -d
 start:
 	docker-compose start
 stop:
 	docker-compose stop
-enter:
+enter-php:
 	docker-compose exec php sh
+enter-webpack:
+	docker-compose exec webpack sh
 ps:
 	docker-compose ps
 
@@ -66,8 +72,7 @@ composer:
 copy-environment:
 	cp .env.dist .env
 install:
-	make build
-	make start
 	make composer
+	make copy-docker-compose
+	make build
 	make copy-environment
-	make rebuild

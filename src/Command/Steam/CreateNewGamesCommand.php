@@ -6,18 +6,13 @@ use App\Service\Steam\GamesOwnedService;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Style\SymfonyStyle;
 
 /**
- * Class UpdateRecentlyPlayedGamesCommand
+ * Class CreateNewGamesCommand
  */
-class UpdateRecentlyPlayedGamesCommand extends ContainerAwareCommand
+class CreateNewGamesCommand extends ContainerAwareCommand
 {
-    protected function configure(): void
-    {
-        $this->setName('steam:update:recent');
-        $this->setDescription('Synchronizes local game information with recently played steam games');
-    }
-
     /**
      * @var GamesOwnedService
      */
@@ -34,6 +29,12 @@ class UpdateRecentlyPlayedGamesCommand extends ContainerAwareCommand
         $this->gamesOwnedService = $gamesOwnedService;
     }
 
+    protected function configure(): void
+    {
+        $this->setName('steam:create:new');
+        $this->setDescription('Creates new games based on steam');
+    }
+
     /**
      * @param InputInterface $input
      * @param OutputInterface $output
@@ -44,15 +45,14 @@ class UpdateRecentlyPlayedGamesCommand extends ContainerAwareCommand
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $output->writeln(['', 'Starting:']);
-        $this->gamesOwnedService->resetRecentGames();
-        $mySteamGames = $this->getGamesOwnedService()->getMyRecentlyPlayedGames();
+        $mySteamGames = $this->gamesOwnedService->getAllMyGames();
 
         foreach ($mySteamGames as $mySteamGame) {
-            $status = $this->gamesOwnedService->createOrUpdateGame($mySteamGame['appid']);
+            $status = $this->gamesOwnedService->createGameIfNotExist($mySteamGame['appid']);
             $output->write($status);
         }
 
-        $output->writeln(['', '', 'Summary:']);
+        $output->writeln(['','','Summary:']);
         $status = $this->gamesOwnedService->getSummary();
         foreach ($status as $key => $value) {
             $output->writeln('- ' . sprintf($key, $value));
@@ -62,7 +62,7 @@ class UpdateRecentlyPlayedGamesCommand extends ContainerAwareCommand
         if (!empty($errors)) {
             $output->writeln(['', 'Following Steam AppIDs threw errors while receiving information']);
             foreach ($errors as $error) {
-                $output->writeln('- ' . $error);
+                $output->writeln('- '. $error);
             }
             $output->writeln(['', 'Info: Most errors occur due to country restrictions for a game.']);
         }
@@ -75,5 +75,4 @@ class UpdateRecentlyPlayedGamesCommand extends ContainerAwareCommand
     {
         return $this->gamesOwnedService;
     }
-
 }

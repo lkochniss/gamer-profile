@@ -1,5 +1,22 @@
 {% include 'base.html.twig' %}
 {% block body %}
-   <h1>{{ entity.title }}</h1>
-    {{ entity.content| raw}}
+    <div class="container-fluid">
+        <div class="row">
+            <h1 class="col">{{ entity.title }}</h1>
+            <div class="col pull-right">
+                <div class="row">
+                    {% trans from "blog_post" %}posted at{% endtrans %} {{ entity.createdAt|date("m.d.Y H:i") }}
+                </div>
+                <div class="row">
+                    {% trans from "blog_post" %}updated at{% endtrans %} {{ entity.modifiedAt|date("m.d.Y H:i") }}
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                {{ entity.content| raw }}
+            </div>
+        </div>
+        <a href="{{ path('index') }}">{% trans from "blog_post" %}Back to Overview {% endtrans %}</a>
+    </div>
 {% endblock %}

@@ -10,7 +10,7 @@ App\Entity\BlogPost:
             type: string
             length: 100
         content:
-            type: string
+            type: text
     manyToOne:
         game:
             targetEntity: Game

@@ -1,14 +1,26 @@
+# Security
+login:
+    path:   /admin/login
+    defaults: { _controller: 'App\Controller\SecurityController::login'  }
+login_check:
+    path:   /admin/login_check
+logout:
+    path:   /admin/logout
+
+# Homepage
 index:
     path: /
     defaults: { _controller: 'App\Controller\AppController::index' }
+
+# BlogPost
 blog_list:
     path: /blog
     defaults: { _controller: 'App\Controller\BlogPostController::list' }
 blog_create:
-    path: /blog/create
+    path: /admin/blog/create
     defaults: { _controller: 'App\Controller\BlogPostController::create' }
 blog_edit:
-    path: /blog/{id}/edit
+    path: /admin/blog/{id}/edit
     defaults: { _controller: 'App\Controller\BlogPostController::edit' }
 blog_show:
     path: /blog/{id}/show
