@@ -8,3 +8,8 @@
 .logs/
 /build-artifacts/
 !build-artifacts/.gitkeep
+public/js/*
+# nodejs/npm
+node_modules/
+npm-debug.log
+yarn-error.log
