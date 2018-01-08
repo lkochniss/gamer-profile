@@ -8,13 +8,16 @@ logout:
     path:   /admin/logout
 
 # Homepage
-index:
+recentlyPlayed:
     path: /
-    defaults: { _controller: 'App\Controller\AppController::index' }
+    defaults: { _controller: 'App\Controller\AppController::recentlyPlayed' }
+mostPlayed:
+    path: /top
+    defaults: { _controller: 'App\Controller\AppController::mostPlayed' }
 
 # BlogPost
 blog_list:
-    path: /blog
+    path: /admin/blog
     defaults: { _controller: 'App\Controller\BlogPostController::list' }
 blog_create:
     path: /admin/blog/create

@@ -1,6 +1,7 @@
 {% include 'base.html.twig' %}
 {% block body %}
     <div class="container-fluid">
+        {% include '_modules/infotext.html.twig' %}
         <div class="row">
             <h1 class="col">{{ entity.title }}</h1>
             <div class="col pull-right">
@@ -17,6 +18,6 @@
                 {{ entity.content| raw }}
             </div>
         </div>
-        <a href="{{ path('index') }}">{% trans from "blog_post" %}Back to Overview {% endtrans %}</a>
+        <a href="{{ path('recentlyPlayed') }}">{% trans from "blog_post" %}Back to Overview {% endtrans %}</a>
     </div>
 {% endblock %}
