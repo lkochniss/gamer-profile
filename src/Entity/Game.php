@@ -45,6 +45,15 @@ class Game extends AbstractEntity
     private $gameSessions;
 
     /**
+     * Game constructor.
+     */
+    public function __construct()
+    {
+        $this->blogPosts = new ArrayCollection();
+        $this->gameSessions = new ArrayCollection();
+    }
+
+    /**
      * @return int
      */
     public function getId(): int
