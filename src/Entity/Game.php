@@ -3,7 +3,6 @@
 namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class Game
@@ -39,6 +38,11 @@ class Game extends AbstractEntity
      * @var ArrayCollection
      */
     private $blogPosts;
+
+    /**
+     * @var ArrayCollection
+     */
+    private $gameSessions;
 
     /**
      * @return int
@@ -160,5 +164,31 @@ class Game extends AbstractEntity
     public function getBlogPosts(): array
     {
         return $this->blogPosts->toArray();
+    }
+
+    /**
+     * @param GameSession $gameSession
+     */
+    public function addGameSession(GameSession $gameSession): void
+    {
+        if (!$this->gameSessions->contains($gameSession)) {
+            $this->gameSessions->add($gameSession);
+            $gameSession->setGame($this);
+        }
+    }
+
+    /**
+     * @param GameSession $gameSession
+     */
+    public function removeGameSession(GameSession $gameSession): void
+    {
+        $this->gameSessions->remove($gameSession);
+    }
+    /**
+     * @return array
+     */
+    public function getGameSessions(): array
+    {
+        return $this->gameSessions->toArray();
     }
 }

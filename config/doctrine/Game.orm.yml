@@ -29,6 +29,10 @@ App\Entity\Game:
           blogPosts:
               targetEntity: BlogPost
               mappedBy: game
+          gameSessions:
+              targetEntity: GameSession
+              mappedBy: game
+              cascade: ["persist", "refresh"]
     lifecycleCallbacks:
           prePersist:
                   - setModifiedAt

@@ -2,19 +2,11 @@
 <html>
     <head>
         <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>{% block title %}Welcome!{% endblock %}</title>
         {% block stylesheets %}{% endblock %}
     </head>
     <body>
-        <div class="badge badge-info">
-            This is a demo project currently under development.
-            See <a target="_blank" href="https://github.com/lkochniss/gamer-profile">lkochniss/gamer-profile</a> on
-            GitHub for current progress.
-            Want to give me feedback?
-            Send me a mail at lukas.kochniss+gamer-profile@gmail.com
-            Found a bug?
-            Use the <a target="_blank" href="https://github.com/lkochniss/gamer-profile/issues">Issue Tracker</a>
-        </div>
         {% block body %}{% endblock %}
         {% block javascripts %}
             <script src="/js/application.js"></script>

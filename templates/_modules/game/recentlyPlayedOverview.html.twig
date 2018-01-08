@@ -1,7 +1,0 @@
-<div>
-    <img src="{{ game.headerImagePath }}" alt="{{ game.name }}" class="img-responsive"/>
-</div>
-<h3>{{ game.name }}</h3>
-{% trans with {'%time%' : game.recentlyPlayed | convertRecentTime } from "game" %}played for %time% recently{% endtrans %}
-
-{% include '_modules/game/blogPosts.html.twig' with {'blogPosts': game.blogPosts} %}

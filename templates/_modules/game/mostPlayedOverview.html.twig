@@ -1,7 +1,0 @@
-<div>
-    <img src="{{ game.headerImagePath }}" alt="{{ game.name }}" class="img-responsive"/>
-</div>
-<h3>{{ game.name }}</h3>
-{% trans with {'%time%' : game.timePlayed | convertOverallTime } from "game" %}overall played for %time%{% endtrans %}
-
-{% include '_modules/game/blogPosts.html.twig' with {'blogPosts': game.blogPosts} %}

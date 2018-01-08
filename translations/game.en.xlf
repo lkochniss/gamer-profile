@@ -10,12 +10,16 @@
                 <source>recently_played.title</source>
                 <target>Recently Played Games</target>
             </trans-unit>
+            <trans-unit id="last played on %date% for %time%">
+                <source>last played on %date% for %time%</source>
+                <target>last played on %date% for %time%</target>
+            </trans-unit>
              <trans-unit id="played for %time% recently">
                 <source>played for %time% recently</source>
                 <target>played for %time% within the last two weeks</target>
             </trans-unit>
-            <trans-unit id="overall played for %time%">
-                <source>overall played for %time%</source>
+            <trans-unit id="played for %time% since purchase">
+                <source>played for %time% since purchase</source>
                 <target>played for %time% since purchase</target>
             </trans-unit>
         </body>
