@@ -18,6 +18,7 @@ class BlogPostRepository extends ServiceEntityRepository
 
     /**
      * @param BlogPost $blogPost
+     * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
     public function save(BlogPost $blogPost): void

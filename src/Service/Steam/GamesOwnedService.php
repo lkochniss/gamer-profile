@@ -3,6 +3,7 @@
 namespace App\Service\Steam;
 
 use App\Entity\Game;
+use App\Entity\GameSession;
 use App\Repository\GameRepository;
 use App\Service\ReportService;
 use App\Service\Steam\Api\UserApiClientService;
@@ -40,15 +41,16 @@ class GamesOwnedService
     /**
      * GamesOwnedService constructor.
      *
-     * @param UserApiClientService   $userApiClientService
+     * @param UserApiClientService $userApiClientService
      * @param GameInformationService $gameInformationService
-     * @param GameRepository         $gameRepository
+     * @param GameRepository $gameRepository
      */
     public function __construct(
         UserApiClientService $userApiClientService,
         GameInformationService $gameInformationService,
         GameRepository $gameRepository
-    ) {
+    )
+    {
         $this->userApiClientService = $userApiClientService;
         $this->gameInformationService = $gameInformationService;
         $this->gameRepository = $gameRepository;
@@ -58,7 +60,7 @@ class GamesOwnedService
     /**
      * @return array
      */
-    public function getAllMyGames() : array
+    public function getAllMyGames(): array
     {
         return $this->getGamesFromApiEndpoint('/IPlayerService/GetOwnedGames/v0001/');
     }
@@ -66,7 +68,7 @@ class GamesOwnedService
     /**
      * @return array
      */
-    public function getMyRecentlyPlayedGames() : array
+    public function getMyRecentlyPlayedGames(): array
     {
         return $this->getGamesFromApiEndpoint('/IPlayerService/GetRecentlyPlayedGames/v0001/');
     }
@@ -126,6 +128,7 @@ class GamesOwnedService
             $gameEntity->setSteamAppId($steamAppId);
             $gameEntity->setModifiedAt();
             $this->reportService->addEntryToList($gameEntity->getName(), ReportService::UPDATED_GAME);
+            $gameEntity = $this->addSessionForExistingGameIfExists($gameEntity);
             $this->persistGame($gameEntity);
             $status = 'U';
         } else {
@@ -177,6 +180,43 @@ class GamesOwnedService
     }
 
     /**
+     * @param Game $game
+     * @return Game
+     */
+    private function addSessionForNewGameIfExists(Game $game)
+    {
+        if (
+            array_key_exists('playtime_2weeks', $this->myGames[$game->getSteamAppId()]) &&
+            $this->myGames[$game->getSteamAppId()]['playtime_forever'] === $this->myGames[$game->getSteamAppId()]['playtime_2weeks'])
+        {
+            $gameSession = new GameSession();
+            $gameSession->setDuration($this->myGames[$game->getSteamAppId()]['playtime_forever']);
+            $game->addGameSession($gameSession);
+        }
+
+        return $game;
+    }
+
+    /**
+     * @param Game $game
+     * @return Game
+     */
+    private function addSessionForExistingGameIfExists(Game $game)
+    {
+        if (
+            array_key_exists('playtime_2weeks', $this->myGames[$game->getSteamAppId()]) &&
+            $this->myGames[$game->getSteamAppId()]['playtime_2weeks'] > 0 &&
+            $diff = $this->myGames[$game->getSteamAppId()]['playtime_forever'] - $game->getTimePlayed())
+        {
+            $gameSession = new GameSession();
+            $gameSession->setDuration($diff);
+            $game->addGameSession($gameSession);
+        }
+
+        return $game;
+    }
+
+    /**
      * @param string $apiEndpoint
      * @return array
      */
@@ -207,6 +247,7 @@ class GamesOwnedService
             $gameEntity->setHeaderImagePath($gameArray['header_image']);
             $gameEntity->setSteamAppId($steamAppId);
             $this->reportService->addEntryToList($gameEntity->getName(), ReportService::NEW_GAME);
+            $gameEntity = $this->addSessionForNewGameIfExists($gameEntity);
             $this->persistGame($gameEntity);
             $status = 'N';
         } else {
