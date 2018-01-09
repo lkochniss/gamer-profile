@@ -1,23 +1,19 @@
 {% include 'base.html.twig' %}
 {% block body %}
-<div class="container embed-responsive">
-    {% include '_modules/infotext.html.twig' %}
-    {% include '_modules/navigation.html.twig' %}
-    <div class="gamer-profile-recently-played">
-        <h2>{% trans from "game" %}recently_played.title{% endtrans %}</h2>
-        <hr/>
-        {% for key, game in games %}
-            {% if key % 2 == 0 %}
-                <div class="row">
-            {% endif %}
-            <div class="col-lg-6 col-md col-sm">
-                {% include '_modules/game/gameDetailCard.html.twig' with {'game': game } %}
+<div class="container embed-responsive gamer-profile-recently-played">
+    <h2>{% trans from "game" %}recently_played.title{% endtrans %}</h2>
+    <hr/>
+    {% for key, game in games %}
+        {% if key % 2 == 0 %}
+            <div class="row top-buffer">
+        {% endif %}
+        <div class="col-lg-6 col-md col-sm">
+            {% include '_modules/gameDetailCard.html.twig' with {'game': game } %}
+        </div>
+        {% if key % 2 == 1 %}
             </div>
-            {% if key % 2 == 1 %}
-                </div>
-            {% endif %}
-        {% endfor %}
-        {% include '_modules/filler.html.twig' with {'entity': games } %}
-    </div>
+        {% endif %}
+    {% endfor %}
+    {% include '_modules/filler.html.twig' with {'entity': games } %}
 </div>
 {% endblock %}

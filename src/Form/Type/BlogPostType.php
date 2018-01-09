@@ -33,7 +33,12 @@ class BlogPostType extends AbstractType
                 )
             )
             ->add('submit',
-                SubmitType::class
+                SubmitType::class,
+                [
+                    'attr' => [
+                        'class' => 'btn-success'
+                    ]
+                ]
             );
     }
 

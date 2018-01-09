@@ -1,8 +1,46 @@
 {% include 'base.html.twig' %}
+ {% block stylesheets %}
+ {% endblock %}
 {% block body %}
-    {{ form_start(form) }}
-        {{ form_row(form.title) }}
-        {{ form_row(form.content) }}
-        {{ form_row(form.game) }}
-    {{ form_end(form) }}
+    <div class="container">
+        {% if  app.request.get('_route') ends with '_edit' %}
+            <div class="row">
+                <div class="col text-right">
+                    <a href="{{ path('blog_show', {'id' : entity.id }) }}">{% trans from "blog_post" %}show{% endtrans %} </a>
+                </div>
+            </div>
+        {% endif %}
+        {{ form_start(form) }}
+        <div class="row">
+            <div class="col">
+                {{ form_label(form.title) }} <br/>
+                {{ form_widget(form.title) }}
+            </div>
+            <div class="col">
+                {{ form_row(form.game) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                {{ form_widget(form.content) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                {{ form_row(form.submit) }}
+            </div>
+        </div>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}
+{% block javascripts %}
+    <script src="https://cdn.ckeditor.com/4.8.0/standard/ckeditor.js"></script>
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $('#blog_post_game').select2();
+
+            CKEDITOR.replace('blog_post_content');
+        });
+    </script>
 {% endblock %}

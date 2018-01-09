@@ -1,0 +1,36 @@
+<ul class="list-group">
+    <h3 class="list-group-item">{{ game.name }}</h3>
+    <img src="{{ game.headerImagePath }}" alt="{{ game.name }}" class="img-fluid list-group-item"/>
+    <h4 class="list-group-item">{% trans from "blog_post" %}Statistics{% endtrans %}</h4>
+    {% set lastSession = game.gameSessions | last %}
+
+    {% if lastSession %}
+        <li class="list-group-item">{% trans with {
+                '%date%' : lastSession.createdAt |date("d.m.Y"),
+                '%time%' : lastSession.duration |convertRecentTime
+                } from "game" %}
+                last played on %date% for %time%
+            {% endtrans %}
+        </li>
+    {% endif %}
+    <li class="list-group-item">{% trans with {'%time%' : game.recentlyPlayed | convertRecentTime } from "game" %}played for %time% recently{% endtrans %}</li>
+    <li class="list-group-item">{% trans with {'%time%' : game.timePlayed | convertOverallTime } from "game" %}played for %time% since purchase{% endtrans %}</li>
+    {% if game.blogPosts|length > 0 %}
+        <div class="list-group-item">
+            <h4 class="float-left">{% trans from "blog_post" %}Latest Blogposts{% endtrans %}</h4>
+            <div class="text-right">
+                {% trans from "blog_post" %}posted at{% endtrans %}
+            </div>
+        </div>
+
+        {% for post in game.blogPosts | reverse | slice(0, 3) %}
+            <div class="list-group-item">
+                <a class="float-left" href="{{ path('blog_show', {'id':  post.id }) }}">{{ post.title }}</a>
+                <div class="text-right">
+                    {{ post.createdAt|date("d.m.Y H:i") }}
+                </div>
+            </div>
+        {% endfor %}
+    {% endif %}
+</ul>
+
