@@ -12,15 +12,15 @@
             </trans-unit>
              <trans-unit id="posted-at">
                 <source>posted at</source>
-                <target>posted at</target>
+                <target>posted at:</target>
+            </trans-unit>
+             <trans-unit id="posted-on">
+                <source>posted on</source>
+                <target>posted on:</target>
             </trans-unit>
             <trans-unit id="updated-at">
                 <source>updated at</source>
-                <target>updated at</target>
-            </trans-unit>
-            <trans-unit id="back-to-overview">
-                <source>Back to Overview</source>
-                <target>Back to Overview</target>
+                <target>updated at:</target>
             </trans-unit>
         </body>
     </file>

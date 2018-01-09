@@ -12,7 +12,7 @@
             </trans-unit>
             <trans-unit id="last played on %date% for %time%">
                 <source>last played on %date% for %time%</source>
-                <target>last played on %date% for %time%</target>
+                <target>last sessions played on %date% for %time%</target>
             </trans-unit>
              <trans-unit id="played for %time% recently">
                 <source>played for %time% recently</source>
