@@ -9,6 +9,7 @@
 /build-artifacts/
 !build-artifacts/.gitkeep
 public/js/*
+public/css/*
 # nodejs/npm
 node_modules/
 npm-debug.log
