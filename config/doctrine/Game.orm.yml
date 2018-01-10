@@ -14,6 +14,9 @@ App\Entity\Game:
             type: string
             nullable: false
             length: 100
+        description:
+            type: text
+            nullable: true
         timePlayed:
             column: time_played
             type: integer
@@ -25,6 +28,10 @@ App\Entity\Game:
         headerImagePath:
             column: header_image_path
             type: string
+        boughtAt:
+            column: bought_at
+            type: datetime
+            nullable: true
     oneToMany:
           blogPosts:
               targetEntity: BlogPost

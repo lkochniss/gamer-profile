@@ -15,7 +15,7 @@ security:
             security: false
         backend:
             anonymous: ~
-            pattern: ^/admin/
+            pattern: ^/admin
             form_login:
                 login_path: /admin/login
                 check_path: /admin/login_check

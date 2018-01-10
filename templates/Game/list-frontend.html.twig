@@ -1,0 +1,35 @@
+{% include 'base.html.twig' %}
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-6">
+                {% trans from 'game' %}name{% endtrans %}
+            </div>
+            <div class="col">
+                {% trans from 'game' %}number of sessions{% endtrans %}
+            </div>
+            <div class="col">
+                {% trans from 'game' %}number of blogposts{% endtrans %}
+            </div>
+            <div class="col"></div>
+        </div>
+        <hr/>
+        {% for game in entities %}
+            <div class="row">
+                <div class="col-6">
+                    {{ game.name }}
+                </div>
+                <div class="col">
+                    {{ game.gameSessions|length }}
+                </div>
+                <div class="col">
+                    {{ game.blogPosts|length }}
+                </div>
+                <div class="col">
+                    <a class="float-right"
+                       href="{{ path('game_show', {'id': game.id}) }}">{% trans from 'game' %}show{% endtrans %}</a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

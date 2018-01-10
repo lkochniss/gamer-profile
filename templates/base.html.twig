@@ -19,6 +19,14 @@
     <script src="/js/application.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/js/select2.js"></script>
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            var image = $('img');
+            image.addClass('img-fluid');
+            image.removeAttr('style');
+        });
+    </script>
 {% endblock %}
 </body>
 </html>

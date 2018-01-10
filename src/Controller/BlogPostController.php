@@ -4,12 +4,26 @@ namespace App\Controller;
 
 use App\Entity\BlogPost;
 use App\Form\Type\BlogPostType;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Class BlogPostController
  */
 class BlogPostController extends AbstractCrudController
 {
+    /**
+     * @return Response
+     */
+    public function listBlogPostsByGame($id): Response
+    {
+        $entities = $this->getDoctrine()->getRepository($this->getEntityName())->findBy(['game' => $id]);
+        return $this->render(
+            sprintf('%s/list-frontend.html.twig', $this->getTemplateBasePath()),
+            array(
+                'entities' => $entities,
+            )
+        );
+    }
 
     /**
      * @return BlogPost

@@ -75,5 +75,4 @@ class UpdateRecentlyPlayedGamesCommand extends ContainerAwareCommand
     {
         return $this->gamesOwnedService;
     }
-
 }

@@ -20,6 +20,11 @@ class Game extends AbstractEntity
     private $name;
 
     /**
+     * @var string
+     */
+    private $description;
+
+    /**
      * @var int
      */
     private $recentlyPlayed;
@@ -33,6 +38,11 @@ class Game extends AbstractEntity
      * @var string
      */
     private $headerImagePath;
+
+    /**
+     * @var \DateTime
+     */
+    private $boughtAt;
 
     /**
      * @var ArrayCollection
@@ -102,6 +112,22 @@ class Game extends AbstractEntity
     }
 
     /**
+     * @return string
+     */
+    public function getDescription(): string
+    {
+        return $this->description ?: '';
+    }
+
+    /**
+     * @param string|null $description
+     */
+    public function setDescription(?string $description): void
+    {
+        $this->description = $description;
+    }
+
+    /**
      * @return int
      */
     public function getRecentlyPlayed(): int
@@ -147,6 +173,22 @@ class Game extends AbstractEntity
     public function setHeaderImagePath(string $headerImagePath): void
     {
         $this->headerImagePath = $headerImagePath;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getBoughtAt(): \DateTime
+    {
+        return $this->boughtAt? $this->boughtAt: new \DateTime();
+    }
+
+    /**
+     * @param \DateTime $boughtAt
+     */
+    public function setBoughtAt(\DateTime $boughtAt): void
+    {
+        $this->boughtAt = $boughtAt;
     }
 
     /**

@@ -22,6 +22,10 @@
                 <source>played for %time% since purchase</source>
                 <target>played for %time% since purchase</target>
             </trans-unit>
+            <trans-unit id="played for %time% with %date%">
+                <source>played for %time% with %date%</source>
+                <target>played for %time% since %date%</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

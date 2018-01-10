@@ -2,50 +2,37 @@
 
 namespace App\Form\Type;
 
-use App\Entity\BlogPost;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use App\Entity\Game;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class BlogPostType extends AbstractType
+class GameType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
             ->add(
-                'title',
-                TextType::class,
-                [
-                    'attr' =>
-                        [
-                            'class' => 'form-control'
-                        ]
-                ]
-            )
-            ->add(
-                'content',
+                'description',
                 TextareaType::class,
                 [
-                    'attr' =>
-                        [
-                            'class' => 'form-control'
-                        ]
+                    'attr' => [
+                        'class' => 'form-controll'
+                    ]
                 ]
             )
             ->add(
-                'game',
-                EntityType::class,
+                'boughtAt',
+                DateType::class,
                 [
-                    'class' => 'App\Entity\Game',
-                    'choice_label' => 'name',
-                    'attr' =>
-                        [
-                            'class' => 'form-control'
-                        ]
+                    'years' => range(2000, 2100),
+                    'format' => 'dMy',
+                    'attr' => [
+                        'class' => 'form-controll'
+                    ]
                 ]
             )
             ->add(
@@ -62,7 +49,7 @@ class BlogPostType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => BlogPost::class,
+            'data_class' => Game::class,
         ]);
     }
 }
