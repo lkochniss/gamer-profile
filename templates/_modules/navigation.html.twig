@@ -1,14 +1,21 @@
 <nav class="navbar navbar-expand-lg navbar-expand-md navbar-light bg-faded" role="navigation">
-    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
             <li class="nav-item active">
-                <a class="nav-link" href="{{ path('recentlyPlayed') }}">{% trans from "navigation" %}recently_played{% endtrans %}</a>
+                <a class="nav-link"
+                   href="{{ path('recentlyPlayed') }}">{% trans from "navigation" %}recently_played{% endtrans %}</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ path('mostPlayed') }}">{% trans from "navigation" %}most_played{% endtrans %}</a>
+                <a class="nav-link"
+                   href="{{ path('mostPlayed') }}">{% trans from "navigation" %}most_played{% endtrans %}</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link"
+                   href="{{ path('game_frontend_list') }}">{% trans from "navigation" %}game_list{% endtrans %}</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" target="_blank" href="https://steamcommunity.com/id/SatAnNorris">
@@ -18,3 +25,6 @@
         </ul>
     </div>
 </nav>
+{% if is_granted('ROLE_ADMIN') %}
+    {% include '_modules/admin-navigation.html.twig' %}
+{% endif %}

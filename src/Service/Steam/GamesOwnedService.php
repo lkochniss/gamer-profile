@@ -49,8 +49,7 @@ class GamesOwnedService
         UserApiClientService $userApiClientService,
         GameInformationService $gameInformationService,
         GameRepository $gameRepository
-    )
-    {
+    ) {
         $this->userApiClientService = $userApiClientService;
         $this->gameInformationService = $gameInformationService;
         $this->gameRepository = $gameRepository;
@@ -185,10 +184,9 @@ class GamesOwnedService
      */
     private function addSessionForNewGameIfExists(Game $game)
     {
-        if (
-            array_key_exists('playtime_2weeks', $this->myGames[$game->getSteamAppId()]) &&
-            $this->myGames[$game->getSteamAppId()]['playtime_forever'] === $this->myGames[$game->getSteamAppId()]['playtime_2weeks'])
-        {
+        if (array_key_exists('playtime_2weeks', $this->myGames[$game->getSteamAppId()]) &&
+            $this->myGames[$game->getSteamAppId()]['playtime_forever'] ===
+            $this->myGames[$game->getSteamAppId()]['playtime_2weeks']) {
             $gameSession = new GameSession();
             $gameSession->setDuration($this->myGames[$game->getSteamAppId()]['playtime_forever']);
             $game->addGameSession($gameSession);
@@ -203,11 +201,9 @@ class GamesOwnedService
      */
     private function addSessionForExistingGameIfExists(Game $game)
     {
-        if (
-            array_key_exists('playtime_2weeks', $this->myGames[$game->getSteamAppId()]) &&
+        if (array_key_exists('playtime_2weeks', $this->myGames[$game->getSteamAppId()]) &&
             $this->myGames[$game->getSteamAppId()]['playtime_2weeks'] > 0 &&
-            $diff = $this->myGames[$game->getSteamAppId()]['playtime_forever'] - $game->getTimePlayed())
-        {
+            $diff = $this->myGames[$game->getSteamAppId()]['playtime_forever'] - $game->getTimePlayed()) {
             $gameSession = new GameSession();
             $gameSession->setDuration($diff);
             $game->addGameSession($gameSession);

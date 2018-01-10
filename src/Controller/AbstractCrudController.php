@@ -50,7 +50,7 @@ abstract class AbstractCrudController extends Controller
             throw new NotFoundHttpException();
         }
 
-        return $this->render(
+        return $this->render(#
             sprintf('%s/show.html.twig', $this->getTemplateBasePath()),
             array(
                 'entity' => $entity
@@ -61,11 +61,25 @@ abstract class AbstractCrudController extends Controller
     /**
      * @return Response
      */
-    public function list(): Response
+    public function listFrontend(): Response
     {
         $entities = $this->getDoctrine()->getRepository($this->getEntityName())->findAll();
         return $this->render(
-            sprintf('%s/list.html.twig', $this->getTemplateBasePath()),
+            sprintf('%s/list-frontend.html.twig', $this->getTemplateBasePath()),
+            array(
+                'entities' => $entities,
+            )
+        );
+    }
+
+    /**
+     * @return Response
+     */
+    public function listBackend(): Response
+    {
+        $entities = $this->getDoctrine()->getRepository($this->getEntityName())->findAll();
+        return $this->render(
+            sprintf('%s/list-backend.html.twig', $this->getTemplateBasePath()),
             array(
                 'entities' => $entities,
             )

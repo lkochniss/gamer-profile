@@ -15,10 +15,30 @@ mostPlayed:
     path: /top
     defaults: { _controller: 'App\Controller\AppController::mostPlayed' }
 
+# Game
+game_admin_list:
+    path: /admin/game
+    defaults: { _controller: 'App\Controller\GameController::listBackend' }
+game_frontend_list:
+    path: /game
+    defaults: { _controller: 'App\Controller\GameController::listFrontend' }
+game_create:
+    path: /admin/game/create
+    defaults: { _controller: 'App\Controller\GameController::create' }
+game_edit:
+    path: /admin/game/{id}/edit
+    defaults: { _controller: 'App\Controller\GameController::edit' }
+game_show:
+    path: /game/{id}/show
+    defaults: { _controller: 'App\Controller\GameController::show' }
+
 # BlogPost
-blog_list:
-    path: /admin/blog
-    defaults: { _controller: 'App\Controller\BlogPostController::list' }
+blog_admin_list:
+    path: /admin
+    defaults: { _controller: 'App\Controller\BlogPostController::listBackend' }
+blog_frontend_list:
+    path: /game/{id}/blog
+    defaults: { _controller: 'App\Controller\BlogPostController::listBlogPostsByGame' }
 blog_create:
     path: /admin/blog/create
     defaults: { _controller: 'App\Controller\BlogPostController::create' }

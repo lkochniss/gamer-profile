@@ -1,0 +1,30 @@
+{% include 'base.html.twig' %}
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-6">
+                {% trans from 'blog_post' %}Game{% endtrans %}
+            </div>
+            <div class="col">
+                {% trans from 'blog_post' %}title{% endtrans %}
+            </div>
+            <div class="col">
+                {% trans from 'blog_post' %}modified at{% endtrans %}
+            </div>
+        </div>
+        <hr/>
+        {% for post in entities %}
+            <div class="row">
+                <div class="col-6">
+                    {{ post.game.name }}
+                </div>
+                <div class="col">
+                    {{ post.title }}
+                </div>
+                <div class="col">
+                    {{ post.modifiedAt|date('d.m.Y H:i') }}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

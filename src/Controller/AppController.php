@@ -16,7 +16,8 @@ class AppController extends Controller
      * @param GameRepository $gameRepository
      * @return Response
      */
-    public function recentlyPlayed(GameRepository $gameRepository) {
+    public function recentlyPlayed(GameRepository $gameRepository)
+    {
         return $this->render('homepage/recentlyPlayed.html.twig', array(
             'games' => $gameRepository->getRecentlyPlayedGames()
         ));
@@ -26,7 +27,8 @@ class AppController extends Controller
      * @param GameRepository $gameRepository
      * @return Response
      */
-    public function mostPlayed(GameRepository $gameRepository) {
+    public function mostPlayed(GameRepository $gameRepository)
+    {
         return $this->render('homepage/mostPlayed.html.twig', array(
             'games' => $gameRepository->getMostPlayedGames(9)
         ));

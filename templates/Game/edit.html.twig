@@ -1,0 +1,92 @@
+{% include 'base.html.twig' %}
+{% block body %}
+    <div class="container">
+        {% if  app.request.get('_route') ends with '_edit' %}
+            <div class="row">
+                <div class="col text-right">
+                    <a href="{{ path('game_show', {'id' : entity.id }) }}">{% trans from "game" %}show{% endtrans %} </a>
+                </div>
+            </div>
+        {% endif %}
+        <div class="row">
+            <div class="col text-right">
+                {% trans from "game" %}Game{% endtrans %}:
+            </div>
+            <div class="col">
+                {{ entity.name }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col text-right">
+                {% trans from "game" %}SteamAppId{% endtrans %}:
+            </div>
+            <div class="col">
+                {{ entity.steamAppId }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col text-right">
+                {% trans from "game" %}created at{% endtrans %}:
+            </div>
+            <div class="col">
+                {{ entity.createdAt|date("d.m.Y H:i") }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col text-right">
+                {% trans from "game" %}modified at{% endtrans %}:
+            </div>
+            <div class="col">
+                {{ entity.modifiedAt|date("d.m.Y H:i") }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col text-right">
+                {% trans from "game" %}number of sessions{% endtrans %}:
+            </div>
+            <div class="col">
+                {{ entity.gameSessions|length }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col text-right">
+                {% trans from "game" %}number of blogposts{% endtrans %}:
+            </div>
+            <div class="col">
+                {{ entity.blogPosts|length }}
+            </div>
+        </div>
+        {{ form_start(form) }}
+        <div class="row">
+            <div class="col text-right">
+                {% trans from "game" %}bought at{% endtrans %}:
+            </div>
+            <div class="col">
+                {{ form_widget(form.boughtAt) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                {{ form_widget(form.description) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                {{ form_row(form.submit) }}
+            </div>
+        </div>
+        {{ form_end(form) }}
+    </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    <script src="https://cdn.ckeditor.com/4.8.0/standard/ckeditor.js"></script>
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $('#game_boughtAt_year').select2();
+
+            CKEDITOR.replace('game_description');
+        });
+    </script>
+{% endblock %}
