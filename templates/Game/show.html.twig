@@ -1,38 +1,25 @@
 {% include 'base.html.twig' %}
 {% block body %}
-    <div class="container embed-responsive">
-        <div class="row">
-            <h1 class="col">{{ entity.name }}</h1>
+<div class="container embed-responsive">
+    <div class="row">
+        <div class="col">
+            <h1>{{ entity.name }}</h1>
+            <hr/>
+            <img src='{{ entity.headerImagePath }}' alt='{{ entity.name }}' class='img-fluid float-right'/>
+            {{ entity.description|raw }}
         </div>
-        <hr/>
-        <div class="row">
-            <h3 class="col">{% trans from 'game' %}player stats{% endtrans %}</h3>
-        </div>
-        <hr/>
-        {% if entity.blogPosts| length > 0 %}
-            <div class="row">
-                <h3 class="col">{% trans from 'game' %}latest posts{% endtrans %}</h3>
-            </div>
-            <div class="row">
-                {% for post in entity.blogPosts | reverse | slice(0,10) %}
-                    <div class='col'>
-                        <a class='float-left' href='{{ path('blog_show', {'id':  post.id }) }}'>{{ post.title }}</a>
-                        <div class='text-right'>
-                            {{ post.createdAt|date('d.m.Y H:i') }}
-                        </div>
-                    </div>
-                {% endfor %}
-            </div>
-        {% endif %}
-        {% if entity.blogPosts| length > 10 %}
-            <div class="row">
-                <div class="col">
-                    <a class="btn btn-block btn-light"
-                       href="{{ path('blog_frontend_list', {'id': entity.id}) }}">{% trans from 'game' %}show all{% endtrans %}</a>
-                </div>
-            </div>
-        {% endif %}
     </div>
+    <hr/>
+    <h3>{% trans from 'game' %}Statistics{% endtrans %}</h3>
+    {% include '_modules/last-session.html.twig' with { game: entity, hasRows: true } %}
+    {% include '_modules/shortest-session.html.twig' with { game: entity, hasRows: true } %}
+    {% include '_modules/average-session.html.twig' with { game: entity, hasRows: true } %}
+    {% include '_modules/longest-session.html.twig' with { game: entity, hasRows: true } %}
+    {% include '_modules/recently-played.html.twig' with { game: entity, hasRows: true } %}
+    {% include '_modules/overall-played.html.twig' with { game: entity, hasRows: true } %}
+    <hr />
+    {% include '_modules/blogpost-list.html.twig' with {game: entity} %}
+</div>
 {% endblock %}
 {% block javascripts %}
 {% endblock %}

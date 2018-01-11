@@ -1,0 +1,17 @@
+{% set row='' %}
+{% set div='' %}
+
+{% if hasRows is defined and hasRows == true %}
+    {% set div='row' %}
+    {% set div='col' %}
+{% endif %}
+
+{% if hasItemList is defined and hasItemList == true %}
+    {% set div='list-group-item' %}
+{% endif %}
+
+<div class="{{ row }}">
+    <div class='{{ div }}'>
+        {% trans with {'%time%' : game.recentlyPlayed | convertRecentTime } from 'game' %}played for %time% recently{% endtrans %}
+    </div>
+</div>

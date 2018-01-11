@@ -1,24 +1,10 @@
 <ul class='list-group'>
-    <h3 class='list-group-item'>{{ game.name }}</h3>
+    <h3 class='list-group-item'><a href="{{ path('game_show', {'id': game.id}) }}">{{ game.name }}</a></h3>
     <img src='{{ game.headerImagePath }}' alt='{{ game.name }}' class='img-fluid list-group-item'/>
     <h4 class='list-group-item'>{% trans from 'blog_post' %}Statistics{% endtrans %}</h4>
-    {% set lastSession = game.gameSessions | last %}
-
-    {% if lastSession %}
-        <li class='list-group-item'>{% trans with {
-                '%date%' : lastSession.createdAt |date('d.m.Y'),
-                '%time%' : lastSession.duration |convertRecentTime
-                } from 'game' %}
-                last played on %date% for %time%
-            {% endtrans %}
-        </li>
-    {% endif %}
-    <li class='list-group-item'>{% trans with {'%time%' : game.recentlyPlayed | convertRecentTime } from 'game' %}played for %time% recently{% endtrans %}</li>
-    {% if game.boughtAt|date('d.m.Y') == '31.12.2000'%}
-        <li class='list-group-item'>{% trans with {'%time%' : game.timePlayed | convertOverallTime } from 'game' %}played for %time% since purchase{% endtrans %}</li>
-    {% else %}
-        <li class='list-group-item'>{% trans with {'%time%' : game.timePlayed | convertOverallTime, '%date%' : game.boughtAt|date('d.m.Y') } from 'game' %}played for %time% with %date%{% endtrans %}</li>
-    {% endif %}
+    {% include '_modules/last-session.html.twig' with { game: game, hasItemList: true } %}
+    {% include '_modules/recently-played.html.twig' with { game: game, hasItemList: true } %}
+    {% include '_modules/overall-played.html.twig' with { game: game, hasItemList: true } %}
     {% if game.blogPosts|length > 0 %}
         <div class='list-group-item'>
             <h4 class='float-left'>{% trans from 'blog_post' %}Latest Blogposts{% endtrans %}</h4>

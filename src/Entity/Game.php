@@ -242,4 +242,12 @@ class Game extends AbstractEntity
     {
         return $this->gameSessions->toArray();
     }
+
+    /**
+     * @return GameSession|null
+     */
+    public function getLastGameSession(): ?GameSession
+    {
+        return $this->gameSessions->last()?: null;
+    }
 }
