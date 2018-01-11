@@ -1,0 +1,30 @@
+{% set row='' %}
+{% set div='' %}
+
+{% if hasRows is defined and hasRows == true %}
+    {% set div='row' %}
+    {% set div='col' %}
+{% endif %}
+
+{% if hasItemList is defined and hasItemList == true %}
+    {% set div='list-group-item' %}
+{% endif %}
+
+{% if game.gameSessions %}
+    {% set max = game.gameSessions|first.duration %}
+    {% for gameSession in game.gameSessions %}
+        {% if gameSession.duration > max %}
+            {% set max = gameSession.duration %}
+        {% endif %}
+    {% endfor %}
+
+    <div class="{{ row }}">
+        <div class='{{ div }}'>
+            {% trans with {
+                '%time%' : max |convertRecentTime
+                } from 'game' %}
+                the longest session lasted %time%
+            {% endtrans %}
+        </div>
+    </div>
+{% endif %}

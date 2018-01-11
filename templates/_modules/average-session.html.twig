@@ -1,0 +1,31 @@
+{% set row='' %}
+{% set div='' %}
+
+{% if hasRows is defined and hasRows == true %}
+    {% set div='row' %}
+    {% set div='col' %}
+{% endif %}
+
+{% if hasItemList is defined and hasItemList == true %}
+    {% set div='list-group-item' %}
+{% endif %}
+
+{% if game.gameSessions %}
+    {% set sum = 0 %}
+    {% for gameSession in game.gameSessions %}
+        {% set sum = sum + gameSession.duration %}
+    {% endfor %}
+
+    {% set average = sum / game.gameSessions|length %}
+
+    <div class="{{ row }}">
+        <div class='{{ div }}'>
+            {% trans with {
+                '%time%' : average |convertRecentTime,
+                '%count%' : game.gameSessions|length
+                } from 'game' %}
+                average played for %time% in %count% sessions
+            {% endtrans %}
+        </div>
+    </div>
+{% endif %}

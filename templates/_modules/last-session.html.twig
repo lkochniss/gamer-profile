@@ -1,0 +1,25 @@
+{% set row='' %}
+{% set div='' %}
+
+{% if hasRows is defined and hasRows == true %}
+    {% set div='row' %}
+    {% set div='col' %}
+{% endif %}
+
+{% if hasItemList is defined and hasItemList == true %}
+    {% set div='list-group-item' %}
+{% endif %}
+
+{% set lastSession = game.gameSessions | last %}
+{% if lastSession %}
+    <div class="{{ row }}">
+        <div class='{{ div }}'>
+            {% trans with {
+                '%date%' : lastSession.createdAt |date('d.m.Y'),
+                '%time%' : lastSession.duration |convertRecentTime
+                } from 'game' %}
+                last played on %date% for %time%
+            {% endtrans %}
+        </div>
+    </div>
+{% endif %}
