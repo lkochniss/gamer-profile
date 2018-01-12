@@ -1,0 +1,6 @@
+blog_post_show:
+    path: /blog/{id}/show
+    defaults: { _controller: 'App\Controller\BlogPostController::show' }
+blog_post_list_frontend:
+    path: /game/{id}/blog
+    defaults: { _controller: 'App\Controller\BlogPostController::listBlogPostsByGame' }

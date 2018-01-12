@@ -1,0 +1,9 @@
+blog_post_list_backend:
+    path: /
+    defaults: { _controller: 'App\Controller\BlogPostController::listBackend' }
+blog_post_create:
+    path: /blog/create
+    defaults: { _controller: 'App\Controller\BlogPostController::create' }
+blog_post_edit:
+    path: /blog/{id}/edit
+    defaults: { _controller: 'App\Controller\BlogPostController::edit' }

@@ -1,0 +1,62 @@
+{% include 'base.html.twig' %}
+ {% block stylesheets %}
+     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
+ {% endblock %}
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <a class="btn btn-primary float-right" href="{{ path('purchase_create') }}"> {% trans from 'purchase' %}create{% endtrans %}</a>
+            </div>
+        </div>
+        <table id="purchase-list" class="table">
+        <thead>
+        <tr>
+            <th scope="col">
+                {% trans from 'purchase' %}Game{% endtrans %}
+            </th>
+            <th scope="col">
+                {% trans from 'purchase' %}Notice{% endtrans %}
+            </th>
+            <th scope="col">
+                {% trans from 'purchase' %}Price{% endtrans %}
+            </th>
+            <th scope="col">
+                {% trans from 'purchase' %}bought at{% endtrans %}
+            </th>
+            <th scope="col"></th>
+        </tr>
+        </thead>
+            <tbody>
+        {% for purchase in entities %}
+            <tr>
+                <td scope="col">
+                    {{ purchase.game.name }}
+                </td>
+                <td scope="col">
+                    {{ purchase.notice }}
+                </td>
+                <td scope="col">
+                    {{ purchase.price }} {{ purchase.currency }}
+                </td>
+                <td scope="col">
+                    {{ purchase.boughtAt|date('d.m.Y H:i') }}
+                </td>
+                <td scope="col">
+                    <a class="float-right"
+                       href="{{ path('purchase_edit', {'id': purchase.id}) }}">{% trans from 'purchase' %}edit{% endtrans %}</a>
+                </td>
+            </tr>
+        {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#purchase-list').DataTable();
+        });
+    </script>
+{% endblock %}

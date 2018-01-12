@@ -62,6 +62,6 @@ class BlogPostController extends AbstractCrudController
      */
     protected function getRoutePrefix(): string
     {
-        return 'blog';
+        return 'blog_post';
     }
 }

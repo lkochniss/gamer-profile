@@ -1,0 +1,9 @@
+game_list_backend:
+    path: /game
+    defaults: { _controller: 'App\Controller\GameController::listBackend' }
+game_create:
+    path: /game/create
+    defaults: { _controller: 'App\Controller\GameController::create' }
+game_edit:
+    path: /game/{id}/edit
+    defaults: { _controller: 'App\Controller\GameController::edit' }

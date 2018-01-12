@@ -1,0 +1,9 @@
+purchase_list:
+    path: /purchase
+    defaults: { _controller: 'App\Controller\PurchaseController::listBackend' }
+purchase_create:
+    path: /purchase/create
+    defaults: { _controller: 'App\Controller\PurchaseController::create' }
+purchase_edit:
+    path: /purchase/{id}/edit
+    defaults: { _controller: 'App\Controller\PurchaseController::edit' }

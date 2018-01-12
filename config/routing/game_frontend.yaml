@@ -1,0 +1,6 @@
+game_show:
+    path: /game/{id}/show
+    defaults: { _controller: 'App\Controller\GameController::show' }
+game_list_frontend:
+    path: /game
+    defaults: { _controller: 'App\Controller\GameController::listFrontend' }

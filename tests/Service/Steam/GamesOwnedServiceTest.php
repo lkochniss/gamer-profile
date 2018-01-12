@@ -284,6 +284,10 @@ class GamesOwnedServiceTest extends TestCase
             'name' => 'Demo game',
             'steam_appid' => 1,
             'header_image' => 'http://header.image/src.jpg',
+            'price_overview' => [
+                'currency' => 'EUR',
+                'final' => '1000'
+            ]
         ];
     }
 

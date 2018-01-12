@@ -1,0 +1,6 @@
+homepage_recently_played:
+    path: /
+    defaults: { _controller: 'App\Controller\HomepageController::recentlyPlayed' }
+homepage_most_played:
+    path: /top
+    defaults: { _controller: 'App\Controller\HomepageController::mostPlayed' }
