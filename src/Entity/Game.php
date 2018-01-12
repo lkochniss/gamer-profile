@@ -339,7 +339,6 @@ class Game extends AbstractEntity
             }else {
                 if ($purchase->getCurrency() === 'USD' && $this->currency === 'EUR'){
                     $costs += ($purchase->getPrice() * 0.824);
-                    die($costs);
                 }
                 if ($purchase->getCurrency() === 'EUR' && $this->currency === 'USD'){
                     $costs += ($purchase->getPrice() * 1.213);
