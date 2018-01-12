@@ -16,6 +16,9 @@
                 {% trans from 'purchase' %}Game{% endtrans %}
             </th>
             <th scope="col">
+                {% trans from 'purchase' %}Type{% endtrans %}
+            </th>
+            <th scope="col">
                 {% trans from 'purchase' %}Notice{% endtrans %}
             </th>
             <th scope="col">
@@ -30,8 +33,11 @@
             <tbody>
         {% for purchase in entities %}
             <tr>
+                <td scope="row">
+                    <a href="{{ path('game_edit', {id: purchase.game.id}) }}">{{ purchase.game.name }}</a>
+                </td>
                 <td scope="col">
-                    {{ purchase.game.name }}
+                    {{ purchase.type }}
                 </td>
                 <td scope="col">
                     {{ purchase.notice }}
@@ -40,7 +46,7 @@
                     {{ purchase.price }} {{ purchase.currency }}
                 </td>
                 <td scope="col">
-                    {{ purchase.boughtAt|date('d.m.Y H:i') }}
+                    {{ purchase.boughtAt|date('d.m.Y') }}
                 </td>
                 <td scope="col">
                     <a class="float-right"
