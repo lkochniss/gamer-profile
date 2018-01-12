@@ -16,7 +16,7 @@
         <div class='{{ div }}'>
             {% trans with {
                 '%date%' : lastSession.createdAt |date('d.m.Y'),
-                '%time%' : lastSession.duration |convertRecentTime
+                '%time%' : lastSession.duration |convert_recent_time
                 } from 'game' %}
                 last played on %date% for %time%
             {% endtrans %}

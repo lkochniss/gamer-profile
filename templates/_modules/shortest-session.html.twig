@@ -21,7 +21,7 @@
     <div class="{{ row }}">
         <div class='{{ div }}'>
             {% trans with {
-                '%time%' : min |convertRecentTime
+                '%time%' : min |convert_recent_time
                 } from 'game' %}
                 the shortest session lasted %time%
             {% endtrans %}

@@ -13,9 +13,9 @@
 <div class="{{ row }}">
     <div class='{{ div }}'>
         {% if game.boughtAt|date('d.m.Y') == '31.12.2000' %}
-            {% trans with {'%time%' : game.timePlayed | convertOverallTime } from 'game' %}played for %time% since purchase{% endtrans %}
+            {% trans with {'%time%' : game.timePlayed | convert_overall_time } from 'game' %}played for %time% since purchase{% endtrans %}
         {% else %}
-            {% trans with {'%time%' : game.timePlayed | convertOverallTime, '%date%' : game.boughtAt|date('d.m.Y') } from 'game' %}played for %time% with %date%{% endtrans %}
+            {% trans with {'%time%' : game.timePlayed | convert_overall_time, '%date%' : game.boughtAt|date('d.m.Y') } from 'game' %}played for %time% with %date%{% endtrans %}
         {% endif %}
     </div>
 </div>

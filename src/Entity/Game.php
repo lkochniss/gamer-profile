@@ -74,6 +74,9 @@ class Game extends AbstractEntity
      */
     public function __construct()
     {
+        $this->price = 0;
+        $this->currency = 'USD';
+
         $this->blogPosts = new ArrayCollection();
         $this->gameSessions = new ArrayCollection();
         $this->purchases = new ArrayCollection();
@@ -196,7 +199,7 @@ class Game extends AbstractEntity
      */
     public function getBoughtAt(): \DateTime
     {
-        return $this->boughtAt? $this->boughtAt: new \DateTime();
+        return $this->boughtAt ? $this->boughtAt : new \DateTime();
     }
 
     /**
@@ -208,19 +211,19 @@ class Game extends AbstractEntity
     }
 
     /**
-     * @return int
+     * @return float
      */
-    public function getPrice(): int
+    public function getPrice(): float
     {
-        return $this->price;
+        return $this->price / 100;
     }
 
     /**
-     * @param int $price
+     * @param float $price
      */
-    public function setPrice(int $price): void
+    public function setPrice(float $price): void
     {
-        $this->price = $price;
+        $this->price = intval($price * 100);
     }
 
     /**
@@ -257,6 +260,7 @@ class Game extends AbstractEntity
     {
         $this->blogPosts->remove($blogPost);
     }
+
     /**
      * @return array
      */
@@ -283,6 +287,7 @@ class Game extends AbstractEntity
     {
         $this->gameSessions->remove($gameSession);
     }
+
     /**
      * @return array
      */
@@ -296,7 +301,7 @@ class Game extends AbstractEntity
      */
     public function getLastGameSession(): ?GameSession
     {
-        return $this->gameSessions->last()?: null;
+        return $this->gameSessions->last() ?: null;
     }
 
     /**
@@ -317,51 +322,12 @@ class Game extends AbstractEntity
     {
         $this->purchases->remove($purchase);
     }
+
     /**
      * @return array
      */
     public function getPurchases(): array
     {
         return $this->purchases->toArray();
-    }
-
-    /**
-     * @return int
-     */
-    public function getOverallCosts(): int
-    {
-        $hasOwnPrice = false;
-        $costs = 0;
-
-        foreach ($this->getPurchases() as $purchase) {
-            if ($purchase->getCurrency() === $this->currency){
-                $costs += $purchase->getPrice();
-            }else {
-                if ($purchase->getCurrency() === 'USD' && $this->currency === 'EUR'){
-                    $costs += ($purchase->getPrice() * 0.824);
-                }
-                if ($purchase->getCurrency() === 'EUR' && $this->currency === 'USD'){
-                    $costs += ($purchase->getPrice() * 1.213);
-                }
-            }
-
-            if ($purchase->getType() === 'game-purchase'){
-                $hasOwnPrice = true;
-            }
-        }
-
-        if ($hasOwnPrice === false ){
-            $costs += $this->price;
-        }
-
-        return $costs;
-    }
-
-    /**
-     * @return float
-     */
-    public function getCostsPerHour(): float
-    {
-        return round($this->getOverallCosts() / ($this->timePlayed/60), 2);
     }
 }

@@ -21,7 +21,7 @@
     <div class="{{ row }}">
         <div class='{{ div }}'>
             {% trans with {
-                '%time%' : average |convertRecentTime,
+                '%time%' : average |convert_recent_time,
                 '%count%' : game.gameSessions|length
                 } from 'game' %}
                 average played for %time% in %count% sessions
