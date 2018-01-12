@@ -15,7 +15,7 @@
 
         {% for post in game.blogPosts | reverse | slice(0, 3) %}
             <div class='list-group-item'>
-                <a class='float-left' href='{{ path('blog_show', {'id':  post.id }) }}'>{{ post.title }}</a>
+                <a class='float-left' href='{{ path('blog_post_show', {'id':  post.id }) }}'>{{ post.title }}</a>
                 <div class='text-right'>
                     {{ post.createdAt|date('d.m.Y H:i') }}
                 </div>

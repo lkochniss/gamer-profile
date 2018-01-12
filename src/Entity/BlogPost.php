@@ -13,7 +13,7 @@ class BlogPost extends AbstractEntity
     private $title;
 
     /**
-     * @var
+     * @var string
      */
     private $content;
 

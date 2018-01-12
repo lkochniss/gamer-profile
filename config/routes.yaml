@@ -1,50 +1,35 @@
-# Security
-login:
-    path:   /admin/login
-    defaults: { _controller: 'App\Controller\SecurityController::login'  }
-login_check:
-    path:   /admin/login_check
-logout:
-    path:   /admin/logout
+# Admin
 
-# Homepage
-recentlyPlayed:
-    path: /
-    defaults: { _controller: 'App\Controller\AppController::recentlyPlayed' }
-mostPlayed:
-    path: /top
-    defaults: { _controller: 'App\Controller\AppController::mostPlayed' }
+## Login
+secruity_admin:
+    resource: routing/security_admin.yaml
+    prefix: /admin
 
-# Game
-game_admin_list:
-    path: /admin/game
-    defaults: { _controller: 'App\Controller\GameController::listBackend' }
-game_frontend_list:
-    path: /game
-    defaults: { _controller: 'App\Controller\GameController::listFrontend' }
-game_create:
-    path: /admin/game/create
-    defaults: { _controller: 'App\Controller\GameController::create' }
-game_edit:
-    path: /admin/game/{id}/edit
-    defaults: { _controller: 'App\Controller\GameController::edit' }
-game_show:
-    path: /game/{id}/show
-    defaults: { _controller: 'App\Controller\GameController::show' }
+## Game
+game_admin:
+    resource: routing/game_admin.yaml
+    prefix: /admin
 
-# BlogPost
-blog_admin_list:
-    path: /admin
-    defaults: { _controller: 'App\Controller\BlogPostController::listBackend' }
-blog_frontend_list:
-    path: /game/{id}/blog
-    defaults: { _controller: 'App\Controller\BlogPostController::listBlogPostsByGame' }
-blog_create:
-    path: /admin/blog/create
-    defaults: { _controller: 'App\Controller\BlogPostController::create' }
-blog_edit:
-    path: /admin/blog/{id}/edit
-    defaults: { _controller: 'App\Controller\BlogPostController::edit' }
-blog_show:
-    path: /blog/{id}/show
-    defaults: { _controller: 'App\Controller\BlogPostController::show' }
+## BlogPost
+blog_post_admin:
+    resource: routing/blog_post_admin.yaml
+    prefix: /admin
+
+## Purchase
+purchase_admin:
+    resource: routing/purchase_admin.yaml
+    prefix: /admin
+
+# Frontend
+
+## Homepage
+homepage_frontend:
+    resource: routing/homepage_frontend.yaml
+
+## Game
+game_frontend:
+    resource: routing/game_frontend.yaml
+
+## BlogPost
+blog_post_frontend:
+    resource: routing/blog_post_frontend.yaml

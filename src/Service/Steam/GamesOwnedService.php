@@ -124,6 +124,11 @@ class GamesOwnedService
         if (!empty($gameArray)) {
             $gameEntity->setName($gameArray['name']);
             $gameEntity->setHeaderImagePath($gameArray['header_image']);
+            $price = array_key_exists('price_overview', $gameArray)? $gameArray['price_overview']['final']: 0;
+            $currency = array_key_exists('price_overview', $gameArray)?
+                $gameArray['price_overview']['currency']: 'USD';
+            $gameEntity->setPrice($price);
+            $gameEntity->setCurrency($currency);
             $gameEntity->setSteamAppId($steamAppId);
             $gameEntity->setModifiedAt();
             $this->reportService->addEntryToList($gameEntity->getName(), ReportService::UPDATED_GAME);
@@ -241,6 +246,11 @@ class GamesOwnedService
             $gameEntity = new Game();
             $gameEntity->setName($gameArray['name']);
             $gameEntity->setHeaderImagePath($gameArray['header_image']);
+            $price = array_key_exists('price_overview', $gameArray)? $gameArray['price_overview']['final']: 0;
+            $currency = array_key_exists('price_overview', $gameArray)?
+                $gameArray['price_overview']['currency']: 'USD';
+            $gameEntity->setPrice($price);
+            $gameEntity->setCurrency($currency);
             $gameEntity->setSteamAppId($steamAppId);
             $this->reportService->addEntryToList($gameEntity->getName(), ReportService::NEW_GAME);
             $gameEntity = $this->addSessionForNewGameIfExists($gameEntity);

@@ -1,30 +1,35 @@
 {% include 'base.html.twig' %}
 {% block body %}
     <div class="container">
-        <div class="row">
-            <div class="col-6">
-                {% trans from 'blog_post' %}Game{% endtrans %}
-            </div>
-            <div class="col">
-                {% trans from 'blog_post' %}title{% endtrans %}
-            </div>
-            <div class="col">
-                {% trans from 'blog_post' %}modified at{% endtrans %}
-            </div>
-        </div>
-        <hr/>
-        {% for post in entities %}
-            <div class="row">
-                <div class="col-6">
-                    {{ post.game.name }}
-                </div>
-                <div class="col">
-                    {{ post.title }}
-                </div>
-                <div class="col">
-                    {{ post.modifiedAt|date('d.m.Y H:i') }}
-                </div>
-            </div>
-        {% endfor %}
+        <table id="blog-list" class="table">
+            <thead>
+            <tr>
+                <th scope="col">
+                    {% trans from 'blog_post' %}title{% endtrans %}
+                </th>
+                <th scope="col">
+                    {% trans from 'blog_post' %}created at{% endtrans %}
+                </th>
+                <th scope="col">
+                    {% trans from 'blog_post' %}updated at{% endtrans %}
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for post in entities %}
+                <tr>
+                    <td scope="row">
+                        <a href="{{ path('blog_post_show', {id: post.id}) }}"> {{ post.title }}</a>
+                    </td>
+                    <td scope="col">
+                        {{ post.createdAt|date('d.m.Y H:i') }}
+                    </td>
+                    <td scope="col">
+                        {{ post.modifiedAt|date('d.m.Y H:i') }}
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
     </div>
 {% endblock %}

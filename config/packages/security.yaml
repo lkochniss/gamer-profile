@@ -13,7 +13,7 @@ security:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
-        backend:
+        admin:
             anonymous: ~
             pattern: ^/admin
             form_login:
@@ -23,7 +23,7 @@ security:
             logout:
                 path: /admin/logout
                 target: /
-        main:
+        frontend:
             anonymous: ~
             pattern: ^/
     access_control:

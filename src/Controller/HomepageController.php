@@ -8,9 +8,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Class AppController
+ * Class HomepageController
  */
-class AppController extends Controller
+class HomepageController extends Controller
 {
 
     /**
@@ -21,7 +21,7 @@ class AppController extends Controller
     public function recentlyPlayed(GameRepository $gameRepository, RecentlyPlayedService $recentlyPlayedService)
     {
         $recentlyPlayedGames = $gameRepository->getRecentlyPlayedGames();
-        return $this->render('homepage/recentlyPlayed.html.twig', [
+        return $this->render('Homepage/recentlyPlayed.html.twig', [
             'games' => $recentlyPlayedService->sortRecentlyPlayedByLastSession($recentlyPlayedGames)
         ]);
     }
@@ -32,7 +32,7 @@ class AppController extends Controller
      */
     public function mostPlayed(GameRepository $gameRepository)
     {
-        return $this->render('homepage/mostPlayed.html.twig', array(
+        return $this->render('Homepage/mostPlayed.html.twig', array(
             'games' => $gameRepository->getMostPlayedGames(10)
         ));
     }

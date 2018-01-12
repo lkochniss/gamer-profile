@@ -56,6 +56,33 @@
                 {{ entity.blogPosts|length }}
             </div>
         </div>
+        <div class="row">
+            <div class="col text-right">
+                {% trans from "game" %}current Steam price{% endtrans %}:
+            </div>
+            <div class="col">
+                {% set price = entity.price/100 %}
+                {{ price }} {{ entity.currency }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col text-right">
+                {% trans from "game" %}overall costs{% endtrans %}:
+            </div>
+            <div class="col">
+                {% set price = entity.overallCosts %}
+                {{ price }} {{ entity.currency }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col text-right">
+                {% trans from "game" %}costs per hour{% endtrans %}:
+            </div>
+            <div class="col">
+                {% set price = entity.costsPerHour %}
+                {{ price }} {{ entity.currency }}/h
+            </div>
+        </div>
         {{ form_start(form) }}
         <div class="row">
             <div class="col text-right">

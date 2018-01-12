@@ -28,7 +28,7 @@ class GameType extends AbstractType
                 'boughtAt',
                 DateType::class,
                 [
-                    'years' => range(2000, 2100),
+                    'years' => range(2000, 2050),
                     'format' => 'dMy',
                     'attr' => [
                         'class' => 'form-controll'

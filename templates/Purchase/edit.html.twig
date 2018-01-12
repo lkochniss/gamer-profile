@@ -1,27 +1,25 @@
 {% include 'base.html.twig' %}
- {% block stylesheets %}
- {% endblock %}
 {% block body %}
     <div class="container">
-        {% if  app.request.get('_route') ends with '_edit' %}
-            <div class="row">
-                <div class="col text-right">
-                    <a href="{{ path('blog_post_show', {'id' : entity.id }) }}">{% trans from "blog_post" %}show{% endtrans %} </a>
-                </div>
-            </div>
-        {% endif %}
         {{ form_start(form) }}
         <div class="row">
             <div class="col">
-                {{ form_row(form.title) }}
+                {{ form_row(form.type) }}
+            </div>
+            <div class="col">
+                {{ form_row(form.price) }}
+                {{ form_widget(form.currency) }}
             </div>
             <div class="col">
                 {{ form_row(form.game) }}
             </div>
+            <div class="col">
+                {{ form_row(form.boughtAt) }}
+            </div>
         </div>
         <div class="row">
             <div class="col">
-                {{ form_widget(form.content) }}
+                {{ form_widget(form.notice) }}
             </div>
         </div>
         <div class="row">
@@ -33,13 +31,10 @@
     </div>
 {% endblock %}
 {% block javascripts %}
-    <script src="https://cdn.ckeditor.com/4.8.0/standard/ckeditor.js"></script>
     <script type="text/javascript">
 
         $(document).ready(function () {
-            $('#blog_post_game').select2();
-
-            CKEDITOR.replace('blog_post_content');
+            $('#purchase_game').select2();
         });
     </script>
 {% endblock %}
