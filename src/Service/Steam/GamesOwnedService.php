@@ -124,7 +124,7 @@ class GamesOwnedService
         if (!empty($gameArray)) {
             $gameEntity->setName($gameArray['name']);
             $gameEntity->setHeaderImagePath($gameArray['header_image']);
-            $price = array_key_exists('price_overview', $gameArray)? $gameArray['price_overview']['final']: 0;
+            $price = array_key_exists('price_overview', $gameArray)? $gameArray['price_overview']['final']/100: 0;
             $currency = array_key_exists('price_overview', $gameArray)?
                 $gameArray['price_overview']['currency']: 'USD';
             $gameEntity->setPrice($price);
@@ -246,7 +246,7 @@ class GamesOwnedService
             $gameEntity = new Game();
             $gameEntity->setName($gameArray['name']);
             $gameEntity->setHeaderImagePath($gameArray['header_image']);
-            $price = array_key_exists('price_overview', $gameArray)? $gameArray['price_overview']['final']: 0;
+            $price = array_key_exists('price_overview', $gameArray)? $gameArray['price_overview']['final']/100: 0;
             $currency = array_key_exists('price_overview', $gameArray)?
                 $gameArray['price_overview']['currency']: 'USD';
             $gameEntity->setPrice($price);

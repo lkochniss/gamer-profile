@@ -70,7 +70,7 @@
                 {% trans from "game" %}overall costs{% endtrans %}:
             </div>
             <div class="col">
-                {% set price = entity.overallCosts %}
+                {{ entity |get_game_overall_costs }}
                 {{ price }} {{ entity.currency }}
             </div>
         </div>
@@ -79,7 +79,7 @@
                 {% trans from "game" %}costs per hour{% endtrans %}:
             </div>
             <div class="col">
-                {% set price = entity.costsPerHour %}
+                {{ entity |get_game_costs_per_hour }}
                 {{ price }} {{ entity.currency }}/h
             </div>
         </div>
@@ -111,8 +111,6 @@
     <script type="text/javascript">
 
         $(document).ready(function () {
-            $('#game_boughtAt_year').select2();
-
             CKEDITOR.replace('game_description');
         });
     </script>

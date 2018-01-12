@@ -2,10 +2,13 @@
 
 namespace App\Twig;
 
+use App\Entity\Game;
+use App\Service\PurchaseService;
 use App\Service\Transformator\TimeTransformator;
 use Symfony\Component\Translation\TranslatorInterface;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
+use Twig\TwigFunction;
 
 /**
  * Class AppExtension
@@ -26,8 +29,10 @@ class AppExtension extends AbstractExtension
     public function getFilters(): array
     {
         return [
-            new TwigFilter('convertOverallTime', [$this, 'convertOverallTime']),
-            new TwigFilter('convertRecentTime', [$this, 'convertRecentTime']),
+            new TwigFilter('convert_overall_time', [$this, 'convertOverallTime']),
+            new TwigFilter('convert_recent_time', [$this, 'convertRecentTime']),
+            new TwigFilter('get_game_overall_costs', [$this, 'getGameOverallCosts']),
+            new TwigFilter('get_game_costs_per_hour', [$this, 'getGameCostsPerHour'])
         ];
     }
 
@@ -95,5 +100,27 @@ class AppExtension extends AbstractExtension
             $hours,
             $minutes
         );
+    }
+
+    /**
+     * @param Game $game
+     * @return float
+     */
+    public function getGameOverallCosts(Game $game): float
+    {
+        $purchaseService  = new PurchaseService();
+
+        return $purchaseService->generateOverallCosts($game);
+    }
+
+    /**
+     * @param Game $game
+     * @return float
+     */
+    public function getGameCostsPerHour(Game $game): float
+    {
+        $purchaseService  = new PurchaseService();
+
+        return $purchaseService->generateCostsPerHour($game);
     }
 }
