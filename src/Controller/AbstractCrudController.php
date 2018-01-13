@@ -36,7 +36,7 @@ abstract class AbstractCrudController extends Controller
         if (is_null($entity)) {
             throw new NotFoundHttpException();
         }
-        return $this->createAndHandleForm($entity, $request, 'edit', array('id' => $entity->getId()));
+        return $this->createAndHandleForm($entity, $request, 'edit', ['id' => $entity->getId()]);
     }
 
     /**
@@ -52,9 +52,9 @@ abstract class AbstractCrudController extends Controller
 
         return $this->render(#
             sprintf('%s/show.html.twig', $this->getTemplateBasePath()),
-            array(
+            [
                 'entity' => $entity
-            )
+            ]
         );
     }
 
@@ -64,11 +64,12 @@ abstract class AbstractCrudController extends Controller
     public function listFrontend(): Response
     {
         $entities = $this->getDoctrine()->getRepository($this->getEntityName())->findAll();
+
         return $this->render(
             sprintf('%s/list-frontend.html.twig', $this->getTemplateBasePath()),
-            array(
+            [
                 'entities' => $entities,
-            )
+            ]
         );
     }
 
@@ -80,9 +81,9 @@ abstract class AbstractCrudController extends Controller
         $entities = $this->getDoctrine()->getRepository($this->getEntityName())->findAll();
         return $this->render(
             sprintf('%s/list-backend.html.twig', $this->getTemplateBasePath()),
-            array(
+            [
                 'entities' => $entities,
-            )
+            ]
         );
     }
 
@@ -120,10 +121,10 @@ abstract class AbstractCrudController extends Controller
         $form = $this->createForm(
             $this->getFormType(),
             $entity,
-            array(
+            [
                 'action' => $this->generateUrlForAction($action, $options),
                 'method' => 'POST',
-            )
+            ]
         );
 
         if (in_array($request->getMethod(), ['POST'])) {
@@ -131,16 +132,16 @@ abstract class AbstractCrudController extends Controller
             if ($form->isSubmitted() && $form->isValid()) {
                 $this->handleValidForm($entity);
 
-                return $this->redirect($this->generateUrlForAction('edit', array('id' => $entity->getId())));
+                return $this->redirect($this->generateUrlForAction('edit', ['id' => $entity->getId()]));
             }
         }
 
         return $this->render(
             sprintf('%s/edit.html.twig', $this->getTemplateBasePath()),
-            array(
+            [
                 'entity' => $entity,
                 'form' => $form->createView(),
-            )
+            ]
         );
     }
 
