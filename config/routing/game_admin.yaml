@@ -7,3 +7,6 @@ game_create:
 game_edit:
     path: /game/{id}/edit
     defaults: { _controller: 'App\Controller\GameController::edit' }
+game_update_steam_information:
+    path: /game/{id}/update
+    defaults: { _controller: 'App\Controller\GameController::update' }

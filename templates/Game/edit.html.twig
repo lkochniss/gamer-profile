@@ -4,7 +4,16 @@
         {% if  app.request.get('_route') ends with '_edit' %}
             <div class="row">
                 <div class="col text-right">
-                    <a href="{{ path('game_show', {'id' : entity.id }) }}">{% trans from "game" %}show{% endtrans %} </a>
+                    <a href="{{ path('game_show', {'id' : entity.id }) }}">
+                        {% trans from "game" %}show frontend page{% endtrans %}
+                    </a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col text-right">
+                    <a href="{{ path('game_update_steam_information', {'id' : entity.id }) }}">
+                        {% trans from "game" %}update Steam Information{% endtrans %}
+                    </a>
                 </div>
             </div>
         {% endif %}
@@ -61,7 +70,7 @@
                 {% trans from "game" %}current Steam price{% endtrans %}:
             </div>
             <div class="col">
-                {% set price = entity.price/100 %}
+                {% set price = entity.price %}
                 {{ price }} {{ entity.currency }}
             </div>
         </div>
@@ -70,8 +79,7 @@
                 {% trans from "game" %}overall costs{% endtrans %}:
             </div>
             <div class="col">
-                {{ entity |get_game_overall_costs }}
-                {{ price }} {{ entity.currency }}
+                {{ entity |get_game_overall_costs }}{{ entity.currency }}
             </div>
         </div>
         <div class="row">
@@ -79,8 +87,7 @@
                 {% trans from "game" %}costs per hour{% endtrans %}:
             </div>
             <div class="col">
-                {{ entity |get_game_costs_per_hour }}
-                {{ price }} {{ entity.currency }}/h
+                {{ entity |get_game_costs_per_hour }}{{ entity.currency }}/h
             </div>
         </div>
         {{ form_start(form) }}
