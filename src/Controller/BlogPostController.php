@@ -19,7 +19,7 @@ class BlogPostController extends AbstractCrudController
      */
     public function listBlogPostsByGame(string $gameSlug): Response
     {
-        $game =  $this->getDoctrine()->getRepository(Game::class)->findBy(['slug' => $gameSlug]);
+        $game =  $this->getDoctrine()->getRepository(Game::class)->findOneBy(['slug' => $gameSlug]);
         $entities = $this->getDoctrine()->getRepository($this->getEntityName())->findBy(['game' => $game->getId()]);
         return $this->render(
             sprintf('%s/list-frontend.html.twig', $this->getTemplateBasePath()),
