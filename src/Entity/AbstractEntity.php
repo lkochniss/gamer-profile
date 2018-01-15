@@ -13,6 +13,11 @@ abstract class AbstractEntity
      * @var Integer
      */
     protected $id;
+
+    /**
+     * @var String
+     */
+    protected $slug;
     /**
      * @var \DateTime
      *
@@ -32,6 +37,23 @@ abstract class AbstractEntity
     {
         return $this->id;
     }
+
+    /**
+     * @return String
+     */
+    public function getSlug(): String
+    {
+        return $this->slug;
+    }
+
+    /**
+     * @param String $slug
+     */
+    public function setSlug(String $slug): void
+    {
+        $this->slug = $slug;
+    }
+
     /**
      * @return $this
      */
