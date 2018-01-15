@@ -4,7 +4,7 @@
         {% if  app.request.get('_route') ends with '_edit' %}
             <div class="row">
                 <div class="col text-right">
-                    <a href="{{ path('game_show', {'id' : entity.id }) }}">
+                    <a href="{{ path('game_show', {'slug' : entity.slug }) }}">
                         {% trans from "game" %}show frontend page{% endtrans %}
                     </a>
                 </div>
@@ -63,6 +63,9 @@
             </div>
             <div class="col">
                 {{ entity.blogPosts|length }}
+                <a href="{{ path('blog_post_create_for_game', {'id': entity.id}) }}">
+                    {% trans from "game" %}create new blogposts{% endtrans %}
+                </a>
             </div>
         </div>
         <div class="row">
@@ -79,7 +82,10 @@
                 {% trans from "game" %}overall costs{% endtrans %}:
             </div>
             <div class="col">
-                {{ entity |get_game_overall_costs }}{{ entity.currency }}
+                {{ entity |get_game_overall_costs }} {{ entity.currency }}
+                <a href="{{ path('purchase_create_for_game', {'id': entity.id}) }}">
+                    {% trans from "game" %}add purchase{% endtrans %}
+                </a>
             </div>
         </div>
         <div class="row">
@@ -87,7 +93,7 @@
                 {% trans from "game" %}costs per hour{% endtrans %}:
             </div>
             <div class="col">
-                {{ entity |get_game_costs_per_hour }}{{ entity.currency }}/h
+                {{ entity |get_game_costs_per_hour }} {{ entity.currency }}/h
             </div>
         </div>
         {{ form_start(form) }}

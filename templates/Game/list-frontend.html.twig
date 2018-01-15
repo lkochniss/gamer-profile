@@ -33,7 +33,7 @@
                     </td>
                     <td scope="col">
                         <a class="float-right"
-                           href="{{ path('game_show', {'id': game.id}) }}">{% trans from 'game' %}show{% endtrans %}</a>
+                           href="{{ path('game_show', {'slug': game.slug}) }}">{% trans from 'game' %}show{% endtrans %}</a>
                     </td>
                 </tr>
             {% endfor %}

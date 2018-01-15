@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\AbstractEntity;
+use App\Repository\GameRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -27,6 +28,21 @@ abstract class AbstractCrudController extends Controller
 
     /**
      * @param int $id
+     * @param GameRepository $gameRepository
+     * @param Request $request
+     * @return RedirectResponse|Response
+     */
+    public function createForGame(int $id, GameRepository $gameRepository, Request $request)
+    {
+        $game = $gameRepository->find($id);
+        $entity = $this->createNewEntity();
+        $entity->setGame($game);
+
+        return $this->createAndHandleForm($entity, $request, 'create');
+    }
+
+    /**
+     * @param int $id
      * @param Request $request
      * @return RedirectResponse|Response
      */
@@ -40,12 +56,12 @@ abstract class AbstractCrudController extends Controller
     }
 
     /**
-     * @param int $id
+     * @param string $slug
      * @return Response
      */
-    public function show(int $id): Response
+    public function show(string $slug): Response
     {
-        $entity = $this->getDoctrine()->getRepository($this->getEntityName())->find($id);
+        $entity = $this->getDoctrine()->getRepository($this->getEntityName())->findOneBy(['slug' => $slug]);
         if (is_null($entity)) {
             throw new NotFoundHttpException();
         }
@@ -132,7 +148,7 @@ abstract class AbstractCrudController extends Controller
             if ($form->isSubmitted() && $form->isValid()) {
                 $this->handleValidForm($entity);
 
-                return $this->redirect($this->generateUrlForAction('edit', ['id' => $entity->getId()]));
+                return $this->redirect($this->generateUrlForAction('list'));
             }
         }
 
