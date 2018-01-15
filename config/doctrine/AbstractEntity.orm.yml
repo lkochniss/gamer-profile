@@ -2,6 +2,9 @@ App\Entity\AbstractEntity:
     type: mappedSuperclass
 
     fields:
+        slug:
+            type: string
+            nullable: true
         createdAt:
             column: created_at
             type: datetime

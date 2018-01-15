@@ -2,28 +2,32 @@
 
 namespace App\Repository;
 
+use App\Entity\AbstractEntity;
 use App\Entity\BlogPost;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
  * Class BlogPostRepository
  */
-class BlogPostRepository extends ServiceEntityRepository
+class BlogPostRepository extends AbstractRepository
 {
-    public function __construct(RegistryInterface $registry)
-    {
-        parent::__construct($registry, BlogPost::class);
-    }
-
     /**
-     * @param BlogPost $blogPost
+     * @param AbstractEntity $entity
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
-    public function save(BlogPost $blogPost): void
+    public function save(AbstractEntity $entity): void
     {
-        $this->getEntityManager()->persist($blogPost);
-        $this->getEntityManager()->flush($blogPost);
+        $entity->setSlug($this->slugify(
+            $entity->getCreatedAt()->format('d-m-y-') . $entity->getTitle()));
+        $this->getEntityManager()->persist($entity);
+        $this->getEntityManager()->flush($entity);
+    }
+
+    /**
+     * @return string
+     */
+    protected function getEntity(): string
+    {
+        return BlogPost::class;
     }
 }

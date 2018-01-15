@@ -2,28 +2,33 @@
 
 namespace App\Repository;
 
+use App\Entity\AbstractEntity;
 use App\Entity\GameSession;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
  * Class GameSessionRepository
  */
-class GameSessionRepository extends ServiceEntityRepository
+class GameSessionRepository extends AbstractRepository#
 {
-    public function __construct(RegistryInterface $registry)
-    {
-        parent::__construct($registry, GameSession::class);
-    }
-
     /**
-     * @param GameSession $gameSession
+     * @param AbstractEntity $entity
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
-    public function save(GameSession $gameSession): void
+    public function save(AbstractEntity $entity): void
     {
-        $this->getEntityManager()->persist($gameSession);
-        $this->getEntityManager()->flush($gameSession);
+        $entity->setSlug($this->slugify(
+            $entity->getCreatedAt()->format('d-m-y-').$entity->getGame()->getName())
+        );
+        $this->getEntityManager()->persist($entity);
+        $this->getEntityManager()->flush($entity);
+    }
+
+    /**
+     * @return string
+     */
+    protected function getEntity(): string
+    {
+        return GameSession::class;
     }
 }
