@@ -1,6 +1,9 @@
 purchase_list:
     path: /purchase
     defaults: { _controller: 'App\Controller\PurchaseController::listBackend' }
+purchase_create_for_game:
+    path: /blog/{id}/purchase/create
+    defaults: { _controller: 'App\Controller\PurchaseController::createForGame' }
 purchase_create:
     path: /purchase/create
     defaults: { _controller: 'App\Controller\PurchaseController::create' }

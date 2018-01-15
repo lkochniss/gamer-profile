@@ -15,13 +15,18 @@ class PurchaseService
      */
     public function generateOverallCosts(Game $game): float
     {
-        $sum = $game->getPrice();
+        $sum = 0;
+        $ingamePurchase = false;
 
         foreach ($game->getPurchases() as $purchase) {
             $sum += $this->transformPrice($purchase->getPrice(), $purchase->getCurrency(), $game->getCurrency());
             if ($purchase->getType() === 'game-purchase') {
-                $sum = $sum - $game->getPrice();
+                $ingamePurchase = true;
             }
+        }
+
+        if ($ingamePurchase === false){
+            $sum += $game->getPrice();
         }
 
         return $sum;
