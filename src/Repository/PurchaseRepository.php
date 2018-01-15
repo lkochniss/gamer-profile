@@ -2,28 +2,39 @@
 
 namespace App\Repository;
 
+use App\Entity\AbstractEntity;
 use App\Entity\Purchase;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
  * Class PurchaseRepository
  */
-class PurchaseRepository extends ServiceEntityRepository
+class PurchaseRepository extends AbstractRepository
 {
-    public function __construct(RegistryInterface $registry)
-    {
-        parent::__construct($registry, Purchase::class);
-    }
-
     /**
-     * @param Purchase $purchase
+     * @param AbstractEntity $entity
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
-    public function save(Purchase $purchase): void
+    public function save(AbstractEntity $entity): void
     {
-        $this->getEntityManager()->persist($purchase);
-        $this->getEntityManager()->flush($purchase);
+        $entity->setSlug($this->slugify(
+            $entity->getCreatedAt()->format('d-m-y-').
+            $entity->getGame()->getName().
+            '-'.
+            $entity->getType()).
+            '-'.
+            count($entity->getGame()->getPurchases())
+
+        );
+        $this->getEntityManager()->persist($entity);
+        $this->getEntityManager()->flush($entity);
+    }
+
+    /**
+     * @return string
+     */
+    protected function getEntity(): string
+    {
+        return Purchase::class;
     }
 }

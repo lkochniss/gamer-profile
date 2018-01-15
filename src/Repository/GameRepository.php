@@ -2,20 +2,14 @@
 
 namespace App\Repository;
 
+use App\Entity\AbstractEntity;
 use App\Entity\Game;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
  * Class GameRepository
  */
-class GameRepository extends ServiceEntityRepository
+class GameRepository extends AbstractRepository
 {
-    public function __construct(RegistryInterface $registry)
-    {
-        parent::__construct($registry, Game::class);
-    }
-
     /**
      * @param $appId
      *
@@ -72,13 +66,22 @@ class GameRepository extends ServiceEntityRepository
     }
 
     /**
-     * @param Game $game
+     * @param AbstractEntity $entity
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
-    public function save(Game $game): void
+    public function save(AbstractEntity $entity): void
     {
-        $this->getEntityManager()->persist($game);
-        $this->getEntityManager()->flush($game);
+        $entity->setSlug($this->slugify($entity->getName()));
+        $this->getEntityManager()->persist($entity);
+        $this->getEntityManager()->flush($entity);
+    }
+
+    /**
+     * @return string
+     */
+    protected function getEntity(): string
+    {
+        return Game::class;
     }
 }
