@@ -4,26 +4,17 @@
 #
 version: 2
 jobs:
-  build:
+  run-code-analysis-and-fast-phpunit:
     docker:
-      # specify the version you desire here
       - image: ckappen/php-composer-alpine
-
-      # Specify service dependencies here if necessary
-      # CircleCI maintains a library of pre-built images
-      # documented at https://circleci.com/docs/2.0/circleci-images/
-      # - image: circleci/mysql:9.4
 
     working_directory: ~/repo
 
     steps:
       - checkout
-
-      # Download and cache dependencies
       - restore_cache:
           keys:
           - v1-dependencies-{{ checksum "composer.lock" }}
-          # fallback to using the latest cache if no exact match is found
           - v1-dependencies-
       - run:
           name: Composer Install
@@ -64,3 +55,44 @@ jobs:
           command: make phpunit
       - store_artifacts:
           path: build-artifacts/
+  run-slower-codecoverage:
+    docker:
+      - image: zaherg/php-7.1-xdebug-alpine
+    working_directory: ~/repo
+
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+          - v1-codecov-dependencies-{{ checksum "composer.lock" }}
+          - v1-codecov-dependencies-
+      - run:
+          name: Composer Install
+          command: composer install --no-interaction --prefer-dist --no-scripts --no-progress
+      - save_cache:
+          paths:
+            - ./vendor
+          key: v1-codecov-dependencies-{{ checksum "composer.lock" }}
+      - run:
+          name: Copy Environmenmt
+          command: cp .env.circleci .env
+      - run:
+          name: Create Artifacts Directory
+          command: mkdir -p build-artifacts/
+      - run:
+          name: Clear Cache
+          command: ./bin/console ca:c
+      - run:
+          name: Run Phpunit with CodeCov enabled
+          command: ./vendor/bin/phpunit --coverage-clover=build-artifacts/coverage.xml
+      - run:
+          name: Send CodeCov to codacy
+          command: ./vendor/bin/codacycoverage clover build-artifacts/coverage.xml
+      - store_artifacts:
+          path: build-artifacts/
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - run-code-analysis-and-fast-phpunit
+      - run-slower-codecoverage

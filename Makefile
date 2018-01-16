@@ -9,6 +9,9 @@ copy-ci-environment:
 # Analysis
 phpunit:
 	./vendor/bin/phpunit
+codecoverage:
+	./vendor/bin/phpunit --coverage-clover=${BUILD_ARTIFACTS_DIRECTORY}/coverage.xml
+	./vendor/bin/codacycoverage phpunit ${BUILD_ARTIFACTS_DIRECTORY}/coverage.xml
 codesniff:
 	./vendor/bin/phpcs --standard=PSR1,PSR2  --ignore=src/Migrations -s src/  -s tests/ | tee  ${BUILD_ARTIFACTS_DIRECTORY}phpcs.log
 codefix:
