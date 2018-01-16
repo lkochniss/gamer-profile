@@ -1,4 +1,4 @@
-purchase_list:
+purchase_list_backend:
     path: /purchase
     defaults: { _controller: 'App\Controller\PurchaseController::listBackend' }
 purchase_create_for_game:

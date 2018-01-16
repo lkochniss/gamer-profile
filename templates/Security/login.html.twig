@@ -16,6 +16,9 @@
                           id="basic-addon1">{% trans from "security" %}password{% endtrans %}</span>
                     <input type="password" class="form-control" id="password" name="_password"/>
                 </div>
+                <div class="input-group">
+                    <input type="hidden" name="_csrf_security_token" value="{{ csrf_token(csrf_security_login_token) }}">
+                </div>
                 <div class="input-group pull-right">
                     <input type="submit" class="form-control btn-primary"
                            value="{% trans from "security" %}submit{% endtrans %}"/>
