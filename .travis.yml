@@ -1,0 +1,29 @@
+dist: trusty
+sudo: required
+
+language: php
+matrix:
+  include:
+  - php: 5.6
+  - php: 7.0
+  - php: 7.1
+  - php: 7.2
+
+branches:
+  only:
+    - master
+
+addons:
+  sonarcloud:
+    branches:
+      - master
+    organization: "lkochniss-github"
+    token:
+      secure: "$SONAR_TOKEN"
+jdk:
+  - oraclejdk8
+script:
+  - sonar-scanner -Dsonar.projectKey=lkochniss-github -Dsonar.sources=.
+cache:
+  directories:
+    - '$HOME/.sonar/cache'
