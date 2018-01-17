@@ -17,6 +17,7 @@ class BlogPostRepository extends AbstractRepository
      */
     public function save(AbstractEntity $entity): void
     {
+        $entity->setCreatedAt();
         $entity->setSlug($this->slugify(
             $entity->getCreatedAt()->format('d-m-y-') . $entity->getTitle()));
         $this->getEntityManager()->persist($entity);

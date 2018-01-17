@@ -20,6 +20,9 @@ security:
                 login_path: /admin/login
                 check_path: /admin/login_check
                 use_referer: true
+                csrf_token_generator: security.csrf.token_manager
+                csrf_parameter: _csrf_security_token
+                csrf_token_id: '%env(resolve:CSRF_SECURITY_LOGIN_TOKEN)%'
             logout:
                 path: /admin/logout
                 target: /
