@@ -32,8 +32,9 @@ class HomepageController extends Controller
      */
     public function mostPlayed(GameRepository $gameRepository)
     {
-        return $this->render('Homepage/mostPlayed.html.twig', array(
-            'games' => $gameRepository->getMostPlayedGames(10)
-        ));
+        return $this->render('Homepage/mostPlayed.html.twig', [
+                'games' => $gameRepository->getMostPlayedGames(10)
+            ]
+        );
     }
 }
