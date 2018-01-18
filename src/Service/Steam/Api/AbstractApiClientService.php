@@ -35,12 +35,12 @@ abstract class AbstractApiClientService
         return $this->guzzleClient->request(
             'GET',
             $this->generateRequestUrl($endpoint),
-            array(
-                'headers' => array(
+            [
+                'headers' => [
                     'Accept'        => 'application/json',
                     'Content-Type'  => 'application/json',
-                ),
-            )
+                ]
+            ]
         );
     }
 

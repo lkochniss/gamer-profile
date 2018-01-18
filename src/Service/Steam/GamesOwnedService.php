@@ -49,7 +49,8 @@ class GamesOwnedService
         UserApiClientService $userApiClientService,
         GameInformationService $gameInformationService,
         GameRepository $gameRepository
-    ) {
+    )
+    {
         $this->userApiClientService = $userApiClientService;
         $this->gameInformationService = $gameInformationService;
         $this->gameRepository = $gameRepository;
@@ -83,13 +84,12 @@ class GamesOwnedService
         $gameEntity = $this->gameRepository->findOneBySteamAppId($steamAppId);
 
         if (is_null($gameEntity)) {
-            $status = $this->createNewGame($steamAppId);
-        } else {
-            $this->reportService->addEntryToList($gameEntity->getName(), ReportService::SKIPPED_GAME);
-            $status = 'S';
+            return $this->createNewGame($steamAppId);
         }
 
-        return $status;
+        $this->reportService->addEntryToList($gameEntity->getName(), ReportService::SKIPPED_GAME);
+
+        return 'S';
     }
 
     /**
@@ -103,12 +103,10 @@ class GamesOwnedService
         $gameEntity = $this->gameRepository->findOneBySteamAppId($steamAppId);
 
         if (is_null($gameEntity)) {
-            $status = $this->createNewGame($steamAppId);
-        } else {
-            $status = $this->updateExistingGame($gameEntity);
+            return $this->createNewGame($steamAppId);
         }
 
-        return $status;
+        return $this->updateExistingGame($gameEntity);
     }
 
     /**
@@ -124,9 +122,9 @@ class GamesOwnedService
         if (!empty($gameArray)) {
             $gameEntity->setName($gameArray['name']);
             $gameEntity->setHeaderImagePath($gameArray['header_image']);
-            $price = array_key_exists('price_overview', $gameArray)? $gameArray['price_overview']['final']/100: 0;
-            $currency = array_key_exists('price_overview', $gameArray)?
-                $gameArray['price_overview']['currency']: 'USD';
+            $price = array_key_exists('price_overview', $gameArray) ? $gameArray['price_overview']['final'] / 100 : 0;
+            $currency = array_key_exists('price_overview', $gameArray) ?
+                $gameArray['price_overview']['currency'] : 'USD';
             $gameEntity->setPrice($price);
             $gameEntity->setCurrency($currency);
             $gameEntity->setSteamAppId($steamAppId);
@@ -246,9 +244,9 @@ class GamesOwnedService
             $gameEntity = new Game();
             $gameEntity->setName($gameArray['name']);
             $gameEntity->setHeaderImagePath($gameArray['header_image']);
-            $price = array_key_exists('price_overview', $gameArray)? $gameArray['price_overview']['final']/100: 0;
-            $currency = array_key_exists('price_overview', $gameArray)?
-                $gameArray['price_overview']['currency']: 'USD';
+            $price = array_key_exists('price_overview', $gameArray) ? $gameArray['price_overview']['final'] / 100 : 0;
+            $currency = array_key_exists('price_overview', $gameArray) ?
+                $gameArray['price_overview']['currency'] : 'USD';
             $gameEntity->setPrice($price);
             $gameEntity->setCurrency($currency);
             $gameEntity->setSteamAppId($steamAppId);
