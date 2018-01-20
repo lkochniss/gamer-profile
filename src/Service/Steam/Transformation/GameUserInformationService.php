@@ -49,7 +49,7 @@ class GameUserInformationService
     {
         $gamesArray = $this->getRecentlyPlayedGames();
 
-        if (array_key_exists($steamAppId, $gamesArray)){
+        if (array_key_exists($steamAppId, $gamesArray)) {
             return $gamesArray[$steamAppId];
         }
 

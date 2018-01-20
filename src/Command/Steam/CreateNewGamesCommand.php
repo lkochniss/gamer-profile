@@ -28,8 +28,10 @@ class CreateNewGamesCommand extends ContainerAwareCommand
      * @param GameUserInformationService $gameUserInformationService
      * @param CreateNewGameService $createNewGameService
      */
-    public function __construct(GameUserInformationService $gameUserInformationService, CreateNewGameService $createNewGameService)
-    {
+    public function __construct(
+        GameUserInformationService $gameUserInformationService,
+        CreateNewGameService $createNewGameService
+    ) {
         parent::__construct();
 
         $this->gameUserInformationService = $gameUserInformationService;

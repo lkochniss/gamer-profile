@@ -42,7 +42,7 @@ class UpdateUserInformationService extends ReportService
     {
         $game = $this->gameRepository->findOneBySteamAppId($steamAppId);
 
-        if ($game === null){
+        if ($game === null) {
             $this->addEntryToList($steamAppId, ReportService::GAME_NOT_FOUND_ERROR);
             return 'F';
         }

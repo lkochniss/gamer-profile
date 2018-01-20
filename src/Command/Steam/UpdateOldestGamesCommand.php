@@ -28,8 +28,10 @@ class UpdateOldestGamesCommand extends ContainerAwareCommand
      * @param UpdateGameInformationService $updateGameInformationService
      * @param GameRepository $gameRepository
      */
-    public function __construct(UpdateGameInformationService $updateGameInformationService, GameRepository $gameRepository)
-    {
+    public function __construct(
+        UpdateGameInformationService $updateGameInformationService,
+        GameRepository $gameRepository
+    ) {
         parent::__construct();
         $this->updateGameInformationService = $updateGameInformationService;
         $this->gameRepository = $gameRepository;
@@ -54,7 +56,9 @@ class UpdateOldestGamesCommand extends ContainerAwareCommand
         $mySteamGames = $this->gameRepository->getLeastUpdatedGames(20);
 
         foreach ($mySteamGames as $mySteamGame) {
-            $status = $this->updateGameInformationService->updateGameInformationForSteamAppId($mySteamGame->getSteamAppId());
+            $status = $this->updateGameInformationService->updateGameInformationForSteamAppId(
+                $mySteamGame->getSteamAppId()
+            );
             $output->write($status);
         }
     }

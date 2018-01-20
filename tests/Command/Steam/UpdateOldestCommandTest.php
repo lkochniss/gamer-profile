@@ -67,7 +67,10 @@ class UpdateOldestCommandTest extends KernelTestCase
 
     private function addCommandToKernel(): void
     {
-        $this->application->add(new UpdateOldestGamesCommand($this->updateGameInformationServiceMock, $this->gameRepositoryMock));
+        $this->application->add(new UpdateOldestGamesCommand(
+            $this->updateGameInformationServiceMock,
+            $this->gameRepositoryMock
+        ));
     }
 
     private function setGameUserInformationServiceMock():void

@@ -35,7 +35,10 @@ class UpdateUserInformationServiceTest extends TestCase
             ->with(1)
             ->willReturn($game);
 
-        $updateGameInformationService = new UpdateUserInformationService($gameUserInformationServiceMock, $gameRepositoryMock);
+        $updateGameInformationService = new UpdateUserInformationService(
+            $gameUserInformationServiceMock,
+            $gameRepositoryMock
+        );
 
         $this->assertEquals('U', $updateGameInformationService->updateUserInformationForSteamAppId(1));
     }

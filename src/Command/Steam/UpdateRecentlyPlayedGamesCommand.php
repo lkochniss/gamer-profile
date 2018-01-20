@@ -39,8 +39,7 @@ class UpdateRecentlyPlayedGamesCommand extends ContainerAwareCommand
         UpdateGameInformationService $updateGameInformationService,
         UpdateUserInformationService $updateUserInformationService,
         GameUserInformationService $gameUserInformationService
-    )
-    {
+    ) {
         parent::__construct();
         $this->updateGameInformationService = $updateGameInformationService;
         $this->updateUserInformationService = $updateUserInformationService;

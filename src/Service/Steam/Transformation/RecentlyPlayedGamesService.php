@@ -15,8 +15,8 @@ class RecentlyPlayedGamesService
      */
     public function sortRecentlyPlayedGamesByLastSession(array $recentlyPlayedGames): array
     {
-        usort($recentlyPlayedGames, function (Game $a, Game $b){
-            if ($a->getLastGameSession() === null || $b->getLastGameSession() === null){
+        usort($recentlyPlayedGames, function (Game $a, Game $b) {
+            if ($a->getLastGameSession() === null || $b->getLastGameSession() === null) {
                 return -1;
             }
 

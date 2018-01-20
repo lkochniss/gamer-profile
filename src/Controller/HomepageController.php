@@ -35,7 +35,6 @@ class HomepageController extends Controller
     {
         return $this->render('Homepage/mostPlayed.html.twig', [
                 'games' => $gameRepository->getMostPlayedGames(10)
-            ]
-        );
+            ]);
     }
 }

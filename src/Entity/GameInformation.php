@@ -35,9 +35,13 @@ class GameInformation extends AbstractEntity
     {
         $this->name = $gameInformation['name'];
         $this->headerImagePath = $gameInformation['header_image'];
-        $price = array_key_exists('price_overview', $gameInformation) ? $gameInformation['price_overview']['final'] / 100 : 0;
+
+        $price = array_key_exists('price_overview', $gameInformation) ?
+            $gameInformation['price_overview']['final'] / 100 : 0;
+
         $currency = array_key_exists('price_overview', $gameInformation) ?
             $gameInformation['price_overview']['currency'] : getenv('%DEFAULT_CURRENCY%');
+
         $this->price = $price;
         $this->currency = $currency;
     }

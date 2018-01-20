@@ -73,11 +73,10 @@ class UpdateRecentlyPlayedGamesCommandTest extends KernelTestCase
             ->willReturn($this->getRecentlyGamesArray());
 
         $this->application->add(new UpdateRecentlyPlayedGamesCommand(
-                $this->updateGameInformationServiceMock,
-                $this->updateUserInformationServiceMock,
-                $this->gameUserInformationServiceMock
-            )
-        );
+            $this->updateGameInformationServiceMock,
+            $this->updateUserInformationServiceMock,
+            $this->gameUserInformationServiceMock
+        ));
 
         $this->command = $this->application->find('steam:update:recent');
         $commandTester = new CommandTester($this->command);

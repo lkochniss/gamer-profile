@@ -34,8 +34,11 @@ class CreateNewGameService extends ReportService
      * @param GameInformationService $gameInformationService
      * @param GameRepository $gameRepository
      */
-    public function __construct(GameUserInformationService $gameUserInformationService, GameInformationService $gameInformationService, GameRepository $gameRepository)
-    {
+    public function __construct(
+        GameUserInformationService $gameUserInformationService,
+        GameInformationService $gameInformationService,
+        GameRepository $gameRepository
+    ) {
         $this->gameUserInformationService = $gameUserInformationService;
         $this->gameInformationService = $gameInformationService;
         $this->gameRepository = $gameRepository;

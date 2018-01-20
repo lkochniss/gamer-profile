@@ -58,7 +58,10 @@ class CreateNewGamesCommandTest extends KernelTestCase
             ->with(1)
             ->willReturn('N');
 
-        $this->application->add(new CreateNewGamesCommand($this->gameUserInformationServiceMock, $this->createNewGameServiceMock));
+        $this->application->add(new CreateNewGamesCommand(
+            $this->gameUserInformationServiceMock,
+            $this->createNewGameServiceMock
+        ));
 
         $this->command = $this->application->find('steam:create:new');
         $commandTester = new CommandTester($this->command);
