@@ -21,7 +21,12 @@
 <body>
 {% block body %}
 {% include '_modules/infotext.html.twig' %}
-{% include '_modules/navigation.html.twig' %}
+
+{% if is_granted('ROLE_ADMIN') %}
+    {% include '_modules/admin-navigation.html.twig' %}
+{% else %}
+    {% include '_modules/navigation.html.twig' %}
+{% endif %}
 {% endblock %}
 {% block javascripts %}
     <script src="/js/application.js"></script>
