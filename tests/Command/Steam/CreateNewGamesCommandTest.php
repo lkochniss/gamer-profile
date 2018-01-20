@@ -3,8 +3,8 @@
 namespace tests\App\Command\Steam;
 
 use App\Command\Steam\CreateNewGamesCommand;
-use App\Service\ReportService;
-use App\Service\Steam\GamesOwnedService;
+use App\Service\Steam\Entity\CreateNewGameService;
+use App\Service\Steam\Transformation\GameUserInformationService;
 use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
@@ -30,44 +30,42 @@ class CreateNewGamesCommandTest extends KernelTestCase
     /**
      * @var MockObject
      */
-    private $gamesOwnedServiceMock;
+    private $gameUserInformationServiceMock;
+
+    /**
+     * @var MockObject
+     */
+    private $createNewGameServiceMock;
 
     public function setUp(): void
     {
         $kernel = static::createKernel();
         $kernel->boot();
 
-        $this->gamesOwnedServiceMock = $this->createMock(GamesOwnedService::class);
+        $this->gameUserInformationServiceMock = $this->createMock(GameUserInformationService::class);
+        $this->createNewGameServiceMock = $this->createMock(CreateNewGameService::class);
         $this->application = new Application($kernel);
     }
 
     public function testCommandExecute(): void
     {
-        $this->setGamesOwnedServiceMock();
-        $this->addCommandToKernel();
+        $this->gameUserInformationServiceMock->expects($this->any())
+            ->method('getAllGames')
+            ->willReturn($this->getGamesArray());
+
+        $this->createNewGameServiceMock->expects($this->any())
+            ->method('createGameIfNotExist')
+            ->with(1)
+            ->willReturn('N');
+
+        $this->application->add(new CreateNewGamesCommand($this->gameUserInformationServiceMock, $this->createNewGameServiceMock));
 
         $this->command = $this->application->find('steam:create:new');
         $commandTester = new CommandTester($this->command);
         $commandTester->execute([]);
 
         $output = $commandTester->getDisplay();
-        $this->assertContains('Added 1 new games', $output);
-    }
-
-    private function addCommandToKernel(): void
-    {
-        $this->application->add(new CreateNewGamesCommand($this->gamesOwnedServiceMock));
-    }
-
-    private function setGamesOwnedServiceMock():void
-    {
-        $this->gamesOwnedServiceMock->expects($this->any())
-            ->method('getAllMyGames')
-            ->willReturn($this->getGamesArray());
-
-        $this->gamesOwnedServiceMock->expects($this->any())
-            ->method('getSummary')
-            ->willReturn([ReportService::NEW_GAME => 1]);
+        $this->assertContains('N', $output);
     }
 
     /**

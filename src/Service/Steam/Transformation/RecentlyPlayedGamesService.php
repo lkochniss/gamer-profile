@@ -1,15 +1,19 @@
 <?php
 
-namespace App\Service\Steam;
+namespace App\Service\Steam\Transformation;
 
 use App\Entity\Game;
 
 /**
- * Class RecentlyPlayedService
+ * Class RecentlyPlayedGamesService
  */
-class RecentlyPlayedService
+class RecentlyPlayedGamesService
 {
-    public function sortRecentlyPlayedByLastSession(array $recentlyPlayedGames)
+    /**
+     * @param array $recentlyPlayedGames
+     * @return array
+     */
+    public function sortRecentlyPlayedGamesByLastSession(array $recentlyPlayedGames): array
     {
         usort($recentlyPlayedGames, function (Game $a, Game $b){
             if ($a->getLastGameSession() === null || $b->getLastGameSession() === null){

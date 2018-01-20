@@ -4,7 +4,10 @@ namespace tests\App\Command\Steam;
 
 use App\Command\Steam\UpdateRecentlyPlayedGamesCommand;
 use App\Service\ReportService;
+use App\Service\Steam\Entity\UpdateGameInformationService;
+use App\Service\Steam\Entity\UpdateUserInformationService;
 use App\Service\Steam\GamesOwnedService;
+use App\Service\Steam\Transformation\GameUserInformationService;
 use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
@@ -30,55 +33,70 @@ class UpdateRecentlyPlayedGamesCommandTest extends KernelTestCase
     /**
      * @var MockObject
      */
-    private $gamesOwnedServiceMock;
+    private $updateGameInformationServiceMock;
+
+    /**
+     * @var MockObject
+     */
+    private $updateUserInformationServiceMock;
+
+    /**
+     * @var MockObject
+     */
+    private $gameUserInformationServiceMock;
 
     public function setUp(): void
     {
         $kernel = static::createKernel();
         $kernel->boot();
 
-        $this->gamesOwnedServiceMock = $this->createMock(GamesOwnedService::class);
+        $this->updateGameInformationServiceMock = $this->createMock(UpdateGameInformationService::class);
+        $this->updateUserInformationServiceMock = $this->createMock(UpdateUserInformationService::class);
+        $this->gameUserInformationServiceMock = $this->createMock(GameUserInformationService::class);
         $this->application = new Application($kernel);
     }
 
     public function testCommandExecute(): void
     {
-        $this->setGamesOwnedServiceMock();
-        $this->addCommandToKernel();
+        $this->updateGameInformationServiceMock->expects($this->any())
+            ->method('updateGameInformationForSteamAppId')
+            ->with(1)
+            ->willReturn('U');
+
+        $this->updateUserInformationServiceMock->expects($this->any())
+            ->method('updateUserInformationForSteamAppId')
+            ->with(1)
+            ->willReturn('U');
+
+        $this->gameUserInformationServiceMock->expects($this->any())
+            ->method('getRecentlyPlayedGames')
+            ->willReturn($this->getRecentlyGamesArray());
+
+        $this->application->add(new UpdateRecentlyPlayedGamesCommand(
+                $this->updateGameInformationServiceMock,
+                $this->updateUserInformationServiceMock,
+                $this->gameUserInformationServiceMock
+            )
+        );
 
         $this->command = $this->application->find('steam:update:recent');
         $commandTester = new CommandTester($this->command);
         $commandTester->execute([]);
 
         $output = $commandTester->getDisplay();
-        $this->assertContains('Added 1 new games', $output);
-    }
-
-    private function addCommandToKernel(): void
-    {
-        $this->application->add(new UpdateRecentlyPlayedGamesCommand($this->gamesOwnedServiceMock));
-    }
-
-    private function setGamesOwnedServiceMock():void
-    {
-        $this->gamesOwnedServiceMock->expects($this->any())
-            ->method('getMyRecentlyPlayedGames')
-            ->willReturn($this->getGamesArray());
-
-        $this->gamesOwnedServiceMock->expects($this->any())
-            ->method('getSummary')
-            ->willReturn([ReportService::NEW_GAME => 1]);
+        $this->assertContains('U', $output);
     }
 
     /**
      * @return array
      */
-    private function getGamesArray(): array
+    private function getRecentlyGamesArray(): array
     {
         return [
             [
                 'appid' => 1,
-                'playtime_forever' => 0
+                'playtime_forever' => 20,
+                'playtime_2weeks' => 10
             ]
         ];
     }

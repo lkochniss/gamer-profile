@@ -2,7 +2,8 @@
 
 namespace App\Command\Steam;
 
-use App\Service\Steam\GamesOwnedService;
+use App\Service\Steam\Entity\CreateNewGameService;
+use App\Service\Steam\Transformation\GameUserInformationService;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -13,19 +14,26 @@ use Symfony\Component\Console\Output\OutputInterface;
 class CreateNewGamesCommand extends ContainerAwareCommand
 {
     /**
-     * @var GamesOwnedService
+     * @var GameUserInformationService
      */
-    private $gamesOwnedService;
+    private $gameUserInformationService;
 
     /**
-     * UpdateAllGamesCommand constructor.
-     *
-     * @param GamesOwnedService $gamesOwnedService
+     * @var CreateNewGameService
      */
-    public function __construct(GamesOwnedService $gamesOwnedService)
+    private $createNewGameService;
+
+    /**
+     * CreateNewGamesCommand constructor.
+     * @param GameUserInformationService $gameUserInformationService
+     * @param CreateNewGameService $createNewGameService
+     */
+    public function __construct(GameUserInformationService $gameUserInformationService, CreateNewGameService $createNewGameService)
     {
         parent::__construct();
-        $this->gamesOwnedService = $gamesOwnedService;
+
+        $this->gameUserInformationService = $gameUserInformationService;
+        $this->createNewGameService = $createNewGameService;
     }
 
     protected function configure(): void
@@ -44,34 +52,17 @@ class CreateNewGamesCommand extends ContainerAwareCommand
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $output->writeln(['', 'Starting:']);
-        $mySteamGames = $this->gamesOwnedService->getAllMyGames();
+        $mySteamGames = $this->gameUserInformationService->getAllGames();
 
         foreach ($mySteamGames as $mySteamGame) {
-            $status = $this->gamesOwnedService->createGameIfNotExist($mySteamGame['appid']);
+            $status = $this->createNewGameService->createGameIfNotExist($mySteamGame['appid']);
             $output->write($status);
         }
 
         $output->writeln(['','','Summary:']);
-        $status = $this->gamesOwnedService->getSummary();
+        $status = $this->createNewGameService->getSummary();
         foreach ($status as $key => $value) {
             $output->writeln('- ' . sprintf($key, $value));
         }
-
-        $errors = $this->gamesOwnedService->getErrors();
-        if (!empty($errors)) {
-            $output->writeln(['', 'Following Steam AppIDs threw errors while receiving information']);
-            foreach ($errors as $error) {
-                $output->writeln('- '. $error);
-            }
-            $output->writeln(['', 'Info: Most errors occur due to country restrictions for a game.']);
-        }
-    }
-
-    /**
-     * @return GamesOwnedService
-     */
-    protected function getGamesOwnedService(): GamesOwnedService
-    {
-        return $this->gamesOwnedService;
     }
 }

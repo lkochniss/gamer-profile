@@ -1,9 +1,9 @@
 <?php
 
-namespace tests\App\Service\Steam;
+namespace tests\App\Service\Steam\Transformation;
 
 use App\Service\Steam\Api\GameApiClientService;
-use App\Service\Steam\GameInformationService;
+use App\Service\Steam\Transformation\GameInformationService;
 use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
@@ -28,7 +28,7 @@ class GameInformationServiceTest extends TestCase
         $this->setSteamGameApiClientMock();
 
         $gameInformationService = new GameInformationService($this->steamGameApiServiceMock);
-        $gameInformation = $gameInformationService->getInformationForAppId(1);
+        $gameInformation = $gameInformationService->getGameInformationForSteamAppId(1);
 
         $this->assertEquals($this->getGameArray(), $gameInformation);
     }
@@ -38,7 +38,7 @@ class GameInformationServiceTest extends TestCase
         $this->setFailingSteamGameApiClientMock();
 
         $gameInformationService = new GameInformationService($this->steamGameApiServiceMock);
-        $gameInformation = $gameInformationService->getInformationForAppId(1);
+        $gameInformation = $gameInformationService->getGameInformationForSteamAppId(1);
 
         $this->assertEquals([], $gameInformation);
     }

@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Service\Transformator;
+namespace App\Service\Transformation;
 
 /**
- * Class TimeTransformator
+ * Class TimeTransformation
  */
-class TimeTransformator
+class TimeTransformation
 {
     /**
      * @var int $timeInMinutes
@@ -13,7 +13,7 @@ class TimeTransformator
     private $timeInMinutes;
 
     /**
-     * TimeTransformator constructor.
+     * TimeTransformation constructor.
      *
      * @param int $timeInMinutes
      */

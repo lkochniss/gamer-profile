@@ -8,22 +8,17 @@ namespace App\Service;
 class ReportService
 {
     const NEW_GAME = 'Added %s new games';
-    const UPDATED_GAME = 'Updated %s games';
+    const UPDATED_GAME_INFORMATION = 'Updated %s games general information';
+    const UPDATED_GAME_USER_INFORMATION = 'Updated %s games user information';
     const SKIPPED_GAME = 'Skipped %s already existing games';
-    const FIND_GAME_ERROR = 'Error getting game information on %s games';
+    const FIND_GAME_INFORMATION_ERROR = 'Error getting game information on %s games';
+    const FIND_USER_INFORMATION_ERROR = 'Error getting user information on %s games';
+    const GAME_NOT_FOUND_ERROR = 'Error finding game with steamAppId %s';
 
     /**
      * @var array
      */
-    private $report;
-
-    /**
-     * ReportService constructor.
-     */
-    public function __construct()
-    {
-        $this->report = [];
-    }
+    private $report = [];
 
     /**
      * @param string $entry

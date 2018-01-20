@@ -3,11 +3,10 @@
 namespace App\Command\Steam;
 
 use App\Repository\GameRepository;
-use App\Service\Steam\GamesOwnedService;
+use App\Service\Steam\Entity\UpdateGameInformationService;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Style\SymfonyStyle;
 
 /**
  * Class UpdateOldestGamesCommand
@@ -15,9 +14,9 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 class UpdateOldestGamesCommand extends ContainerAwareCommand
 {
     /**
-     * @var GamesOwnedService
+     * @var UpdateGameInformationService
      */
-    private $gamesOwnedService;
+    private $updateGameInformationService;
 
     /**
      * @var GameRepository
@@ -26,13 +25,13 @@ class UpdateOldestGamesCommand extends ContainerAwareCommand
 
     /**
      * UpdateOldestGamesCommand constructor.
-     * @param GamesOwnedService $gamesOwnedService
+     * @param UpdateGameInformationService $updateGameInformationService
      * @param GameRepository $gameRepository
      */
-    public function __construct(GamesOwnedService $gamesOwnedService, GameRepository $gameRepository)
+    public function __construct(UpdateGameInformationService $updateGameInformationService, GameRepository $gameRepository)
     {
         parent::__construct();
-        $this->gamesOwnedService = $gamesOwnedService;
+        $this->updateGameInformationService = $updateGameInformationService;
         $this->gameRepository = $gameRepository;
     }
 
@@ -52,37 +51,11 @@ class UpdateOldestGamesCommand extends ContainerAwareCommand
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $output->writeln(['', 'Starting:']);
-        $this->gamesOwnedService->getAllMyGames();
         $mySteamGames = $this->gameRepository->getLeastUpdatedGames(20);
 
         foreach ($mySteamGames as $mySteamGame) {
-            $status = $this->gamesOwnedService->updateExistingGame($mySteamGame);
+            $status = $this->updateGameInformationService->updateGameInformationForSteamAppId($mySteamGame->getSteamAppId());
             $output->write($status);
         }
-
-        $updates = $this->gamesOwnedService->getUpdates();
-        if (!empty($updates)) {
-            $output->writeln(['', 'Following Steam Games were updated']);
-            foreach ($updates as $update) {
-                $output->writeln('- '. $update);
-            }
-        }
-
-        $errors = $this->gamesOwnedService->getErrors();
-        if (!empty($errors)) {
-            $output->writeln(['', 'Following Steam AppIDs threw errors while receiving information']);
-            foreach ($errors as $error) {
-                $output->writeln('- '. $error);
-            }
-            $output->writeln(['', 'Info: Most errors occur due to country restrictions for a game.']);
-        }
-    }
-
-    /**
-     * @return GamesOwnedService
-     */
-    protected function getGamesOwnedService(): GamesOwnedService
-    {
-        return $this->gamesOwnedService;
     }
 }

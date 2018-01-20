@@ -6,7 +6,9 @@ use App\Command\Steam\UpdateOldestGamesCommand;
 use App\Entity\Game;
 use App\Repository\GameRepository;
 use App\Service\ReportService;
-use App\Service\Steam\GamesOwnedService;
+use App\Service\Steam\Entity\UpdateGameInformationService;
+use App\Service\Steam\Transformation\GameInformationService;
+use App\Service\Steam\Transformation\GameUserInformationService;
 use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
@@ -32,7 +34,7 @@ class UpdateOldestCommandTest extends KernelTestCase
     /**
      * @var MockObject
      */
-    private $gamesOwnedServiceMock;
+    private $updateGameInformationServiceMock;
 
     /**
      * @var MockObject
@@ -44,14 +46,14 @@ class UpdateOldestCommandTest extends KernelTestCase
         $kernel = static::createKernel();
         $kernel->boot();
 
-        $this->gamesOwnedServiceMock = $this->createMock(GamesOwnedService::class);
+        $this->updateGameInformationServiceMock = $this->createMock(UpdateGameInformationService::class);
         $this->gameRepositoryMock = $this->createMock(GameRepository::class);
         $this->application = new Application($kernel);
     }
 
     public function testCommandExecute(): void
     {
-        $this->setGamesOwnedServiceMock();
+        $this->setGameUserInformationServiceMock();
         $this->setGameRepositoryMock();
         $this->addCommandToKernel();
 
@@ -60,36 +62,30 @@ class UpdateOldestCommandTest extends KernelTestCase
         $commandTester->execute([]);
 
         $output = $commandTester->getDisplay();
-        $this->assertContains('Following Steam Games were updated', $output);
-        $this->assertContains('Demo Game', $output);
+        $this->assertContains('U', $output);
     }
 
     private function addCommandToKernel(): void
     {
-        $this->application->add(new UpdateOldestGamesCommand($this->gamesOwnedServiceMock, $this->gameRepositoryMock));
+        $this->application->add(new UpdateOldestGamesCommand($this->updateGameInformationServiceMock, $this->gameRepositoryMock));
     }
 
-    private function setGamesOwnedServiceMock():void
+    private function setGameUserInformationServiceMock():void
     {
-        $this->gamesOwnedServiceMock->expects($this->any())
-            ->method('getAllMyGames')
-            ->willReturn($this->getGamesArray());
-
-        $this->gamesOwnedServiceMock->expects($this->any())
-            ->method('updateExistingGame')
+        $this->updateGameInformationServiceMock->expects($this->any())
+            ->method('updateGameInformationForSteamAppId')
+            ->with(1)
             ->willReturn('U');
-
-        $this->gamesOwnedServiceMock->expects($this->any())
-            ->method('getUpdates')
-            ->willReturn([ReportService::UPDATED_GAME => 'Demo Game']);
     }
 
     private function setGameRepositoryMock():void
     {
+        $game = new Game();
+        $game->setSteamAppId(1);
         $this->gameRepositoryMock->expects($this->any())
             ->method('getLeastUpdatedGames')
             ->with(20)
-            ->willReturn([new Game()]);
+            ->willReturn([$game]);
     }
 
     /**

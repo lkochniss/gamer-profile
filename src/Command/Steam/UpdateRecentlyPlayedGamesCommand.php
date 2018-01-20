@@ -2,7 +2,9 @@
 
 namespace App\Command\Steam;
 
-use App\Service\Steam\GamesOwnedService;
+use App\Service\Steam\Entity\UpdateGameInformationService;
+use App\Service\Steam\Entity\UpdateUserInformationService;
+use App\Service\Steam\Transformation\GameUserInformationService;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -12,26 +14,43 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class UpdateRecentlyPlayedGamesCommand extends ContainerAwareCommand
 {
+    /**
+     * @var UpdateGameInformationService
+     */
+    private $updateGameInformationService;
+
+    /**
+     * @var UpdateUserInformationService
+     */
+    private $updateUserInformationService;
+
+    /**
+     * @var GameUserInformationService
+     */
+    private $gameUserInformationService;
+
+    /**
+     * UpdateRecentlyPlayedGamesCommand constructor.
+     * @param UpdateGameInformationService $updateGameInformationService
+     * @param UpdateUserInformationService $updateUserInformationService
+     * @param GameUserInformationService $gameUserInformationService
+     */
+    public function __construct(
+        UpdateGameInformationService $updateGameInformationService,
+        UpdateUserInformationService $updateUserInformationService,
+        GameUserInformationService $gameUserInformationService
+    )
+    {
+        parent::__construct();
+        $this->updateGameInformationService = $updateGameInformationService;
+        $this->updateUserInformationService = $updateUserInformationService;
+        $this->gameUserInformationService = $gameUserInformationService;
+    }
+
     protected function configure(): void
     {
         $this->setName('steam:update:recent');
         $this->setDescription('Synchronizes local game information with recently played steam games');
-    }
-
-    /**
-     * @var GamesOwnedService
-     */
-    private $gamesOwnedService;
-
-    /**
-     * UpdateAllGamesCommand constructor.
-     *
-     * @param GamesOwnedService $gamesOwnedService
-     */
-    public function __construct(GamesOwnedService $gamesOwnedService)
-    {
-        parent::__construct();
-        $this->gamesOwnedService = $gamesOwnedService;
     }
 
     /**
@@ -43,36 +62,17 @@ class UpdateRecentlyPlayedGamesCommand extends ContainerAwareCommand
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $output->writeln(['', 'Starting:']);
-        $this->gamesOwnedService->resetRecentGames();
-        $mySteamGames = $this->getGamesOwnedService()->getMyRecentlyPlayedGames();
-
+        $mySteamGames = $this->gameUserInformationService->getRecentlyPlayedGames();
         foreach ($mySteamGames as $mySteamGame) {
-            $status = $this->gamesOwnedService->createOrUpdateGame($mySteamGame['appid']);
+            $status = $this->updateGameInformationService->updateGameInformationForSteamAppId(
+                $mySteamGame['appid']
+            );
+            $output->write($status);
+
+            $status = $this->updateUserInformationService->updateUserInformationForSteamAppId(
+                $mySteamGame['appid']
+            );
             $output->write($status);
         }
-
-        $output->writeln(['', '', 'Summary:']);
-        $status = $this->gamesOwnedService->getSummary();
-        foreach ($status as $key => $value) {
-            $output->writeln('- ' . sprintf($key, $value));
-        }
-
-        $errors = $this->gamesOwnedService->getErrors();
-        if (!empty($errors)) {
-            $output->writeln(['', 'Following Steam AppIDs threw errors while receiving information']);
-            foreach ($errors as $error) {
-                $output->writeln('- ' . $error);
-            }
-            $output->writeln(['', 'Info: Most errors occur due to country restrictions for a game.']);
-        }
-    }
-
-    /**
-     * @return GamesOwnedService
-     */
-    protected function getGamesOwnedService(): GamesOwnedService
-    {
-        return $this->gamesOwnedService;
     }
 }

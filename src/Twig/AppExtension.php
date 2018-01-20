@@ -4,11 +4,10 @@ namespace App\Twig;
 
 use App\Entity\Game;
 use App\Service\PurchaseService;
-use App\Service\Transformator\TimeTransformator;
+use App\Service\Transformation\TimeTransformation;
 use Symfony\Component\Translation\TranslatorInterface;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
-use Twig\TwigFunction;
 
 /**
  * Class AppExtension
@@ -42,7 +41,7 @@ class AppExtension extends AbstractExtension
      */
     public function convertRecentTime(int $value): string
     {
-        $time = new TimeTransformator($value);
+        $time = new TimeTransformation($value);
 
         $hours = $this->translator->transChoice(
             '{0}%count% hours|{1}1 hour|]1,Inf[%count% hours',
@@ -71,7 +70,7 @@ class AppExtension extends AbstractExtension
      */
     public function convertOverallTime(int $value): string
     {
-        $time = new TimeTransformator($value);
+        $time = new TimeTransformation($value);
 
         $days = $this->translator->transChoice(
             '{0}%count% days|{1}1 day|]1,Inf[%count% days',
