@@ -324,7 +324,7 @@ class Game extends AbstractEntity
     }
 
     /**
-     * @return array
+     * @return Purchase[]
      */
     public function getPurchases(): array
     {

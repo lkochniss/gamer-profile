@@ -25,7 +25,7 @@ class PurchaseService
             }
         }
 
-        if ($ingamePurchase === false){
+        if ($ingamePurchase === false) {
             $sum += $game->getPrice();
         }
 

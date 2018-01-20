@@ -22,11 +22,10 @@ class PurchaseRepository extends AbstractRepository
             $entity->getCreatedAt()->format('d-m-y-').
             $entity->getGame()->getName().
             '-'.
-            $entity->getType()).
+            $entity->getType()
+        ).
             '-'.
-            count($entity->getGame()->getPurchases())
-
-        );
+            count($entity->getGame()->getPurchases()));
         $this->getEntityManager()->persist($entity);
         $this->getEntityManager()->flush($entity);
     }

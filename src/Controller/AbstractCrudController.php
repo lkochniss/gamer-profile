@@ -108,7 +108,7 @@ abstract class AbstractCrudController extends Controller
      * @param array $options
      * @return string
      */
-    protected function generateUrlForAction(string $action, array $options = array()): string
+    protected function generateUrlForAction(string $action, array $options = []): string
     {
         return $this->generateUrl(
             sprintf('%s_%s', $this->getRoutePrefix(), $action),
@@ -132,7 +132,7 @@ abstract class AbstractCrudController extends Controller
      * @param array $options
      * @return RedirectResponse|Response
      */
-    protected function createAndHandleForm(AbstractEntity $entity, Request $request, $action, array $options = array())
+    protected function createAndHandleForm(AbstractEntity $entity, Request $request, $action, array $options = [])
     {
         $form = $this->createForm(
             $this->getFormType(),

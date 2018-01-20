@@ -3,7 +3,8 @@
 namespace App\Controller;
 
 use App\Repository\GameRepository;
-use App\Service\Steam\RecentlyPlayedService;
+
+use App\Service\Steam\Transformation\RecentlyPlayedGamesService;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -15,14 +16,14 @@ class HomepageController extends Controller
 
     /**
      * @param GameRepository $gameRepository
-     * @param RecentlyPlayedService $recentlyPlayedService
+     * @param RecentlyPlayedGamesService $recentlyPlayedService
      * @return Response
      */
-    public function recentlyPlayed(GameRepository $gameRepository, RecentlyPlayedService $recentlyPlayedService)
+    public function recentlyPlayed(GameRepository $gameRepository, RecentlyPlayedGamesService $recentlyPlayedService)
     {
         $recentlyPlayedGames = $gameRepository->getRecentlyPlayedGames();
         return $this->render('Homepage/recentlyPlayed.html.twig', [
-            'games' => $recentlyPlayedService->sortRecentlyPlayedByLastSession($recentlyPlayedGames)
+            'games' => $recentlyPlayedService->sortRecentlyPlayedGamesByLastSession($recentlyPlayedGames)
         ]);
     }
 
@@ -32,8 +33,8 @@ class HomepageController extends Controller
      */
     public function mostPlayed(GameRepository $gameRepository)
     {
-        return $this->render('Homepage/mostPlayed.html.twig', array(
-            'games' => $gameRepository->getMostPlayedGames(10)
-        ));
+        return $this->render('Homepage/mostPlayed.html.twig', [
+                'games' => $gameRepository->getMostPlayedGames(10)
+            ]);
     }
 }

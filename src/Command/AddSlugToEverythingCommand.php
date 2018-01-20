@@ -48,8 +48,7 @@ class AddSlugToEverythingCommand extends ContainerAwareCommand
         GameRepository $gameRepository,
         GameSessionRepository $gameSessionRepository,
         PurchaseRepository $purchaseRepository
-    )
-    {
+    ) {
         parent::__construct();
         $this->blogPostRepository = $blogPostRepository;
         $this->gameRepository = $gameRepository;
@@ -92,5 +91,4 @@ class AddSlugToEverythingCommand extends ContainerAwareCommand
             $abstractRepository->save($entity);
         }
     }
-
 }
