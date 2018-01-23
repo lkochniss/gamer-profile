@@ -20,14 +20,9 @@
     </script>
 </head>
 <body>
-{% block body %}
 {% include '_modules/infotext.html.twig' %}
-
-{% if is_granted('ROLE_ADMIN') %}
-    {% include '_modules/admin-navigation.html.twig' %}
-{% else %}
-    {% include '_modules/navigation.html.twig' %}
-{% endif %}
+{% include '_modules/navigation.html.twig' %}
+{% block body %}
 {% endblock %}
 {% block javascripts %}
     <script src="/js/application.js"></script>

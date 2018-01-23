@@ -29,7 +29,7 @@ class GameController extends AbstractCrudController
         $game = $gameRepository->find($id);
         $updateGameInformationService->updateGameInformationForSteamAppId($game->getSteamAppId());
 
-        return $this->redirect($this->generateUrl('game_edit', ['id' => $id]));
+        return $this->redirect($this->generateUrl('game_dashboard', ['id' => $id]));
     }
 
     /**
