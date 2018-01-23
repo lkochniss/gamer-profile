@@ -1,24 +1,25 @@
 {% extends 'admin-base.html.twig' %}
 {% block body %}
-
-{{ form_start(form) }}
-<div class="row">
-    <div class="col-lg-12 page-header">
-        <h1 class="col-lg-6 col-md-6">{{ entity.name }}</h1>
-        <span class="pull-right">{% trans from "game" %}bought at{% endtrans %}
-            {{ form_widget(form.boughtAt) }}
-        </span>
-    </div>
-</div>
-<div class="row">
-    {% include '_modules/Game/information-card.html.twig' %}
-    {% include '_modules/Game/session-card.html.twig' %}
-    {% include '_modules/Game/blog-post-card.html.twig' %}
-    {% include '_modules/Game/purchase-card.html.twig' %}
-</div>
-<div class="row">
     <div class="row">
-
+        <div class="col-lg-12">
+            <h1 class="page-header">{{ entity.name }}</h1>
+        </div>
+    </div>
+    {{ form_start(form) }}
+    <div class="row">
+        <div class="col huge">
+            {{ form_label(form.boughtAt) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            {{ form_widget(form.boughtAt) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col huge">
+            {{ form_label(form.description) }}
+        </div>
     </div>
     <div class="row">
         <div class="col">
@@ -30,8 +31,7 @@
             {{ form_row(form.submit) }}
         </div>
     </div>
-</div>
-{{ form_end(form) }}
+    {{ form_end(form) }}
 {% endblock %}
 {% block javascripts %}
     {{ parent() }}

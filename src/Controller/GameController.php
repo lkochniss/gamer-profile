@@ -6,6 +6,10 @@ use App\Entity\Game;
 use App\Form\Type\GameType;
 use App\Repository\GameRepository;
 use App\Service\Steam\Entity\UpdateGameInformationService;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * Class GameController
@@ -26,6 +30,25 @@ class GameController extends AbstractCrudController
         $updateGameInformationService->updateGameInformationForSteamAppId($game->getSteamAppId());
 
         return $this->redirect($this->generateUrl('game_edit', ['id' => $id]));
+    }
+
+    /**
+     * @param int $id
+     * @return Response
+     */
+    public function dashboard(int $id): Response
+    {
+        $entity = $this->getDoctrine()->getRepository($this->getEntityName())->find($id);
+        if (is_null($entity)) {
+            throw new NotFoundHttpException();
+        }
+
+        return $this->render(#
+            sprintf('%s/dashboard.html.twig', $this->getTemplateBasePath()),
+            [
+                'entity' => $entity
+            ]
+        );
     }
 
     /**

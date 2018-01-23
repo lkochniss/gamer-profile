@@ -27,6 +27,13 @@
             <span class="pull-right">{{ entity.modifiedAt|date("d.m.Y H:i") }}</span>
             <div class="clearfix"></div>
         </div>
+        {% if entity.hasBoughtAt  %}
+            <div class="panel-footer">
+                <span class="pull-left">{% trans from "game" %}bought at{% endtrans %}:</span>
+                <span class="pull-right">{{ entity.boughtAt|date("d.m.Y") }}</span>
+                <div class="clearfix"></div>
+            </div>
+        {% endif %}
         <a href="{{ path('game_update_steam_information', {'id': entity.id}) }}">
             <div class="panel-footer">
                 <span class="pull-left">{% trans from "game" %}Update Information{% endtrans %}</span>
