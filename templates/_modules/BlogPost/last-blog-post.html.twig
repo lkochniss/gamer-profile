@@ -1,6 +1,6 @@
 {% set lastBlogPost = game.blogPosts | last %}
 {% if lastBlogPost %}
-    <a href="{{ path('blog_post_edit', {'id': game.id}) }}">
+    <a href="{{ path('blog_post_edit', {'id': lastBlogPost.id}) }}">
         <div class="panel-footer">
             <span class="pull-left">{% trans from "game" %}Last Blog Post{% endtrans %}</span>
             <span class="pull-right">{{ lastBlogPost.title| slice(0,16) }} <i class="fa fa-arrow-circle-right"></i></span>
