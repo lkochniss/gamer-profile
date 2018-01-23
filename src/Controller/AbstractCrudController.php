@@ -103,6 +103,18 @@ abstract class AbstractCrudController extends Controller
         );
     }
 
+    public function listBackendForGame(int $id): Response
+    {
+        $entities = $this->getDoctrine()->getRepository($this->getEntityName())->findBy(['game' => $id]);
+
+        return $this->render(
+            sprintf('%s/list-backend.html.twig', $this->getTemplateBasePath()),
+            [
+                'entities' => $entities,
+            ]
+        );
+    }
+
     /**
      * @param string $action
      * @param array $options

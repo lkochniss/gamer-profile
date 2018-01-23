@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Game;
 use App\Form\Type\GameType;
+use App\Repository\GameRepository;
 use App\Service\Steam\Entity\UpdateGameInformationService;
 
 /**
@@ -13,14 +14,16 @@ class GameController extends AbstractCrudController
 {
     /**
      * @param int $id
+     * @param GameRepository $gameRepository
      * @param UpdateGameInformationService $updateGameInformationService
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
-    public function update(int $id, UpdateGameInformationService $updateGameInformationService)
+    public function update(int $id, GameRepository $gameRepository, UpdateGameInformationService $updateGameInformationService)
     {
-        $updateGameInformationService->updateGameInformationForSteamAppId($id);
+        $game = $gameRepository->find($id);
+        $updateGameInformationService->updateGameInformationForSteamAppId($game->getSteamAppId());
 
         return $this->redirect($this->generateUrl('game_edit', ['id' => $id]));
     }

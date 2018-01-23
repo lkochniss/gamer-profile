@@ -1,21 +1,32 @@
-<nav class="navbar navbar-expand-lg navbar-expand-md navbar-light bg-faded" role="navigation">
-    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
-            <li class="nav-item active">
-                <a class="nav-link" href="{{ path('blog_post_list_backend') }}">{% trans from "navigation" %}blog posts{% endtrans %}</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ path('game_list_backend') }}">{% trans from "navigation" %}games{% endtrans %}</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ path('purchase_list_backend') }}">{% trans from "navigation" %}purchases{% endtrans %}</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ path('security_logout') }}">{% trans from "navigation" %}logout{% endtrans %}</a>
-            </li>
-        </ul>
+<nav class="navbar navbar-default navbar-expand-lg navbar-expand-md navbar-light navbar-static-top"
+     role="navigation">
+    <div class="navbar-header navbar-nav">
+        <a class="navbar-brand nav-link" target="_blank"
+           href="https://github.com/lkochniss/gamer-profile/releases/tag/0.3">
+            Gamer Profile v0.3</a>
+    </div>
+    <div class="navbar-nav ml-auto">
+        <li class="nav-item ">
+            <a class="nav-link"
+               href="{{ path('security_logout') }}">{% trans from "navigation" %}logout{% endtrans %}</a>
+        </li>
+    </div>
+    <div class="navbar-default sidebar h-100" role="navigation">
+        <div class="sidebar-nav navbar-collapse">
+            <ul class="nav in" id="side-menu">
+                <li class="nav-item w-100">
+                    <a class="nav-link"
+                       href="{{ path('blog_post_list_backend') }}">{% trans from "navigation" %}blog posts{% endtrans %}</a>
+                </li>
+                <li class="nav-item w-100">
+                    <a class="nav-link"
+                       href="{{ path('game_list_backend') }}">{% trans from "navigation" %}games{% endtrans %}</a>
+                </li>
+                <li class="nav-item w-100">
+                    <a class="nav-link"
+                       href="{{ path('purchase_list_backend') }}">{% trans from "navigation" %}purchases{% endtrans %}</a>
+                </li>
+            </ul>
+        </div>
     </div>
 </nav>
