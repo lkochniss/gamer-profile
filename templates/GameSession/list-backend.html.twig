@@ -1,0 +1,46 @@
+{% extends 'admin-base.html.twig' %}
+ {% block stylesheets %}
+     {{ parent() }}
+     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
+ {% endblock %}
+{% block body %}
+    <table id="game-session-list" class="table">
+        <thead>
+        <tr>
+            <th scope="col">
+                {% trans from 'purchase' %}Game{% endtrans %}
+            </th>
+            <th scope="col">
+                {% trans from 'purchase' %}Date{% endtrans %}
+            </th>
+            <th scope="col">
+                {% trans from 'purchase' %}Duration{% endtrans %}
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for gameSession in entities %}
+            <tr>
+                <td scope="col">
+                    {{ gameSession.game.name }}
+                </td>
+                <td scope="col">
+                    {{ gameSession.createdAt|date('d.m.Y') }}
+                </td>
+                <td scope="col">
+                    {{ gameSession.duration|convert_recent_time }}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#game-session-list').DataTable();
+        });
+    </script>
+{% endblock %}

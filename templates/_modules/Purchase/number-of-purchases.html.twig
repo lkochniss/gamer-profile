@@ -1,5 +1,7 @@
+{% if is_granted('ROLE_ADMIN') %}
 <div class="panel-footer">
     <span class="pull-left">{% trans from "game" %}Number of Purchases{% endtrans %}</span>
     <span class="pull-right">{{ game.purchases|length }}</span>
     <div class="clearfix"></div>
 </div>
+{% endif %}

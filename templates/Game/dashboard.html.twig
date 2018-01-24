@@ -3,7 +3,12 @@
 
 <div class="row">
     <div class="col-lg-12">
-        <h1 class="page-header">{{ entity.name }} <a href="{{ path('game_edit', {'id': entity.id}) }}">edit</a></h1>
+        <h1 class="page-header">
+            {{ entity.name }}
+            <a href="{{ path('game_edit', {'id': entity.id}) }}">edit</a>
+        </h1>
+        <img class="pull-right thumbnail" src="{{ entity.headerImagePath }}"/>
+        {{ entity.description| raw }}
     </div>
 </div>
 <div class="row">
@@ -12,13 +17,4 @@
     {% include '_modules/Game/blog-post-card.html.twig' %}
     {% include '_modules/Game/purchase-card.html.twig' %}
 </div>
-{% endblock %}
-{% block javascripts %}
-    {{ parent() }}
-    <script src="https://cdn.ckeditor.com/4.8.0/standard/ckeditor.js"></script>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            CKEDITOR.replace('game_description');
-        });
-    </script>
 {% endblock %}

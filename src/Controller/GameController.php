@@ -24,8 +24,11 @@ class GameController extends AbstractCrudController
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
-    public function update(int $id, GameRepository $gameRepository, UpdateGameInformationService $updateGameInformationService)
-    {
+    public function update(
+        int $id,
+        GameRepository $gameRepository,
+        UpdateGameInformationService $updateGameInformationService
+    ) {
         $game = $gameRepository->find($id);
         $updateGameInformationService->updateGameInformationForSteamAppId($game->getSteamAppId());
 

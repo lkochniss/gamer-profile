@@ -20,6 +20,11 @@ purchase_admin:
     resource: routing/purchase_admin.yaml
     prefix: /admin
 
+## Purchase
+game_session_admin:
+    resource: routing/game_session_admin.yaml
+    prefix: /admin
+
 # Frontend
 
 ## Homepage

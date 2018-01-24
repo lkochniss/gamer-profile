@@ -5,3 +5,5 @@ twig:
     globals:
       ga_tracking: '%env(resolve:GA_TRACKING)%'
       csrf_security_login_token: '%env(resolve:CSRF_SECURITY_LOGIN_TOKEN)%'
+      steam_user_name: '%env(resolve:STEAM_USER_NAME)%'
+      current_version: '%env(resolve:CURRENT_VERSION)%'

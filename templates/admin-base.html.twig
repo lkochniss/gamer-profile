@@ -29,13 +29,14 @@
     </script>
 </head>
 <body>
+{% include '_modules/infotext.html.twig' %}
 <div class="wrapper">
     <nav class="navbar navbar-default navbar-static-top"
          role="navigation">
         <div class="navbar-header navbar-nav">
             <a class="navbar-brand nav-link" target="_blank"
                href="https://github.com/lkochniss/gamer-profile/releases/tag/0.3">
-                Gamer Profile v0.3</a>
+                Gamer Profile {{ current_version }}</a>
         </div>
         <div class="nav navbar-top-links navbar-right   ">
             <li class="nav-item ">
@@ -58,12 +59,12 @@
                     <li class="nav-item">
                         <a class="nav-link"
                            href="{{ path('game_list_backend') }}"> <i class="fa fa-steam fa-2x" aria-hidden="true">
-                                {% trans from "navigation" %}games{% endtrans %}</a></i>
+                                {% trans from "navigation" %}games{% endtrans %}</i></a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link"
                            href="{{ path('purchase_list_backend') }}"> <i class="fa fa-money fa-2x" aria-hidden="true">
-                                {% trans from "navigation" %}purchases{% endtrans %}</a></i>
+                                {% trans from "navigation" %}purchases{% endtrans %}</i></a>
                     </li>
                 </ul>
             </div>
@@ -75,6 +76,7 @@
         {% endblock %}
     </div>
 </div>
+</body>
 {% block javascripts %}
     <script src="/js/application.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
@@ -92,5 +94,4 @@
         });
     </script>
 {% endblock %}
-</body>
 </html>

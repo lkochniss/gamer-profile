@@ -1,6 +1,10 @@
 {% set lastBlogPost = game.blogPosts | last %}
 {% if lastBlogPost %}
-    <a href="{{ path('blog_post_edit', {'id': lastBlogPost.id}) }}">
+    {% if is_granted('ROLE_ADMIN') %}
+        <a href="{{ path('blog_post_edit', {'id': lastBlogPost.id}) }}">
+        {% else %}
+        <a href="{{ path('blog_post_show', {'gameSlug': game.slug, 'blogPostSlug': lastBlogPost.slug }) }}">
+    {% endif %}
         <div class="panel-footer">
             <span class="pull-left">{% trans from "game" %}Last Blog Post{% endtrans %}</span>
             <span class="pull-right">{{ lastBlogPost.title| slice(0,16) }} <i class="fa fa-arrow-circle-right"></i></span>

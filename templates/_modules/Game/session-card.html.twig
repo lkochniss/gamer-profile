@@ -11,19 +11,12 @@
             </div>
         </div>
 
-        {% include '_modules/Session/number-of-sessions.html.twig' with {'game': entity} only %}
-        {% include '_modules/Session/last-session.html.twig' with {'game': entity} only %}
-        {% include '_modules/Session/shortest-session.html.twig' with {'game': entity} only %}
-        {% include '_modules/Session/average-session.html.twig' with {'game': entity} only %}
-        {% include '_modules/Session/longest-session.html.twig' with {'game': entity} only %}
-        {% include '_modules/Session/overall-played.html.twig' with {'game': entity} only %}
-
-        <a href="#">
-            <div class="panel-footer">
-                <span class="pull-left">{% trans from "game" %}View All Sessions{% endtrans %}</span>
-                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                <div class="clearfix"></div>
-            </div>
-        </a>
+        {% include '_modules/GameSession/number-of-game-sessions.html.twig' with {'game': entity} only %}
+        {% include '_modules/GameSession/last-game-session.html.twig' with {'game': entity} only %}
+        {% include '_modules/GameSession/shortest-game-session.html.twig' with {'game': entity} only %}
+        {% include '_modules/GameSession/average-game-session.html.twig' with {'game': entity} only %}
+        {% include '_modules/GameSession/longest-game-session.html.twig' with {'game': entity} only %}
+        {% include '_modules/GameSession/overall-played.html.twig' with {'game': entity} only %}
+        {% include '_modules/GameSession/list-game-sessions.html.twig' with {'game': entity} only %}
     </div>
 </div>

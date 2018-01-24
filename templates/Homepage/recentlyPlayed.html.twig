@@ -1,6 +1,5 @@
 {% extends 'base.html.twig' %}
 {% block body %}
-<div class="container embed-responsive gamer-profile-recently-played">
     <h2>{% trans from "game" %}recently_played.title{% endtrans %}</h2>
     <hr/>
     {% for key, game in games %}
@@ -15,5 +14,4 @@
         {% endif %}
     {% endfor %}
     {% include '_modules/filler.html.twig' with {'entity': games } %}
-</div>
 {% endblock %}

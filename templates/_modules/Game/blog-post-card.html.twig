@@ -10,21 +10,9 @@
                 </div>
             </div>
         </div>
-        {% include '_modules/BlogPost/number-of-blog-posts.html.twig' with {'game': entity} %}
-        {% include '_modules/BlogPost/last-blog-post.html.twig' with {'game': entity} %}
-        <a href="{{ path('blog_post_create_for_game', {'id': entity.id }) }}">
-            <div class="panel-footer">
-                <span class="pull-left">{% trans from "game" %}Create New Blog Posts{% endtrans %}</span>
-                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                <div class="clearfix"></div>
-            </div>
-        </a>
-        <a href="{{ path('purchase_list_for_game', { 'id': entity.id }) }}">
-            <div class="panel-footer">
-                <span class="pull-left">{% trans from "game" %}View All Blog Posts{% endtrans %}</span>
-                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                <div class="clearfix"></div>
-            </div>
-        </a>
+        {% include '_modules/BlogPost/number-of-blog-posts.html.twig' with {'game': entity} only %}
+        {% include '_modules/BlogPost/last-blog-post.html.twig' with {'game': entity} only %}
+        {% include '_modules/BlogPost/create-blog-post.html.twig' with {'game': entity} only %}
+        {% include '_modules/BlogPost/list-blog-posts.html.twig' with {'game': entity} only %}
     </div>
 </div>
