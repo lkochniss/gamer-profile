@@ -10,6 +10,10 @@
 !build-artifacts/.gitkeep
 public/js/*
 public/css/*
+public/*.svg
+public/*.woff*
+public/*.ttf
+public/*.eot
 # nodejs/npm
 node_modules/
 npm-debug.log

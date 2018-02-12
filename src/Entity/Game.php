@@ -210,6 +210,11 @@ class Game extends AbstractEntity
         $this->boughtAt = $boughtAt;
     }
 
+    public function hasBoughtAt(): bool
+    {
+        return $this->boughtAt? true: false;
+    }
+
     /**
      * @return float
      */

@@ -1,0 +1,18 @@
+<div class="col-lg-3 col-md-6">
+    <div class="panel panel-green">
+        <div class="panel-heading">
+            <div class="row">
+                <div class="col-xs-3">
+                    <i class="fa fa-file-text fa-5x" aria-hidden="true"></i>
+                </div>
+                <div class="col-xs-9 text-right">
+                    <div class="huge">{% trans from "game" %}Blog Posts{% endtrans %}</div>
+                </div>
+            </div>
+        </div>
+        {% include '_modules/BlogPost/number-of-blog-posts.html.twig' with {'game': entity} only %}
+        {% include '_modules/BlogPost/last-blog-post.html.twig' with {'game': entity} only %}
+        {% include '_modules/BlogPost/create-blog-post.html.twig' with {'game': entity} only %}
+        {% include '_modules/BlogPost/list-blog-posts.html.twig' with {'game': entity} only %}
+    </div>
+</div>

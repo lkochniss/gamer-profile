@@ -4,6 +4,9 @@ blog_post_list_backend:
 blog_post_create_for_game:
     path: /game/{id}/blog/create
     defaults: { _controller: 'App\Controller\BlogPostController::createForGame' }
+blog_post_list_for_game:
+    path: /game/{id}/blog
+    defaults: { _controller: 'App\Controller\BlogPostController::listBackendForGame' }
 blog_post_create:
     path: /blog/create
     defaults: { _controller: 'App\Controller\BlogPostController::create' }

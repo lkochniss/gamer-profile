@@ -1,40 +1,41 @@
-{% include 'base.html.twig' %}
+{% extends 'admin-base.html.twig' %}
+ {% block stylesheets %}
+     {{ parent() }}
+     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
+ {% endblock %}
 {% block body %}
-    <div class="container">
-        <div class="row">
-            <div class="col">
-                <a class="btn btn-primary float-right" href="{{ path('blog_post_create') }}"> {% trans from 'blog_post' %}create{% endtrans %}</a>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-6">
-                {% trans from 'blog_post' %}Game{% endtrans %}
-            </div>
-            <div class="col">
-                {% trans from 'blog_post' %}title{% endtrans %}
-            </div>
-            <div class="col">
-                {% trans from 'blog_post' %}modified at{% endtrans %}
-            </div>
-            <div class="col"></div>
-        </div>
-        <hr/>
+    <table id="blog-post-list" class="table">
+        <thead>
+        <tr>
+            <th scope="col">{% trans from 'blog_post' %}Game{% endtrans %}</th>
+            <th scope="col">{% trans from 'blog_post' %}title{% endtrans %}</th>
+            <th scope="col">{% trans from 'blog_post' %}createdAt at{% endtrans %}</th>
+            <th scope="col">{% trans from 'blog_post' %}modified at{% endtrans %}</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
         {% for post in entities %}
-            <div class="row">
-                <div class="col-6">
-                    {{ post.game.name }}
-                </div>
-                <div class="col">
-                    {{ post.title }}
-                </div>
-                <div class="col">
-                    {{ post.modifiedAt|date('d.m.Y H:i') }}
-                </div>
-                <div class="col">
+            <tr>
+                <td scope="row">{{ post.game.name }}</td>
+                <td scope="col">{{ post.title }}</td>
+                <td scope="col">{{ post.createdAt|date('d.m.Y H:i') }}</td>
+                <td scope="col">{{ post.modifiedAt|date('d.m.Y H:i') }}</td>
+                <td scope="col">
                     <a class="float-right"
                        href="{{ path('blog_post_edit', {'id': post.id}) }}">{% trans from 'game' %}edit{% endtrans %}</a>
-                </div>
-            </div>
+                </td>
+            </tr>
         {% endfor %}
-    </div>
+        </tbody>
+    </table>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#blog-post-list').DataTable();
+        });
+    </script>
 {% endblock %}

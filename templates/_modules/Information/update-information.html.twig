@@ -1,0 +1,9 @@
+{% if is_granted('ROLE_ADMIN') %}
+<a href="{{ path('game_update_steam_information', {'id': game.id}) }}">
+    <div class="panel-footer">
+        <span class="pull-left">{% trans from "game" %}Update Information{% endtrans %}</span>
+        <span class="pull-right"><i class="fa fa-refresh"></i></span>
+        <div class="clearfix"></div>
+    </div>
+</a>
+{% endif %}

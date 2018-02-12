@@ -1,0 +1,9 @@
+{% if is_granted('ROLE_ADMIN') %}
+    <a href="{{ path('purchase_list_for_game', { 'id': game.id }) }}">
+        <div class="panel-footer">
+            <span class="pull-left">{% trans from "game" %}View All Purchases{% endtrans %}</span>
+            <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+            <div class="clearfix"></div>
+        </div>
+    </a>
+{% endif %}

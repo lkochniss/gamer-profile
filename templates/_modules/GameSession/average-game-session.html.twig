@@ -1,0 +1,14 @@
+{% if game.gameSessions %}
+{% set sum = 0 %}
+    {% for gameSession in game.gameSessions %}
+        {% set sum = sum + gameSession.duration %}
+    {% endfor %}
+
+    {% set average = sum / game.gameSessions|length %}
+
+    <div class="panel-footer">
+        <span class="pull-left">{% trans from "game" %}Average Session{% endtrans %}</span>
+        <span class="pull-right">{{ average|convert_recent_time }}</span>
+        <div class="clearfix"></div>
+    </div>
+{% endif %}

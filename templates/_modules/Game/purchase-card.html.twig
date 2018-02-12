@@ -1,0 +1,20 @@
+<div class="col-lg-3 col-md-6">
+    <div class="panel panel-yellow">
+        <div class="panel-heading">
+            <div class="row">
+                <div class="col-xs-3">
+                    <i class="fa fa-money fa-5x"></i>
+                </div>
+                <div class="col-xs-9 text-right">
+                    <div class="huge">{% trans from "game" %}Costs{% endtrans %}</div>
+                </div>
+            </div>
+        </div>
+        {% include '_modules/Purchase/number-of-purchases.html.twig' with {'game': entity} only %}
+        {% include '_modules/Purchase/current-steam-price.html.twig' with {'game': entity} only %}
+        {% include '_modules/Purchase/overall-costs.html.twig' with {'game': entity} only %}
+        {% include '_modules/Purchase/costs-per-hour.html.twig' with {'game': entity} only %}
+        {% include '_modules/Purchase/create-purchase.html.twig' with {'game': entity} only %}
+        {% include '_modules/Purchase/list-purchases.html.twig' with {'game': entity} only %}
+    </div>
+</div>
