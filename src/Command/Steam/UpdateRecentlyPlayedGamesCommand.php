@@ -68,6 +68,11 @@ class UpdateRecentlyPlayedGamesCommand extends ContainerAwareCommand
             );
             $output->write($status);
 
+            $status = $this->updateUserInformationService->addSessionForSteamAppId(
+                $mySteamGame['appid']
+            );
+            $output->write($status);
+
             $status = $this->updateUserInformationService->updateUserInformationForSteamAppId(
                 $mySteamGame['appid']
             );

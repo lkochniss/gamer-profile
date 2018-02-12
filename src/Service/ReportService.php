@@ -14,6 +14,7 @@ class ReportService
     const FIND_GAME_INFORMATION_ERROR = 'Error getting game information on %s games';
     const FIND_USER_INFORMATION_ERROR = 'Error getting user information on %s games';
     const GAME_NOT_FOUND_ERROR = 'Error finding game with steamAppId %s';
+    const CREATE_SESSION = 'Added session for game %s';
 
     /**
      * @var array
