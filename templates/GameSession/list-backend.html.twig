@@ -40,7 +40,9 @@
     <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
-            $('#game-session-list').DataTable();
+            $('#game-session-list').DataTable({
+                'order': [[1, 'desc']]
+            });
         });
     </script>
 {% endblock %}

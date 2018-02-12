@@ -51,20 +51,27 @@
                 <ul class="nav in" id="side-menu">
                     <li class="nav-item">
                         <a class="nav-link"
-                           href="{{ path('blog_post_list_backend') }}"><i class="fa fa-file-text fa-2x"
-                                                                          aria-hidden="true">
-                                {% trans from "navigation" %}blog posts{% endtrans %}</i>
-                        </a>
+                           href="{{ path('game_list_backend') }}"> <i class="fa fa-steam fa-2x" aria-hidden="true">
+                                {% trans from "navigation" %}Games{% endtrans %}</i></a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link"
-                           href="{{ path('game_list_backend') }}"> <i class="fa fa-steam fa-2x" aria-hidden="true">
-                                {% trans from "navigation" %}games{% endtrans %}</i></a>
+                           href="{{ path('game_session_list_backend') }}"> <i class="fa fa-clock-o fa-2x"
+                                                                              aria-hidden="true">
+                                {% trans from "navigation" %}Game Sessions{% endtrans %}</i></a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link"
+                           href="{{ path('blog_post_list_backend') }}"><i class="fa fa-file-text fa-2x"
+                                                                          aria-hidden="true">
+                                {% trans from "navigation" %}Blog Posts{% endtrans %}</i>
+                        </a>
+                    </li>
+
                     <li class="nav-item">
                         <a class="nav-link"
                            href="{{ path('purchase_list_backend') }}"> <i class="fa fa-money fa-2x" aria-hidden="true">
-                                {% trans from "navigation" %}purchases{% endtrans %}</i></a>
+                                {% trans from "navigation" %}Purchases{% endtrans %}</i></a>
                     </li>
                 </ul>
             </div>

@@ -6,7 +6,7 @@
 {% block body %}
     <h1>
         {{ game.name }}
-        <a href="{{ path('game_dashboard', {'id' game.id}) }}">{% trans from 'game' %}Dashboard{% endtrans %}</a>
+        <a href="{{ path('game_dashboard', {'id': game.id}) }}">{% trans from 'game' %}Dashboard{% endtrans %}</a>
     </h1>
     <table id="game-session-list" class="table">
         <thead>
