@@ -104,6 +104,15 @@
     "nelmio/alice": {
         "version": "v3.1.2"
     },
+    "nelmio/cors-bundle": {
+        "version": "1.5",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "1.5",
+            "ref": "7b6cbc842f8cd3d550815247d12294f6f304a8c4"
+        }
+    },
     "nette/bootstrap": {
         "version": "v3.0.0-beta"
     },
@@ -133,6 +142,9 @@
     },
     "ocramius/proxy-manager": {
         "version": "2.1.1"
+    },
+    "paragonie/random_compat": {
+        "version": "v2.0.11"
     },
     "pdepend/pdepend": {
         "version": "2.5.2"
@@ -362,8 +374,17 @@
     "symfony/polyfill-mbstring": {
         "version": "v1.6.0"
     },
+    "symfony/polyfill-php56": {
+        "version": "v1.7.0"
+    },
+    "symfony/polyfill-php70": {
+        "version": "v1.7.0"
+    },
     "symfony/polyfill-php72": {
         "version": "v1.6.0"
+    },
+    "symfony/polyfill-util": {
+        "version": "v1.7.0"
     },
     "symfony/process": {
         "version": "v4.0.3"
@@ -397,6 +418,9 @@
             "version": "3.3",
             "ref": "85834af1496735f28d831489d12ab1921a875e0d"
         }
+    },
+    "symfony/security-csrf": {
+        "version": "v4.0.4"
     },
     "symfony/serializer": {
         "version": "v4.0.1"
