@@ -10,6 +10,10 @@
                 <source>recently_played.title</source>
                 <target>Recently Played Games</target>
             </trans-unit>
+             <trans-unit id="new_games.title">
+                <source>new_games.title</source>
+                <target>New Games</target>
+            </trans-unit>
             <trans-unit id="last played on %date% for %time%">
                 <source>last played on %date% for %time%</source>
                 <target>last sessions played on %date% for %time%</target>

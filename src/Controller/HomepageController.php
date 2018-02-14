@@ -19,7 +19,10 @@ class HomepageController extends Controller
      * @param RecentlyPlayedGamesService $recentlyPlayedService
      * @return Response
      */
-    public function recentlyPlayed(GameRepository $gameRepository, RecentlyPlayedGamesService $recentlyPlayedService)
+    public function recentlyPlayed(
+        GameRepository $gameRepository,
+        RecentlyPlayedGamesService $recentlyPlayedService
+    ): Response
     {
         $recentlyPlayedGames = $gameRepository->getRecentlyPlayedGames();
         return $this->render('Homepage/recentlyPlayed.html.twig', [
@@ -31,10 +34,17 @@ class HomepageController extends Controller
      * @param GameRepository $gameRepository
      * @return Response
      */
-    public function mostPlayed(GameRepository $gameRepository)
+    public function mostPlayed(GameRepository $gameRepository): Response
     {
         return $this->render('Homepage/mostPlayed.html.twig', [
                 'games' => $gameRepository->getMostPlayedGames(10)
-            ]);
+        ]);
+    }
+
+    public function newGames(GameRepository $gameRepository): Response
+    {
+        return $this->render('Homepage/newGames.html.twig', [
+            'games' => $gameRepository->getNewGames()
+        ]);
     }
 }

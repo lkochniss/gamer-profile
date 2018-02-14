@@ -1,17 +1,5 @@
 {% extends 'base.html.twig' %}
 {% block body %}
     <h2>{% trans from "game" %}recently_played.title{% endtrans %}</h2>
-    <hr/>
-    {% for key, game in games %}
-        {% if key % 2 == 0 %}
-            <div class="row top-buffer">
-        {% endif %}
-        <div class="col-lg-6 col-md col-sm">
-            {% include '_modules/gameDetailCard.html.twig' with {'game': game } %}
-        </div>
-        {% if key % 2 == 1 %}
-            </div>
-        {% endif %}
-    {% endfor %}
-    {% include '_modules/filler.html.twig' with {'entity': games } %}
+    {% include '_modules/gameList.html.twig' %}
 {% endblock %}
