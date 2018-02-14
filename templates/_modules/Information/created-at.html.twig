@@ -1,5 +1,5 @@
 <div class="panel-footer">
-    <span class="pull-left">{% trans from "game" %}created at{% endtrans %}</span>
-    <span class="pull-right">{{ game.createdAt|date("d.m.Y H:i") }}</span>
+    <span class="pull-left">{% trans from "game" %}first indexed on{% endtrans %}</span>
+    <span class="pull-right">{{ game.createdAt|date("d.m.Y") }}</span>
     <div class="clearfix"></div>
 </div>
