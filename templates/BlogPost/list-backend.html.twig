@@ -17,7 +17,9 @@
         <tbody>
         {% for post in entities %}
             <tr>
-                <td scope="row">{{ post.game.name }}</td>
+                <td scope="row">
+                    <a href="{{ path('game_dashboard', {'id': post.game.id}) }}">{{ post.game.name }}</a>
+                </td>
                 <td scope="col">{{ post.title }}</td>
                 <td scope="col">{{ post.createdAt|date('d.m.Y H:i') }}</td>
                 <td scope="col">{{ post.modifiedAt|date('d.m.Y H:i') }}</td>

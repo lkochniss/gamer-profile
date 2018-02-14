@@ -23,7 +23,7 @@ class GameRepository extends AbstractRepository
     }
 
     /**
-     * @return array
+     * @return Game[]
      */
     public function getRecentlyPlayedGames(): array
     {
@@ -37,7 +37,7 @@ class GameRepository extends AbstractRepository
 
     /**
      * @param int $number
-     * @return array
+     * @return Game[]
      */
     public function getMostPlayedGames(int $number): array
     {
@@ -52,7 +52,7 @@ class GameRepository extends AbstractRepository
 
     /**
      * @param int $number
-     * @return array
+     * @return Game[]
      */
     public function getLeastUpdatedGames(int $number): array
     {
@@ -60,6 +60,21 @@ class GameRepository extends AbstractRepository
             ->where('game.recentlyPlayed = 0')
             ->orderBy('game.modifiedAt', 'ASC')
             ->setMaxResults($number)
+            ->getQuery();
+
+        return $query->getResult();
+    }
+
+    /**
+     * @return Game[]
+     */
+    public function getNewGames(): array
+    {
+        $date = new \DateTime('-1 week');
+        $query = $this->createQueryBuilder('game')
+            ->where('game.createdAt >= :date')
+            ->setParameter('date', $date)
+            ->orderBy('game.createdAt', 'DESC')
             ->getQuery();
 
         return $query->getResult();
