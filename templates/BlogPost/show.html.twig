@@ -1,18 +1,16 @@
 {% extends 'base.html.twig' %}
 {% block body %}
-    <div class="container embed-responsive">
-        <div class="row">
-            <h1 class="col">{{ entity.game.name }}: {{ entity.title }}</h1>
-            <div class="col text-right">
-                {% trans from "blog_post" %}posted at{% endtrans %} {{ entity.createdAt|date("d.m.Y H:i") }} <br/>
-                {% trans from "blog_post" %}updated at{% endtrans %} {{ entity.modifiedAt|date("d.m.Y H:i") }}
-            </div>
+    <div class="row">
+        <h1 class="col">{{ entity.game.name }}: {{ entity.title }}</h1>
+        <div class="col text-right">
+            {% trans from "blog_post" %}posted at{% endtrans %} {{ entity.createdAt|date("d.m.Y H:i") }} <br/>
+            {% trans from "blog_post" %}updated at{% endtrans %} {{ entity.modifiedAt|date("d.m.Y H:i") }}
         </div>
-        <hr />
-        <div class="row">
-            <div class="col">
-                {{ entity.content| raw }}
-            </div>
+    </div>
+    <hr/>
+    <div class="row">
+        <div class="col">
+            {{ entity.content| raw }}
         </div>
     </div>
 {% endblock %}
