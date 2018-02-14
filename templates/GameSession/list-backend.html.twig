@@ -22,7 +22,7 @@
         {% for gameSession in entities %}
             <tr>
                 <td scope="col">
-                    {{ gameSession.game.name }}
+                    <a href="{{ path('game_dashboard', {'id': gameSession.game.id}) }}">{{ gameSession.game.name }}</a>
                 </td>
                 <td scope="col">
                     {{ gameSession.createdAt|date('d.m.Y') }}
