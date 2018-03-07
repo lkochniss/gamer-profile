@@ -87,7 +87,7 @@ class UpdateUserInformationService extends ReportService
             return 'F';
         }
 
-        if ($userInformation->getRecentlyPlayed() > 0 && $userInformation->getTimePlayed() > $game->getTimePlayed()){
+        if ($userInformation->getRecentlyPlayed() > 0 && $userInformation->getTimePlayed() > $game->getTimePlayed()) {
             $gameSession = new GameSession();
             $duration = $userInformation->getTimePlayed() - $game->getTimePlayed();
             $gameSession->setDuration($duration);

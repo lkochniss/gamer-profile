@@ -4,6 +4,7 @@ namespace App\Service\Steam\Transformation;
 
 use App\Entity\UserInformation;
 use App\Service\Steam\Api\UserApiClientService;
+use Nette\Utils\JsonException;
 
 /**
  * Class GamesOwnedService
@@ -27,6 +28,7 @@ class GameUserInformationService
 
     /**
      * @return array
+     * @throws JsonException
      */
     public function getAllGames(): array
     {
@@ -35,6 +37,7 @@ class GameUserInformationService
 
     /**
      * @return array
+     * @throws JsonException
      */
     public function getRecentlyPlayedGames(): array
     {
@@ -44,6 +47,7 @@ class GameUserInformationService
     /**
      * @param int $steamAppId
      * @return array
+     * @throws JsonException
      */
     public function getUserInformationForSteamAppId(int $steamAppId): array
     {
@@ -61,6 +65,7 @@ class GameUserInformationService
     /**
      * @param int $steamAppId
      * @return UserInformation|null
+     * @throws JsonException
      */
     public function getUserInformationEntityForSteamAppId(int $steamAppId): ?UserInformation
     {
@@ -75,6 +80,7 @@ class GameUserInformationService
     /**
      * @param string $apiEndpoint
      * @return array
+     * @throws JsonException
      */
     private function getGamesFromApiEndpoint(string $apiEndpoint): array
     {
@@ -82,6 +88,12 @@ class GameUserInformationService
         $gamesArray = \GuzzleHttp\json_decode($gamesOwnedResponse->getBody(), true);
 
         $games = [];
+
+        if (!array_key_exists('response', $gamesArray) ||
+            !array_key_exists('games', $gamesArray['response'])) {
+            throw new JsonException('Response Body invalid');
+        }
+
         foreach ($gamesArray['response']['games'] as $game) {
             $games[$game['appid']] = $game;
         }
