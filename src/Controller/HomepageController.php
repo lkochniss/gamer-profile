@@ -22,8 +22,7 @@ class HomepageController extends Controller
     public function recentlyPlayed(
         GameRepository $gameRepository,
         RecentlyPlayedGamesService $recentlyPlayedService
-    ): Response
-    {
+    ): Response {
         $recentlyPlayedGames = $gameRepository->getRecentlyPlayedGames();
         return $this->render('Homepage/recentlyPlayed.html.twig', [
             'games' => $recentlyPlayedService->sortRecentlyPlayedGamesByLastSession($recentlyPlayedGames)

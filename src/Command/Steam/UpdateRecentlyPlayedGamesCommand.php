@@ -2,6 +2,7 @@
 
 namespace App\Command\Steam;
 
+use App\Repository\GameRepository;
 use App\Service\Steam\Entity\UpdateGameInformationService;
 use App\Service\Steam\Entity\UpdateUserInformationService;
 use App\Service\Steam\Transformation\GameUserInformationService;
@@ -30,20 +31,28 @@ class UpdateRecentlyPlayedGamesCommand extends ContainerAwareCommand
     private $gameUserInformationService;
 
     /**
+     * @var GameRepository
+     */
+    private $gameRepository;
+
+    /**
      * UpdateRecentlyPlayedGamesCommand constructor.
      * @param UpdateGameInformationService $updateGameInformationService
      * @param UpdateUserInformationService $updateUserInformationService
      * @param GameUserInformationService $gameUserInformationService
+     * @param GameRepository $gameRepository
      */
     public function __construct(
         UpdateGameInformationService $updateGameInformationService,
         UpdateUserInformationService $updateUserInformationService,
-        GameUserInformationService $gameUserInformationService
+        GameUserInformationService $gameUserInformationService,
+        GameRepository $gameRepository
     ) {
         parent::__construct();
         $this->updateGameInformationService = $updateGameInformationService;
         $this->updateUserInformationService = $updateUserInformationService;
         $this->gameUserInformationService = $gameUserInformationService;
+        $this->gameRepository = $gameRepository;
     }
 
     protected function configure(): void
@@ -58,9 +67,17 @@ class UpdateRecentlyPlayedGamesCommand extends ContainerAwareCommand
      * @return int|null|void
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws \Nette\Utils\JsonException
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        $oldRecentlyPlayedGames = $this->gameRepository->getRecentlyPlayedGames();
+
+        foreach ($oldRecentlyPlayedGames as $oldRecentlyPlayedGame) {
+            $oldRecentlyPlayedGame->setRecentlyPlayed(0);
+            $this->gameRepository->save($oldRecentlyPlayedGame);
+        }
+
         $mySteamGames = $this->gameUserInformationService->getRecentlyPlayedGames();
         foreach ($mySteamGames as $mySteamGame) {
             $status = $this->updateGameInformationService->updateGameInformationForSteamAppId(
