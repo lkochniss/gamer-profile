@@ -56,7 +56,7 @@ ps:
 	docker-compose ps
 
 # Database
-rebuild:
+rebuild-db:
 	bin/console do:da:dr --force --if-exists
 	bin/console do:da:cr
 	bin/console do:mi:mi -n
