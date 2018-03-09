@@ -8,7 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Client;
 
-class HomePageControllerTest extends WebTestCase
+class HomepageControllerTest extends WebTestCase
 {
     /**
      * @var Client
@@ -24,10 +24,28 @@ class HomePageControllerTest extends WebTestCase
         $this->client = $client = static::createClient();
     }
 
-    public function testRecentlyPlayedPageHasStatus200(): void
+    /**
+     * @param string $url
+     * @dataProvider urlProvider
+     */
+    public function testHomepageControllerActionsReturnHttpOk(string $url): void
     {
-        $this->client->request('GET', '/');
+        $this->client->request('GET', $url);
 
         $this->assertEquals(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
+    }
+
+    /**
+     * @return array
+     */
+    public function urlProvider(): array
+    {
+        return [
+            [
+                '/',
+                '/top',
+                '/new'
+            ]
+        ];
     }
 }
