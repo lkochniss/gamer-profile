@@ -76,6 +76,5 @@ copy-environment:
 	cp .env.dist .env
 install:
 	make composer
-	make copy-docker-compose
 	make build
 	make copy-environment

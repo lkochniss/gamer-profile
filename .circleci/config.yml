@@ -57,7 +57,7 @@ jobs:
           path: build-artifacts/
   run-slower-codecoverage:
     docker:
-      - image: zaherg/php-7.1-xdebug-alpine
+      - image: zaherg/php-7.2-xdebug-alpine
     working_directory: ~/repo
 
     steps:
