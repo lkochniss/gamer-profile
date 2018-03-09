@@ -71,7 +71,7 @@ class Purchase extends AbstractEntity
      */
     public function getPrice(): float
     {
-        return $this->price/100;
+        return $this->price / 100;
     }
 
     /**
@@ -79,7 +79,7 @@ class Purchase extends AbstractEntity
      */
     public function setPrice(float $price): void
     {
-        $this->price = intval($price *100);
+        $this->price = intval($price * 100);
     }
 
     /**
@@ -144,5 +144,17 @@ class Purchase extends AbstractEntity
     public function setGame(Game $game): void
     {
         $this->game = $game;
+    }
+
+    public function setSlug(): void
+    {
+        $this->slug = $this->slugify(
+            $this->getCreatedAt()->format('d-m-y-') .
+            $this->getGame()->getName() .
+            '-' .
+            $this->getType() .
+            '-' .
+            count($this->getGame()->getPurchases())
+        );
     }
 }

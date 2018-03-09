@@ -69,4 +69,9 @@ class BlogPost extends AbstractEntity
     {
         $this->game = $game;
     }
+
+    public function setSlug(): void
+    {
+        $this->slug = $this->slugify($this->getCreatedAt()->format('d-m-y-') . $this->getTitle());
+    }
 }

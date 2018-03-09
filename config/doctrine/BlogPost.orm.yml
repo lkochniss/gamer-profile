@@ -18,9 +18,3 @@ App\Entity\BlogPost:
             joinColumn:
                 name: game_id
                 referencedColumnName: id
-    lifecycleCallbacks:
-          prePersist:
-                  - setModifiedAt
-                  - setCreatedAt
-          preUpdate:
-                  - setModifiedAt

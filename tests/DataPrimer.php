@@ -3,6 +3,7 @@
 
 namespace App\Tests;
 
+use App\DataFixtures\AppFixtures;
 use Doctrine\ORM\Tools\SchemaTool;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\Console\Input\ArrayInput;
@@ -41,6 +42,10 @@ class DataPrimer
         $metadata = $entityManager->getMetadataFactory()->getAllMetadata();
         $schemaTool = new SchemaTool($entityManager);
         $schemaTool->updateSchema($metadata);
+
+        // If you are using the Doctrine Fixtures Bundle you could load these here
+        $fixtureLoader = new AppFixtures();
+        $fixtureLoader->load($entityManager);
     }
 
     /**

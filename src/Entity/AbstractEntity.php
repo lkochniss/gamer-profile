@@ -46,13 +46,7 @@ abstract class AbstractEntity
         return $this->slug;
     }
 
-    /**
-     * @param String $slug
-     */
-    public function setSlug(String $slug): void
-    {
-        $this->slug = $slug;
-    }
+    public function setSlug():void {}
 
     /**
      * @return $this
@@ -92,5 +86,26 @@ abstract class AbstractEntity
     protected function stringTransform($value) : ?String
     {
         return $value ?: '';
+    }
+
+    /**
+     * @param string $string
+     * @return mixed|string
+     */
+    public function slugify(string $string): string
+    {
+        $string = strtolower($string);
+        $string = str_replace('ä', 'ae', $string);
+        $string = str_replace('ö', 'oe', $string);
+        $string = str_replace('ü', 'ue', $string);
+        $string = str_replace('ß', 'ss', $string);
+        $string = str_replace('&', 'and', $string);
+        $string = preg_replace('/[^a-z0-9]+/', '-', $string);
+
+        if (substr($string, -1) ==='-') {
+            $string = substr($string, 0, -1);
+        }
+
+        return $string;
     }
 }

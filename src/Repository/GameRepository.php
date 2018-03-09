@@ -87,7 +87,6 @@ class GameRepository extends AbstractRepository
      */
     public function save(AbstractEntity $entity): void
     {
-        $entity->setSlug($this->slugify($entity->getName()));
         $this->getEntityManager()->persist($entity);
         $this->getEntityManager()->flush($entity);
     }

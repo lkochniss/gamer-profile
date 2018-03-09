@@ -12,20 +12,14 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
  */
 abstract class AbstractRepository extends ServiceEntityRepository
 {
-    /**
-     * @var SlugifyService
-     */
-    private $slugifyService;
 
     /**
      * BlogPostRepository constructor.
      * @param RegistryInterface $registry
-     * @param SlugifyService $slugifyService
      */
-    public function __construct(RegistryInterface $registry, SlugifyService $slugifyService)
+    public function __construct(RegistryInterface $registry)
     {
         parent::__construct($registry, $this->getEntity());
-        $this->slugifyService = $slugifyService;
     }
 
     /**
@@ -34,15 +28,6 @@ abstract class AbstractRepository extends ServiceEntityRepository
      * @throws \Doctrine\ORM\OptimisticLockException
      */
     abstract public function save(AbstractEntity $entity): void;
-
-    /**
-     * @param String $string
-     * @return string
-     */
-    protected function slugify(String $string): string
-    {
-        return $this->slugifyService->slugify($string);
-    }
 
     /**
      * @return string

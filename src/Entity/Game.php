@@ -335,4 +335,9 @@ class Game extends AbstractEntity
     {
         return $this->purchases->toArray();
     }
+
+    public function setSlug(): void
+    {
+        $this->slug = $this->slugify($this->getName());
+    }
 }

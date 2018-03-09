@@ -50,9 +50,3 @@ App\Entity\Game:
           purchases:
               targetEntity: Purchase
               mappedBy: game
-    lifecycleCallbacks:
-          prePersist:
-                  - setModifiedAt
-                  - setCreatedAt
-          preUpdate:
-                  - setModifiedAt

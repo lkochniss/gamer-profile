@@ -17,15 +17,6 @@ class PurchaseRepository extends AbstractRepository
      */
     public function save(AbstractEntity $entity): void
     {
-        $entity->setCreatedAt();
-        $entity->setSlug($this->slugify(
-            $entity->getCreatedAt()->format('d-m-y-').
-            $entity->getGame()->getName().
-            '-'.
-            $entity->getType()
-        ).
-            '-'.
-            count($entity->getGame()->getPurchases()));
         $this->getEntityManager()->persist($entity);
         $this->getEntityManager()->flush($entity);
     }
