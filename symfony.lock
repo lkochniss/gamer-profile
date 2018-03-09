@@ -95,9 +95,6 @@
     "jean85/pretty-package-versions": {
         "version": "1.0.3"
     },
-    "lkochniss/docker-symfony": {
-        "version": "dev-master"
-    },
     "myclabs/deep-copy": {
         "version": "1.7.0"
     },

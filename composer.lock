@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "08215bc6f540aed81d8d80e1526bcc46",
+    "content-hash": "5de61d369c064b732a68f9d25dd2ed06",
     "packages": [
         {
             "name": "api-platform/api-pack",
@@ -5119,35 +5119,6 @@
             "time": "2018-01-21T13:54:22+00:00"
         },
         {
-            "name": "lkochniss/docker-symfony",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/lkochniss/docker-symfony.git",
-                "reference": "bad98490e342e23d7eb0fc8c3291fdfa029a4a15"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/lkochniss/docker-symfony/zipball/bad98490e342e23d7eb0fc8c3291fdfa029a4a15",
-                "reference": "bad98490e342e23d7eb0fc8c3291fdfa029a4a15",
-                "shasum": ""
-            },
-            "type": "library",
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "0BSD"
-            ],
-            "description": "Docker and Docker Compose for Symfony projects",
-            "homepage": "https://github.com/lkochniss/docker-symfony",
-            "keywords": [
-                "docker",
-                "docker compose",
-                "php",
-                "symfony"
-            ],
-            "time": "2018-02-07T10:44:43+00:00"
-        },
-        {
             "name": "myclabs/deep-copy",
             "version": "1.7.0",
             "source": {
@@ -7811,8 +7782,7 @@
         "symfony/browser-kit": 5,
         "symfony/console": 10,
         "symfony/lts": 20,
-        "symfony/twig-bundle": 5,
-        "lkochniss/docker-symfony": 20
+        "symfony/twig-bundle": 5
     },
     "prefer-stable": false,
     "prefer-lowest": false,
