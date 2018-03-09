@@ -3,7 +3,7 @@ App\Entity\Game:
         __calls:
           - setRecentlyPlayed (50%?): ['<numberBetween(1, 2000)>']
         steam_app_id (unique): '<numberBetween(11369100, 91369110)>'
-        name (unique): '<word()>'
+        name (unique): 'game_<numberBetween(1, 3)>'
         time_played: '<numberBetween(0, 2000)>'
         recently_played: '0'
         header_image_path: 'https://steamcdn-a.akamaihd.net/steam/apps/427520/header.jpg?t=1513200518'
