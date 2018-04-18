@@ -1,7 +1,11 @@
 {% extends 'base.html.twig' %}
+ {% block stylesheets %}
+     {{ parent() }}
+     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
+ {% endblock %}
 {% block body %}
     <div class="container">
-        <table id="blog-list" class="table">
+        <table id="blog-post-list" class="table">
             <thead>
             <tr>
                 <th scope="col">
@@ -21,10 +25,10 @@
                     <td scope="row">
                         <a href="{{ path('blog_post_show', {'gameSlug': post.game.slug, 'blogPostSlug': post.slug}) }}"> {{ post.title }}</a>
                     </td>
-                    <td scope="col">
+                    <td scope="col" data-order="{{ post.createdAt|date('Y-m-d') }}">
                         {{ post.createdAt|date('d.m.Y H:i') }}
                     </td>
-                    <td scope="col">
+                    <td scope="col" data-order="{{ post.modifiedAt|date('Y-m-d') }}">
                         {{ post.modifiedAt|date('d.m.Y H:i') }}
                     </td>
                 </tr>
@@ -32,4 +36,16 @@
             </tbody>
         </table>
     </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#blog-post-list').DataTable({
+                'order': [[1, 'desc']]
+            });
+        });
+    </script>
 {% endblock %}

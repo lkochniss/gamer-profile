@@ -19,9 +19,12 @@ App\Entity\BlogPost:
         content: '<sentence()><sentence()><sentence()>'
 
 App\Entity\GameSession:
-    game_session:
+    game_session_1:
         game: '@game_1'
         duration: '<numberBetween(1, 100)>'
+    game_session_2:
+        game: '@game_2'
+        duration: '<numberBetween(1, 50)>'
 
 App\Entity\Purchase:
     purchase_{1..20}:
