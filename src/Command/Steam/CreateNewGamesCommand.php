@@ -27,6 +27,8 @@ class CreateNewGamesCommand extends ContainerAwareCommand
      * CreateNewGamesCommand constructor.
      * @param GameUserInformationService $gameUserInformationService
      * @param CreateNewGameService $createNewGameService
+     *
+     * @SuppressWarnings(PHPMD.LongVariableName)
      */
     public function __construct(
         GameUserInformationService $gameUserInformationService,
@@ -50,6 +52,9 @@ class CreateNewGamesCommand extends ContainerAwareCommand
      * @return int|null|void
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws \Nette\Utils\JsonException
+     *
+     * @SuppressWarnings("unused")
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {

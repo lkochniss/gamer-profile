@@ -33,6 +33,8 @@ class CreateNewGameService extends ReportService
      * @param GameUserInformationService $gameUserInformationService
      * @param GameInformationService $gameInformationService
      * @param GameRepository $gameRepository
+     *
+     * @SuppressWarnings(PHPMD.LongVariableName)
      */
     public function __construct(
         GameUserInformationService $gameUserInformationService,

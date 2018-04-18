@@ -31,6 +31,8 @@ abstract class AbstractCrudController extends Controller
      * @param GameRepository $gameRepository
      * @param Request $request
      * @return RedirectResponse|Response
+     *
+     * @SuppressWarnings(PHPMD.ShortVariableName)
      */
     public function createForGame(int $id, GameRepository $gameRepository, Request $request)
     {
@@ -45,6 +47,8 @@ abstract class AbstractCrudController extends Controller
      * @param int $id
      * @param Request $request
      * @return RedirectResponse|Response
+     *
+     * @SuppressWarnings(PHPMD.ShortVariableName)
      */
     public function edit(int $id, Request $request)
     {
@@ -103,6 +107,13 @@ abstract class AbstractCrudController extends Controller
         );
     }
 
+    /**
+     * @param int $id
+     * @param GameRepository $gameRepository
+     * @return Response
+     *
+     * @SuppressWarnings(PHPMD.ShortVariableName)
+     */
     public function listBackendForGame(int $id, GameRepository $gameRepository): Response
     {
         $game = $gameRepository->find($id);

@@ -28,16 +28,6 @@ services:
             - php
         volumes:
             - .logs/nginx/:/var/log/nginx:cached
-    elk:
-        image: willdurand/elk
-        ports:
-            - "8081:80"
-        volumes:
-            - .docker/elk/logstash:/etc/logstash:cached
-            - .docker/elk/logstash/patterns:/opt/logstash/patterns:cached
-        volumes_from:
-            - php
-            - nginx
     yarn:
         image: node:9-alpine
         volumes_from:

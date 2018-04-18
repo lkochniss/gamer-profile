@@ -6,11 +6,14 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class AbstractEntity
+ *
+ * @SuppressWarnings(PHPMD.ShortVariableName)
  */
 abstract class AbstractEntity
 {
     /**
      * @var Integer
+     *
      */
     protected $id;
 
@@ -46,7 +49,9 @@ abstract class AbstractEntity
         return $this->slug;
     }
 
-    public function setSlug():void {}
+    public function setSlug():void
+    {
+    }
 
     /**
      * @return $this

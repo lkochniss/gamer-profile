@@ -25,6 +25,8 @@
     "require-dev": {
         "codacy/coverage": "^1.4",
         "nelmio/alice": "^3.1",
+        "overtrue/phplint": "^1.1",
+        "phan/phan": "^0.12.5",
         "phploc/phploc": "^4.0",
         "phpmd/phpmd": "^2.6",
         "phpstan/phpstan": "^0.9.1",

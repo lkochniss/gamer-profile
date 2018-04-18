@@ -41,6 +41,8 @@ class UpdateRecentlyPlayedGamesCommand extends ContainerAwareCommand
      * @param UpdateUserInformationService $updateUserInformationService
      * @param GameUserInformationService $gameUserInformationService
      * @param GameRepository $gameRepository
+     *
+     * @SuppressWarnings(PHPMD.LongVariableName)
      */
     public function __construct(
         UpdateGameInformationService $updateGameInformationService,
@@ -68,6 +70,9 @@ class UpdateRecentlyPlayedGamesCommand extends ContainerAwareCommand
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      * @throws \Nette\Utils\JsonException
+     *
+     * @SuppressWarnings(PHPMD.LongVariableName)
+     * @SuppressWarnings("unused")
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {

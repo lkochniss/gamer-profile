@@ -27,6 +27,7 @@ class UpdateOldestGamesCommand extends ContainerAwareCommand
      * UpdateOldestGamesCommand constructor.
      * @param UpdateGameInformationService $updateGameInformationService
      * @param GameRepository $gameRepository
+     * @SuppressWarnings(PHPMD.LongVariableName)
      */
     public function __construct(
         UpdateGameInformationService $updateGameInformationService,
@@ -49,6 +50,8 @@ class UpdateOldestGamesCommand extends ContainerAwareCommand
      * @return int|null|void
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
+     *
+     * @SuppressWarnings("unused")
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {

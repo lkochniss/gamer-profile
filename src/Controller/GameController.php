@@ -23,6 +23,9 @@ class GameController extends AbstractCrudController
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
+     *
+     * @SuppressWarnings(PHPMD.ShortVariableName)
+     * @SuppressWarnings(PHPMD.LongVariableName)
      */
     public function update(
         int $id,
@@ -38,6 +41,8 @@ class GameController extends AbstractCrudController
     /**
      * @param int $id
      * @return Response
+     *
+     * @SuppressWarnings(PHPMD.ShortVariableName)
      */
     public function dashboard(int $id): Response
     {

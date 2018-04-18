@@ -2,10 +2,6 @@ const path = require('path');
 
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
-const $ = require('jquery');
-const jQuery = require('jquery');
-
-
 module.exports = {
     /* Entrypoints */
     entry: {
@@ -96,6 +92,10 @@ module.exports = {
         new ExtractTextPlugin({
             filename: '[name].css',
         }),
+        new webpack.ProvidePlugin({
+            $: 'jquery',
+            jQuery: 'jquery'
+        })
     ],
     watch: true
 };

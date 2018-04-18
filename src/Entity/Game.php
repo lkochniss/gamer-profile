@@ -92,6 +92,7 @@ class Game extends AbstractEntity
 
     /**
      * @param int $id
+     * @SuppressWarnings(PHPMD.ShortVariableName)
      */
     public function setId(int $id): void
     {

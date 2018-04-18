@@ -1,80 +1,75 @@
-BUILD_ARTIFACTS_DIRECTORY=build-artifacts/
+DOCKER_COMPOSE_WEBPACK ?=docker-compose exec webpack
+DOCKER_COMPOSE_PHP ?=docker-compose exec php
+DOCKER_COMPOSE_YARN ?=docker-compose run yarn sh -c
 
-# CircleCI
-build-artifacts:
-	@mkdir -p ${BUILD_ARTIFACTS_DIRECTORY}/
-copy-ci-environment:
-	cp .env.circleci .env
-
-# Analysis
+# TESTING
 phpunit:
-	./vendor/bin/phpunit
-codecoverage:
-	./vendor/bin/phpunit --coverage-clover=${BUILD_ARTIFACTS_DIRECTORY}/coverage.xml
-	./vendor/bin/codacycoverage phpunit ${BUILD_ARTIFACTS_DIRECTORY}/coverage.xml
-codesniff:
-	./vendor/bin/phpcs --standard=PSR1,PSR2  --ignore=src/Migrations -s src/  -s tests/ | tee  ${BUILD_ARTIFACTS_DIRECTORY}phpcs.log
-codefix:
-	./vendor/bin/phpcbf --standard=PSR1,PSR2 -s src/ -s tests/
-lines:
-	./vendor/bin/phploc src/ | tee ${BUILD_ARTIFACTS_DIRECTORY}phploc.log
-mess:
-	./vendor/bin/phpmd src/ text codesize --reportfile ${BUILD_ARTIFACTS_DIRECTORY}phpmd.log --suffixes php --ignore-violations-on-exit
-copypaste:
-	./vendor/bin/phpcpd src  | tee ${BUILD_ARTIFACTS_DIRECTORY}phpcpd.log
-phpstan:
-	@if ./vendor/bin/phpstan --autoload-file=vendor/autoload.php analyse src/ | tee ${BUILD_ARTIFACTS_DIRECTORY}phpstan.log; then exit 0; fi
-security:
-	./bin/console se:c | tee ${BUILD_ARTIFACTS_DIRECTORY}security-check.log
-translation:
-	./bin/console d:tr de | tee ${BUILD_ARTIFACTS_DIRECTORY}translation-de.log
-	./bin/console d:tr en | tee ${BUILD_ARTIFACTS_DIRECTORY}translation-en.log
-analyse:
-	make codesniff
-	make lines
-	make mess
-	make copypaste
-	make phpstan
-	make security
+	rm -Rf var/cache/test
+	${DOCKER_COMPOSE_PHP} ./bin/phpunit
 
-# Docker Compose
-build:
-	make stop
-	docker-compose build
-	make up
-up:
+# ANALYSIS
+php-codesniffer:
+	${DOCKER_COMPOSE_PHP} ./vendor/bin/phpcs --standard=PSR1,PSR2 --ignore=src/Migrations -s src/  -s tests/
+
+codefix:
+	${DOCKER_COMPOSE_PHP} ./vendor/bin/phpcbf --standard=PSR1,PSR2 --ignore=src/Migrations -s src/ -s tests/
+
+# DOCKER COMPOSE
+rebuild:
+	docker-compose down --remove-orphans
+	docker-compose build --force-rm --pull
 	docker-compose up -d
+
 start:
 	docker-compose start
+
 stop:
 	docker-compose stop
+
+restart:
+	make stop
+	make start
+
 enter-php:
 	docker-compose exec php sh
+
 enter-webpack:
 	docker-compose exec webpack sh
+
+log-webpack:
+	docker-compose logs -f webpack
+
 ps:
 	docker-compose ps
 
-# Database
-rebuild-db:
-	bin/console do:da:dr --force --if-exists
-	bin/console do:da:cr
-	bin/console do:mi:mi -n
-diff:
-	bin/console do:mi:di
-migrate:
-	 bin/console do:mi:mi -n
-
-# Cache
+# SYMFONY
 cache:
-	./bin/console ca:c
+	${DOCKER_COMPOSE_PHP} ./bin/console ca:c
 
-# Setup
-composer:
-	composer install
-copy-environment:
-	cp .env.dist .env
+rebuild-db:
+	${DOCKER_COMPOSE_PHP} ./bin/console do:da:dr --force
+	${DOCKER_COMPOSE_PHP} ./bin/console do:da:cr
+	${DOCKER_COMPOSE_PHP} ./bin/console do:mi:mi -n
+	${DOCKER_COMPOSE_PHP} ./bin/console do:fi:lo -n
+
+create-migration-diff:
+	${DOCKER_COMPOSE_PHP} ./bin/console do:mi:di
+
+migration-migrate:
+	${DOCKER_COMPOSE_PHP} ./bin/console do:mi:mi -n
+
+# SETUP
+composer-development:
+	${DOCKER_COMPOSE_PHP} composer install --no-progress --prefer-dist --no-scripts
+
+composer-production:
+	${DOCKER_COMPOSE_PHP} composer install --no-dev --no-progress --prefer-dist --no-scripts
+
+yarn:
+	${DOCKER_COMPOSE_YARN} yarn install
+
 install:
-	make composer
-	make build
-	make copy-environment
+	make rebuild
+	make composer-development
+	cp .env.dist .env
+	make rebuild-db

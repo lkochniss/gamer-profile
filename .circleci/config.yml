@@ -3,96 +3,135 @@
 # Check https://circleci.com/docs/2.0/language-php/ for more details
 #
 version: 2
+
+php-docker-image: &php-docker-image
+  docker:
+    - image: lkochniss/php7-for-circleci-and-development
+
+attach_whole_workspace: &attach_whole_workspace
+  attach_workspace:
+    at: ~/project
+
+persist_whole_workspace: &persist_whole_workspace
+  persist_to_workspace:
+    root: ~/project
+    paths: .
+
 jobs:
-  run-code-analysis-and-fast-phpunit:
-    docker:
-      - image: ckappen/php-composer-alpine
 
-    working_directory: ~/repo
-
+  checkout:
+    <<: *php-docker-image
     steps:
       - checkout
-      - restore_cache:
-          keys:
-          - v1-dependencies-{{ checksum "composer.lock" }}
-          - v1-dependencies-
-      - run:
-          name: Composer Install
-          command: composer install --no-interaction --prefer-dist --no-scripts --no-progress
-      - save_cache:
-          paths:
-            - ./vendor
-          key: v1-dependencies-{{ checksum "composer.lock" }}
-      - run:
-          name: Copy Environmenmt
-          command: make copy-ci-environment
-      - run:
-          name: Create Artifacts Directory
-          command: make build-artifacts
-      - run:
-          name: Clear Cache
-          command: make cache
-      - run:
-          name: CodeSniff
-          command: make codesniff
-      - run:
-          name: Copy & Paste
-          command: make copypaste
-      - run:
-          name: Lines of Code
-          command: make lines
-      - run:
-          name: Mess Detector
-          command: make mess
-      - run:
-          name: PHPStan
-          command: make phpstan
-      - run:
-          name: Translation
-          command: make translation
-      - run:
-          name: Run UnitTests
-          command: make phpunit
-      - store_artifacts:
-          path: build-artifacts/
-  run-slower-codecoverage:
-    docker:
-      - image: zaherg/php-7.2-xdebug-alpine
-    working_directory: ~/repo
+      - *persist_whole_workspace
 
+
+  php-get-composer-vendors:
+    <<: *php-docker-image
     steps:
-      - checkout
+      - *attach_whole_workspace
+
       - restore_cache:
           keys:
-          - v1-codecov-dependencies-{{ checksum "composer.lock" }}
-          - v1-codecov-dependencies-
+          - php-composer-dependencies-{{ checksum "composer.lock" }}
+
       - run:
-          name: Composer Install
-          command: composer install --no-interaction --prefer-dist --no-scripts --no-progress
+          name: Install dev dependencies
+          command: composer install --no-progress --prefer-dist --no-scripts
+
       - save_cache:
-          paths:
-            - ./vendor
-          key: v1-codecov-dependencies-{{ checksum "composer.lock" }}
+          paths: vendor
+          key: php-composer-dependencies-{{ checksum "composer.lock" }}
+
+      - *persist_whole_workspace
+
+  php-static-code-analysis:
+    <<: *php-docker-image
+    working_directory: /tmp/php-static-code-analysis
+    steps:
+      - attach_workspace:
+          at: /tmp/php-static-code-analysis
+
       - run:
-          name: Copy Environmenmt
+          name: Copy Environment
           command: cp .env.circleci .env
+
       - run:
-          name: Create Artifacts Directory
-          command: mkdir -p build-artifacts/
+          name: Launch php-linting
+          command: ./vendor/bin/phplint
+
       - run:
-          name: Clear Cache
-          command: ./bin/console ca:c
+          name: Launch Code Sniffer
+          command: ./vendor/bin/phpcs --standard=PSR1,PSR2 --ignore=src/Migrations -s src/  -s tests/
+
       - run:
-          name: Run Phpunit with CodeCov enabled
-          command: ./vendor/bin/phpunit --coverage-clover=build-artifacts/coverage.xml
+          name: Launch Security Checker
+          command: ./vendor/bin/security-checker security:check
+
       - run:
-          name: Send CodeCov to codacy
-          command: ./vendor/bin/codacycoverage clover build-artifacts/coverage.xml
+          name: Launch Copy & Paste Detection
+          command: ./vendor/bin/phpcpd src || true
+
+      - run:
+          name: Launch Mess Detection Suite
+          command: ./.circleci/php-mess-detection.sh
+
+      - run:
+          name: Launch Mess Detector - Correctness (Phan)
+          command: ./vendor/bin/phan
+
+  php-unittests:
+    <<: *php-docker-image
+    steps:
+      - *attach_whole_workspace
+
+      - run:
+          name: Copy Environment
+          command: cp .env.circleci .env
+
+      - run:
+          name: Create fake manifest.json
+          command: echo {} >> public/manifest.json
+
+      - run:
+          name: Launch Unit tests
+          command: ./vendor/bin/phpunit --log-junit 'build/unitreport.xml' --coverage-clover 'build/cloverreport.xml'
+
+      - run:
+          name: delete fake manifest.json again to not interfere with the correct one
+          command: rm public/manifest.json
+
+      - *persist_whole_workspace
       - store_artifacts:
-          path: build-artifacts/
+          path: var/log/test.log
+
+  send-code-coverage:
+    <<: *php-docker-image
+    steps:
+      - *attach_whole_workspace
+      - run:
+         name: Send CodeCov to codacy
+         command: ./vendor/bin/codacycoverage clover build/cloverreport.xml
+
 workflows:
   version: 2
-  build_and_test:
+  test_and_analyse:
     jobs:
-      - run-code-analysis-and-fast-phpunit
-      - run-slower-codecoverage
+
+      - checkout
+
+      - php-get-composer-vendors:
+          requires:
+            - checkout
+
+      - php-static-code-analysis:
+          requires:
+            - php-get-composer-vendors
+
+      - php-unittests:
+          requires:
+            - php-get-composer-vendors
+
+      - send-code-coverage:
+          requires:
+            - php-unittests
