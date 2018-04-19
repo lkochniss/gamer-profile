@@ -20,7 +20,10 @@ if ($_SERVER['APP_DEBUG'] ?? ('prod' !== ($_SERVER['APP_ENV'] ?? 'dev'))) {
 
 // Request::setTrustedProxies(['0.0.0.0/0'], Request::HEADER_FORWARDED);
 
-$kernel = new Kernel($_SERVER['APP_ENV'] ?? 'dev', $_SERVER['APP_DEBUG'] ?? ('prod' !== ($_SERVER['APP_ENV'] ?? 'dev')));
+$kernel = new Kernel(
+    $_SERVER['APP_ENV'] ?? 'dev', $_SERVER['APP_DEBUG'] ?? ('prod' !== ($_SERVER['APP_ENV'] ?? 'dev'))
+);
+
 $request = Request::createFromGlobals();
 $response = $kernel->handle($request);
 $response->send();

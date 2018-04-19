@@ -28,9 +28,9 @@ class DataPrimer
         $application->setAutoExit(false);
 
         // Execute migrations
-        $input = new ArrayInput(array(
+        $input = new ArrayInput([
             'command' => 'do:da:cr'
-        ));
+        ]);
 
         $output = new BufferedOutput();
         $application->run($input, $output);
