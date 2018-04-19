@@ -119,7 +119,11 @@ class UpdateUserInformationService extends ReportService
         }
 
         $gameAchievements = $this->gameUserInformationService->getAchievementsForGame($steamAppId);
-        if (empty($gameAchievements)) {
+        if (
+            empty($gameAchievements) ||
+            array_key_exists('playerstats', $gameAchievements) ||
+            array_key_exists('achievements', $gameAchievements['playerstats'])
+        ) {
             return 'F';
         }
 
@@ -129,6 +133,6 @@ class UpdateUserInformationService extends ReportService
 
         $this->gameRepository->save($game);
 
-        return 'S';
+        return 'U';
     }
 }
