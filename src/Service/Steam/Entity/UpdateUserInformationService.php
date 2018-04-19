@@ -129,6 +129,6 @@ class UpdateUserInformationService extends ReportService
 
         $this->gameRepository->save($game);
 
-        return 'S';
+        return 'U';
     }
 }
