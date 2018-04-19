@@ -11,6 +11,8 @@ App\Entity\Game:
         bought_at (50%?): '<dateTimeBetween("-1 year", "now")>'
         price: '<numberBetween(0, 2000)>'
         currency: 'USD'
+        playerAchievements: '<numberBetween(0, 100)>'
+        overallAchievements: '<numberBetween(0, 100)>'
 
 App\Entity\BlogPost:
     blog_post_{1..10}:
