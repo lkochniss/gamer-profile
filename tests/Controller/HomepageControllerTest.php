@@ -21,7 +21,7 @@ class HomepageControllerTest extends WebTestCase
     public function setUp(): void
     {
         DataPrimer::setUp(self::bootKernel());
-        $this->client = $client = static::createClient();
+        $this->client = static::createClient();
     }
 
     /**

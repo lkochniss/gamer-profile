@@ -90,17 +90,4 @@ class UpdateOldestCommandTest extends KernelTestCase
             ->with(20)
             ->willReturn([$game]);
     }
-
-    /**
-     * @return array
-     */
-    private function getGamesArray(): array
-    {
-        return [
-            [
-                'appid' => 1,
-                'playtime_forever' => 0
-            ]
-        ];
-    }
 }

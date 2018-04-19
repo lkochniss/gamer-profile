@@ -1,5 +1,7 @@
 FROM alpine:edge
 
+MAINTAINER Lukas Kochniss<lukas.kochniss@gmail.com>
+
 ENV COMPOSER_VERSION=1.6.3 \
     COMPOSER_HOME=/composer \
     PATH=$COMPOSER_HOME/vendor/bin:$PATH
@@ -60,7 +62,7 @@ RUN apk --update --no-cache add \
     && rm -Rf /var/cache/apk/* \
     && rm -Rf $COMPOSER_HOME/cache/*
 
-ADD symfony.pool.conf /etc/php7/php-fpm.d/
+COPY symfony.pool.conf /etc/php7/php-fpm.d/
 
 CMD ["php-fpm7", "-F"]
 

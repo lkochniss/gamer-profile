@@ -18,18 +18,13 @@ class GameControllerTest extends WebTestCase
     private $client;
 
     /**
-     * @var GameRepository
-     */
-    private $gameRepository;
-
-    /**
      * @throws \Exception
      */
     public function setUp(): void
     {
         $kernel = self::bootKernel();
         DataPrimer::setUp($kernel);
-        $this->client = $client = static::createClient();
+        $this->client = static::createClient();
     }
 
     public function testHomepageControllerActionsReturnHttpOk(): void
