@@ -1,0 +1,42 @@
+App\Entity\Game:
+    game_{1..3}:
+        __calls:
+          - setRecentlyPlayed (50%?): ['<numberBetween(1, 2000)>']
+        steam_app_id (unique): '<numberBetween(11369100, 91369110)>'
+        name (unique): 'game_<numberBetween(1, 3)>'
+        time_played: '<numberBetween(0, 2000)>'
+        recently_played: '0'
+        header_image_path: 'https://steamcdn-a.akamaihd.net/steam/apps/427520/header.jpg?t=1513200518'
+        description: '<sentence()><sentence()><sentence()>'
+        bought_at (50%?): '<dateTimeBetween("-1 year", "now")>'
+        price: '<numberBetween(0, 2000)>'
+        currency: 'USD'
+        playerAchievements: '<numberBetween(0, 100)>'
+        overallAchievements: '<numberBetween(0, 100)>'
+
+App\Entity\BlogPost:
+    blog_post_{1..10}:
+        game: '@game_<numberBetween(1, 3)>'
+        title: '<sentence()>'
+        content: '<sentence()><sentence()><sentence()>'
+
+App\Entity\GameSession:
+    game_session_1:
+        game: '@game_1'
+        duration: '<numberBetween(1, 100)>'
+    game_session_2:
+        game: '@game_2'
+        duration: '<numberBetween(1, 50)>'
+
+App\Entity\Purchase:
+    purchase_{1..20}:
+        __calls:
+          - setType (50%?): ['game-purchase']
+          - setType (50%?): ['dlc-purchase']
+          - setType (50%?): ['other-purchase']
+        game: '@game_<numberBetween(1, 3)>'
+        type: 'ingame-purchase'
+        price: '<numberBetween(1, 3000)>'
+        currency: 'USD'
+        notice: '<sentence()>'
+        bought_at: '<dateTimeBetween("-1 week", "now")>'

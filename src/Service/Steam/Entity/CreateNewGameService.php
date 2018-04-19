@@ -2,6 +2,7 @@
 
 namespace App\Service\Steam\Entity;
 
+use App\Entity\Achievements;
 use App\Entity\Game;
 use App\Repository\GameRepository;
 use App\Service\ReportService;
@@ -33,6 +34,8 @@ class CreateNewGameService extends ReportService
      * @param GameUserInformationService $gameUserInformationService
      * @param GameInformationService $gameInformationService
      * @param GameRepository $gameRepository
+     *
+     * @SuppressWarnings(PHPMD.LongVariableName)
      */
     public function __construct(
         GameUserInformationService $gameUserInformationService,
@@ -49,6 +52,7 @@ class CreateNewGameService extends ReportService
      * @return string
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws \Nette\Utils\JsonException
      */
     public function createGameIfNotExist(int $steamAppId): string
     {
@@ -68,6 +72,7 @@ class CreateNewGameService extends ReportService
      * @return string
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws \Nette\Utils\JsonException
      */
     private function createGame(int $steamAppId): string
     {
@@ -94,6 +99,14 @@ class CreateNewGameService extends ReportService
 
         $game->setTimePlayed($userInformation->getTimePlayed());
         $game->setRecentlyPlayed($userInformation->getRecentlyPlayed());
+
+        $gameAchievements = $this->gameUserInformationService->getAchievementsForGame($steamAppId);
+
+        if (!empty($gameAchievements) && array_key_exists('achievements', $gameAchievements['playerstats'])) {
+            $achievements = new Achievements($gameAchievements);
+            $game->setPlayerAchievements($achievements->getPlayerAchievements());
+            $game->setOverallAchievements($achievements->getOverallAchievements());
+        }
 
         $this->addEntryToList($game->getName(), ReportService::NEW_GAME);
         $this->gameRepository->save($game);

@@ -25,6 +25,8 @@ class UpdateGameInformationService extends ReportService
      * UpdateGameInformationService constructor.
      * @param $gameInformationService
      * @param $gameRepository
+     *
+     * @SuppressWarnings(PHPMD.LongVariableName)
      */
     public function __construct(GameInformationService $gameInformationService, GameRepository $gameRepository)
     {

@@ -41,6 +41,8 @@ class UpdateRecentlyPlayedGamesCommand extends ContainerAwareCommand
      * @param UpdateUserInformationService $updateUserInformationService
      * @param GameUserInformationService $gameUserInformationService
      * @param GameRepository $gameRepository
+     *
+     * @SuppressWarnings(PHPMD.LongVariableName)
      */
     public function __construct(
         UpdateGameInformationService $updateGameInformationService,
@@ -68,6 +70,9 @@ class UpdateRecentlyPlayedGamesCommand extends ContainerAwareCommand
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      * @throws \Nette\Utils\JsonException
+     *
+     * @SuppressWarnings(PHPMD.LongVariableName)
+     * @SuppressWarnings("unused")
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
@@ -78,21 +83,20 @@ class UpdateRecentlyPlayedGamesCommand extends ContainerAwareCommand
             $this->gameRepository->save($oldRecentlyPlayedGame);
         }
 
+
         $mySteamGames = $this->gameUserInformationService->getRecentlyPlayedGames();
         foreach ($mySteamGames as $mySteamGame) {
-            $status = $this->updateGameInformationService->updateGameInformationForSteamAppId(
-                $mySteamGame['appid']
-            );
+            $steamAppId =  $mySteamGame['appid'];
+            $status = $this->updateGameInformationService->updateGameInformationForSteamAppId($steamAppId);
             $output->write($status);
 
-            $status = $this->updateUserInformationService->addSessionForSteamAppId(
-                $mySteamGame['appid']
-            );
+            $status = $this->updateUserInformationService->addSessionForSteamAppId($steamAppId);
             $output->write($status);
 
-            $status = $this->updateUserInformationService->updateUserInformationForSteamAppId(
-                $mySteamGame['appid']
-            );
+            $status = $this->updateUserInformationService->updateUserInformationForSteamAppId($steamAppId);
+            $output->write($status);
+
+            $status = $this->updateUserInformationService->updateAchievementsForSteamAppId($steamAppId);
             $output->write($status);
         }
     }

@@ -55,6 +55,16 @@ class Game extends AbstractEntity
     private $currency;
 
     /**
+     * @var int
+     */
+    private $playerAchievements;
+
+    /**
+     * @var int
+     */
+    private $overallAchievements;
+
+    /**
      * @var ArrayCollection
      */
     private $blogPosts;
@@ -77,6 +87,9 @@ class Game extends AbstractEntity
         $this->price = 0;
         $this->currency = 'USD';
 
+        $this->playerAchievements = 0;
+        $this->overallAchievements = 0;
+
         $this->blogPosts = new ArrayCollection();
         $this->gameSessions = new ArrayCollection();
         $this->purchases = new ArrayCollection();
@@ -92,6 +105,7 @@ class Game extends AbstractEntity
 
     /**
      * @param int $id
+     * @SuppressWarnings(PHPMD.ShortVariableName)
      */
     public function setId(int $id): void
     {
@@ -248,6 +262,38 @@ class Game extends AbstractEntity
     }
 
     /**
+     * @return int
+     */
+    public function getPlayerAchievements(): int
+    {
+        return $this->playerAchievements ?: 0;
+    }
+
+    /**
+     * @param int $playerAchievements
+     */
+    public function setPlayerAchievements(int $playerAchievements): void
+    {
+        $this->playerAchievements = $playerAchievements;
+    }
+
+    /**
+     * @return int
+     */
+    public function getOverallAchievements(): int
+    {
+        return $this->overallAchievements?: 0;
+    }
+
+    /**
+     * @param int $overallAchievements
+     */
+    public function setOverallAchievements(int $overallAchievements): void
+    {
+        $this->overallAchievements = $overallAchievements;
+    }
+
+    /**
      * @param BlogPost $blogPost
      */
     public function addBlogPost(BlogPost $blogPost): void
@@ -334,5 +380,10 @@ class Game extends AbstractEntity
     public function getPurchases(): array
     {
         return $this->purchases->toArray();
+    }
+
+    public function setSlug(): void
+    {
+        $this->slug = $this->slugify($this->getName());
     }
 }

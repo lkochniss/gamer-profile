@@ -1,0 +1,9 @@
+<div class="panel-footer">
+    <span class="pull-left">{% trans from "game" %}Achievements{% endtrans %}</span>
+    <a target="_blank"
+       href="https://steamcommunity.com/id/{{ steam_user_name }}/stats/{{ game.steamAppId }}/achievements">
+        <span class="pull-right">{{ game.playerAchievements }} / {{ game.overallAchievements }}</span>
+    </a>
+    <div class="clearfix"></div>
+</div>
+

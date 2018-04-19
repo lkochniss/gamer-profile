@@ -33,6 +33,8 @@ class BlogPostController extends AbstractCrudController
      * @param string $gameSlug
      * @param string $blogPostSlug
      * @return Response
+     *
+     * @SuppressWarnings("unused")
      */
     public function showBlogPostForGame(string $gameSlug, string $blogPostSlug): Response
     {

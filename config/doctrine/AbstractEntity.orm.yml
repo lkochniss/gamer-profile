@@ -17,5 +17,6 @@ App\Entity\AbstractEntity:
         prePersist:
                 - setModifiedAt
                 - setCreatedAt
+                - setSlug
         preUpdate:
                 - setModifiedAt

@@ -48,4 +48,9 @@ class GameSession extends AbstractEntity
     {
         $this->duration = $duration;
     }
+
+    public function setSlug(): void
+    {
+        $this->slug = $this->slugify($this->getCreatedAt()->format('d-m-y-') . $this->getGame()->getName());
+    }
 }

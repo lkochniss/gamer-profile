@@ -21,8 +21,8 @@
                     <a href="{{ path('game_dashboard', {'id': post.game.id}) }}">{{ post.game.name }}</a>
                 </td>
                 <td scope="col">{{ post.title }}</td>
-                <td scope="col">{{ post.createdAt|date('d.m.Y H:i') }}</td>
-                <td scope="col">{{ post.modifiedAt|date('d.m.Y H:i') }}</td>
+                <td scope="col" data-order="{{ post.createdAt|date('Y-m-d') }}">{{ post.createdAt|date('d.m.Y H:i') }}</td>
+                <td scope="col" data-order="{{ post.createdAt|date('Y-m-d') }}">{{ post.modifiedAt|date('d.m.Y H:i') }}</td>
                 <td scope="col">
                     <a class="float-right"
                        href="{{ path('blog_post_edit', {'id': post.id}) }}">{% trans from 'game' %}edit{% endtrans %}</a>
@@ -37,7 +37,9 @@
     <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
-            $('#blog-post-list').DataTable();
+            $('#blog-post-list').DataTable({
+                'order': [[3, 'desc']]
+            });
         });
     </script>
 {% endblock %}

@@ -42,6 +42,8 @@ class AddSlugToEverythingCommand extends ContainerAwareCommand
      * @param GameRepository $gameRepository
      * @param GameSessionRepository $gameSessionRepository
      * @param PurchaseRepository $purchaseRepository
+     *
+     * @SuppressWarnings(PHPMD.LongVariableName)
      */
     public function __construct(
         BlogPostRepository $blogPostRepository,
@@ -68,6 +70,8 @@ class AddSlugToEverythingCommand extends ContainerAwareCommand
      * @return int|null|void
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
+     *
+     * @SuppressWarnings("unused")
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
@@ -75,6 +79,8 @@ class AddSlugToEverythingCommand extends ContainerAwareCommand
         $this->updateEntities($this->gameRepository);
         $this->updateEntities($this->gameSessionRepository);
         $this->updateEntities($this->purchaseRepository);
+
+        $output->writeln('Done');
     }
 
     /**

@@ -22,10 +22,10 @@
         <tbody>
         {% for gameSession in entities %}
             <tr>
-                <td scope="col">
+                <td scope="col" data-order="{{ gameSession.createdAt|date('Y-m-d') }}">
                     {{ gameSession.createdAt|date('d.m.Y') }}
                 </td>
-                <td scope="col">
+                <td scope="col" data-order="{{ gameSession.duration }}">
                     {{ gameSession.duration|convert_recent_time }}
                 </td>
             </tr>

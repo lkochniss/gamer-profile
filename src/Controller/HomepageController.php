@@ -18,6 +18,8 @@ class HomepageController extends Controller
      * @param GameRepository $gameRepository
      * @param RecentlyPlayedGamesService $recentlyPlayedService
      * @return Response
+     *
+     * @SuppressWarnings(PHPMD.LongVariableName)
      */
     public function recentlyPlayed(
         GameRepository $gameRepository,

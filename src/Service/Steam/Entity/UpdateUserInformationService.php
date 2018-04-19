@@ -2,6 +2,7 @@
 
 namespace App\Service\Steam\Entity;
 
+use App\Entity\Achievements;
 use App\Entity\GameSession;
 use App\Repository\GameRepository;
 use App\Service\ReportService;
@@ -15,7 +16,7 @@ class UpdateUserInformationService extends ReportService
     /**
      * @var GameUserInformationService
      */
-    private $ownedGamesService;
+    private $gameUserInformationService;
 
     /**
      * @var GameRepository
@@ -24,12 +25,12 @@ class UpdateUserInformationService extends ReportService
 
     /**
      * UpdateUserInformationService constructor.
-     * @param GameUserInformationService $ownedGamesService
+     * @param GameUserInformationService $gameUserInformationService
      * @param GameRepository $gameRepository
      */
-    public function __construct(GameUserInformationService $ownedGamesService, GameRepository $gameRepository)
+    public function __construct(GameUserInformationService $gameUserInformationService, GameRepository $gameRepository)
     {
-        $this->ownedGamesService = $ownedGamesService;
+        $this->gameUserInformationService = $gameUserInformationService;
         $this->gameRepository = $gameRepository;
     }
 
@@ -38,6 +39,7 @@ class UpdateUserInformationService extends ReportService
      * @return string
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws \Nette\Utils\JsonException
      */
     public function updateUserInformationForSteamAppId(int $steamAppId): string
     {
@@ -48,7 +50,7 @@ class UpdateUserInformationService extends ReportService
             return 'F';
         }
 
-        $userInformation = $this->ownedGamesService->getUserInformationEntityForSteamAppId($steamAppId);
+        $userInformation = $this->gameUserInformationService->getUserInformationEntityForSteamAppId($steamAppId);
 
         if ($userInformation === null) {
             $this->addEntryToList($steamAppId, ReportService::FIND_USER_INFORMATION_ERROR);
@@ -70,6 +72,7 @@ class UpdateUserInformationService extends ReportService
      * @return string
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws \Nette\Utils\JsonException
      */
     public function addSessionForSteamAppId(int $steamAppId): string
     {
@@ -80,7 +83,7 @@ class UpdateUserInformationService extends ReportService
             return 'F';
         }
 
-        $userInformation = $this->ownedGamesService->getUserInformationEntityForSteamAppId($steamAppId);
+        $userInformation = $this->gameUserInformationService->getUserInformationEntityForSteamAppId($steamAppId);
 
         if ($userInformation === null) {
             $this->addEntryToList($steamAppId, ReportService::FIND_USER_INFORMATION_ERROR);
@@ -99,5 +102,33 @@ class UpdateUserInformationService extends ReportService
         }
 
         return '';
+    }
+
+    /**
+     * @param int $steamAppId
+     * @return string
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function updateAchievementsForSteamAppId(int $steamAppId): string
+    {
+        $game = $this->gameRepository->findOneBySteamAppId($steamAppId);
+        if ($game === null) {
+            $this->addEntryToList($steamAppId, ReportService::GAME_NOT_FOUND_ERROR);
+            return 'F';
+        }
+
+        $gameAchievements = $this->gameUserInformationService->getAchievementsForGame($steamAppId);
+        if (empty($gameAchievements)) {
+            return 'F';
+        }
+
+        $achievements = new Achievements($gameAchievements);
+        $game->setPlayerAchievements($achievements->getPlayerAchievements());
+        $game->setOverallAchievements($achievements->getOverallAchievements());
+
+        $this->gameRepository->save($game);
+
+        return 'S';
     }
 }
