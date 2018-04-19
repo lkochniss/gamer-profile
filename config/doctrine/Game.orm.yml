@@ -39,6 +39,12 @@ App\Entity\Game:
             type: string
             nullable: false
             length: 3
+        playerAchievements:
+            type: integer
+            column: player_achievements
+        overallAchievements:
+            type: integer
+            nullable: overall_achievements
     oneToMany:
           blogPosts:
               targetEntity: BlogPost

@@ -5,10 +5,10 @@ DOCKER_COMPOSE_YARN ?=docker-compose run yarn sh -c
 # TESTING
 phpunit:
 	rm -Rf var/cache/test
-	${DOCKER_COMPOSE_PHP} ./bin/phpunit
+	${DOCKER_COMPOSE_PHP} ./vendor/bin/phpunit
 
 # ANALYSIS
-php-codesniffer:
+codesniff:
 	${DOCKER_COMPOSE_PHP} ./vendor/bin/phpcs --standard=PSR1,PSR2 --ignore=src/Migrations -s src/  -s tests/
 
 codefix:

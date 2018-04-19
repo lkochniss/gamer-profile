@@ -4,6 +4,7 @@ namespace App\Service\Steam\Transformation;
 
 use App\Entity\UserInformation;
 use App\Service\Steam\Api\UserApiClientService;
+use GuzzleHttp\Exception\ClientException;
 use Nette\Utils\JsonException;
 
 /**
@@ -42,6 +43,22 @@ class GameUserInformationService
     public function getRecentlyPlayedGames(): array
     {
         return $this->getGamesFromApiEndpoint('/IPlayerService/GetRecentlyPlayedGames/v0001/');
+    }
+
+    /**
+     * @param int $appId
+     * @return array
+     */
+    public function getAchievementsForGame(int $appId): array
+    {
+        try {
+            $userAchievements = $this->userApiClientService->get(
+                '/ISteamUserStats/GetPlayerAchievements/v0001/?appid=' . $appId
+            );
+            return \GuzzleHttp\json_decode($userAchievements->getBody(), true);
+        } catch (ClientException $clientException) {
+            return [];
+        }
     }
 
     /**

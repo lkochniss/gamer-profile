@@ -83,21 +83,20 @@ class UpdateRecentlyPlayedGamesCommand extends ContainerAwareCommand
             $this->gameRepository->save($oldRecentlyPlayedGame);
         }
 
+
         $mySteamGames = $this->gameUserInformationService->getRecentlyPlayedGames();
         foreach ($mySteamGames as $mySteamGame) {
-            $status = $this->updateGameInformationService->updateGameInformationForSteamAppId(
-                $mySteamGame['appid']
-            );
+            $steamAppId =  $mySteamGame['appid'];
+            $status = $this->updateGameInformationService->updateGameInformationForSteamAppId($steamAppId);
             $output->write($status);
 
-            $status = $this->updateUserInformationService->addSessionForSteamAppId(
-                $mySteamGame['appid']
-            );
+            $status = $this->updateUserInformationService->addSessionForSteamAppId($steamAppId);
             $output->write($status);
 
-            $status = $this->updateUserInformationService->updateUserInformationForSteamAppId(
-                $mySteamGame['appid']
-            );
+            $status = $this->updateUserInformationService->updateUserInformationForSteamAppId($steamAppId);
+            $output->write($status);
+
+            $status = $this->updateUserInformationService->updateAchievementsForSteamAppId($steamAppId);
             $output->write($status);
         }
     }
