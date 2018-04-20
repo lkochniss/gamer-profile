@@ -5,6 +5,12 @@ secruity_admin:
     resource: routing/security_admin.yaml
     prefix: /admin
 
+## Homepage
+
+homepage_backend:
+    resource: routing/homepage_backend.yaml
+    prefix: /admin
+
 ## Game
 game_admin:
     resource: routing/game_admin.yaml

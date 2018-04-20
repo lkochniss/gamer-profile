@@ -49,7 +49,7 @@ class PurchaseService
      * @param string $toCurrency
      * @return float
      */
-    private function transformPrice(float $price, string $fromCurrency, string $toCurrency): float
+    public function transformPrice(float $price, string $fromCurrency, string $toCurrency): float
     {
         if ($fromCurrency === 'USD' && $toCurrency === 'EUR') {
             $price *= 0.824;
