@@ -1,0 +1,38 @@
+{% extends 'admin-base.html.twig' %}
+{% block body %}
+
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">
+                {% trans from "dashboard" %}dashboard{% endtrans %}
+            </h1>
+        </div>
+        <div>Achievements: {{ gameStats.playerAchievements }}/{{ gameStats.overallAchievements }}</div>
+        <div>Recently Played: {{ gameStats.recentlyPlayed|convert_overall_time }}</div>
+        <div>Overall Playtime: {{ gameStats.timePlayed|convert_overall_time }}</div>
+        <div>Game Sessions: {{ gameStats.gameSessions }}</div>
+        <div>Wasted Money: {{ gameStats.wastedMoney }} {{ gameStats.currency }}</div>
+        <div>Invested Money: {{ gameStats.investedMoney }} {{ gameStats.currency }}</div>
+
+        <div>
+            Played Sessions per Month
+            <ul>
+                {% for yearMonth, sessions in gameStats.gameSessionsPerMonth %}
+                    <li>{{ yearMonth }}: {{ sessions }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div>
+            Playtime per Month
+            <ul>
+                {% for yearMonth, playtime in gameStats.gameSessionPlaytimePerMonth %}
+                    <li>{{ yearMonth }}: {{ playtime|convert_overall_time }}</li>
+                {% endfor %}
+            </ul>
+
+        </div>
+    </div>
+    <div class="row">
+    </div>
+{% endblock %}

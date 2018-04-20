@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\OverallGameStats;
 use App\Repository\GameRepository;
 
+use App\Service\OverallGameStatsService;
 use App\Service\Steam\Transformation\RecentlyPlayedGamesService;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
@@ -46,6 +48,17 @@ class HomepageController extends Controller
     {
         return $this->render('Homepage/newGames.html.twig', [
             'games' => $gameRepository->getNewGames()
+        ]);
+    }
+
+    /**
+     * @param OverallGameStatsService $overallGameStatsService
+     * @return Response
+     */
+    public function backendDashboard(OverallGameStatsService $overallGameStatsService): Response
+    {
+        return $this->render('Homepage/backendDashboard.html.twig', [
+            'gameStats' => $overallGameStatsService->getAggregatedStats()
         ]);
     }
 }
