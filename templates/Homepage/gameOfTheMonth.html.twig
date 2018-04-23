@@ -1,0 +1,5 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <h2>{% trans from "game" %}game_of_the_month.title{% endtrans %}</h2>
+    {% include '_modules/bestOfTheMonthGameList.html.twig' %}
+{% endblock %}

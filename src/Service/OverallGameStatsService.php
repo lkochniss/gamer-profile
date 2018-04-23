@@ -38,7 +38,8 @@ class OverallGameStatsService
         GameRepository $gameRepository,
         PurchaseService $purchaseService,
         GameSessionRepository $gameSessionRepository
-    ) {
+    )
+    {
         $this->gameRepository = $gameRepository;
         $this->purchaseService = $purchaseService;
         $this->gameSessionRepository = $gameSessionRepository;
@@ -103,5 +104,47 @@ class OverallGameStatsService
         $overallGameStats->setGameSessionPlaytimePerMonth($gameSessionPlaytimePerMonth);
 
         return $overallGameStats;
+    }
+
+    /**
+     * @return array
+     */
+    public function getMostPlayedGamePerMonth(): array
+    {
+        $bestGamePerMonth = [];
+
+        $gameSessions = $this->gameSessionRepository->findAll();
+
+        $gameSessionsPerMonthAndGame = [];
+        /**
+         * @var GameSession $gameSession
+         */
+        foreach ($gameSessions as $gameSession) {
+            $yearAndMonthKey = $gameSession->getCreatedAt()->format('y-m');
+            if (!key_exists($yearAndMonthKey, $gameSessionsPerMonthAndGame)) {
+                $gameSessionsPerMonthAndGame[$yearAndMonthKey] = [];
+            }
+
+            $slug = $gameSession->getGame()->getSlug();
+            if (!key_exists($slug, $gameSessionsPerMonthAndGame[$yearAndMonthKey])) {
+                $gameSessionsPerMonthAndGame[$yearAndMonthKey][$slug] = [
+                    'playTime' => 0,
+                    'game' => $gameSession->getGame()
+                ];
+            }
+
+            $gameSessionsPerMonthAndGame[$yearAndMonthKey][$slug]['playTime'] += $gameSession->getDuration();
+        }
+
+        foreach ($gameSessionsPerMonthAndGame as $yearAndMonthKey => $gamesWithDuration) {
+            usort($gamesWithDuration, function ($gameA, $gameB) {
+                return $gameA['playTime'] > $gameB['playTime'] ? -1 : 1;
+            });
+
+            $bestGame = array_shift($gamesWithDuration);
+            $bestGamePerMonth[$yearAndMonthKey] = $bestGame['game'];
+        }
+
+        return $bestGamePerMonth;
     }
 }
