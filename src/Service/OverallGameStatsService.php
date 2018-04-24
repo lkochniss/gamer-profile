@@ -3,10 +3,10 @@
 namespace App\Service;
 
 use App\Entity\Game;
-use App\Entity\GameSession;
 use App\Entity\OverallGameStats;
 use App\Repository\GameRepository;
 use App\Repository\GameSessionRepository;
+use App\Repository\OverallGameStatsRepository;
 
 /**
  * Class OverallStatsService
@@ -29,27 +29,41 @@ class OverallGameStatsService
     private $gameSessionRepository;
 
     /**
+     * @var OverallGameStatsRepository
+     */
+    private $overallGameStatsRepository;
+
+    /**
      * OverallGameStatsService constructor.
      * @param GameRepository $gameRepository
      * @param PurchaseService $purchaseService
      * @param GameSessionRepository $gameSessionRepository
+     * @param OverallGameStatsRepository $overallGameStatsRepository
      */
     public function __construct(
         GameRepository $gameRepository,
         PurchaseService $purchaseService,
-        GameSessionRepository $gameSessionRepository
+        GameSessionRepository $gameSessionRepository,
+        OverallGameStatsRepository $overallGameStatsRepository
     ) {
         $this->gameRepository = $gameRepository;
         $this->purchaseService = $purchaseService;
         $this->gameSessionRepository = $gameSessionRepository;
+        $this->overallGameStatsRepository = $overallGameStatsRepository;
     }
 
     /**
-     * @return OverallGameStats
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
      */
-    public function getAggregatedStats(): OverallGameStats
+    public function generateOverallStats(): void
     {
         $games = $this->gameRepository->findAll();
+
+        $exitingGameStats = $this->overallGameStatsRepository->findOneByIdentifier(getenv('STEAM_USER_ID'));
+        if (!is_null($exitingGameStats)) {
+            return;
+        }
 
         $overallGameStats = new OverallGameStats();
 
@@ -80,28 +94,6 @@ class OverallGameStatsService
             }
         }
 
-        $gameSessions = $this->gameSessionRepository->findAll();
-        $gameSessionsPerMonth = [];
-        $gameSessionPlaytimePerMonth = [];
-
-        /**
-         * @var GameSession $gameSession
-         */
-        foreach ($gameSessions as $gameSession) {
-            $yearAndMonthKey = $gameSession->getCreatedAt()->format('y-m');
-
-            if (!key_exists($yearAndMonthKey, $gameSessionsPerMonth)) {
-                $gameSessionsPerMonth[$yearAndMonthKey] = 0;
-                $gameSessionPlaytimePerMonth[$yearAndMonthKey] = 0;
-            }
-
-            $gameSessionsPerMonth[$yearAndMonthKey]++;
-            $gameSessionPlaytimePerMonth[$yearAndMonthKey] += $gameSession->getDuration();
-        }
-
-        $overallGameStats->setGameSessionsPerMonth($gameSessionsPerMonth);
-        $overallGameStats->setGameSessionPlaytimePerMonth($gameSessionPlaytimePerMonth);
-
-        return $overallGameStats;
+        $this->overallGameStatsRepository->save($overallGameStats);
     }
 }

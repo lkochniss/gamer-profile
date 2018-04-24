@@ -1,0 +1,8 @@
+<hr/>
+{% for gamePerMonth in bestGamePerMonth %}
+
+    <div class="col-lg-6 col-md col-sm">
+        {% include '_modules/bestOfTheMonthGameCard.html.twig' with {'gamePerMonth': gamePerMonth} %}
+    </div>
+
+{% endfor %}

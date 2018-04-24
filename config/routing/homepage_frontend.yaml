@@ -7,3 +7,6 @@ homepage_most_played:
 homepage_newest_games:
     path: /new
     defaults: { _controller: 'App\Controller\HomepageController::newGames' }
+homepage_game_of_month:
+    path: /game-of-the-month
+    defaults: { _controller: 'App\Controller\HomepageController::mostPlayedGamePerMonth' }

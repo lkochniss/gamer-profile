@@ -8,7 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Client;
 
-class GameControllerTest extends WebTestCase
+class BlogPostControllerTest extends WebTestCase
 {
     /**
      * @var Client
@@ -25,30 +25,44 @@ class GameControllerTest extends WebTestCase
         $this->client = static::createClient();
     }
 
-    public function testGameListReturnHttpOk(): void
-    {
-        $this->client->request('GET', '/game');
-
-        $this->assertEquals(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
-    }
-
     /**
      * @param string $url
-     * @dataProvider gamesProvider
+     * @dataProvider blogPostListUrlProvider
      */
-    public function testDifferentGames(string $url): void
+    public function testDifferentBlogLists(string $url): void
     {
         $this->client->request('GET', $url);
 
         $this->assertEquals(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
     }
 
-    public function gamesProvider(): array
+    public function blogPostListUrlProvider(): array
     {
         return [
-            ['/game-1'],
-            ['/game-2'],
-            ['/game-3'],
+            ['/game-1/blog'],
+            ['/game-2/blog'],
+            ['/game-3/blog'],
+        ];
+    }
+
+    /**
+     * @param string $url
+     * @dataProvider blogPostUrlProvider
+     */
+    public function testDifferentBlogPosts(string $url): void
+    {
+        $this->client->request('GET', $url);
+
+        $this->assertEquals(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
+    }
+
+    public function blogPostUrlProvider(): array
+    {
+        $now = new \DateTime();
+        return [
+            [sprintf('/game-1/blog/%s-post-1', $now->format('Y-m-d'))],
+            [sprintf('/game-2/blog/%s-post-2', $now->format('Y-m-d'))],
+            [sprintf('/game-2/blog/%s-post-3', $now->format('Y-m-d'))]
         ];
     }
 

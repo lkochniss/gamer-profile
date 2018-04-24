@@ -60,7 +60,6 @@ class UpdateGameInformationService extends ReportService
         $game->setHeaderImagePath($gameInformation->getHeaderImagePath());
         $game->setPrice($gameInformation->getPrice());
         $game->setCurrency($gameInformation->getCurrency());
-        $game->setModifiedAt();
         $this->addEntryToList($game->getName(), ReportService::UPDATED_GAME_INFORMATION);
 
         $this->gameRepository->save($game);

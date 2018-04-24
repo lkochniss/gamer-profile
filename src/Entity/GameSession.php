@@ -51,6 +51,6 @@ class GameSession extends AbstractEntity
 
     public function setSlug(): void
     {
-        $this->slug = $this->slugify($this->getCreatedAt()->format('d-m-y-') . $this->getGame()->getName());
+        $this->slug = $this->slugify($this->getCreatedAt()->format('Y-m-d-') . $this->getGame()->getName());
     }
 }

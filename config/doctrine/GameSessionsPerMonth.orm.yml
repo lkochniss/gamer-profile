@@ -1,0 +1,19 @@
+App\Entity\GameSessionsPerMonth:
+    type: entity
+    repositoryClass: App\Repository\GameSessionsPerMonthRepository
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        month:
+            type: datetime
+        duration:
+            type: integer
+    manyToOne:
+        game:
+            targetEntity: Game
+            inversedBy: gameSessions
+            joinColumn:
+                name: game_id
+                referencedColumnName: id
