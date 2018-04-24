@@ -17,8 +17,8 @@
         <div>
             Played Sessions per Month
             <ul>
-                {% for yearMonth, sessions in gameStats.gameSessionsPerMonth %}
-                    <li>{{ yearMonth }}: {{ sessions }}</li>
+                {% for playtimePerMonth in playtimePerMonths %}
+                    <li>{{ playtimePerMonth.month|date('m.Y') }}: {{ playtimePerMonth.sessions }}</li>
                 {% endfor %}
             </ul>
         </div>
@@ -26,8 +26,8 @@
         <div>
             Playtime per Month
             <ul>
-                {% for yearMonth, playtime in gameStats.gameSessionPlaytimePerMonth %}
-                    <li>{{ yearMonth }}: {{ playtime|convert_overall_time }}</li>
+                {% for playtimePerMonth in playtimePerMonths %}
+                    <li>{{ playtimePerMonth.month|date('m.Y') }}: {{ playtimePerMonth.duration|convert_overall_time }}</li>
                 {% endfor %}
             </ul>
 

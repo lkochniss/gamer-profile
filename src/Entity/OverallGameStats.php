@@ -8,6 +8,11 @@ namespace App\Entity;
 class OverallGameStats extends AbstractEntity
 {
     /**
+     * @var string
+     */
+    private $identifier;
+
+    /**
      * @var int
      */
     private $overallAchievements = 0;
@@ -48,20 +53,11 @@ class OverallGameStats extends AbstractEntity
     private $currency;
 
     /**
-     * @var array
-     */
-    private $gameSessionsPerMonth = [];
-
-    /**
-     * @var array
-     */
-    private $gameSessionPlaytimePerMonth = [];
-
-    /**
      * OverallGameStats constructor.
      */
     public function __construct()
     {
+        $this->identifier = getenv('STEAM_USER_ID');
         $this->currency = getenv('DEFAULT_CURRENCY');
     }
 
@@ -184,37 +180,5 @@ class OverallGameStats extends AbstractEntity
     public function getCurrency(): string
     {
         return $this->currency;
-    }
-
-    /**
-     * @return array
-     */
-    public function getGameSessionsPerMonth(): array
-    {
-        return $this->gameSessionsPerMonth;
-    }
-
-    /**
-     * @param array $gameSessionsPerMonth
-     */
-    public function setGameSessionsPerMonth(array $gameSessionsPerMonth): void
-    {
-        $this->gameSessionsPerMonth = $gameSessionsPerMonth;
-    }
-
-    /**
-     * @return array
-     */
-    public function getGameSessionPlaytimePerMonth(): array
-    {
-        return $this->gameSessionPlaytimePerMonth;
-    }
-
-    /**
-     * @param array $gameSessionPlaytimePerMonth
-     */
-    public function setGameSessionPlaytimePerMonth(array $gameSessionPlaytimePerMonth): void
-    {
-        $this->gameSessionPlaytimePerMonth = $gameSessionPlaytimePerMonth;
     }
 }

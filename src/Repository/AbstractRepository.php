@@ -3,7 +3,6 @@
 namespace App\Repository;
 
 use App\Entity\AbstractEntity;
-use App\Service\SlugifyService;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 

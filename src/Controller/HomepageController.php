@@ -2,13 +2,12 @@
 
 namespace App\Controller;
 
-use App\Entity\OverallGameStats;
 use App\Repository\GameRepository;
-
+use App\Repository\OverallGameStatsRepository;
+use App\Repository\PlaytimePerMonthRepository;
 use App\Service\OverallGameStatsService;
 use App\Service\Steam\Transformation\RecentlyPlayedGamesService;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -41,7 +40,7 @@ class HomepageController extends Controller
     public function mostPlayed(GameRepository $gameRepository): Response
     {
         return $this->render('Homepage/mostPlayed.html.twig', [
-                'games' => $gameRepository->getMostPlayedGames(10)
+            'games' => $gameRepository->getMostPlayedGames(10)
         ]);
     }
 
@@ -68,13 +67,19 @@ class HomepageController extends Controller
     }
 
     /**
-     * @param OverallGameStatsService $overallGameStatsService
+     * @param OverallGameStatsRepository $overallGameStatsRepository
+     * @param PlaytimePerMonthRepository $playtimePerMonthRepository
      * @return Response
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
      */
-    public function backendDashboard(OverallGameStatsService $overallGameStatsService): Response
-    {
+    public function backendDashboard(
+        OverallGameStatsRepository $overallGameStatsRepository,
+        PlaytimePerMonthRepository $playtimePerMonthRepository
+    ): Response {
         return $this->render('Homepage/backendDashboard.html.twig', [
-            'gameStats' => $overallGameStatsService->getAggregatedStats()
+            'gameStats' => $overallGameStatsRepository->findOneByIdentifier(getenv('STEAM_USER_ID')),
+            'playtimePerMonths' => $playtimePerMonthRepository->findAll()
         ]);
     }
 }
