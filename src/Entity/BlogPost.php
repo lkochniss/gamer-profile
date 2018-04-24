@@ -72,6 +72,6 @@ class BlogPost extends AbstractEntity
 
     public function setSlug(): void
     {
-        $this->slug = $this->slugify($this->getCreatedAt()->format('d-m-y-') . $this->getTitle());
+        $this->slug = $this->slugify($this->getCreatedAt()->format('Y-m-d-') . $this->getTitle());
     }
 }

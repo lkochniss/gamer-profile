@@ -38,8 +38,7 @@ class OverallGameStatsService
         GameRepository $gameRepository,
         PurchaseService $purchaseService,
         GameSessionRepository $gameSessionRepository
-    )
-    {
+    ) {
         $this->gameRepository = $gameRepository;
         $this->purchaseService = $purchaseService;
         $this->gameSessionRepository = $gameSessionRepository;
