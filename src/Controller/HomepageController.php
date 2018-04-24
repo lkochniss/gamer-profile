@@ -2,10 +2,11 @@
 
 namespace App\Controller;
 
+use App\Entity\GameSessionsPerMonth;
 use App\Repository\GameRepository;
+use App\Repository\GameSessionsPerMonthRepository;
 use App\Repository\OverallGameStatsRepository;
 use App\Repository\PlaytimePerMonthRepository;
-use App\Service\OverallGameStatsService;
 use App\Service\Steam\Transformation\RecentlyPlayedGamesService;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
@@ -56,13 +57,30 @@ class HomepageController extends Controller
     }
 
     /**
-     * @param OverallGameStatsService $overallGameStatsService
+     * @param GameSessionsPerMonthRepository $gameSessionsPerMonthRepository
      * @return Response
      */
-    public function mostPlayedGamePerMonth(OverallGameStatsService $overallGameStatsService): Response
+    public function mostPlayedGamePerMonth(GameSessionsPerMonthRepository $gameSessionsPerMonthRepository): Response
     {
+        $bestGamePerMonth = [];
+        $gamesPerMonth = $gameSessionsPerMonthRepository->findAll();
+
+        /**
+         * @var GameSessionsPerMonth $gamePerMonth
+         */
+        foreach ($gamesPerMonth as $gamePerMonth) {
+            $yearMonthKey = $gamePerMonth->getMonth()->format('Y-m');
+            if (!array_key_exists($yearMonthKey, $bestGamePerMonth)) {
+                $bestGamePerMonth[$yearMonthKey] = $gamePerMonth;
+            }
+
+            if ($bestGamePerMonth[$yearMonthKey]->getDuration() < $gamePerMonth->getDuration()) {
+                $bestGamePerMonth[$yearMonthKey] = $gamePerMonth;
+            }
+        }
+
         return $this->render('Homepage/gameOfTheMonth.html.twig', [
-            'bestGamePerMonth' => $overallGameStatsService->getMostPlayedGamePerMonth()
+            'bestGamePerMonth' => $bestGamePerMonth
         ]);
     }
 
@@ -70,15 +88,13 @@ class HomepageController extends Controller
      * @param OverallGameStatsRepository $overallGameStatsRepository
      * @param PlaytimePerMonthRepository $playtimePerMonthRepository
      * @return Response
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
      */
     public function backendDashboard(
         OverallGameStatsRepository $overallGameStatsRepository,
         PlaytimePerMonthRepository $playtimePerMonthRepository
     ): Response {
         return $this->render('Homepage/backendDashboard.html.twig', [
-            'gameStats' => $overallGameStatsRepository->findOneByIdentifier(getenv('STEAM_USER_ID')),
+            'gameStats' => $overallGameStatsRepository->findOneBy(['identifier' => getenv('STEAM_USER_ID')]),
             'playtimePerMonths' => $playtimePerMonthRepository->findAll()
         ]);
     }

@@ -1,8 +1,8 @@
 <ul class='list-group'>
-    <h4 class='list-group-item'>{{ yearAndMonth }}</h4>
+    <h4 class='list-group-item'>{{ gamePerMonth.month|date('Y-m') }}</h4>
     <div class="list-group-item">
-        <h3><a href="{{ path('game_show', {'slug': game.slug}) }}">{{ game.name }}</a></h3>
-        <img src='{{ game.headerImagePath }}' alt='{{ game.name }}' class='img-responsive center-block'/>
+        <h3><a href="{{ path('game_show', {'slug': gamePerMonth.game.slug}) }}">{{ gamePerMonth.game.name }}</a></h3>
+        <img src='{{ gamePerMonth.game.headerImagePath }}' alt='{{ gamePerMonth.game.name }}' class='img-responsive center-block'/>
     </div>
 </ul>
 

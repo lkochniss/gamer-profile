@@ -1,8 +1,8 @@
 <hr/>
-{% for key, game in bestGamePerMonth %}
+{% for gamePerMonth in bestGamePerMonth %}
 
     <div class="col-lg-6 col-md col-sm">
-        {% include '_modules/bestOfTheMonthGameCard.html.twig' with {'game': game, 'yearAndMonth': key } %}
+        {% include '_modules/bestOfTheMonthGameCard.html.twig' with {'gamePerMonth': gamePerMonth} %}
     </div>
 
 {% endfor %}
