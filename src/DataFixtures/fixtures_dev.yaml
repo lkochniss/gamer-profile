@@ -37,12 +37,37 @@ App\Entity\GameSession:
         duration: '<numberBetween(1, 50)>'
 
 App\Entity\Purchase:
-    purchase_{1..20}:
+    purchase_1:
         __calls:
-          - setType (50%?): ['game-purchase']
-          - setType (50%?): ['dlc-purchase']
-          - setType (50%?): ['other-purchase']
-        game: '@game_<numberBetween(1, 3)>'
+          - setType: ['game-purchase']
+        game: '@game_1'
+        type: 'ingame-purchase'
+        price: '<numberBetween(1, 3000)>'
+        currency: 'USD'
+        notice: '<sentence()>'
+        bought_at: '<dateTimeBetween("-1 week", "now")>'
+    purchase_2:
+        __calls:
+          - setType: ['dlc-purchase']
+        game: '@game_1'
+        type: 'ingame-purchase'
+        price: '<numberBetween(1, 3000)>'
+        currency: 'USD'
+        notice: '<sentence()>'
+        bought_at: '<dateTimeBetween("-1 week", "now")>'
+    purchase_3:
+        __calls:
+          - setType: ['ingame-purchase']
+        game: '@game_1'
+        type: 'ingame-purchase'
+        price: '<numberBetween(1, 3000)>'
+        currency: 'USD'
+        notice: '<sentence()>'
+        bought_at: '<dateTimeBetween("-1 week", "now")>'
+    purchase_4:
+        __calls:
+          - setType: ['other-purchase']
+        game: '@game_2'
         type: 'ingame-purchase'
         price: '<numberBetween(1, 3000)>'
         currency: 'USD'
