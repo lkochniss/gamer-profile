@@ -7,6 +7,11 @@ namespace App\Entity;
  */
 class Purchase extends AbstractEntity
 {
+    const GAME_PURCHASE = 'game-purchase';
+    const DLC_PURCHASE = 'dlc-purchase';
+    const INGAME_PURCHASE = 'ingame-purchase';
+    const OTHER_PURCHASE = 'other-purchase';
+
     /**
      * @var string
      */
@@ -42,7 +47,7 @@ class Purchase extends AbstractEntity
      */
     public function __construct()
     {
-        $this->type = 'game-purchase';
+        $this->type = $this::GAME_PURCHASE;
         $this->currency = 'USD';
         $this->price = 0;
         $this->notice = '';

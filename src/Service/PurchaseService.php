@@ -3,6 +3,7 @@
 namespace App\Service;
 
 use App\Entity\Game;
+use App\Entity\Purchase;
 
 /**
  * Class PurchaseService
@@ -16,16 +17,12 @@ class PurchaseService
     public function generateOverallCosts(Game $game): float
     {
         $sum = 0;
-        $ingamePurchase = false;
 
         foreach ($game->getPurchases() as $purchase) {
             $sum += $this->transformPrice($purchase->getPrice(), $purchase->getCurrency(), $game->getCurrency());
-            if ($purchase->getType() === 'game-purchase') {
-                $ingamePurchase = true;
-            }
         }
 
-        if ($ingamePurchase === false) {
+        if ($game->hasGamePurchase() === false) {
             $sum += $game->getPrice();
         }
 

@@ -382,6 +382,22 @@ class Game extends AbstractEntity
         return $this->purchases->toArray();
     }
 
+    /**
+     * @return bool
+     */
+    public function hasGamePurchase(): bool
+    {
+        $purchases = $this->getPurchases();
+
+        foreach ($purchases as $purchase) {
+            if ($purchase->getType() == Purchase::GAME_PURCHASE) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     public function setSlug(): void
     {
         $this->slug = $this->slugify($this->getName());

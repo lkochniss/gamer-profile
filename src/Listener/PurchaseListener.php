@@ -4,6 +4,7 @@ namespace App\Listener;
 
 use App\Entity\Game;
 use App\Entity\OverallGameStats;
+use App\Entity\Purchase;
 use App\Repository\OverallGameStatsRepository;
 use App\Service\PurchaseService;
 use Doctrine\ORM\Event\LifecycleEventArgs;
@@ -11,22 +12,12 @@ use Doctrine\ORM\Event\LifecycleEventArgs;
 /**
  * Class GameListener
  */
-class GameListener
+class PurchaseListener
 {
     /**
      * @var PurchaseService
      */
     private $purchaseService;
-
-    /**
-     * @var array
-     */
-    private $statProperties = [
-        'addToOverallAchievements' => 'overallAchievements',
-        'addToPlayerAchievements' => 'playerAchievements',
-        'addToRecentlyPlayed' => 'recentlyPlayed',
-        'addToTimePlayed' => 'timePlayed'
-    ];
 
     /**
      * GameListener constructor.
@@ -44,9 +35,12 @@ class GameListener
      */
     public function postPersist(LifecycleEventArgs $args): void
     {
+        /**
+         * @var Purchase $entity
+         */
         $entity = $args->getEntity();
 
-        if ($entity instanceof Game === false) {
+        if ($entity instanceof Purchase === false) {
             return;
         }
 
@@ -56,25 +50,36 @@ class GameListener
         $overallGameStatsRepository = $args->getEntityManager()->getRepository(OverallGameStats::class);
         $overallGameStats = $this->getOverallGameStats($overallGameStatsRepository);
 
-        $overallGameStats->addToOverallAchievements($entity->getOverallAchievements());
-        $overallGameStats->addToPlayerAchievements($entity->getPlayerAchievements());
-        $overallGameStats->addToRecentlyPlayed($entity->getRecentlyPlayed());
-        $overallGameStats->addToTimePlayed($entity->getTimePlayed());
-
-        $purchaseMoney = $this->purchaseService->generateOverallCosts($entity);
         $overallGameStats->addToInvestedMoney($this->purchaseService->transformPrice(
-            $purchaseMoney,
+            $entity->getPrice(),
             $entity->getCurrency(),
             $overallGameStats->getCurrency()
         ));
 
-        if ($entity->getTimePlayed() < 60) {
-            $wastedMoney = $this->purchaseService->generateOverallCosts($entity);
-            $overallGameStats->addToWastedMoney($this->purchaseService->transformPrice(
-                $wastedMoney,
+        // Remove game price if it's a game purchase
+        if ($entity->getType() == Purchase::GAME_PURCHASE) {
+            $overallGameStats->addToInvestedMoney($this->purchaseService->transformPrice(
+                $entity->getGame()->getPrice() * -1,
                 $entity->getCurrency(),
                 $overallGameStats->getCurrency()
             ));
+        }
+
+        if ($entity->getGame()->getTimePlayed() < 60) {
+            $overallGameStats->addToWastedMoney($this->purchaseService->transformPrice(
+                $entity->getPrice(),
+                $entity->getCurrency(),
+                $overallGameStats->getCurrency()
+            ));
+
+            // Remove game price if it's a game purchase
+            if ($entity->getType() == Purchase::GAME_PURCHASE) {
+                $overallGameStats->addToWastedMoney($this->purchaseService->transformPrice(
+                    $entity->getGame()->getPrice() * -1,
+                    $entity->getCurrency(),
+                    $overallGameStats->getCurrency()
+                ));
+            }
         }
 
         $overallGameStatsRepository->save($overallGameStats);
