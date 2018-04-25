@@ -8,29 +8,11 @@ use Symfony\Component\HttpFoundation\Response;
 
 class GameSessionControllerTest extends WebTestCase
 {
-
-    public function testSessionListReturnsOk(): void
-    {
-        $client = static::createClient();
-        LoginHelper::logIn($client);
-        $client->request('GET', '/admin/session');
-
-        $this->assertEquals(Response::HTTP_OK, $client->getResponse()->getStatusCode());
-    }
-
-    public function testSessionListWithoutCredentialsRedirect(): void
-    {
-        $client = static::createClient();
-        $client->request('GET', '/admin/session');
-
-        $this->assertEquals(Response::HTTP_FOUND, $client->getResponse()->getStatusCode());
-    }
-
     /**
      * @param string $url
-     * @dataProvider gameSessionUrlProvider
+     * @dataProvider backendUrlProvider
      */
-    public function testSessionListForGameReturnsOk(string $url): void
+    public function testBackendGameActionsReturnOk(string $url): void
     {
         $client = static::createClient();
         LoginHelper::logIn($client);
@@ -41,22 +23,24 @@ class GameSessionControllerTest extends WebTestCase
 
     /**
      * @param string $url
-     * @dataProvider gameSessionUrlProvider
+     * @dataProvider backendUrlProvider
      */
-    public function testSessionListForGameWithoutCredentialsRedirect(string $url): void
+    public function testBackendGameActionsWithoutCredentialsRedirectsToLogin(string $url): void
     {
         $client = static::createClient();
         $client->request('GET', $url);
+        $crawler = $client->followRedirect();
 
-        $this->assertEquals(Response::HTTP_FOUND, $client->getResponse()->getStatusCode());
+        $this->assertContains('/admin/login', $crawler->getUri());
     }
 
     /**
      * @return array
      */
-    public function gameSessionUrlProvider(): array
+    public function backendUrlProvider(): array
     {
         return [
+            ['/admin/session'],
             ['admin/game/1/session'],
             ['admin/game/2/session'],
             ['admin/game/3/session'],

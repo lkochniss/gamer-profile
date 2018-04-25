@@ -49,7 +49,7 @@ cache:
 	${DOCKER_COMPOSE_PHP} ./bin/console ca:c
 
 rebuild-db:
-	${DOCKER_COMPOSE_PHP} ./bin/console do:da:dr --force
+	${DOCKER_COMPOSE_PHP} ./bin/console do:da:dr --force --if-exists
 	${DOCKER_COMPOSE_PHP} ./bin/console do:da:cr
 	${DOCKER_COMPOSE_PHP} ./bin/console do:mi:mi -n
 	${DOCKER_COMPOSE_PHP} ./bin/console do:fi:lo -n

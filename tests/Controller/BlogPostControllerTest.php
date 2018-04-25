@@ -53,12 +53,13 @@ class BlogPostControllerTest extends WebTestCase
      * @param string $url
      * @dataProvider backendUrlProvider
      */
-    public function testBackendBlogActionsWithoutCredentialsRedirect(string $url): void
+    public function testBackendBlogActionsWithoutCredentialsRedirectsToLogin(string $url): void
     {
         $client = static::createClient();
         $client->request('GET', $url);
+        $crawler = $client->followRedirect();
 
-        $this->assertEquals(Response::HTTP_FOUND, $client->getResponse()->getStatusCode());
+        $this->assertContains('/admin/login', $crawler->getUri());
     }
 
     /**
