@@ -65,7 +65,7 @@ class PlaytimePerMonthService
      */
     public function getPlaytimePerMonth(GameSession $gameSession): PlaytimePerMonth
     {
-        $month = new \DateTime(sprintf('first day of %s', $gameSession->getCreatedAt()->format('F Y')));
+        $month = new \DateTime(sprintf('first day of %s 00:00:00', $gameSession->getCreatedAt()->format('F Y')));
         $playtimePerMonth = $this->playtimePerMonthRepository->findOneBy([
             'month' => $month
         ]);
