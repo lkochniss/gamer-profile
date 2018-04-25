@@ -5,7 +5,9 @@ DOCKER_COMPOSE_YARN ?=docker-compose run yarn sh -c
 # TESTING
 phpunit:
 	rm -Rf var/cache/test
+	make build-test-db
 	${DOCKER_COMPOSE_PHP} ./vendor/bin/phpunit
+	make tear-down-test-db
 
 # ANALYSIS
 codesniff:
@@ -51,6 +53,14 @@ rebuild-db:
 	${DOCKER_COMPOSE_PHP} ./bin/console do:da:cr
 	${DOCKER_COMPOSE_PHP} ./bin/console do:mi:mi -n
 	${DOCKER_COMPOSE_PHP} ./bin/console do:fi:lo -n
+
+build-test-db:
+	${DOCKER_COMPOSE_PHP} ./bin/console --env=test do:da:cr
+	${DOCKER_COMPOSE_PHP} ./bin/console --env=test do:sc:up --force
+	${DOCKER_COMPOSE_PHP} ./bin/console --env=test do:fi:lo -n
+
+tear-down-test-db:
+	${DOCKER_COMPOSE_PHP} ./bin/console --env=test do:da:dr --force
 
 create-migration-diff:
 	${DOCKER_COMPOSE_PHP} ./bin/console do:mi:di

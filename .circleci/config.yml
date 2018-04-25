@@ -95,7 +95,7 @@ jobs:
 
       - run:
           name: Launch Unit tests
-          command: ./vendor/bin/phpunit --log-junit 'build/unitreport.xml' --coverage-clover 'build/cloverreport.xml'
+          command: ./.circleci/php-unit-tests.sh
 
       - run:
           name: delete fake manifest.json again to not interfere with the correct one

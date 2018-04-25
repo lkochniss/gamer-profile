@@ -3,7 +3,6 @@
 
 namespace App\Tests\Controller;
 
-use App\Tests\DataPrimer;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Client;
@@ -13,15 +12,13 @@ class BlogPostControllerTest extends WebTestCase
     /**
      * @var Client
      */
-    private $client;
+    private $client = null;
 
     /**
      * @throws \Exception
      */
     public function setUp(): void
     {
-        $kernel = self::bootKernel();
-        DataPrimer::setUp($kernel);
         $this->client = static::createClient();
     }
 
@@ -56,6 +53,9 @@ class BlogPostControllerTest extends WebTestCase
         $this->assertEquals(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
     }
 
+    /**
+     * @return array
+     */
     public function blogPostUrlProvider(): array
     {
         $now = new \DateTime();
@@ -64,13 +64,5 @@ class BlogPostControllerTest extends WebTestCase
             [sprintf('/game-2/blog/%s-post-2', $now->format('Y-m-d'))],
             [sprintf('/game-2/blog/%s-post-3', $now->format('Y-m-d'))]
         ];
-    }
-
-    /**
-     * @throws \Exception
-     */
-    public function tearDown(): void
-    {
-        DataPrimer::drop(self::bootKernel());
     }
 }
