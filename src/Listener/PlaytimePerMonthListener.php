@@ -71,7 +71,7 @@ class PlaytimePerMonthListener
      */
     public function getPlaytimePerMonth(PlaytimePerMonthRepository $playtimePerMonthRepository): PlaytimePerMonth
     {
-        $month = new \DateTime('first day of this month');
+        $month = new \DateTime('first day of this month 00:00:00');
         $playtimePerMonth = $playtimePerMonthRepository->findOneBy([
             'month' => $month
         ]);

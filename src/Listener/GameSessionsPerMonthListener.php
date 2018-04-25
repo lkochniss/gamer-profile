@@ -105,7 +105,7 @@ class GameSessionsPerMonthListener
         GameSessionsPerMonthRepository $gameSessionsPerMonthRepository,
         Game $game
     ): GameSessionsPerMonth {
-        $month = new \DateTime('first day of this month');
+        $month = new \DateTime('first day of this month 00:00:00');
         $gameSessionsPerMonth = $gameSessionsPerMonthRepository->findOneBy([
             'game' => $game,
             'month' => $month
