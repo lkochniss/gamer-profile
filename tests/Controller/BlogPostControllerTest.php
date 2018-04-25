@@ -1,26 +1,12 @@
 <?php
 
-
 namespace App\Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Client;
 
 class BlogPostControllerTest extends WebTestCase
 {
-    /**
-     * @var Client
-     */
-    private $client = null;
-
-    /**
-     * @throws \Exception
-     */
-    public function setUp(): void
-    {
-        $this->client = static::createClient();
-    }
 
     /**
      * @param string $url
@@ -28,9 +14,10 @@ class BlogPostControllerTest extends WebTestCase
      */
     public function testDifferentBlogLists(string $url): void
     {
-        $this->client->request('GET', $url);
+        $client = static::createClient();
+        $client->request('GET', $url);
 
-        $this->assertEquals(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
+        $this->assertEquals(Response::HTTP_OK, $client->getResponse()->getStatusCode());
     }
 
     public function blogPostListUrlProvider(): array
@@ -48,9 +35,10 @@ class BlogPostControllerTest extends WebTestCase
      */
     public function testDifferentBlogPosts(string $url): void
     {
-        $this->client->request('GET', $url);
+        $client = static::createClient();
+        $client->request('GET', $url);
 
-        $this->assertEquals(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
+        $this->assertEquals(Response::HTTP_OK, $client->getResponse()->getStatusCode());
     }
 
     /**

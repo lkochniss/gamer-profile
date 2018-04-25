@@ -4,44 +4,53 @@
 namespace App\Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
-use Symfony\Component\BrowserKit\Cookie;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Client;
-use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
 class GameSessionControllerTest extends WebTestCase
 {
-    /**
-     * @var Client
-     */
-    private $client = null;
 
-    /**
-     * @throws \Exception
-     */
-    public function setUp(): void
+    public function testSessionListReturnsOk(): void
     {
-        $this->client = static::createClient();
+        $client = static::createClient();
+        LoginHelper::logIn($client);
+        $client->request('GET', '/admin/session');
+
+        $this->assertEquals(Response::HTTP_OK, $client->getResponse()->getStatusCode());
     }
 
-    public function testSessionListOk(): void
+    public function testSessionListWithoutCredentialsRedirect(): void
     {
-        $this->client->request('GET', '/admin/session');
+        $client = static::createClient();
+        $client->request('GET', '/admin/session');
 
-        $this->assertEquals(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
+        $this->assertEquals(Response::HTTP_FOUND, $client->getResponse()->getStatusCode());
     }
 
     /**
      * @param string $url
      * @dataProvider gameSessionUrlProvider
      */
-    public function testSessionListForGame(string $url): void
+    public function testSessionListForGameReturnsOk(string $url): void
     {
-        $this->logIn();
-        $this->client->request('GET', $url);
+        $client = static::createClient();
+        LoginHelper::logIn($client);
+        $client->request('GET', $url);
 
-        $this->assertEquals(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
+        $this->assertEquals(Response::HTTP_OK, $client->getResponse()->getStatusCode());
     }
+
+    /**
+     * @param string $url
+     * @dataProvider gameSessionUrlProvider
+     */
+    public function testSessionListForGameWithoutCredentialsRedirect(string $url): void
+    {
+        $client = static::createClient();
+        $client->request('GET', $url);
+
+        $this->assertEquals(Response::HTTP_FOUND, $client->getResponse()->getStatusCode());
+    }
+
 
     public function gameSessionUrlProvider(): array
     {
@@ -50,20 +59,5 @@ class GameSessionControllerTest extends WebTestCase
             ['admin/game/2/session'],
             ['admin/game/3/session'],
         ];
-    }
-
-    private function logIn()
-    {
-        $session = $this->client->getContainer()->get('session');
-
-        // the firewall context defaults to the firewall name
-        $firewallContext = 'secured_area';
-
-        $token = new UsernamePasswordToken('admin', null, $firewallContext, array('ROLE_ADMIN'));
-        $session->set('_security_'.$firewallContext, serialize($token));
-        $session->save();
-
-        $cookie = new Cookie($session->getName(), $session->getId());
-        $this->client->getCookieJar()->set($cookie);
     }
 }
