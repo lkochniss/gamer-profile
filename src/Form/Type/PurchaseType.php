@@ -29,10 +29,10 @@ class PurchaseType extends AbstractType
                 ChoiceType::class,
                 [
                     'choices' => [
-                      'Game Purchase' => 'game-purchase',
-                      'DLC Purchase' => 'dlc-purchase',
-                      'Ingame Purchase' => 'ingame-purchase',
-                      'Other Purchase' => 'other-purchase'
+                      'Game Purchase' => Purchase::GAME_PURCHASE,
+                      'DLC Purchase' => Purchase::DLC_PURCHASE,
+                      'Ingame Purchase' => Purchase::INGAME_PURCHASE,
+                      'Other Purchase' => Purchase::OTHER_PURCHASE
                     ],
                     'translation_domain' => 'purchase',
                     'attr' =>
