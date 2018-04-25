@@ -51,7 +51,9 @@ class GameSessionControllerTest extends WebTestCase
         $this->assertEquals(Response::HTTP_FOUND, $client->getResponse()->getStatusCode());
     }
 
-
+    /**
+     * @return array
+     */
     public function gameSessionUrlProvider(): array
     {
         return [
