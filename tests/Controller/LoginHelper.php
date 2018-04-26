@@ -9,7 +9,7 @@ use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
 class LoginHelper
 {
-    public static function logIn(Client &$client)
+    public function logIn(Client &$client)
     {
         $session = $client->getContainer()->get('session');
 

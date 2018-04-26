@@ -9,6 +9,16 @@ use Symfony\Component\HttpFoundation\Response;
 class GameControllerTest extends WebTestCase
 {
     /**
+     * @var LoginHelper
+     */
+    private $loginHelper;
+
+    public function setUp()
+    {
+        $this->loginHelper = new LoginHelper();
+    }
+
+    /**
      * @param string $url
      * @dataProvider frontendUrlProvider
      */
@@ -40,7 +50,7 @@ class GameControllerTest extends WebTestCase
     public function testBackendGameActionsReturnOk(string $url): void
     {
         $client = static::createClient();
-        LoginHelper::logIn($client);
+        $this->loginHelper->logIn($client);
         $client->request('GET', $url);
 
         $this->assertEquals(Response::HTTP_OK, $client->getResponse()->getStatusCode());
@@ -74,7 +84,7 @@ class GameControllerTest extends WebTestCase
     public function testGameUpdateRedirectsToDashboard(): void
     {
         $client = static::createClient();
-        LoginHelper::logIn($client);
+        $this->loginHelper->logIn($client);
         $client->request('GET', 'admin/game/1/update');
         $crawler = $client->followRedirect();
 

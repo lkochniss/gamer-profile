@@ -7,6 +7,15 @@ use Symfony\Component\HttpFoundation\Response;
 
 class BlogPostControllerTest extends WebTestCase
 {
+    /**
+     * @var LoginHelper
+     */
+    private $loginHelper;
+
+    public function setUp()
+    {
+        $this->loginHelper = new LoginHelper();
+    }
 
     /**
      * @param string $url
@@ -43,7 +52,7 @@ class BlogPostControllerTest extends WebTestCase
     public function testBackendBlogActionsReturnOk(string $url): void
     {
         $client = static::createClient();
-        LoginHelper::logIn($client);
+        $this->loginHelper->logIn($client);
         $client->request('GET', $url);
 
         $this->assertEquals(Response::HTTP_OK, $client->getResponse()->getStatusCode());

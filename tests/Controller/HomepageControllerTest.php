@@ -8,6 +8,15 @@ use Symfony\Component\HttpFoundation\Response;
 
 class HomepageControllerTest extends WebTestCase
 {
+    /**
+     * @var LoginHelper
+     */
+    private $loginHelper;
+
+    public function setUp()
+    {
+        $this->loginHelper = new LoginHelper();
+    }
 
     /**
      * @param string $url
@@ -41,7 +50,7 @@ class HomepageControllerTest extends WebTestCase
     public function testBackendActionsReturnHttpOk(string $url): void
     {
         $client = static::createClient();
-        LoginHelper::logIn($client);
+        $this->loginHelper->logIn($client);
         $client->request('GET', $url);
 
         $this->assertEquals(Response::HTTP_OK, $client->getResponse()->getStatusCode());
