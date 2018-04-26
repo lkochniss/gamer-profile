@@ -97,7 +97,7 @@ class PurchaseListener
          */
         $entity = $args->getEntity();
 
-        if ($entity instanceof Game === false) {
+        if ($entity instanceof Purchase === false) {
             return;
         }
 
