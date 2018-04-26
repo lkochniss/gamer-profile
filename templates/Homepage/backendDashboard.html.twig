@@ -7,7 +7,7 @@
                 {% trans from "dashboard" %}dashboard{% endtrans %}
             </h1>
         </div>
-        {% if gameStats %}
+        {% if gameStats is defined %}
             <div>Achievements: {{ gameStats.playerAchievements }}/{{ gameStats.overallAchievements }}</div>
             <div>Recently Played: {{ gameStats.recentlyPlayed|convert_overall_time }}</div>
             <div>Overall Playtime: {{ gameStats.timePlayed|convert_overall_time }}</div>
@@ -15,7 +15,7 @@
             <div>Wasted Money: {{ gameStats.wastedMoney }} {{ gameStats.currency }}</div>
             <div>Invested Money: {{ gameStats.investedMoney }} {{ gameStats.currency }}</div>
         {% endif %}
-        {% if playtimePerMonth %}
+        {% if playtimePerMonth is defined %}
             <div>
                 Played Sessions per Month
                 <ul>
