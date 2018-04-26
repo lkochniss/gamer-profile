@@ -7,31 +7,35 @@
                 {% trans from "dashboard" %}dashboard{% endtrans %}
             </h1>
         </div>
-        <div>Achievements: {{ gameStats.playerAchievements }}/{{ gameStats.overallAchievements }}</div>
-        <div>Recently Played: {{ gameStats.recentlyPlayed|convert_overall_time }}</div>
-        <div>Overall Playtime: {{ gameStats.timePlayed|convert_overall_time }}</div>
-        <div>Game Sessions: {{ gameStats.gameSessions }}</div>
-        <div>Wasted Money: {{ gameStats.wastedMoney }} {{ gameStats.currency }}</div>
-        <div>Invested Money: {{ gameStats.investedMoney }} {{ gameStats.currency }}</div>
+        {% if gameStats %}
+            <div>Achievements: {{ gameStats.playerAchievements }}/{{ gameStats.overallAchievements }}</div>
+            <div>Recently Played: {{ gameStats.recentlyPlayed|convert_overall_time }}</div>
+            <div>Overall Playtime: {{ gameStats.timePlayed|convert_overall_time }}</div>
+            <div>Game Sessions: {{ gameStats.gameSessions }}</div>
+            <div>Wasted Money: {{ gameStats.wastedMoney }} {{ gameStats.currency }}</div>
+            <div>Invested Money: {{ gameStats.investedMoney }} {{ gameStats.currency }}</div>
+        {% endif %}
+        {% if playtimePerMonth %}
+            <div>
+                Played Sessions per Month
+                <ul>
+                    {% for playtimePerMonth in playtimePerMonths %}
+                        <li>{{ playtimePerMonth.month|date('m.Y') }}: {{ playtimePerMonth.sessions }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
 
-        <div>
-            Played Sessions per Month
-            <ul>
-                {% for playtimePerMonth in playtimePerMonths %}
-                    <li>{{ playtimePerMonth.month|date('m.Y') }}: {{ playtimePerMonth.sessions }}</li>
-                {% endfor %}
-            </ul>
-        </div>
+            <div>
+                Playtime per Month
+                <ul>
+                    {% for playtimePerMonth in playtimePerMonths %}
+                        <li>{{ playtimePerMonth.month|date('m.Y') }}
+                            : {{ playtimePerMonth.duration|convert_overall_time }}</li>
+                    {% endfor %}
+                </ul>
 
-        <div>
-            Playtime per Month
-            <ul>
-                {% for playtimePerMonth in playtimePerMonths %}
-                    <li>{{ playtimePerMonth.month|date('m.Y') }}: {{ playtimePerMonth.duration|convert_overall_time }}</li>
-                {% endfor %}
-            </ul>
-
-        </div>
+            </div>
+        {% endif %}
     </div>
     <div class="row">
     </div>

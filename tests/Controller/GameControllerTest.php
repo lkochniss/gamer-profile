@@ -3,49 +3,40 @@
 
 namespace App\Tests\Controller;
 
-use App\Tests\DataPrimer;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Client;
 
 class GameControllerTest extends WebTestCase
 {
     /**
-     * @var Client
+     * @var LoginHelper
      */
-    private $client;
+    private $loginHelper;
 
-    /**
-     * @throws \Exception
-     */
-    public function setUp(): void
+    public function setUp()
     {
-        $kernel = self::bootKernel();
-        DataPrimer::setUp($kernel);
-        $this->client = static::createClient();
-    }
-
-    public function testGameListReturnHttpOk(): void
-    {
-        $this->client->request('GET', '/game');
-
-        $this->assertEquals(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
+        $this->loginHelper = new LoginHelper();
     }
 
     /**
      * @param string $url
-     * @dataProvider gamesProvider
+     * @dataProvider frontendUrlProvider
      */
-    public function testDifferentGames(string $url): void
+    public function testFrontendGameActionsReturnOk(string $url): void
     {
-        $this->client->request('GET', $url);
+        $client = static::createClient();
+        $client->request('GET', $url);
 
-        $this->assertEquals(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
+        $this->assertEquals(Response::HTTP_OK, $client->getResponse()->getStatusCode());
     }
 
-    public function gamesProvider(): array
+    /**
+     * @return array
+     */
+    public function frontendUrlProvider(): array
     {
         return [
+            ['/game'],
             ['/game-1'],
             ['/game-2'],
             ['/game-3'],
@@ -53,10 +44,59 @@ class GameControllerTest extends WebTestCase
     }
 
     /**
-     * @throws \Exception
+     * @param string $url
+     * @dataProvider backendUrlProvider
      */
-    public function tearDown(): void
+    public function testBackendGameActionsReturnOk(string $url): void
     {
-        DataPrimer::drop(self::bootKernel());
+        $client = static::createClient();
+        $this->loginHelper->logIn($client);
+        $client->request('GET', $url);
+
+        $this->assertEquals(Response::HTTP_OK, $client->getResponse()->getStatusCode());
+    }
+
+    /**
+     * @param string $url
+     * @dataProvider backendUrlProvider
+     */
+    public function testBackendGameActionsWithoutCredentialsRedirectsToLogin(string $url): void
+    {
+        $client = static::createClient();
+        $client->request('GET', $url);
+        $crawler = $client->followRedirect();
+
+        $this->assertContains('/admin/login', $crawler->getUri());
+    }
+
+    /**
+     * @return array
+     */
+    public function backendUrlProvider(): array
+    {
+        return [
+            ['/admin/game'],
+            ['/admin/game/1/edit'],
+            ['/admin/game/1/dashboard'],
+        ];
+    }
+
+    public function testGameUpdateRedirectsToDashboard(): void
+    {
+        $client = static::createClient();
+        $this->loginHelper->logIn($client);
+        $client->request('GET', 'admin/game/1/update');
+        $crawler = $client->followRedirect();
+
+        $this->assertContains('/admin/game/1/dashboard', $crawler->getUri());
+    }
+
+    public function testGameUpdateWithoutCredentialsRedirectsToLogin(): void
+    {
+        $client = static::createClient();
+        $client->request('GET', 'admin/game/1/update');
+        $crawler = $client->followRedirect();
+
+        $this->assertContains('/admin/login', $crawler->getUri());
     }
 }

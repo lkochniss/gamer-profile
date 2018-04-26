@@ -1,65 +1,44 @@
 <?php
 
-
 namespace App\Tests\Controller;
 
-use App\Tests\DataPrimer;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Client;
 
 class BlogPostControllerTest extends WebTestCase
 {
     /**
-     * @var Client
+     * @var LoginHelper
      */
-    private $client;
+    private $loginHelper;
 
-    /**
-     * @throws \Exception
-     */
-    public function setUp(): void
+    public function setUp()
     {
-        $kernel = self::bootKernel();
-        DataPrimer::setUp($kernel);
-        $this->client = static::createClient();
+        $this->loginHelper = new LoginHelper();
     }
 
     /**
      * @param string $url
-     * @dataProvider blogPostListUrlProvider
+     * @dataProvider frontendUrlProvider
      */
-    public function testDifferentBlogLists(string $url): void
+    public function testFrontendBlogActionsReturnOk(string $url): void
     {
-        $this->client->request('GET', $url);
+        $client = static::createClient();
+        $client->request('GET', $url);
 
-        $this->assertEquals(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
+        $this->assertEquals(Response::HTTP_OK, $client->getResponse()->getStatusCode());
     }
 
-    public function blogPostListUrlProvider(): array
+    /**
+     * @return array
+     */
+    public function frontendUrlProvider(): array
     {
+        $now = new \DateTime();
         return [
             ['/game-1/blog'],
             ['/game-2/blog'],
             ['/game-3/blog'],
-        ];
-    }
-
-    /**
-     * @param string $url
-     * @dataProvider blogPostUrlProvider
-     */
-    public function testDifferentBlogPosts(string $url): void
-    {
-        $this->client->request('GET', $url);
-
-        $this->assertEquals(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
-    }
-
-    public function blogPostUrlProvider(): array
-    {
-        $now = new \DateTime();
-        return [
             [sprintf('/game-1/blog/%s-post-1', $now->format('Y-m-d'))],
             [sprintf('/game-2/blog/%s-post-2', $now->format('Y-m-d'))],
             [sprintf('/game-2/blog/%s-post-3', $now->format('Y-m-d'))]
@@ -67,10 +46,44 @@ class BlogPostControllerTest extends WebTestCase
     }
 
     /**
-     * @throws \Exception
+     * @param string $url
+     * @dataProvider backendUrlProvider
      */
-    public function tearDown(): void
+    public function testBackendBlogActionsReturnOk(string $url): void
     {
-        DataPrimer::drop(self::bootKernel());
+        $client = static::createClient();
+        $this->loginHelper->logIn($client);
+        $client->request('GET', $url);
+
+        $this->assertEquals(Response::HTTP_OK, $client->getResponse()->getStatusCode());
+    }
+
+    /**
+     * @param string $url
+     * @dataProvider backendUrlProvider
+     */
+    public function testBackendBlogActionsWithoutCredentialsRedirectsToLogin(string $url): void
+    {
+        $client = static::createClient();
+        $client->request('GET', $url);
+        $crawler = $client->followRedirect();
+
+        $this->assertContains('/admin/login', $crawler->getUri());
+    }
+
+    /**
+     * @return array
+     */
+    public function backendUrlProvider(): array
+    {
+        return [
+            ['/admin/blog'],
+            ['/admin/blog/create'],
+            ['admin/blog/3/edit'],
+            ['admin/game/1/blog/create'],
+            ['admin/game/1/blog'],
+            ['admin/game/2/blog'],
+            ['admin/game/3/blog'],
+        ];
     }
 }
