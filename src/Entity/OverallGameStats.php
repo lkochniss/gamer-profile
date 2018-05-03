@@ -125,12 +125,9 @@ class OverallGameStats extends AbstractEntity
         return $this->timePlayed;
     }
 
-    /**
-     * @param int $number
-     */
-    public function addToGameSessions(int $number): void
+    public function addGameSessions(): void
     {
-        $this->gameSessions += $number;
+        $this->gameSessions ++;
     }
 
     /**

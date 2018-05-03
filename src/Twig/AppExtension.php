@@ -3,7 +3,7 @@
 namespace App\Twig;
 
 use App\Entity\Game;
-use App\Service\PurchaseService;
+use App\Service\Util\PurchaseUtil;
 use App\Service\Transformation\TimeTransformation;
 use Symfony\Component\Translation\TranslatorInterface;
 use Twig\Extension\AbstractExtension;
@@ -107,7 +107,7 @@ class AppExtension extends AbstractExtension
      */
     public function getGameOverallCosts(Game $game): float
     {
-        $purchaseService  = new PurchaseService();
+        $purchaseService  = new PurchaseUtil();
 
         return $purchaseService->generateOverallCosts($game);
     }
@@ -118,7 +118,7 @@ class AppExtension extends AbstractExtension
      */
     public function getGameCostsPerHour(Game $game): float
     {
-        $purchaseService  = new PurchaseService();
+        $purchaseService  = new PurchaseUtil();
 
         return $purchaseService->generateCostsPerHour($game);
     }

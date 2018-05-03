@@ -1,14 +1,13 @@
 <?php
 
-namespace App\Service;
+namespace App\Service\Util;
 
 use App\Entity\Game;
-use App\Entity\Purchase;
 
 /**
- * Class PurchaseService
+ * Class PurchaseUtil
  */
-class PurchaseService
+class PurchaseUtil
 {
     /**
      * @param Game $game
