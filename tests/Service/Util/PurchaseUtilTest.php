@@ -1,16 +1,16 @@
 <?php
 
-namespace tests\App\Service\Steam;
+namespace tests\App\Service\Util;
 
 use App\Entity\Game;
 use App\Entity\Purchase;
-use App\Service\PurchaseService;
+use App\Service\Util\PurchaseUtil;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Class ReportServiceTest
+ * Class PurchaseUtilTest
  */
-class PurchaseServiceTest extends TestCase
+class PurchaseUtilTest extends TestCase
 {
     public function testOverallCostsForGameWithInitialPriceAndWithoutPurchases(): void
     {
@@ -18,7 +18,7 @@ class PurchaseServiceTest extends TestCase
         $game->setPrice(1);
         $game->setCurrency('USD');
 
-        $purchaseService = new PurchaseService();
+        $purchaseService = new PurchaseUtil();
 
         $this->assertEquals(1, $purchaseService->generateOverallCosts($game));
     }
@@ -34,7 +34,7 @@ class PurchaseServiceTest extends TestCase
         $game->setCurrency('USD');
         $game->addPurchase($purchase);
 
-        $purchaseService = new PurchaseService();
+        $purchaseService = new PurchaseUtil();
 
         $this->assertEquals(3, $purchaseService->generateOverallCosts($game));
     }
@@ -50,7 +50,7 @@ class PurchaseServiceTest extends TestCase
         $game->setCurrency('USD');
         $game->addPurchase($purchase);
 
-        $purchaseService = new PurchaseService();
+        $purchaseService = new PurchaseUtil();
 
         $this->assertEquals(2, $purchaseService->generateOverallCosts($game));
     }
@@ -59,7 +59,7 @@ class PurchaseServiceTest extends TestCase
     {
         $game = new Game();
 
-        $purchaseService = new PurchaseService();
+        $purchaseService = new PurchaseUtil();
 
         $this->assertEquals(0, $purchaseService->generateOverallCosts($game));
     }
@@ -74,7 +74,7 @@ class PurchaseServiceTest extends TestCase
         $game = new Game();
         $game->addPurchase($purchase);
 
-        $purchaseService = new PurchaseService();
+        $purchaseService = new PurchaseUtil();
 
         $this->assertEquals(2, $purchaseService->generateOverallCosts($game));
     }
@@ -90,7 +90,7 @@ class PurchaseServiceTest extends TestCase
         $game->setCurrency('EUR');
         $game->addPurchase($purchase);
 
-        $purchaseService = new PurchaseService();
+        $purchaseService = new PurchaseUtil();
 
         $this->assertEquals(2.65, $purchaseService->generateOverallCosts($game));
     }
@@ -106,7 +106,7 @@ class PurchaseServiceTest extends TestCase
         $game->setCurrency('USD');
         $game->addPurchase($purchase);
 
-        $purchaseService = new PurchaseService();
+        $purchaseService = new PurchaseUtil();
 
         $this->assertEquals(3.43, $purchaseService->generateOverallCosts($game));
     }
@@ -118,7 +118,7 @@ class PurchaseServiceTest extends TestCase
         $game->setCurrency('USD');
         $game->setTimePlayed(1);
 
-        $purchaseService = new PurchaseService();
+        $purchaseService = new PurchaseUtil();
 
         $this->assertEquals(1, $purchaseService->generateCostsPerHour($game));
     }
@@ -130,7 +130,7 @@ class PurchaseServiceTest extends TestCase
         $game->setCurrency('USD');
         $game->setTimePlayed(60);
 
-        $purchaseService = new PurchaseService();
+        $purchaseService = new PurchaseUtil();
 
         $this->assertEquals(1, $purchaseService->generateCostsPerHour($game));
     }
@@ -142,7 +142,7 @@ class PurchaseServiceTest extends TestCase
         $game->setCurrency('USD');
         $game->setTimePlayed(80);
 
-        $purchaseService = new PurchaseService();
+        $purchaseService = new PurchaseUtil();
 
         $this->assertEquals(0.75, $purchaseService->generateCostsPerHour($game));
     }

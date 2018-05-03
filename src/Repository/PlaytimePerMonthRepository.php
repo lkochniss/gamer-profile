@@ -8,7 +8,7 @@ use App\Entity\PlaytimePerMonth;
 /**
  * Class PlaytimePerMonthRepository
  */
-class PlaytimePerMonthRepository extends AbstractRepository#
+class PlaytimePerMonthRepository extends AbstractRepository
 {
     /**
      * @param AbstractEntity $entity

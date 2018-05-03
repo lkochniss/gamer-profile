@@ -4,83 +4,61 @@ namespace App\Listener;
 
 use App\Entity\GameSession;
 use App\Entity\PlaytimePerMonth;
-use App\Repository\PlaytimePerMonthRepository;
+use App\Service\Stats\PlaytimePerMonthService;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 
 /**
- * Class GameSessionListener
+ * Class PlaytimePerMonthListener
  */
 class PlaytimePerMonthListener
 {
     /**
      * @param LifecycleEventArgs $args
+     * @return string
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
-    public function postPersist(LifecycleEventArgs $args): void
+    public function postPersist(LifecycleEventArgs $args): string
     {
         $entity = $args->getEntity();
 
         if ($entity instanceof GameSession === false) {
-            return;
+            return 'S';
         }
 
         $playtimePerMonthRepository = $args->getEntityManager()->getRepository(PlaytimePerMonth::class);
-        $playtimePerMonth = $this->getPlaytimePerMonth($playtimePerMonthRepository);
+        $playtimePerMonthService = new PlaytimePerMonthService($playtimePerMonthRepository);
 
-        $playtimePerMonth->addToDuration($entity->getDuration());
-        $playtimePerMonth->addSession();
+        $playtimePerMonthService->addSession($entity);
 
-        $playtimePerMonthRepository->save($playtimePerMonth);
+        return 'U';
     }
 
     /**
      * @param LifecycleEventArgs $args
+     * @return string
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
-    public function postUpdate(LifecycleEventArgs $args): void
+    public function postUpdate(LifecycleEventArgs $args): string
     {
         $entity = $args->getEntity();
 
         if ($entity instanceof GameSession === false) {
-            return;
+            return 'S';
         }
 
         $playtimePerMonthRepository = $args->getEntityManager()->getRepository(PlaytimePerMonth::class);
-        $playtimePerMonth = $this->getPlaytimePerMonth($playtimePerMonthRepository);
+        $playtimePerMonthService = new PlaytimePerMonthService($playtimePerMonthRepository);
 
         $unitOfWork = $args->getEntityManager()->getUnitOfWork();
         $changeSet = $unitOfWork->getEntityChangeSet($entity);
 
         if (array_key_exists('duration', $changeSet)) {
             $diff = $changeSet['duration'][1] - $changeSet['duration'][0];
-            $playtimePerMonth->addToDuration($diff);
+            $playtimePerMonthService->updateSession($diff);
         }
 
-        $playtimePerMonth->addToDuration($entity->getDuration());
-
-        $playtimePerMonthRepository->save($playtimePerMonth);
-    }
-
-    /**
-     * @param PlaytimePerMonthRepository $playtimePerMonthRepository
-     * @return PlaytimePerMonth
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
-     */
-    public function getPlaytimePerMonth(PlaytimePerMonthRepository $playtimePerMonthRepository): PlaytimePerMonth
-    {
-        $month = new \DateTime('first day of this month 00:00:00');
-        $playtimePerMonth = $playtimePerMonthRepository->findOneBy([
-            'month' => $month
-        ]);
-
-        if (is_null($playtimePerMonth)) {
-            $playtimePerMonth = new PlaytimePerMonth($month);
-            $playtimePerMonthRepository->save($playtimePerMonth);
-        }
-
-        return $playtimePerMonth;
+        return 'U';
     }
 }
