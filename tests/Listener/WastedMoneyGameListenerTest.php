@@ -96,7 +96,13 @@ class WastedMoneyGameListenerTest extends TestCase
         $this->assertEquals('S', $wastedMoneyGameListener->postUpdate($argsMock));
     }
 
-    public function testPostUpdateWorksCorrect(): void
+    /**
+     * @param array $changeSet
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     * @dataProvider changeSetProvider
+     */
+    public function testPostUpdateWorksCorrect(array $changeSet): void
     {
         $game = new Game();
         $game->setTimePlayed(10);
@@ -117,7 +123,7 @@ class WastedMoneyGameListenerTest extends TestCase
         $unitOfWorkMock = $this->createMock(UnitOfWork::class);
         $unitOfWorkMock->expects($this->any())
             ->method('getEntityChangeSet')
-            ->willReturn([]);
+            ->willReturn($changeSet);
 
         $entityManagerMock->expects($this->any())
             ->method('getUnitOfWork')
@@ -131,5 +137,27 @@ class WastedMoneyGameListenerTest extends TestCase
         $wastedMoneyGameListener = new WastedMoneyGameListener($purchaseUtilMock);
 
         $this->assertEquals('U', $wastedMoneyGameListener->postUpdate($argsMock));
+    }
+
+    /**
+     * @return array
+     */
+    public function changeSetProvider(): array
+    {
+        return [
+            [
+                []
+            ],
+            [
+                [
+                    'price' => [0, 1]
+                ]
+            ],
+            [
+                [
+                    'timePlayed' => [0, 1]
+                ]
+            ],
+        ];
     }
 }

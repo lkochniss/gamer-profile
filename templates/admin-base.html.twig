@@ -15,18 +15,6 @@
         <link rel="stylesheet" type="text/css" href="/css/metis-menu.css">
         <link rel="stylesheet" type="text/css" href="/css/morris.css">
     {% endblock %}
-    <script async src="https://www.googletagmanager.com/gtag/js?id={{ ga_tracking }}"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-
-        function gtag() {
-            dataLayer.push(arguments);
-        }
-
-        gtag('js', new Date());
-
-        gtag('config', '{{ ga_tracking }}');
-    </script>
 </head>
 <body>
 {% include '_modules/infotext.html.twig' %}

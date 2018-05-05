@@ -104,11 +104,20 @@ class WastedMoneyPurchaseListenerTest extends TestCase
         $this->assertEquals('S', $wastedMoneyPurchaseListener->postUpdate($argsMock));
     }
 
-    public function testPostUpdateWorksCorrect(): void
+    /**
+     * @param array $changeSet
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     * @dataProvider changeSetProvider
+     */
+    public function testPostUpdateWorksCorrect(array $changeSet): void
     {
+        $game = new Game();
+        $game->setTimePlayed(1);
         $purchase = new Purchase();
         $purchase->setPrice(10);
         $purchase->setCurrency(getenv('DEFAULT_CURRENCY'));
+        $purchase->setGame($game);
 
         $argsMock = $this->createMock(LifecycleEventArgs::class);
         $argsMock->expects($this->any())
@@ -126,7 +135,7 @@ class WastedMoneyPurchaseListenerTest extends TestCase
         $unitOfWorkMock = $this->createMock(UnitOfWork::class);
         $unitOfWorkMock->expects($this->any())
             ->method('getEntityChangeSet')
-            ->willReturn([]);
+            ->willReturn($changeSet);
 
         $entityManagerMock->expects($this->any())
             ->method('getUnitOfWork')
@@ -140,5 +149,27 @@ class WastedMoneyPurchaseListenerTest extends TestCase
         $wastedMoneyPurchaseListener = new WastedMoneyPurchaseListener($purchaseUtilMock);
 
         $this->assertEquals('U', $wastedMoneyPurchaseListener->postUpdate($argsMock));
+    }
+
+    /**
+     * @return array
+     */
+    public function changeSetProvider(): array
+    {
+        return [
+            [
+                []
+            ],
+            [
+                [
+                    'price' => [0, 1]
+                ]
+            ],
+            [
+                [
+                    'timePlayed' => [0, 1]
+                ]
+            ],
+        ];
     }
 }
