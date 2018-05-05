@@ -17,10 +17,10 @@ class BasicInformationListener
      * @var array
      */
     private $statProperties = [
-        'addToOverallAchievements' => 'overallAchievements',
-        'addToPlayerAchievements' => 'playerAchievements',
-        'addToRecentlyPlayed' => 'recentlyPlayed',
-        'addToTimePlayed' => 'timePlayed'
+        'setOverallAchievements' => 'overallAchievements',
+        'setPlayerAchievements' => 'playerAchievements',
+        'setRecentlyPlayed' => 'recentlyPlayed',
+        'setTimePlayed' => 'timePlayed'
     ];
 
     /**

@@ -95,7 +95,13 @@ class InvestedMoneyGameListenerTest extends TestCase
         $this->assertEquals('S', $investedMoneyGameListener->postUpdate($argsMock));
     }
 
-    public function testPostUpdateWorksCorrect(): void
+    /**
+     * @param array $changeSet
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     * @dataProvider changeSetProvider
+     */
+    public function testPostUpdateWorksCorrect(array $changeSet): void
     {
         $game = new Game();
 
@@ -115,7 +121,7 @@ class InvestedMoneyGameListenerTest extends TestCase
         $unitOfWorkMock = $this->createMock(UnitOfWork::class);
         $unitOfWorkMock->expects($this->any())
             ->method('getEntityChangeSet')
-            ->willReturn([]);
+            ->willReturn($changeSet);
 
         $entityManagerMock->expects($this->any())
             ->method('getUnitOfWork')
@@ -129,5 +135,22 @@ class InvestedMoneyGameListenerTest extends TestCase
         $investedMoneyGameListener = new InvestedMoneyGameListener($purchaseUtilMock);
 
         $this->assertEquals('U', $investedMoneyGameListener->postUpdate($argsMock));
+    }
+
+    /**
+     * @return array
+     */
+    public function changeSetProvider(): array
+    {
+        return [
+            [
+                []
+            ],
+            [
+                [
+                    'price' => [0, 1]
+                ]
+            ],
+        ];
     }
 }

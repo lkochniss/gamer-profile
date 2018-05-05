@@ -118,7 +118,13 @@ class GameSessionsPerMonthListenerTest extends TestCase
         $this->assertEquals('S', $gameSessionsPerMonthListener->postUpdate($argsMock));
     }
 
-    public function testPostUpdatetWorksCorrect(): void
+    /**
+     * @param array $changeSet
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     * @dataProvider changeSetProvider
+     */
+    public function testPostUpdateWorksCorrect(array $changeSet): void
     {
         $gameSession = new GameSession();
         $gameSession->setGame(new Game());
@@ -141,7 +147,7 @@ class GameSessionsPerMonthListenerTest extends TestCase
         $unitOfWorkMock = $this->createMock(UnitOfWork::class);
         $unitOfWorkMock->expects($this->any())
             ->method('getEntityChangeSet')
-            ->willReturn([]);
+            ->willReturn($changeSet);
 
         $entityManagerMock->expects($this->any())
             ->method('getUnitOfWork')
@@ -155,6 +161,23 @@ class GameSessionsPerMonthListenerTest extends TestCase
         $gameSessionsPerMonthListener = new GameSessionsPerMonthListener();
 
         $this->assertEquals('U', $gameSessionsPerMonthListener->postPersist($argsMock));
+    }
+
+    /**
+     * @return array
+     */
+    public function changeSetProvider(): array
+    {
+        return [
+            [
+                []
+            ],
+            [
+                [
+                    'duration' => [0, 1]
+                ]
+            ],
+        ];
     }
 
     /**

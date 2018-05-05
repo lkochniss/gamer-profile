@@ -78,7 +78,7 @@ class InvestedMoneyPurchaseListener
         $investedMoneyService = new InvestedMoneyService($this->purchaseUtil, $overallGameStatsRepository);
 
         $priceKey = 'price';
-        if (array_key_exists($priceKey, $changeSet) && $entity->hasGamePurchase() === false) {
+        if (array_key_exists($priceKey, $changeSet)) {
             $diff = $changeSet[$priceKey][1] - $changeSet[$priceKey][0];
             $investedMoneyService->updatePurchase($diff, $entity);
         }

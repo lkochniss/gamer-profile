@@ -93,7 +93,13 @@ class BasicInformationListenerTest extends TestCase
         $this->assertEquals('S', $basicInformationListener->postUpdate($argsMock));
     }
 
-    public function testPostUpdateWorksCorrect(): void
+    /**
+     * @param array $changeSet
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     * @dataProvider changeSetProvider
+     */
+    public function testPostUpdateWorksCorrect(array $changeSet): void
     {
         $game = new Game();
         $game->setRecentlyPlayed(10);
@@ -115,7 +121,7 @@ class BasicInformationListenerTest extends TestCase
         $unitOfWorkMock = $this->createMock(UnitOfWork::class);
         $unitOfWorkMock->expects($this->any())
             ->method('getEntityChangeSet')
-            ->willReturn([]);
+            ->willReturn($changeSet);
 
         $entityManagerMock->expects($this->any())
             ->method('getUnitOfWork')
@@ -128,5 +134,37 @@ class BasicInformationListenerTest extends TestCase
         $basicInformationListener = new BasicInformationListener();
 
         $this->assertEquals('U', $basicInformationListener->postUpdate($argsMock));
+    }
+
+    /**
+     * @return array
+     */
+    public function changeSetProvider(): array
+    {
+        return [
+            [
+                []
+            ],
+            [
+                [
+                    'overallAchievements' => [0, 1]
+                ]
+            ],
+            [
+                [
+                    'playerAchievements' => [0, 1]
+                ]
+            ],
+            [
+                [
+                    'recentlyPlayed' => [0, 1]
+                ]
+            ],
+            [
+                [
+                    'timePlayed' => [0, 1]
+                ]
+            ],
+        ];
     }
 }
