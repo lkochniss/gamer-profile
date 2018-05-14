@@ -31,7 +31,7 @@ create_new_purchase: 'Create New Purchase'
 current_steam_price: 'Current Steam Price'
 view_all_purchases: 'View All Purchases'
 number_of_purchases: 'Number of Purchases'
-overall_costs: 'Overall Costss'
+overall_costs: 'Overall Costs'
 logout: logout
 dashboard: Dashboard
 games: Games
