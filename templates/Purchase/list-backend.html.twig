@@ -38,7 +38,7 @@
                     {{ purchase.notice }}
                 </td>
                 <td scope="col">
-                    {{ purchase.price }} {{ purchase.currency }}
+                    {{ purchase.price }} {{ purchase.currency|trans }}
                 </td>
                 <td scope="col" data-order="{{ purchase.boughtAt|date('Y-m-d') }}">
                     {{ purchase.boughtAt|date('d.m.Y') }}

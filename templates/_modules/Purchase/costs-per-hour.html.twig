@@ -1,5 +1,5 @@
 <div class="panel-footer">
     <span class="pull-left">{% trans from "messages" %}costs_per_hour{% endtrans %}</span>
-    <span class="pull-right"> {{ game |get_game_costs_per_hour }} {{ game.currency }}/h</span>
+    <span class="pull-right"> {{ game |get_game_costs_per_hour }} {{ game.currency|trans}}/h</span>
     <div class="clearfix"></div>
 </div>
