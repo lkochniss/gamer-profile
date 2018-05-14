@@ -6,12 +6,13 @@
                     <i class="fa fa-steam fa-5x" aria-hidden="true"></i>
                 </div>
                 <div class="col-xs-9 text-right">
-                    <div class="huge">{% trans from "game" %}Information{% endtrans %}</div>
+                    <div class="huge">{% trans from "messages" %}information{% endtrans %}</div>
                 </div>
             </div>
         </div>
         {% include '_modules/Information/steam-app-id.html.twig' with {'game': entity} only %}
         {% include '_modules/Information/steam-user-achievements.html.twig' with {'game': entity} only %}
+        {% include '_modules/Information/steam-screenshots.html.twig' with {'game': entity} only %}
         {% include '_modules/Information/created-at.html.twig' with {'game': entity} only %}
         {% include '_modules/Information/modified-at.html.twig' with {'game': entity} only %}
         {% include '_modules/Information/bought-at.html.twig' with {'game': entity} only %}

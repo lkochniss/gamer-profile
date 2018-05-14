@@ -7,7 +7,7 @@
     {% set average = sum / game.gameSessions|length %}
 
     <div class="panel-footer">
-        <span class="pull-left">{% trans from "game" %}Average Session{% endtrans %}</span>
+        <span class="pull-left">{% trans from "messages" %}average_session{% endtrans %}</span>
         <span class="pull-right">{{ average|convert_recent_time }}</span>
         <div class="clearfix"></div>
     </div>

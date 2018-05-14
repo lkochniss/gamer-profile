@@ -4,16 +4,34 @@
     <div class="row">
         <div class="col-lg-12">
             <h1 class="page-header">
-                {% trans from "dashboard" %}dashboard{% endtrans %}
+                {% trans from "messages" %}dashboard{% endtrans %}
             </h1>
         </div>
         {% if gameStats is defined and gameStats is not empty %}
-            <div>Achievements: {{ gameStats.playerAchievements }}/{{ gameStats.overallAchievements }}</div>
-            <div>Recently Played: {{ gameStats.recentlyPlayed|convert_overall_time }}</div>
-            <div>Overall Playtime: {{ gameStats.timePlayed|convert_overall_time }}</div>
-            <div>Game Sessions: {{ gameStats.gameSessions }}</div>
-            <div>Wasted Money: {{ gameStats.wastedMoney }} {{ gameStats.currency }}</div>
-            <div>Invested Money: {{ gameStats.investedMoney }} {{ gameStats.currency }}</div>
+            <div>
+                {% trans from "messages" %}achievements{% endtrans %}:
+                {{ gameStats.playerAchievements }}/{{ gameStats.overallAchievements }}
+            </div>
+            <div>
+                {% trans from "messages" %}recently_played{% endtrans %}:
+                {{ gameStats.recentlyPlayed|convert_overall_time }}
+            </div>
+            <div>
+                {% trans from "messages" %}overall_playtime{% endtrans %}:
+                {{ gameStats.timePlayed|convert_overall_time }}
+            </div>
+            <div>
+                {% trans from "messages" %}game_sessions{% endtrans %}:
+                {{ gameStats.gameSessions }}
+            </div>
+            <div>
+                {% trans from "messages" %}wasted_money{% endtrans %}:
+                {{ gameStats.wastedMoney }} {{ gameStats.currency }}
+            </div>
+            <div>
+                {% trans from "messages" %}invested_money{% endtrans %}:
+                {{ gameStats.investedMoney }} {{ gameStats.currency }}
+            </div>
         {% endif %}
         {% if playtimePerMonths is defined and playtimePerMonths is not empty %}
             <div>

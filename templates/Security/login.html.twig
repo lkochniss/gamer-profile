@@ -4,16 +4,16 @@
     <div class="container">
         <div class="col-md-3 col-md-offset-5">
             <form action="{{ path('security_login_check') }}" method="post">
-                <h2>{% trans from "security" %}login{% endtrans %} </h2>
+                <h2>{% trans from "messages" %}login{% endtrans %} </h2>
 
                 <div class="input-group">
                     <span class="input-group-addon"
-                          id="basic-addon1">{% trans from "security" %}username{% endtrans %}</span>
+                          id="basic-addon1">{% trans from "messages" %}username{% endtrans %}</span>
                     <input type="text" id="username" class="form-control" name="_username"/>
                 </div>
                 <div class="input-group">
                     <span class="input-group-addon"
-                          id="basic-addon1">{% trans from "security" %}password{% endtrans %}</span>
+                          id="basic-addon1">{% trans from "messages" %}password{% endtrans %}</span>
                     <input type="password" class="form-control" id="password" name="_password"/>
                 </div>
                 <div class="input-group">
@@ -21,7 +21,7 @@
                 </div>
                 <div class="input-group pull-right">
                     <input type="submit" class="form-control btn-primary"
-                           value="{% trans from "security" %}submit{% endtrans %}"/>
+                           value="{% trans from "messages" %}submit{% endtrans %}"/>
                 </div>
             </form>
         </div>

@@ -3,7 +3,7 @@
         <h3><a href="{{ path('game_show', {'slug': game.slug}) }}">{{ game.name }}</a></h3>
         <img src='{{ game.headerImagePath }}' alt='{{ game.name }}' class='img-responsive center-block'/>
     </div>
-    <h4 class='list-group-item'>{% trans from 'blog_post' %}Statistics{% endtrans %}</h4>
+    <h4 class='list-group-item'>{% trans from 'messages' %}statistics{% endtrans %}</h4>
     {% include '_modules/last-session.html.twig' with { game: game, hasItemList: true } %}
     {% include '_modules/recently-played.html.twig' with { game: game, hasItemList: true } %}
     {% include '_modules/overall-played.html.twig' with { game: game, hasItemList: true } %}
@@ -11,7 +11,7 @@
     {% if lastBlogPost %}
         <div class='list-group-item'>
             <a href="{{ path('blog_post_list_frontend', {'gameSlug': lastBlogPost.game.slug}) }}"><h4>
-                {% trans from 'blog_post' %}Latest Blogposts{% endtrans %}
+                {% trans from 'messages' %}latest_blogpost{% endtrans %}
                 {{ lastBlogPost.createdAt|date('d.m.Y H:i') }}
             </h4></a>
         </div>

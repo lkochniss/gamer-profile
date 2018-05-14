@@ -8,22 +8,22 @@
         <thead>
         <tr>
             <th scope="col">
-                {% trans from 'game' %}name{% endtrans %}
+                {% trans from 'messages' %}name{% endtrans %}
             </th>
             <th scope="col">
-                {% trans from 'game' %}updated at{% endtrans %}
+                {% trans from 'messages' %}updated_at{% endtrans %}
             </th>
             <th scope="col">
-                {% trans from 'game' %}played for{% endtrans %}
+                {% trans from 'messages' %}played_for{% endtrans %}
             </th>
             <th scope="col">
-                {% trans from 'game' %}last played{% endtrans %}
+                {% trans from 'messages' %}last_played{% endtrans %}
             </th>
             <th scope="col">
-                {% trans from 'game' %}number of sessions{% endtrans %}
+                {% trans from 'messages' %}number_of_sessions{% endtrans %}
             </th>
             <th scope="col">
-                {% trans from 'game' %}number of blogposts{% endtrans %}
+                {% trans from 'messages' %}number_of_blogposts{% endtrans %}
             </th>
             <th></th>
         </tr>
@@ -31,13 +31,13 @@
         <tbody>
         {% for game in entities %}
             <tr>
-                <td scope="row">
+                <td>
                     {{ game.name }}
                 </td>
-                <td scope="col" data-order="{{ game.modifiedAt | date('Y-m-d') }}">
+                <td data-order="{{ game.modifiedAt | date('Y-m-d') }}">
                     {{ game.modifiedAt|date('d.m.Y H:i') }}
                 </td>
-                <td scope="col" data-order="{{ game.timePlayed }}">
+                <td data-order="{{ game.timePlayed }}">
                     {% if game.timePlayed > 0 %}
                         {{ game.timePlayed | convert_overall_time }}
                     {% else %}
@@ -47,23 +47,23 @@
 
                 {% set lastSession = game.gameSessions | last %}
                 {% if lastSession %}
-                    <td scope="col" data-order="{{ lastSession.createdAt | date('Y-m-d') }}">
+                    <td data-order="{{ lastSession.createdAt | date('Y-m-d') }}">
                         {{ lastSession.createdAt |date('d.m.Y') }}
                     </td>
                 {% else %}
-                    <td scope="col">
+                    <td>
                         -
                     </td>
                 {% endif %}
-                <td scope="col" data-order="0">
+                <td data-order="0">
                     {{ game.gameSessions | length }}
                 </td>
-                <td scope="col">
+                <td>
                     {{ game.blogPosts|length }}
                 </td>
-                <td scope="col">
+                <td>
                     <a class="float-right"
-                       href="{{ path('game_dashboard', {'id': game.id}) }}">{% trans from 'game' %}Dashboard{% endtrans %}</a>
+                       href="{{ path('game_dashboard', {'id': game.id}) }}">{% trans from 'messages' %}dashboard{% endtrans %}</a>
                 </td>
             </tr>
         {% endfor %}

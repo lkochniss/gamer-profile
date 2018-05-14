@@ -17,8 +17,8 @@
             {% trans with {
                 '%date%' : lastSession.createdAt |date('d.m.Y'),
                 '%time%' : lastSession.duration |convert_recent_time
-                } from 'game' %}
-                last played on %date% for %time%
+                } from 'messages' %}
+                last_session_date_played_for
             {% endtrans %}
         </div>
     </div>

@@ -1,6 +1,6 @@
 {% if game.hasBoughtAt and game.boughtAt|date('d.m.Y') != '31.12.2000' %}
     <div class="panel-footer">
-        <span class="pull-left">{% trans from "game" %}bought at{% endtrans %}:</span>
+        <span class="pull-left">{% trans from "messages" %}bought_at{% endtrans %}:</span>
         <span class="pull-right">{{ game.boughtAt|date("d.m.Y") }}</span>
         <div class="clearfix"></div>
     </div>

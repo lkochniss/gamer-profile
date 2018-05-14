@@ -1,7 +1,7 @@
 {% if is_granted('ROLE_ADMIN') %}
     <a href="{{ path('blog_post_create_for_game', {'id': game.id }) }}">
         <div class="panel-footer">
-            <span class="pull-left">{% trans from "game" %}Create New Blog Posts{% endtrans %}</span>
+            <span class="pull-left">{% trans from "messages" %}create_new_blog_post{% endtrans %}</span>
             <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
             <div class="clearfix"></div>
         </div>

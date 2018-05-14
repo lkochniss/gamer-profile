@@ -59,7 +59,7 @@ class BlogPostType extends AbstractType
                 SubmitType::class,
                 [
                     'attr' => [
-                        'class' => 'btn-success form-controll'
+                        'class' => 'btn btn-success form-controll'
                     ]
                 ]
             );
