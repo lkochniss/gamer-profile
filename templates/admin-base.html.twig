@@ -45,6 +45,11 @@
                 <ul class="nav in" id="side-menu">
                     <li class="nav-item">
                         <a class="nav-link"
+                           href="{{ path('homepage_backend_dashboard') }}"> <i class="fa fa-bar-chart fa-2x" aria-hidden="true">
+                                {% trans from "navigation" %}Dashboard{% endtrans %}</i></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link"
                            href="{{ path('game_list_backend') }}"> <i class="fa fa-steam fa-2x" aria-hidden="true">
                                 {% trans from "navigation" %}Games{% endtrans %}</i></a>
                     </li>
