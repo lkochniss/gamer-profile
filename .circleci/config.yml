@@ -76,10 +76,6 @@ jobs:
           name: Launch Mess Detection Suite
           command: ./.circleci/php-mess-detection.sh
 
-      - run:
-          name: Launch Mess Detector - Correctness (Phan)
-          command: ./vendor/bin/phan
-
   php-unittests:
     <<: *php-docker-image
     steps:

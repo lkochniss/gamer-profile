@@ -8,12 +8,10 @@
 .logs/
 /build-artifacts/
 !build-artifacts/.gitkeep
-public/js/*
-public/css/*
-public/*.svg
-public/*.woff*
-public/*.ttf
-public/*.eot
+public/*
+!public/index.php
+!public/favicon.ico
+!public/robots.txt
 # nodejs/npm
 node_modules/
 npm-debug.log

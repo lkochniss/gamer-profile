@@ -5,13 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% block title %}Welcome!{% endblock %}</title>
     {% block stylesheets %}
-        <link rel="stylesheet" type="text/css" href="/css/application.css">
-        <link rel="stylesheet" type="text/css" href="/css/bootstrap-3.css">
-        <link rel="stylesheet" type="text/css" href="/css/sb-admin-2.css">
+        <link rel="stylesheet" type="text/css" href="{{ asset('css/application.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap-3.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('css/sb-admin-2.css') }}">
         <link rel="stylesheet" type="text/css"
               href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-        <link rel="stylesheet" type="text/css" href="/css/metis-menu.css">
-        <link rel="stylesheet" type="text/css" href="/css/morris.css">
+        <link rel="stylesheet" type="text/css" href="{{ asset('css/metis-menu.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('css/morris.css') }}">
     {% endblock %}
     <script async src="https://www.googletagmanager.com/gtag/js?id={{ ga_tracking }}"></script>
     <script>
@@ -82,13 +82,13 @@
 </div>
 </body>
 {% block javascripts %}
-    <script src="/js/application.js"></script>
+    <script src="{{ asset('js/application.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
-    <script src="/js/bootstrap-3.js"></script>
-    <script src="/js/metis-menu.js"></script>
-    <script src="/js/raphael.js"></script>
-    <script src="/js/morris.js"></script>
-    <script src="/js/sb-admin-2.js"></script>
+    <script src="{{ asset('js/bootstrap-3.js') }}"></script>
+    <script src="{{ asset('js/metis-menu.js') }}"></script>
+    <script src="{{ asset('js/raphael.js') }}"></script>
+    <script src="{{ asset('js/morris.js') }}"></script>
+    <script src="{{ asset('js/sb-admin-2.js') }}"></script>
     <script type="text/javascript">
         $(document).ready(function () {
             var image = $('img');
