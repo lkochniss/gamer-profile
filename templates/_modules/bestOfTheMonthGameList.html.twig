@@ -1,8 +1,14 @@
 <hr/>
+{% set count = 0 %}
 {% for gamePerMonth in bestGamePerMonth %}
-
+    {% if count % 2 == 0 %}
+        <div class="row top-buffer">
+    {% endif %}
     <div class="col-lg-6 col-md col-sm">
         {% include '_modules/bestOfTheMonthGameCard.html.twig' with {'gamePerMonth': gamePerMonth} %}
     </div>
-
+    {% if count % 2 == 1 %}
+        </div>
+    {% endif %}
+    {% set count = count +1  %}
 {% endfor %}
