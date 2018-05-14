@@ -8,22 +8,22 @@
         <thead>
         <tr>
             <th scope="col">
-                {% trans from 'game' %}name{% endtrans %}
+                {% trans from 'messages' %}name{% endtrans %}
             </th>
             <th scope="col">
-                {% trans from 'game' %}updated at{% endtrans %}
+                {% trans from 'messages' %}updated_at{% endtrans %}
             </th>
             <th scope="col">
-                {% trans from 'game' %}played for{% endtrans %}
+                {% trans from 'messages' %}played_for{% endtrans %}
             </th>
             <th scope="col">
-                {% trans from 'game' %}last played{% endtrans %}
+                {% trans from 'messages' %}last_played{% endtrans %}
             </th>
             <th scope="col">
-                {% trans from 'game' %}number of sessions{% endtrans %}
+                {% trans from 'messages' %}number_of_sessions{% endtrans %}
             </th>
             <th scope="col">
-                {% trans from 'game' %}number of blogposts{% endtrans %}
+                {% trans from 'messages' %}number_of_blogposts{% endtrans %}
             </th>
             <th></th>
         </tr>
@@ -63,7 +63,7 @@
                 </td>
                 <td>
                     <a class="float-right"
-                       href="{{ path('game_dashboard', {'id': game.id}) }}">{% trans from 'game' %}Dashboard{% endtrans %}</a>
+                       href="{{ path('game_dashboard', {'id': game.id}) }}">{% trans from 'messages' %}dashboard{% endtrans %}</a>
                 </td>
             </tr>
         {% endfor %}

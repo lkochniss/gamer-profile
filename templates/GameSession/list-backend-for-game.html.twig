@@ -6,16 +6,16 @@
 {% block body %}
     <h1>
         {{ game.name }}
-        <a href="{{ path('game_dashboard', {'id': game.id}) }}">{% trans from 'game' %}Dashboard{% endtrans %}</a>
+        <a href="{{ path('game_dashboard', {'id': game.id}) }}">{% trans from 'messages' %}dashboard{% endtrans %}</a>
     </h1>
     <table id="game-session-list" class="table">
         <thead>
         <tr>
             <th scope="col">
-                {% trans from 'purchase' %}Date{% endtrans %}
+                {% trans from 'messages' %}date{% endtrans %}
             </th>
             <th scope="col">
-                {% trans from 'purchase' %}Duration{% endtrans %}
+                {% trans from 'messages' %}duration{% endtrans %}
             </th>
         </tr>
         </thead>

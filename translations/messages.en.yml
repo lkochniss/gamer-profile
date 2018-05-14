@@ -1,0 +1,68 @@
+create_new_blog_post: 'Create new Blog Post'
+latest_blog_post: 'Latest Blg Post'
+view_all_blog_posts: 'View all Blog Posts'
+number_of_blog_posts: 'Number of Blog Posts'
+latest_posts: 'Latest Posts'
+'show all': 'Show All'
+blog_posts: 'Blog Posts'
+information: 'Information'
+costs: 'Costs'
+sessions: 'Sessions'
+statistics: 'Statistics'
+latest_blogposts: 'Latest Blog Post'
+average_session: 'Average Session'
+last_session: 'Last Session'
+view_all_game_sessions: 'View All Game Sessions'
+longest_session: 'Longest Session'
+number_of_game_sessions: 'Number Of Game Sessions'
+playtime_since_purchase: 'Playtime %time% since purchase'
+playtime_since_purchase_date: 'Playtime %time% since %date%'
+shortest_session: 'Shortest Session'
+bought_at: 'Bought At'
+first_indexed_on: 'First Indexed On'
+last_update_on: 'Last Update On'
+steam_app_id: 'Steam AppId'
+screenshots: 'Screenshots'
+view_screenshots: 'View Screenshots'
+achievements: 'Achievements'
+update_information: 'Update Information'
+last_session_date_played_for: 'Last played on %date% for %time%'
+costs_per_hour: 'Costs per Hour'
+create_new_purchase: 'Create New Purchase'
+current_steam_price: 'Current Steam Price'
+view_all_purchases: 'View All Purchases'
+number_of_purchases: 'Number of Purchases'
+overall_costs: 'Overall Costss'
+logout: logout
+dashboard: Dashboard
+games: Games
+game_sessions: Game Sessions
+purchases: Purchases
+recently_played: Recently Played
+most_played: Most Played
+game_of_the_month: Game Of The Month
+new_games: New Games
+game_list: Game List
+steam_profile: Steam Profile
+show: Show
+title: Title
+created_at: Created At
+modified_at: Modified At
+edit: Edit
+Game: Game
+updated_at: Updated At
+posted_at: Posted At
+name: Name
+played_for: Played For
+last_played: Last Played
+number_of_sessions: Number Of Sessions
+number_of_blogposts: Number Of Blog Posts
+date: Date
+duration: Duration
+type: Type
+notice: Notice
+price: Price
+login: login
+username: Username
+password: Password
+submit: Submit

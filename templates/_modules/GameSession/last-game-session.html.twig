@@ -1,7 +1,7 @@
 {% set lastSession = game.gameSessions | last %}
 {% if lastSession %}
     <div class="panel-footer">
-        <span class="pull-left">{% trans from "game" %}Last Session{% endtrans %}</span>
+        <span class="pull-left">{% trans from "messages" %}last_session{% endtrans %}</span>
         <span class="pull-right">{{ lastSession.createdAt |date('d.m.Y') }}</span>
         <div class="clearfix"></div>
     </div>

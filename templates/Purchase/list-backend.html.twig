@@ -8,19 +8,19 @@
         <thead>
         <tr>
             <th scope="col">
-                "{% trans from 'purchase' %}Game{% endtrans %}
+                "{% trans from 'messages' %}Game{% endtrans %}
             </th>
             <th scope="col">
-                {% trans from 'purchase' %}Type{% endtrans %}
+                {% trans from 'messages' %}zype{% endtrans %}
             </th>
             <th scope="col">
-                {% trans from 'purchase' %}Notice{% endtrans %}
+                {% trans from 'messages' %}notice{% endtrans %}
             </th>
             <th scope="col">
-                {% trans from 'purchase' %}Price{% endtrans %}
+                {% trans from 'messages' %}price{% endtrans %}
             </th>
             <th scope="col">
-                {% trans from 'purchase' %}bought at{% endtrans %}
+                {% trans from 'messages' %}bought_at{% endtrans %}
             </th>
             <th scope="col"></th>
         </tr>
@@ -45,7 +45,7 @@
                 </td>
                 <td scope="col">
                     <a class="float-right"
-                       href="{{ path('purchase_edit', {'id': purchase.id}) }}">{% trans from 'purchase' %}edit{% endtrans %}</a>
+                       href="{{ path('purchase_edit', {'id': purchase.id}) }}">{% trans from 'messages' %}edit{% endtrans %}</a>
                 </td>
             </tr>
         {% endfor %}

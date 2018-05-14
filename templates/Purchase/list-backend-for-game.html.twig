@@ -6,22 +6,22 @@
 {% block body %}
     <h1>
         {{ game.name }}
-        <a href="{{ path('game_dashboard', {'id': game.id}) }}">{% trans from 'game' %}Dashboard{% endtrans %}</a>
+        <a href="{{ path('game_dashboard', {'id': game.id}) }}">{% trans from 'messages' %}dashboard{% endtrans %}</a>
     </h1>
     <table id="purchase-list" class="table">
         <thead>
         <tr>
             <th scope="col">
-                {% trans from 'purchase' %}Type{% endtrans %}
+                {% trans from 'messages' %}type{% endtrans %}
             </th>
             <th scope="col">
-                {% trans from 'purchase' %}Notice{% endtrans %}
+                {% trans from 'messages' %}notice{% endtrans %}
             </th>
             <th scope="col">
-                {% trans from 'purchase' %}Price{% endtrans %}
+                {% trans from 'messages' %}price{% endtrans %}
             </th>
             <th scope="col">
-                {% trans from 'purchase' %}bought at{% endtrans %}
+                {% trans from 'messages' %}bought_at{% endtrans %}
             </th>
             <th scope="col"></th>
         </tr>
@@ -43,7 +43,7 @@
                 </td>
                 <td scope="col">
                     <a class="float-right"
-                       href="{{ path('purchase_edit', {'id': purchase.id}) }}">{% trans from 'purchase' %}edit{% endtrans %}</a>
+                       href="{{ path('purchase_edit', {'id': purchase.id}) }}">{% trans from 'messages' %}edit{% endtrans %}</a>
                 </td>
             </tr>
         {% endfor %}

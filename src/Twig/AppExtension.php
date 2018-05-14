@@ -47,14 +47,14 @@ class AppExtension extends AbstractExtension
             '{0}%count% hours|{1}1 hour|]1,Inf[%count% hours',
             $time->getTimeInHours(),
             [],
-            'time'
+            'messages'
         );
 
         $minutes = $this->translator->transChoice(
             '{0}%count% minutes|{1}1 minute|]1,Inf[%count% minutes',
             $time->getMinutes(),
             [],
-            'time'
+            'messages'
         );
 
         return sprintf(
@@ -76,21 +76,21 @@ class AppExtension extends AbstractExtension
             '{0}%count% days|{1}1 day|]1,Inf[%count% days',
             $time->getDays(),
             [],
-            'time'
+            'messages'
         );
 
         $hours = $this->translator->transChoice(
             '{0}%count% hours|{1}1 hour|]1,Inf[%count% hours',
             $time->getHours(),
             [],
-            'time'
+            'messages'
         );
 
         $minutes = $this->translator->transChoice(
             '{0}%count% minutes|{1}1 minute|]1,Inf[%count% minutes',
             $time->getMinutes(),
             [],
-            'time'
+            'messages'
         );
 
         return sprintf(

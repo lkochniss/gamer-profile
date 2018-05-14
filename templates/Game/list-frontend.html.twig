@@ -9,13 +9,13 @@
             <thead>
             <tr>
                 <th scope="col">
-                    {% trans from 'game' %}name{% endtrans %}
+                    {% trans from 'messages' %}name{% endtrans %}
                 </th>
                 <th scope="col">
-                    {% trans from 'game' %}number of sessions{% endtrans %}
+                    {% trans from 'messages' %}number_of_sessions{% endtrans %}
                 </th>
                 <th scope="col">
-                    {% trans from 'game' %}number of blogposts{% endtrans %}
+                    {% trans from 'messages' %}number_of_blogposts{% endtrans %}
                 </th>
                 <th scope="col"></th>
             </tr>
@@ -34,7 +34,7 @@
                     </td>
                     <td scope="col">
                         <a class="float-right"
-                           href="{{ path('game_show', {'slug': game.slug}) }}">{% trans from 'game' %}show{% endtrans %}</a>
+                           href="{{ path('game_show', {'slug': game.slug}) }}">{% trans from 'messages' %}show{% endtrans %}</a>
                     </td>
                 </tr>
             {% endfor %}
