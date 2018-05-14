@@ -31,13 +31,13 @@
         <tbody>
         {% for game in entities %}
             <tr>
-                <td scope="row">
+                <td>
                     {{ game.name }}
                 </td>
-                <td scope="col" data-order="{{ game.modifiedAt | date('Y-m-d') }}">
+                <td data-order="{{ game.modifiedAt | date('Y-m-d') }}">
                     {{ game.modifiedAt|date('d.m.Y H:i') }}
                 </td>
-                <td scope="col" data-order="{{ game.timePlayed }}">
+                <td data-order="{{ game.timePlayed }}">
                     {% if game.timePlayed > 0 %}
                         {{ game.timePlayed | convert_overall_time }}
                     {% else %}
@@ -47,21 +47,21 @@
 
                 {% set lastSession = game.gameSessions | last %}
                 {% if lastSession %}
-                    <td scope="col" data-order="{{ lastSession.createdAt | date('Y-m-d') }}">
+                    <td data-order="{{ lastSession.createdAt | date('Y-m-d') }}">
                         {{ lastSession.createdAt |date('d.m.Y') }}
                     </td>
                 {% else %}
-                    <td scope="col">
+                    <td>
                         -
                     </td>
                 {% endif %}
-                <td scope="col" data-order="0">
+                <td data-order="0">
                     {{ game.gameSessions | length }}
                 </td>
-                <td scope="col">
+                <td>
                     {{ game.blogPosts|length }}
                 </td>
-                <td scope="col">
+                <td>
                     <a class="float-right"
                        href="{{ path('game_dashboard', {'id': game.id}) }}">{% trans from 'game' %}Dashboard{% endtrans %}</a>
                 </td>
