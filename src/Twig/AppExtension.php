@@ -73,21 +73,21 @@ class AppExtension extends AbstractExtension
         $time = new TimeTransformation($value);
 
         $days = $this->translator->transChoice(
-            '{0}%count% days|{1}1 day|]1,Inf[%count% days',
+            'translate_days',
             $time->getDays(),
             [],
             'messages'
         );
 
         $hours = $this->translator->transChoice(
-            '{0}%count% hours|{1}1 hour|]1,Inf[%count% hours',
+            'translate_hours',
             $time->getHours(),
             [],
             'messages'
         );
 
         $minutes = $this->translator->transChoice(
-            '{0}%count% minutes|{1}1 minute|]1,Inf[%count% minutes',
+            'translate_minutes',
             $time->getMinutes(),
             [],
             'messages'
