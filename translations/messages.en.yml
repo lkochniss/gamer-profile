@@ -1,77 +1,75 @@
-create_new_blog_post: 'Create new Blog Post'
-latest_blog_post: 'Latest Blg Post'
-view_all_blog_posts: 'View all Blog Posts'
-number_of_blog_posts: 'Number of Blog Posts'
-latest_posts: 'Latest Posts'
-'show all': 'Show All'
-blog_posts: 'Blog Posts'
-information: Information
-costs: Costs
-sessions: Sessions
-statistics: Statistics
-average_session: 'Average Session'
-last_session: 'Last Session'
-view_all_game_sessions: 'View All Game Sessions'
-longest_session: 'Longest Session'
-number_of_game_sessions: 'Number Of Game Sessions'
-playtime_since_purchase: 'Played for %time% since purchase'
-playtime_since_purchase_date: 'Played for %time% since %date%'
-shortest_session: 'Shortest Session'
-bought_at: 'Bought At'
-first_indexed_on: 'First Indexed On'
-last_update_on: 'Last Update On'
-steam_app_id: 'Steam AppId'
-screenshots: Screenshots
-view_screenshots: 'View Screenshots'
 achievements: Achievements
-update_information: 'Update Information'
-last_session_date_played_for: 'Last played on %date% for %time%'
-costs_per_hour: 'Costs per Hour'
+average_session: 'Average Session'
+blog_posts: 'Blog Posts'
+bought_at: 'Bought At'
+create_new_blog_post: 'Create new Blog Post'
 create_new_purchase: 'Create New Purchase'
-current_steam_price: 'Current Steam Price'
-view_all_purchases: 'View All Purchases'
-number_of_purchases: 'Number of Purchases'
-overall_costs: 'Overall Costs'
-logout: logout
-dashboard: Dashboard
-games: Games
-game_sessions: 'Game Sessions'
-purchases: Purchases
-recently_played: 'Recently Played'
-most_played: 'Most Played'
-game_of_the_month: 'Game Of The Month'
-new_games: 'New Games'
-game_list: 'Game List'
-steam_profile: 'Steam Profile'
-show: Show
-title: Title
+costs: Costs
+costs_per_hour: 'Costs per Hour'
 created_at: 'Created At'
-modified_at: 'Modified At'
-edit: Edit
-game: Game
-updated_at: 'Updated At'
-posted_at: 'Posted At'
-name: Name
-played_for: 'Played For'
-last_played: 'Last Played'
-number_of_sessions: 'Number Of Sessions'
-number_of_blogposts: 'Number Of Blog Posts'
+current_steam_price: 'Current Steam Price'
+dashboard: Dashboard
 date: Date
 duration: Duration
-type: Type
-notice: Notice
-price: Price
-login: login
-username: Username
-password: Password
-submit: Submit
-latest_blogpost: 'Latest Blog Post'
-recent_playtime: 'Recently played for %time%'
-overall_playtime: 'Overall Playtime'
-wasted_money: 'Wasted Money'
+edit: Edit
+EUR: '€'
+first_indexed_on: 'First Indexed On'
+game_of_the_month: 'Game Of The Month'
+game_list: 'Game List'
+game_sessions: 'Game Sessions'
+game: Game
+games: Games
+information: Information
 invested_money: 'Invested Money'
+last_session: 'Last Session'
+last_session_date_played_for: 'Last played on %date% for %time%'
+last_played: 'Last Played'
+last_update_on: 'Last Update On'
+latest_blog_post: 'Latest Blog Post'
+latest_posts: 'Latest Posts'
+login: login
+logout: logout
+longest_session: 'Longest Session'
+modified_at: 'Modified At'
+most_played: 'Most Played'
+name: Name
+new_games: 'New Games'
+notice: Notice
+number_of_blog_posts: 'Number of Blog Posts'
+number_of_game_sessions: 'Number Of Game Sessions'
+number_of_purchases: 'Number of Purchases'
+number_of_sessions: 'Number Of Sessions'
+overall_costs: 'Overall Costs'
+overall_playtime: 'Overall Playtime'
+password: Password
+played_for: 'Played For'
+playtime_since_purchase: 'Played for %time% since purchase'
+playtime_since_purchase_date: 'Played for %time% since %date%'
+price: Price
+posted_at: 'Posted At'
+purchases: Purchases
+recent_playtime: 'Recently played for %time%'
+recently_played: 'Recently Played'
+screenshots: Screenshots
+sessions: Sessions
+shortest_session: 'Shortest Session'
+show: Show
+show_all: 'Show All'
+steam_app_id: 'Steam AppId'
+steam_profile: 'Steam Profile'
+statistics: Statistics
+submit: Submit
+title: Title
 translate_days: '{0}%count% days|{1}1 day|]1,Inf[%count% days'
 translate_hours: '{0}%count% hours|{1}1 hour|]1,Inf[%count% hours'
 translate_minutes: '{0}%count% minutes|{1}1 minute|]1,Inf[%count% minutes'
+type: Type
+update_information: 'Update Information'
 USD: '$'
-EUR: '€'
+updated_at: 'Updated At'
+username: Username
+view_all_blog_posts: 'View all Blog Posts'
+view_all_game_sessions: 'View All Game Sessions'
+view_all_purchases: 'View All Purchases'
+view_screenshots: 'View Screenshots'
+wasted_money: 'Wasted Money'

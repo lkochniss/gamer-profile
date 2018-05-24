@@ -11,7 +11,7 @@
     {% if lastBlogPost %}
         <div class='list-group-item'>
             <a href="{{ path('blog_post_list_frontend', {'gameSlug': lastBlogPost.game.slug}) }}"><h4>
-                {% trans from 'messages' %}latest_blogpost{% endtrans %}
+                {% trans from 'messages' %}latest_blog_post{% endtrans %}
                 {{ lastBlogPost.createdAt|date('d.m.Y H:i') }}
             </h4></a>
         </div>
