@@ -1,7 +1,10 @@
 {% extends 'base.html.twig' %}
 {% block body %}
     <div class="row">
-        <h1 class="col">{{ entity.game.name }}: {{ entity.title }}</h1>
+        <h1 class="col">
+            <a href="{{ path('game_show', {'slug': entity.game.slug}) }}"> {{ entity.game.name }}</a>:
+            {{ entity.title }}
+        </h1>
         <div class="col text-right">
             {% trans from "messages" %}posted_at{% endtrans %} {{ entity.createdAt|date("d.m.Y H:i") }} <br/>
             {% trans from "messages" %}updated_at{% endtrans %} {{ entity.modifiedAt|date("d.m.Y H:i") }}

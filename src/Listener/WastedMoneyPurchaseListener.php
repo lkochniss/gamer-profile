@@ -2,7 +2,6 @@
 
 namespace App\Listener;
 
-use App\Entity\Game;
 use App\Entity\OverallGameStats;
 use App\Entity\Purchase;
 use App\Service\Stats\WastedMoneyService;
@@ -63,7 +62,7 @@ class WastedMoneyPurchaseListener
     public function postUpdate(LifecycleEventArgs $args): string
     {
         /**
-         * @var Game $entity
+         * @var Purchase $entity
          */
         $entity = $args->getEntity();
 
@@ -77,18 +76,18 @@ class WastedMoneyPurchaseListener
         $overallGameStatsRepository = $args->getEntityManager()->getRepository(OverallGameStats::class);
         $wastedMoneyService = new WastedMoneyService($this->purchaseUtil, $overallGameStatsRepository);
 
+        $priceKey = 'price';
+        if (array_key_exists($priceKey, $changeSet)) {
+            $diff = $changeSet[$priceKey][1] - $changeSet[$priceKey][0];
+            $wastedMoneyService->updatePurchase($diff, $entity);
+        }
+
         $timePlayedKey = 'timePlayed';
         if (array_key_exists($timePlayedKey, $changeSet) &&
             $changeSet[$timePlayedKey][0] < 60 &&
             $changeSet[$timePlayedKey][1] >= 60
         ) {
             $wastedMoneyService->removePurchase($entity);
-        }
-
-        $priceKey = 'price';
-        if (array_key_exists($priceKey, $changeSet)) {
-            $diff = $changeSet[$priceKey][1] - $changeSet[$priceKey][0];
-            $wastedMoneyService->updatePurchase($diff, $entity);
         }
 
         return 'U';
