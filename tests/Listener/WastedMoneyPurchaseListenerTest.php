@@ -170,6 +170,17 @@ class WastedMoneyPurchaseListenerTest extends TestCase
                     'timePlayed' => [0, 1]
                 ]
             ],
+            [
+                [
+                    'timePlayed' => [0, 70]
+                ]
+            ],
+            [
+                [
+                    'price' => [10, 5],
+                    'timePlayed' => [0, 70]
+                ]
+            ],
         ];
     }
 }
