@@ -19,33 +19,6 @@ module.exports = {
         'css/bootstrap-4': path.resolve(
             __dirname, 'node_modules/bootstrap/dist/css/bootstrap.css'
         ),
-        'js/bootstrap-3': path.resolve(
-            __dirname, 'node_modules/startbootstrap-sb-admin-2/vendor/bootstrap/js/bootstrap.min.js'
-        ),
-        'css/bootstrap-3': path.resolve(
-            __dirname, 'node_modules/startbootstrap-sb-admin-2/vendor/bootstrap/css/bootstrap.min.css'
-        ),
-        'js/sb-admin-2': path.resolve(
-            __dirname, 'node_modules/startbootstrap-sb-admin-2/dist/js/sb-admin-2.min.js'
-        ),
-        'css/sb-admin-2': path.resolve(
-            __dirname, 'node_modules/startbootstrap-sb-admin-2/dist/css/sb-admin-2.min.css'
-        ),
-        'js/metis-menu': path.resolve(
-            __dirname, 'node_modules/startbootstrap-sb-admin-2/vendor/metisMenu/metisMenu.min.js'
-        ),
-        'css/metis-menu': path.resolve(
-            __dirname, 'node_modules/startbootstrap-sb-admin-2/vendor/metisMenu/metisMenu.min.css'
-        ),
-        'js/morris': path.resolve(
-            __dirname, 'node_modules/startbootstrap-sb-admin-2/vendor/morrisjs/morris.min.js'
-        ),
-        'css/morris': path.resolve(
-            __dirname, 'node_modules/startbootstrap-sb-admin-2/vendor/morrisjs/morris.css'
-        ),
-        'js/raphael': path.resolve(
-            __dirname, 'node_modules/startbootstrap-sb-admin-2/vendor/raphael/raphael.min.js'
-        ),
         'js/jquery': path.resolve(
             __dirname, 'node_modules/jquery/dist/jquery.js'
         ),

@@ -1,5 +1,6 @@
 achievements: Achievements
 average_session: 'Average Session'
+blog_post_list: 'List Blog Posts'
 blog_posts: 'Blog Posts'
 bought_at: 'Bought At'
 create_new_blog_post: 'Create new Blog Post'
@@ -47,6 +48,7 @@ playtime_since_purchase: 'Played for %time% since purchase'
 playtime_since_purchase_date: 'Played for %time% since %date%'
 price: Price
 posted_at: 'Posted At'
+purchase_list: 'List Purchases'
 purchases: Purchases
 recent_playtime: 'Recently played for %time%'
 recently_played: 'Recently Played'
