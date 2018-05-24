@@ -45,6 +45,14 @@ class BlogPostControllerTest extends WebTestCase
         ];
     }
 
+    public function testMissingSlugReturnsNotFoundException(): void
+    {
+        $client = static::createClient();
+        $client->request('GET', 'game-1/asdf');
+
+        $this->assertEquals(Response::HTTP_NOT_FOUND, $client->getResponse()->getStatusCode());
+    }
+
     /**
      * @param string $url
      * @dataProvider backendUrlProvider
