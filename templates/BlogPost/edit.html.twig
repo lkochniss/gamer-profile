@@ -33,13 +33,12 @@
 {% block javascripts %}
     {{ parent() }}
     <script src="https://cdn.ckeditor.com/4.8.0/standard/ckeditor.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/js/select2.js"></script>
+
     <script type="text/javascript">
         $(document).ready(function () {
             CKEDITOR.replace('blog_post_content',{
               'entities': false
             });
-            $('#blog_post_game').select2();
         });
     </script>
 {% endblock %}

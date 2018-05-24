@@ -5,8 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% block title %}Welcome!{% endblock %}</title>
     {% block stylesheets %}
-        <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap-4.css') }}">
-        <link rel="stylesheet" type="text/css" href="{{ asset('css/select2.css') }}">
         <link rel="stylesheet" type="text/css" href="{{ asset('css/application.css') }}">
         <link rel="stylesheet" type="text/css"
               href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -23,10 +21,8 @@
 </div>
 </body>
 {% block javascripts %}
-    <script src="{{ asset('js/bootstrap-4.js') }}"></script>
     <script src="{{ asset('js/application.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
-    <script src="{{ asset('js/select2.js') }}"></script>
     <script type="text/javascript">
         $(document).ready(function () {
             var image = $('img');
