@@ -38,7 +38,9 @@
     <script src="https://cdn.ckeditor.com/4.8.0/standard/ckeditor.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
-            CKEDITOR.replace('game_description');
+            CKEDITOR.replace('game_description',{
+              'entities': false
+            });
         });
     </script>
 {% endblock %}
