@@ -42,13 +42,13 @@ class ApiController extends Controller
          * @var GameSession $session
          */
         foreach ($sessions as $session) {
-            if (!array_key_exists($session->getCreatedAt()->format('d-m-y'), $data)){
+            if (!array_key_exists($session->getCreatedAt()->format('d-m-y'), $data)) {
                 $data[$session->getCreatedAt()->format('d-m-y')] = 0;
             }
             $data[$session->getCreatedAt()->format('d-m-y')] += $session->getDuration();
         }
 
-        $data = array_map(function ($month, $duration){
+        $data = array_map(function ($month, $duration) {
             return [
                 'total' => $duration,
                 'month' => $month

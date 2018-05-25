@@ -23,7 +23,7 @@ class GameSessionRepository extends AbstractRepository#
 
     public function findForLastDays()
     {
-        $start = new \DateTime('-30 day');
+        $start = new \DateTime('-15 day');
         $end = new \DateTime('-1 day');
         $query = $this->createQueryBuilder('game_session')
             ->where('game_session.createdAt > :start')

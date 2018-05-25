@@ -1,7 +1,7 @@
 sessions_per_month:
-    path:   /sessions
+    path:   /sessions/per-month
     defaults: { _controller: 'App\Controller\ApiController::sessionsPerMonth'  }
 
 sessions_last_week:
-    path:   /last-week
+    path:   /sessions/recently
     defaults: { _controller: 'App\Controller\ApiController::sessionsLastDays'  }

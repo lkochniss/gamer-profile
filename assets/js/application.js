@@ -10,7 +10,7 @@ const enableSelect2 = () => {
 
 const setWeekyDashboard = () => {
   $.getJSON({
-    url: '/admin/last-week',
+    url: '/admin/sessions/recently',
     success: (data) => {
       dashboard('#playtime-last-week', data, '%d-%m-%y');
     },
@@ -19,7 +19,7 @@ const setWeekyDashboard = () => {
 
 const setMonthlyDashboard = () => {
   $.getJSON({
-    url: '/admin/sessions',
+    url: '/admin/sessions/per-month',
     success: (data) => {
       dashboard('#playtime-per-month', data, '%m-%y');
     },
