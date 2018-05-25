@@ -71,8 +71,12 @@
             </div>
         {% endif %}
     </div>
-    <div class="row">
-        <div class="col" id="sessions-per-month" style="min-height: 250px"></div>
-        <div class="col" id="playtime-per-month" style="min-height: 250px"></div>
+    <div class="row"  style="min-height: 250px">
+        <div class="col" id="playtime-last-week">
+            <h3>{% trans %}session_time_last_days{% endtrans %}</h3>
+        </div>
+        <div class="col" id="playtime-per-month">
+            <h3>{% trans %}session_time_per_month{% endtrans %}</h3>
+        </div>
     </div>
   {% endblock %}

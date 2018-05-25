@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\GameSession;
+use App\Repository\GameSessionRepository;
 use App\Repository\PlaytimePerMonthRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -11,33 +13,15 @@ use Symfony\Component\HttpFoundation\JsonResponse;
  */
 class ApiController extends Controller
 {
-    public function sessionsPerMonth(PlaytimePerMonthRepository $playtimePerMonthRepository)
+    /**
+     * @param PlaytimePerMonthRepository $playtimePerMonthRepository
+     * @return JsonResponse
+     */
+    public function sessionsPerMonth(PlaytimePerMonthRepository $playtimePerMonthRepository): JsonResponse
     {
         $playtimePerMonth = $playtimePerMonthRepository->findAll();
 
-        $jan = new \DateTime('-4 month');
-        $feb = new \DateTime('-3 month');
-        $mar = new \DateTime('-2 month');
-        $apr = new \DateTime('-1 month');
-        $data = [
-            [
-                'total' => 1234,
-                'month' => $jan->format('m-y')
-            ],
-            [
-                'total' => 1500,
-                'month' => $feb->format('m-y')
-            ],
-            [
-                'total' => 1432,
-                'month' => $mar->format('m-y')
-            ],
-            [
-                'total' => 1200,
-                'month' => $apr->format('m-y')
-            ]
-        ];
-
+        $data = [];
         foreach ($playtimePerMonth as $playtime) {
             $data[] = [
                 'total' => $playtime->getDuration(),
@@ -45,6 +29,31 @@ class ApiController extends Controller
             ];
         }
 
+        return new JsonResponse($data);
+    }
+
+    public function sessionsLastDays(GameSessionRepository $gameSessionRepository): JsonResponse
+    {
+        $sessions = $gameSessionRepository->findForLastDays();
+
+        $data = [];
+
+        /**
+         * @var GameSession $session
+         */
+        foreach ($sessions as $session) {
+            if (!array_key_exists($session->getCreatedAt()->format('d-m-y'), $data)){
+                $data[$session->getCreatedAt()->format('d-m-y')] = 0;
+            }
+            $data[$session->getCreatedAt()->format('d-m-y')] += $session->getDuration();
+        }
+
+        $data = array_map(function ($month, $duration){
+            return [
+                'total' => $duration,
+                'month' => $month
+            ];
+        }, array_keys($data), $data);
 
         return new JsonResponse($data);
     }
