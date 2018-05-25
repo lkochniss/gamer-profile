@@ -1,18 +1,18 @@
-const path = require('path')
-const WebpackAssetsManifest = require('webpack-assets-manifest')
-const webpack = require('webpack')
+const path = require('path');
+const WebpackAssetsManifest = require('webpack-assets-manifest');
+const webpack = require('webpack');
 
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
+  mode: 'development',
+  optimization: {
+    minimize: false,
+  },
   /* Entrypoints */
   entry: {
-    'js/application': path.resolve(
-      __dirname, 'assets/js/application.js'
-    ),
-    'css/application': path.resolve(
-      __dirname, 'assets/js/styles.js'
-    ),
+    'js/application': path.resolve(__dirname, 'assets/js/application.js'),
+    'css/application': path.resolve(__dirname, 'assets/js/styles.js'),
   },
   /* Export class constructor as entrypoint */
   output: {
@@ -20,7 +20,7 @@ module.exports = {
     pathinfo: true,
     filename: '[name]-[chunkhash].js',
     chunkFilename: '[id]-[chunkhash].js',
-    libraryTarget: 'window'
+    libraryTarget: 'window',
   },
   module: {
     rules: [
@@ -33,33 +33,33 @@ module.exports = {
         test: /\.scss$/,
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
-          use: ['css-loader', 'sass-loader']
+          use: ['css-loader', 'sass-loader'],
         }),
       },
       {
         test: /\.css$/,
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
-          use: 'css-loader'
-        })
+          use: 'css-loader',
+        }),
       },
       {
         test: /\.(otf|eot|svg|ttf|woff)/,
-        loader: 'url-loader?limit=8192'
-      }
-    ]
+        loader: 'url-loader?limit=8192',
+      },
+    ],
   },
   plugins: [
     new WebpackAssetsManifest({}),
     new ExtractTextPlugin({
-      filename: '[name]-[chunkhash].css'
+      filename: '[name]-[chunkhash].css',
     }),
     new webpack.ProvidePlugin({
       $: 'jquery',
       jQuery: 'jquery',
       select2: 'select2',
-      d3: 'd3'
-    })
+      d3: 'd3',
+    }),
   ],
-  watch: true
-}
+  watch: true,
+};
