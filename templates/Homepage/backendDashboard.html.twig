@@ -72,32 +72,7 @@
         {% endif %}
     </div>
     <div class="row">
-        {% if playtimePerMonths is defined and playtimePerMonths is not empty %}
-            <div class="col">
-                {% trans from "messages" %}sessions_per_month{% endtrans %}
-                <ul>
-                    {% for playtimePerMonth in playtimePerMonths %}
-                        <li>{{ playtimePerMonth.month|date('m.Y') }}: {{ playtimePerMonth.sessions }}</li>
-                    {% endfor %}
-                </ul>
-            </div>
-
-            <div class="col">
-                {% trans from "messages" %}playtime_per_month{% endtrans %}
-                <ul>
-                    {% for playtimePerMonth in playtimePerMonths %}
-                        <li>{{ playtimePerMonth.month|date('m.Y') }}
-                            : {{ playtimePerMonth.duration|convert_overall_time }}</li>
-                    {% endfor %}
-                </ul>
-
-            </div>
-        {% endif %}
+        <div class="col" id="sessions-per-month" style="min-height: 250px"></div>
+        <div class="col" id="playtime-per-month" style="min-height: 250px"></div>
     </div>
-    <svg width="300px" height="150px">
-        <rect x="20" y="20" width="20px" height="20" rx="5" ry="5" />
-        <rect x="60" y="20" width="20px" height="20" rx="5" ry="5" />
-        <rect x="100" y="20" width="20px" height="20" rx="5" ry="5"/>
-    </svg>
-
-{% endblock %}
+  {% endblock %}
