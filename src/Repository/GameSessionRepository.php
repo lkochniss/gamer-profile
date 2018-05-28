@@ -21,6 +21,20 @@ class GameSessionRepository extends AbstractRepository#
         $this->getEntityManager()->flush($entity);
     }
 
+    public function findForLastDays()
+    {
+        $start = new \DateTime('-15 day');
+        $end = new \DateTime('-1 day');
+        $query = $this->createQueryBuilder('game_session')
+            ->where('game_session.createdAt > :start')
+            ->andWhere('game_session.createdAt < :end')
+            ->setParameter('start', $start)
+            ->setParameter('end', $end)
+            ->getQuery();
+
+        return $query->getResult();
+    }
+
     /**
      * @return string
      */

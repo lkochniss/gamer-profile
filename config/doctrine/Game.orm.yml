@@ -14,9 +14,6 @@ App\Entity\Game:
             type: string
             nullable: false
             length: 100
-        description:
-            type: text
-            nullable: true
         timePlayed:
             column: time_played
             type: integer

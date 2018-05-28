@@ -1,12 +1,24 @@
-<hr/>
 {% for key, game in games %}
-    {% if key % 2 == 0 %}
-        <div class="row top-buffer">
+ {% if key % 3 == 0 %}
+<div class="row mb-4">
     {% endif %}
-    <div class="col-lg-6 col-md col-sm">
-        {% include '_modules/gameDetailCard.html.twig' with {'game': game } %}
-    </div>
-    {% if key % 2 == 1 %}
+    <div class="col-sm-4">
+        <div class="card mb-4">
+            <a href="{{ path('game_show', {'slug': game.slug}) }}">
+                <div class="card-header">
+                    <h3 class="card-title">{{ game.name }}</h3>
+                </div>
+                <img src='{{ game.headerImagePath }}' alt='{{ game.name }}' class='img-responsive card-img-top'/>
+            </a>
+            <div class="card-body list-group p-0">
+                <h4 class='list-group-item'>{% trans from 'messages' %}statistics{% endtrans %}</h4>
+                {% include '_modules/last-session.html.twig' with { game: game } %}
+                {% include '_modules/recently-played.html.twig' with { game: game } %}
+                {% include '_modules/overall-played.html.twig' with { game: game } %}
+            </div>
         </div>
-    {% endif %}
+    </div>
+    {% if key % 3 == 2 %}
+</div>
+{% endif %}
 {% endfor %}

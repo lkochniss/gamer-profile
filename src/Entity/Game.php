@@ -20,11 +20,6 @@ class Game extends AbstractEntity
     private $name;
 
     /**
-     * @var string
-     */
-    private $description;
-
-    /**
      * @var int
      */
     private $recentlyPlayed;
@@ -142,22 +137,6 @@ class Game extends AbstractEntity
     public function setName(string $name): void
     {
         $this->name = $name;
-    }
-
-    /**
-     * @return string
-     */
-    public function getDescription(): string
-    {
-        return $this->description ?: '';
-    }
-
-    /**
-     * @param string|null $description
-     */
-    public function setDescription(?string $description): void
-    {
-        $this->description = $description;
     }
 
     /**

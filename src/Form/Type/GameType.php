@@ -22,15 +22,6 @@ class GameType extends AbstractType
     {
         $builder
             ->add(
-                'description',
-                TextareaType::class,
-                [
-                    'attr' => [
-                        'class' => 'form-controll'
-                    ]
-                ]
-            )
-            ->add(
                 'boughtAt',
                 DateType::class,
                 [

@@ -1,22 +1,17 @@
-<div class="col-lg-3 col-md-6">
-    <div class="panel panel-primary">
-        <div class="panel-heading">
-            <div class="row">
-                <div class="col-xs-3">
-                    <i class="fa fa-calendar fa-5x" aria-hidden="true"></i>
-                </div>
-                <div class="col-xs-9 text-right">
-                    <div class="huge">{% trans from "messages" %}sessions{% endtrans %}</div>
-                </div>
-            </div>
+<div class="col-sm">
+    <div class="card mb-4">
+        <div class="card-header bg-danger">
+            <i class="fa fa-calendar fa-2x" aria-hidden="true"></i>
+            {% trans from "messages" %}sessions{% endtrans %}
         </div>
-
-        {% include '_modules/GameSession/number-of-game-sessions.html.twig' with {'game': entity} only %}
-        {% include '_modules/GameSession/last-game-session.html.twig' with {'game': entity} only %}
-        {% include '_modules/GameSession/shortest-game-session.html.twig' with {'game': entity} only %}
-        {% include '_modules/GameSession/average-game-session.html.twig' with {'game': entity} only %}
-        {% include '_modules/GameSession/longest-game-session.html.twig' with {'game': entity} only %}
-        {% include '_modules/GameSession/overall-played.html.twig' with {'game': entity} only %}
-        {% include '_modules/GameSession/list-game-sessions.html.twig' with {'game': entity} only %}
+        <div class="card-body">
+            {% include '_modules/GameSession/number-of-game-sessions.html.twig' with {'game': entity} only %}
+            {% include '_modules/GameSession/last-game-session.html.twig' with {'game': entity} only %}
+            {% include '_modules/GameSession/shortest-game-session.html.twig' with {'game': entity} only %}
+            {% include '_modules/GameSession/average-game-session.html.twig' with {'game': entity} only %}
+            {% include '_modules/GameSession/longest-game-session.html.twig' with {'game': entity} only %}
+            {% include '_modules/GameSession/overall-played.html.twig' with {'game': entity} only %}
+            {% include '_modules/GameSession/list-game-sessions.html.twig' with {'game': entity} only %}
+        </div>
     </div>
 </div>

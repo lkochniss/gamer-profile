@@ -25,14 +25,13 @@
             <th scope="col">
                 {% trans from 'messages' %}number_of_blog_posts{% endtrans %}
             </th>
-            <th></th>
         </tr>
         </thead>
         <tbody>
         {% for game in entities %}
             <tr>
                 <td>
-                    {{ game.name }}
+                    <a href="{{ path('game_dashboard', {'id': game.id}) }}">{{ game.name }}</a>
                 </td>
                 <td data-order="{{ game.modifiedAt | date('Y-m-d') }}">
                     {{ game.modifiedAt|date('d.m.Y H:i') }}
@@ -60,10 +59,6 @@
                 </td>
                 <td>
                     {{ game.blogPosts|length }}
-                </td>
-                <td>
-                    <a class="float-right"
-                       href="{{ path('game_dashboard', {'id': game.id}) }}">{% trans from 'messages' %}dashboard{% endtrans %}</a>
                 </td>
             </tr>
         {% endfor %}

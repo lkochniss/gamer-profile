@@ -1,21 +1,7 @@
-{% set row='' %}
-{% set div='' %}
-
-{% if hasRows is defined and hasRows == true %}
- {% set div='row' %}
- {% set div='col' %}
-{% endif %}
-
-{% if hasItemList is defined and hasItemList == true %}
-    {% set div='list-group-item' %}
-{% endif %}
-
-<div class="{{ row }}">
-    <div class='{{ div }}'>
-        {% if game.boughtAt|date('d.m.Y') == '31.12.2000' or game.boughtAt is null %}
-            {% trans with {'%time%' : game.timePlayed | convert_overall_time } from 'messages' %}playtime_since_purchase{% endtrans %}
-        {% else %}
-            {% trans with {'%time%' : game.timePlayed | convert_overall_time, '%date%' : game.boughtAt|date('d.m.Y') } from 'messages' %}playtime_since_purchase_date{% endtrans %}
-        {% endif %}
-    </div>
+<div class="list-group-item">
+    {% if game.boughtAt|date('d.m.Y') == '31.12.2000' or game.boughtAt is null %}
+        {% trans with {'%time%' : game.timePlayed | convert_overall_time } from 'messages' %}playtime_since_purchase{% endtrans %}
+    {% else %}
+        {% trans with {'%time%' : game.timePlayed | convert_overall_time, '%date%' : game.boughtAt|date('d.m.Y') } from 'messages' %}playtime_since_purchase_date{% endtrans %}
+    {% endif %}
 </div>

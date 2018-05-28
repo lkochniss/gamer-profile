@@ -1,21 +1,17 @@
-<div class="col-lg-3 col-md-6">
-    <div class="panel panel-primary">
-        <div class="panel-heading">
-            <div class="row">
-                <div class="col-xs-3">
-                    <i class="fa fa-steam fa-5x" aria-hidden="true"></i>
-                </div>
-                <div class="col-xs-9 text-right">
-                    <div class="huge">{% trans from "messages" %}information{% endtrans %}</div>
-                </div>
-            </div>
+<div class="col-sm">
+    <div class="card mb-4">
+        <div class="card-header bg-info">
+            <i class="fa fa-steam fa-2x" aria-hidden="true"></i>
+            {% trans from "messages" %}information{% endtrans %}
         </div>
-        {% include '_modules/Information/steam-app-id.html.twig' with {'game': entity} only %}
-        {% include '_modules/Information/steam-user-achievements.html.twig' with {'game': entity} only %}
-        {% include '_modules/Information/steam-screenshots.html.twig' with {'game': entity} only %}
-        {% include '_modules/Information/created-at.html.twig' with {'game': entity} only %}
-        {% include '_modules/Information/modified-at.html.twig' with {'game': entity} only %}
-        {% include '_modules/Information/bought-at.html.twig' with {'game': entity} only %}
-        {% include '_modules/Information/update-information.html.twig' with {'game': entity} only %}
+        <div class="card-body">
+            {% include '_modules/Information/steam-app-id.html.twig' with {'game': entity} only %}
+            {% include '_modules/Information/steam-user-achievements.html.twig' with {'game': entity} only %}
+            {% include '_modules/Information/steam-screenshots.html.twig' with {'game': entity} only %}
+            {% include '_modules/Information/created-at.html.twig' with {'game': entity} only %}
+            {% include '_modules/Information/modified-at.html.twig' with {'game': entity} only %}
+            {% include '_modules/Information/bought-at.html.twig' with {'game': entity} only %}
+            {% include '_modules/Information/update-information.html.twig' with {'game': entity} only %}
+        </div>
     </div>
 </div>

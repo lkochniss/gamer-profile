@@ -17,24 +17,21 @@
                 <th scope="col">
                     {% trans from 'messages' %}number_of_blog_posts{% endtrans %}
                 </th>
-                <th scope="col"></th>
             </tr>
             </thead>
             <tbody>
             {% for game in entities %}
                 <tr>
                     <td scope="row">
-                        {{ game.name }}
+                        <a href="{{ path('game_show', {'slug': game.slug}) }}">
+                            {{ game.name }}
+                        </a>
                     </td>
                     <td scope="col">
                         {{ game.gameSessions|length }}
                     </td>
                     <td scope="col">
                         {{ game.blogPosts|length }}
-                    </td>
-                    <td scope="col">
-                        <a class="float-right"
-                           href="{{ path('game_show', {'slug': game.slug}) }}">{% trans from 'messages' %}show{% endtrans %}</a>
                     </td>
                 </tr>
             {% endfor %}

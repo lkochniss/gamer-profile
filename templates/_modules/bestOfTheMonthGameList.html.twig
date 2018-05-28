@@ -1,14 +1,28 @@
-<hr/>
 {% set count = 0 %}
 {% for gamePerMonth in bestGamePerMonth %}
-    {% if count % 2 == 0 %}
-        <div class="row top-buffer">
+    {% if count % 3 == 0 %}
+        <div class="row mb-5">
     {% endif %}
-    <div class="col-lg-6 col-md col-sm">
-        {% include '_modules/bestOfTheMonthGameCard.html.twig' with {'gamePerMonth': gamePerMonth} %}
+    <div class="col-lg-4 col-md col-sm">
+        <div class="card">
+            <a href="{{ path('game_show', {'slug': gamePerMonth.game.slug}) }}">
+                <div class="card-header">
+                    <h3 class="card-title">
+                        {{ gamePerMonth.game.name }}
+                    </h3>
+                </div>
+                <img src='{{ gamePerMonth.game.headerImagePath }}' alt='{{ gamePerMonth.game.name }}'
+                     class='img-responsive card-img-top'/>
+            </a>
+            <div class="card-footer text-right">
+                {{ gamePerMonth.month|date('F Y') }}
+            </div>
+        </div>
+
     </div>
-    {% if count % 2 == 1 %}
+    {% if count % 3 == 2 %}
         </div>
     {% endif %}
-    {% set count = count +1  %}
+    {% set count = count +1 %}
 {% endfor %}
+

@@ -1,31 +1,34 @@
 {% extends 'admin-base.html.twig' %}
 {% block body %}
-    {% if  app.request.get('_route') ends with '_edit' %}
-        <div class="row">
-            <div class="col text-right">
-                <a href="{{ path('blog_post_show', {'gameSlug' : entity.game.slug, 'blogPostSlug' : entity.slug }) }}">
+    {{ form_start(form) }}
+    <div class="row mb-4">
+        <div class="col-md-1 text-right col-form-label">
+            <label>{% trans from "messages" %}title{% endtrans %}</label>
+        </div>
+        <div class="col-md-4">
+            {{ form_widget(form.title) }}
+        </div>
+        <div class="col-md-1 text-right col-form-label">
+            <label>{% trans from "messages" %}game{% endtrans %}</label>
+        </div>
+        <div class="col-md-2">
+            {{ form_widget(form.game) }}
+        </div>
+        <div class="col-md-2 text-right">
+            {{ form_row(form.submit) }}
+        </div>
+        {% if  app.request.get('_route') ends with '_edit' %}
+            <div class="col-md-2">
+                <a href="{{ path('blog_post_show', {'gameSlug' : entity.game.slug, 'blogPostSlug' : entity.slug }) }}"
+                class="btn btn-primary">
                     {% trans from "messages" %}show{% endtrans %}
                 </a>
             </div>
-        </div>
-    {% endif %}
-    {{ form_start(form) }}
-    <div class="row">
-        <div class="col">
-            {{ form_row(form.title) }}
-        </div>
-        <div class="col">
-            {{ form_row(form.game) }}
-        </div>
+        {% endif %}
     </div>
     <div class="row">
         <div class="col">
             {{ form_widget(form.content) }}
-        </div>
-    </div>
-    <div class="row">
-        <div class="col">
-            {{ form_row(form.submit) }}
         </div>
     </div>
     {{ form_end(form) }}
@@ -33,13 +36,12 @@
 {% block javascripts %}
     {{ parent() }}
     <script src="https://cdn.ckeditor.com/4.8.0/standard/ckeditor.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/js/select2.js"></script>
+
     <script type="text/javascript">
-        $(document).ready(function () {
-            CKEDITOR.replace('blog_post_content',{
-              'entities': false
-            });
-            $('#blog_post_game').select2();
-        });
+      $(document).ready(function () {
+        CKEDITOR.replace('blog_post_content', {
+          'entities': false
+        })
+      })
     </script>
 {% endblock %}
