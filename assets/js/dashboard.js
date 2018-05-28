@@ -42,8 +42,10 @@ export default (id, data, xFormat) => {
     .attr('class', 'line')
     .attr('d', valueline);
 
+  const ticks = data.length < 20 ? data.length : 20;
+
   const xAxis = d3.axisBottom(x)
-    .ticks(data.length);
+    .ticks(ticks);
 
   svg.append('g')
     .attr('transform', `translate(0,${height})`)
