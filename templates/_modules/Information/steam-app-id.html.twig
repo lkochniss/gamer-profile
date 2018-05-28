@@ -1,7 +1,7 @@
-<a target="_blank" href="http://store.steampowered.com/app/{{ game.steamAppId }}">
-    <div class="panel-footer">
-        <span class="pull-left">{% trans from "messages" %}steam_app_id{% endtrans %}</span>
+<div class="panel-footer">
+    <span class="pull-left">{% trans from "messages" %}steam_app_id{% endtrans %}</span>
+    <a target="_blank" href="http://store.steampowered.com/app/{{ game.steamAppId }}">
         <span class="pull-right">{{ game.steamAppId }}</span>
-        <div class="clearfix"></div>
-    </div>
-</a>
+    </a>
+    <div class="clearfix"></div>
+</div>

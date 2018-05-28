@@ -77,7 +77,7 @@ class ApiController extends Controller
          */
         $game = $gameRepository->find($id);
 
-        if (!$game){
+        if (!$game) {
             throw new NotFoundHttpException();
         }
 

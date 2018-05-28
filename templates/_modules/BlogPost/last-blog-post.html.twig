@@ -1,14 +1,13 @@
 {% set lastBlogPost = game.blogPosts | last %}
 {% if lastBlogPost %}
-    {% if is_granted('ROLE_ADMIN') %}
+    <div class="panel-footer">
+        <span class="pull-left">{% trans from "messages" %}latest_blog_post{% endtrans %}</span>
+        {% if is_granted('ROLE_ADMIN') %}
         <a href="{{ path('blog_post_edit', {'id': lastBlogPost.id}) }}">
-        {% else %}
-        <a href="{{ path('blog_post_show', {'gameSlug': game.slug, 'blogPostSlug': lastBlogPost.slug }) }}">
-    {% endif %}
-        <div class="panel-footer">
-            <span class="pull-left">{% trans from "messages" %}latest_blog_post{% endtrans %}</span>
-            <span class="pull-right">{{ lastBlogPost.title| slice(0,16) }} <i class="fa fa-arrow-circle-right"></i></span>
-            <div class="clearfix"></div>
-        </div>
-    </a>
+            {% else %}
+            <a href="{{ path('blog_post_show', {'gameSlug': game.slug, 'blogPostSlug': lastBlogPost.slug }) }}">
+                {% endif %}
+                <span class="pull-right">{{ lastBlogPost.title| slice(0,16) }}</span>
+            </a>
+    </div>
 {% endif %}

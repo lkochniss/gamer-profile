@@ -1,4 +1,4 @@
-<div class="panel-footer">
+<div class="panel-footer mt-3">
         <span>
              {% if game.boughtAt|date('d.m.Y') == '31.12.2000' or game.boughtAt is null %}
                  {% trans with {'%time%' : game.timePlayed | convert_overall_time } from 'messages' %}playtime_since_purchase{% endtrans %}

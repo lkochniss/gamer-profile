@@ -11,17 +11,15 @@
                 </h1>
             </div>
         </div>
-        <div class="row">
-            <div class="col">
-                <img class="thumbnail" src="{{ entity.headerImagePath }}"/>
-            </div>
-        </div>
     </div>
+
 </div>
 <div class="row">
+    <div class="col">
+        <img class="thumbnail" src="{{ entity.headerImagePath }}"/>
+    </div>
     {% include '_modules/Game/information-card.html.twig' %}
     {% include '_modules/Game/session-card.html.twig' %}
     {% include '_modules/Game/blog-post-card.html.twig' %}
-    {% include '_modules/Game/purchase-card.html.twig' %}
 </div>
 {% endblock %}
