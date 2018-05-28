@@ -26,8 +26,19 @@ const setMonthlyDashboard = () => {
   });
 };
 
+const setPlaytimeGame = () => {
+  const gameId = $('#playtime-game').data('game-id');
+  $.getJSON({
+    url: `/admin/sessions/game/${gameId}`,
+    success: (data) => {
+      dashboard('#playtime-game', data, '%d-%m-%y');
+    },
+  });
+};
+
 $(document).ready(() => {
   enableSelect2();
   setWeekyDashboard();
   setMonthlyDashboard();
+  setPlaytimeGame();
 });

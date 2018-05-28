@@ -5,3 +5,7 @@ sessions_per_month:
 sessions_last_week:
     path:   /sessions/recently
     defaults: { _controller: 'App\Controller\ApiController::sessionsLastDays'  }
+
+sessions_for_game:
+    path:   /sessions/game/{id}
+    defaults: { _controller: 'App\Controller\ApiController::sessionsForGame'  }

@@ -2,11 +2,14 @@
 
 namespace App\Controller;
 
+use App\Entity\Game;
 use App\Entity\GameSession;
+use App\Repository\GameRepository;
 use App\Repository\GameSessionRepository;
 use App\Repository\PlaytimePerMonthRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * Class ApiController
@@ -32,6 +35,10 @@ class ApiController extends Controller
         return new JsonResponse($data);
     }
 
+    /**
+     * @param GameSessionRepository $gameSessionRepository
+     * @return JsonResponse
+     */
     public function sessionsLastDays(GameSessionRepository $gameSessionRepository): JsonResponse
     {
         $sessions = $gameSessionRepository->findForLastDays();
@@ -54,6 +61,37 @@ class ApiController extends Controller
                 'month' => $month
             ];
         }, array_keys($data), $data);
+
+        return new JsonResponse($data);
+    }
+
+    /**
+     * @param int $id
+     * @param GameRepository $gameRepository
+     * @return JsonResponse
+     */
+    public function sessionsForGame(int $id, GameRepository $gameRepository): JsonResponse
+    {
+        /**
+         * @var Game $game
+         */
+        $game = $gameRepository->find($id);
+
+        if (!$game){
+            throw new NotFoundHttpException();
+        }
+
+        $data = [];
+
+        /**
+         * @var GameSession $session
+         */
+        foreach ($game->getGameSessions() as $session) {
+            $data[] = [
+                'total' => $session->getDuration(),
+                'month' => $session->getCreatedAt()->format('d-m-y')
+            ];
+        }
 
         return new JsonResponse($data);
     }
