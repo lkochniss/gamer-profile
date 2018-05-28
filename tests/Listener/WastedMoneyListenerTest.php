@@ -6,19 +6,41 @@ use App\Entity\Game;
 use App\Entity\GameSession;
 use App\Entity\OverallGameStats;
 use App\Entity\Purchase;
-use App\Listener\WastedMoneyPurchaseListener;
+use App\Listener\WastedMoneyListener;
 use App\Repository\OverallGameStatsRepository;
+use App\Repository\PurchaseRepository;
 use App\Service\Util\PurchaseUtil;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\UnitOfWork;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Class WastedMoneyPurchaseListenerTest
+ * Class WastedMoneyListenerTest
  */
-class WastedMoneyPurchaseListenerTest extends TestCase
+class WastedMoneyListenerTest extends TestCase
 {
+    /**
+     * @var MockObject
+     */
+    private $overallGameStatsRepositoryMock;
+
+    /**
+     * @var MockObject
+     */
+    private $purchaseRepositoryMock;
+
+    public function setUp()
+    {
+        $this->overallGameStatsRepositoryMock = $this->createMock(OverallGameStatsRepository::class);
+        $this->purchaseRepositoryMock = $this->createMock(PurchaseRepository::class);
+
+        $this->purchaseRepositoryMock->expects($this->any())
+            ->method('findAll')
+            ->willReturn([]);
+    }
+
     public function testPostPersistSkipsOnWrongEntity(): void
     {
         $argsMock = $this->createMock(LifecycleEventArgs::class);
@@ -26,57 +48,81 @@ class WastedMoneyPurchaseListenerTest extends TestCase
             ->method('getEntity')
             ->willReturn(new GameSession());
 
-        $overallGameStatsRepositoryMock = $this->createMock(OverallGameStatsRepository::class);
 
         $entityManagerMock = $this->createMock(EntityManager::class);
         $entityManagerMock->expects($this->any())
             ->method('getRepository')
-            ->with(OverallGameStats::class)
-            ->willReturn($overallGameStatsRepositoryMock);
+            ->with($this->logicalOr(
+                OverallGameStats::class,
+                Purchase::class
+            ))
+            ->will($this->returnCallback([$this, 'getEntityManagerCallback']));
 
         $argsMock->expects($this->any())
             ->method('getEntityManager')
             ->willReturn($entityManagerMock);
 
         $purchaseUtilMock = $this->createMock(PurchaseUtil::class);
-        $wastedMoneyPurchaseListener = new WastedMoneyPurchaseListener($purchaseUtilMock);
+        $wastedMoneyGameListener = new WastedMoneyListener($purchaseUtilMock);
 
-        $this->assertEquals('S', $wastedMoneyPurchaseListener->postPersist($argsMock));
+        $this->assertEquals('S', $wastedMoneyGameListener->postPersist($argsMock));
     }
 
-    public function testPostPersistWorksCorrect(): void
+    public function testPostPersistWorksCorrectOnGameEntity(): void
     {
         $game = new Game();
         $game->setTimePlayed(10);
 
+        $argsMock = $this->createMock(LifecycleEventArgs::class);
+        $argsMock->expects($this->any())
+            ->method('getEntity')
+            ->willReturn($game);
+
+        $entityManagerMock = $this->createMock(EntityManager::class);
+        $entityManagerMock->expects($this->any())
+            ->method('getRepository')
+            ->with($this->logicalOr(
+                OverallGameStats::class,
+                Purchase::class
+            ))
+            ->will($this->returnCallback([$this, 'getEntityManagerCallback']));
+
+        $argsMock->expects($this->any())
+            ->method('getEntityManager')
+            ->willReturn($entityManagerMock);
+
+        $purchaseUtilMock = $this->createMock(PurchaseUtil::class);
+        $wastedMoneyGameListener = new WastedMoneyListener($purchaseUtilMock);
+
+        $this->assertEquals('U', $wastedMoneyGameListener->postPersist($argsMock));
+    }
+
+    public function testPostPersistWorksCorrectOnPurchaseEntity(): void
+    {
         $purchase = new Purchase();
-        $purchase->setPrice(10);
-        $purchase->setType(Purchase::OTHER_PURCHASE);
-        $purchase->setCurrency(getenv('DEFAULT_CURRENCY'));
-        $purchase->setGame($game);
 
         $argsMock = $this->createMock(LifecycleEventArgs::class);
         $argsMock->expects($this->any())
             ->method('getEntity')
             ->willReturn($purchase);
 
-        $overallGameStatsRepositoryMock = $this->createMock(OverallGameStatsRepository::class);
-
         $entityManagerMock = $this->createMock(EntityManager::class);
         $entityManagerMock->expects($this->any())
             ->method('getRepository')
-            ->with(OverallGameStats::class)
-            ->willReturn($overallGameStatsRepositoryMock);
+            ->with($this->logicalOr(
+                OverallGameStats::class,
+                Purchase::class
+            ))
+            ->will($this->returnCallback([$this, 'getEntityManagerCallback']));
 
         $argsMock->expects($this->any())
             ->method('getEntityManager')
             ->willReturn($entityManagerMock);
 
         $purchaseUtilMock = $this->createMock(PurchaseUtil::class);
+        $wastedMoneyGameListener = new WastedMoneyListener($purchaseUtilMock);
 
-        $wastedMoneyPurchaseListener = new WastedMoneyPurchaseListener($purchaseUtilMock);
-
-        $this->assertEquals('U', $wastedMoneyPurchaseListener->postPersist($argsMock));
+        $this->assertEquals('U', $wastedMoneyGameListener->postPersist($argsMock));
     }
 
     public function testPostUpdateSkipsOnWrongEntity(): void
@@ -86,22 +132,24 @@ class WastedMoneyPurchaseListenerTest extends TestCase
             ->method('getEntity')
             ->willReturn(new GameSession());
 
-        $overallGameStatsRepositoryMock = $this->createMock(OverallGameStatsRepository::class);
 
         $entityManagerMock = $this->createMock(EntityManager::class);
         $entityManagerMock->expects($this->any())
             ->method('getRepository')
-            ->with(OverallGameStats::class)
-            ->willReturn($overallGameStatsRepositoryMock);
+            ->with($this->logicalOr(
+                OverallGameStats::class,
+                Purchase::class
+            ))
+            ->will($this->returnCallback([$this, 'getEntityManagerCallback']));
 
         $argsMock->expects($this->any())
             ->method('getEntityManager')
             ->willReturn($entityManagerMock);
 
         $purchaseUtilMock = $this->createMock(PurchaseUtil::class);
-        $wastedMoneyPurchaseListener = new WastedMoneyPurchaseListener($purchaseUtilMock);
+        $wastedMoneyGameListener = new WastedMoneyListener($purchaseUtilMock);
 
-        $this->assertEquals('S', $wastedMoneyPurchaseListener->postUpdate($argsMock));
+        $this->assertEquals('S', $wastedMoneyGameListener->postUpdate($argsMock));
     }
 
     /**
@@ -113,24 +161,21 @@ class WastedMoneyPurchaseListenerTest extends TestCase
     public function testPostUpdateWorksCorrect(array $changeSet): void
     {
         $game = new Game();
-        $game->setTimePlayed(1);
-        $purchase = new Purchase();
-        $purchase->setPrice(10);
-        $purchase->setCurrency(getenv('DEFAULT_CURRENCY'));
-        $purchase->setGame($game);
+        $game->setTimePlayed(10);
 
         $argsMock = $this->createMock(LifecycleEventArgs::class);
         $argsMock->expects($this->any())
             ->method('getEntity')
-            ->willReturn($purchase);
-
-        $overallGameStatsRepositoryMock = $this->createMock(OverallGameStatsRepository::class);
+            ->willReturn($game);
 
         $entityManagerMock = $this->createMock(EntityManager::class);
         $entityManagerMock->expects($this->any())
             ->method('getRepository')
-            ->with(OverallGameStats::class)
-            ->willReturn($overallGameStatsRepositoryMock);
+            ->with($this->logicalOr(
+                OverallGameStats::class,
+                Purchase::class
+            ))
+            ->will($this->returnCallback([$this, 'getEntityManagerCallback']));
 
         $unitOfWorkMock = $this->createMock(UnitOfWork::class);
         $unitOfWorkMock->expects($this->any())
@@ -146,9 +191,9 @@ class WastedMoneyPurchaseListenerTest extends TestCase
             ->willReturn($entityManagerMock);
 
         $purchaseUtilMock = $this->createMock(PurchaseUtil::class);
-        $wastedMoneyPurchaseListener = new WastedMoneyPurchaseListener($purchaseUtilMock);
+        $wastedMoneyGameListener = new WastedMoneyListener($purchaseUtilMock);
 
-        $this->assertEquals('U', $wastedMoneyPurchaseListener->postUpdate($argsMock));
+        $this->assertEquals('U', $wastedMoneyGameListener->postUpdate($argsMock));
     }
 
     /**
@@ -170,17 +215,19 @@ class WastedMoneyPurchaseListenerTest extends TestCase
                     'timePlayed' => [0, 1]
                 ]
             ],
-            [
-                [
-                    'timePlayed' => [0, 70]
-                ]
-            ],
-            [
-                [
-                    'price' => [10, 5],
-                    'timePlayed' => [0, 70]
-                ]
-            ],
         ];
+    }
+
+    /**
+     * @param string $entityManagerClass
+     * @return MockObject
+     */
+    public function getEntityManagerCallback(string $entityManagerClass): MockObject
+    {
+        if ($entityManagerClass === OverallGameStats::class) {
+            return $this->overallGameStatsRepositoryMock;
+        }
+
+        return $this->purchaseRepositoryMock;
     }
 }

@@ -6,6 +6,7 @@ use App\Entity\Game;
 use App\Entity\OverallGameStats;
 use App\Entity\Purchase;
 use App\Repository\OverallGameStatsRepository;
+use App\Repository\PurchaseRepository;
 use App\Service\Util\PurchaseUtil;
 
 /**
@@ -24,129 +25,45 @@ class InvestedMoneyService extends AbstractStatsService
     private $overallGameStatsRepository;
 
     /**
-     * PurchaseService constructor.
+     * @var PurchaseRepository
+     */
+    private $purchaseRepository;
+
+    /**
+     * WastedMoneyService constructor.
      * @param PurchaseUtil $purchaseUtil
      * @param OverallGameStatsRepository $overallGameStatsRepository
+     * @param PurchaseRepository $purchaseRepository
      */
-    public function __construct(PurchaseUtil $purchaseUtil, OverallGameStatsRepository $overallGameStatsRepository)
-    {
+    public function __construct(
+        PurchaseUtil $purchaseUtil,
+        OverallGameStatsRepository $overallGameStatsRepository,
+        PurchaseRepository $purchaseRepository
+    ) {
         parent::__construct($overallGameStatsRepository);
         $this->purchaseUtil = $purchaseUtil;
         $this->overallGameStatsRepository = $overallGameStatsRepository;
+        $this->purchaseRepository = $purchaseRepository;
     }
 
     /**
-     * @param Purchase $purchase
      * @return OverallGameStats
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
-    public function addPurchase(Purchase $purchase): OverallGameStats
+    public function recalculate(): OverallGameStats
     {
         $overallGameStats = $this->getOverallGameStats();
+        $overallGameStats->resetInvestedMoney();
 
-        $overallGameStats->addToInvestedMoney($this->purchaseUtil->transformPrice(
-            $purchase->getPrice(),
-            $purchase->getCurrency(),
-            $overallGameStats->getCurrency()
-        ));
-
-        $this->overallGameStatsRepository->save($overallGameStats);
-
-        return $overallGameStats;
-    }
-
-    /**
-     * @param int $diff
-     * @param Purchase $purchase
-     * @return OverallGameStats
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
-     */
-    public function updatePurchase(int $diff, Purchase $purchase): OverallGameStats
-    {
-        $overallGameStats = $this->getOverallGameStats();
-
-        $overallGameStats->addToInvestedMoney($this->purchaseUtil->transformPrice(
-            $diff,
-            $purchase->getCurrency(),
-            $overallGameStats->getCurrency()
-        ));
-
-        $this->overallGameStatsRepository->save($overallGameStats);
-
-        return $overallGameStats;
-    }
-
-    /**
-     * @param Game $game
-     * @return OverallGameStats
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
-     */
-    public function addGameDefaultPrice(Game $game): OverallGameStats
-    {
-        $overallGameStats = $this->getOverallGameStats();
-
-        if ($game->hasGamePurchase()) {
-            $overallGameStats;
-        }
-
-        $overallGameStats->addToInvestedMoney($this->purchaseUtil->transformPrice(
-            $game->getPrice(),
-            $game->getCurrency(),
-            $overallGameStats->getCurrency()
-        ));
-
-        $this->overallGameStatsRepository->save($overallGameStats);
-
-        return $overallGameStats;
-    }
-
-    /**
-     * @param int $diff
-     * @param Game $game
-     * @return OverallGameStats
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
-     */
-    public function updateGameDefaultPrice(int $diff, Game $game): OverallGameStats
-    {
-        $overallGameStats = $this->getOverallGameStats();
-
-        if ($game->hasGamePurchase()) {
-            return $overallGameStats;
-        }
-
-        $overallGameStats->addToInvestedMoney($this->purchaseUtil->transformPrice(
-            $diff,
-            $game->getCurrency(),
-            $overallGameStats->getCurrency()
-        ));
-
-        $this->overallGameStatsRepository->save($overallGameStats);
-
-        return $overallGameStats;
-    }
-
-    /**
-     * @param Purchase $purchase
-     * @return OverallGameStats
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
-     */
-    public function removeGameDefaultPrice(Purchase $purchase): OverallGameStats
-    {
-        $overallGameStats = $this->getOverallGameStats();
-
-        if ($purchase->getType() == Purchase::GAME_PURCHASE) {
+        $purchases = $this->purchaseRepository->findAll();
+        foreach ($purchases as $purchase) {
             $overallGameStats->addToInvestedMoney($this->purchaseUtil->transformPrice(
-                $purchase->getGame()->getPrice() * -1,
+                $purchase->getPrice(),
                 $purchase->getCurrency(),
                 $overallGameStats->getCurrency()
             ));
         }
-
         $this->overallGameStatsRepository->save($overallGameStats);
 
         return $overallGameStats;

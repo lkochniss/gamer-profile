@@ -46,14 +46,8 @@ services:
             - { name: doctrine.event_listener, event: postPersist }
             - { name: doctrine.event_listener, event: postUpdate }
 
-    App\Listener\InvestedMoneyGameListener:
-        class: App\Listener\InvestedMoneyGameListener
-        tags:
-            - { name: doctrine.event_listener, event: postPersist }
-            - { name: doctrine.event_listener, event: postUpdate }
-
-    App\Listener\InvestedMoneyPurchaseListener:
-        class: App\Listener\InvestedMoneyPurchaseListener
+    App\Listener\InvestedMoneyListener:
+        class: App\Listener\InvestedMoneyListener
         tags:
             - { name: doctrine.event_listener, event: postPersist }
             - { name: doctrine.event_listener, event: postUpdate }
@@ -64,14 +58,7 @@ services:
             - { name: doctrine.event_listener, event: postPersist }
             - { name: doctrine.event_listener, event: postUpdate }
 
-    App\Listener\WastedMoneyGameListener:
-        class: App\Listener\WastedMoneyGameListener
+    App\Listener\WastedMoneyListener:
+        class: App\Listener\WastedMoneyListener
         tags:
-            - { name: doctrine.event_listener, event: postPersist }
-            - { name: doctrine.event_listener, event: postUpdate }
-
-    App\Listener\WastedMoneyPurchaseListener:
-        class: App\Listener\WastedMoneyPurchaseListener
-        tags:
-            - { name: doctrine.event_listener, event: postPersist }
             - { name: doctrine.event_listener, event: postUpdate }

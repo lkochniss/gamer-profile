@@ -146,6 +146,11 @@ class OverallGameStats extends AbstractEntity
         $this->investedMoney += $number;
     }
 
+    public function resetInvestedMoney(): void
+    {
+        $this->investedMoney = 0;
+    }
+
     /**
      * @return float
      */
@@ -160,6 +165,11 @@ class OverallGameStats extends AbstractEntity
     public function addToWastedMoney(float $number): void
     {
         $this->wastedMoney += $number;
+    }
+
+    public function resetWastedMoney(): void
+    {
+        $this->wastedMoney = 0;
     }
 
     /**

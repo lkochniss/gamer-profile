@@ -3,12 +3,16 @@
 namespace App\Controller;
 
 use App\Entity\GameSessionsPerMonth;
+use App\Listener\InvestedMoneyListener;
 use App\Repository\GameRepository;
 use App\Repository\GameSessionsPerMonthRepository;
 use App\Repository\OverallGameStatsRepository;
 use App\Repository\PlaytimePerMonthRepository;
+use App\Service\Stats\InvestedMoneyService;
+use App\Service\Stats\WastedMoneyService;
 use App\Service\Steam\Transformation\RecentlyPlayedGamesService;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -82,6 +86,32 @@ class HomepageController extends Controller
         return $this->render('Homepage/gameOfTheMonth.html.twig', [
             'bestGamePerMonth' => $bestGamePerMonth
         ]);
+    }
+
+    /**
+     * @param WastedMoneyService $moneyService
+     * @return RedirectResponse
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function updateWasted(WastedMoneyService $moneyService): RedirectResponse
+    {
+        $moneyService->recalculate();
+
+        return $this->redirectToRoute('homepage_backend_dashboard');
+    }
+
+    /**
+     * @param InvestedMoneyService $moneyService
+     * @return RedirectResponse
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function updateInvested(InvestedMoneyService $moneyService): RedirectResponse
+    {
+        $moneyService->recalculate();
+
+        return $this->redirectToRoute('homepage_backend_dashboard');
     }
 
     /**
