@@ -10,9 +10,9 @@ use App\Service\Util\PurchaseUtil;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 
 /**
- * Class PurchaseListener
+ * Class InvestedMoneyListener
  */
-class InvestedMoneyPurchaseListener
+class InvestedMoneyListener
 {
     /**
      * @var PurchaseUtil
@@ -36,22 +36,7 @@ class InvestedMoneyPurchaseListener
      */
     public function postPersist(LifecycleEventArgs $args): string
     {
-        /**
-         * @var Purchase $entity
-         */
-        $entity = $args->getEntity();
-
-        if ($entity instanceof Purchase === false) {
-            return 'S';
-        }
-
-        $overallGameStatsRepository = $args->getEntityManager()->getRepository(OverallGameStats::class);
-        $investedMoneyService = new InvestedMoneyService($this->purchaseUtil, $overallGameStatsRepository);
-
-        $investedMoneyService->addPurchase($entity);
-        $investedMoneyService->removeGameDefaultPrice($entity);
-
-        return 'U';
+        return $this->updateInvestedMoney($args);
     }
 
     /**
@@ -62,26 +47,32 @@ class InvestedMoneyPurchaseListener
      */
     public function postUpdate(LifecycleEventArgs $args): string
     {
-        /**
-         * @var Game $entity
-         */
+        return $this->updateInvestedMoney($args);
+    }
+
+    /**
+     * @param LifecycleEventArgs $args
+     * @return string
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    private function updateInvestedMoney(LifecycleEventArgs $args): string
+    {
         $entity = $args->getEntity();
 
-        if ($entity instanceof Purchase === false) {
+        if (($entity instanceof Game === false) && ($entity instanceof Purchase === false)) {
             return 'S';
         }
 
-        $unitOfWork = $args->getEntityManager()->getUnitOfWork();
-        $changeSet = $unitOfWork->getEntityChangeSet($entity);
-
         $overallGameStatsRepository = $args->getEntityManager()->getRepository(OverallGameStats::class);
-        $investedMoneyService = new InvestedMoneyService($this->purchaseUtil, $overallGameStatsRepository);
+        $purchaseRepository = $args->getEntityManager()->getRepository(Purchase::class);
+        $wastedMoneyService = new InvestedMoneyService(
+            $this->purchaseUtil,
+            $overallGameStatsRepository,
+            $purchaseRepository
+        );
 
-        $priceKey = 'price';
-        if (array_key_exists($priceKey, $changeSet)) {
-            $diff = $changeSet[$priceKey][1] - $changeSet[$priceKey][0];
-            $investedMoneyService->updatePurchase($diff, $entity);
-        }
+        $wastedMoneyService->recalculate();
 
         return 'U';
     }
