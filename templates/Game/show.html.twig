@@ -1,13 +1,21 @@
 {% extends 'base.html.twig' %}
 {% block body %}
 
-<div class="row">
-    <div class="col-lg-12">
-        <h1 class="page-header">
-            {{ entity.name }}
-        </h1>
-        <img class="pull-right thumbnail" src="{{ entity.headerImagePath }}"/>
-        {{ entity.description| raw }}
+<div class="row mb-4">
+    <div class="col">
+        <div class="row">
+            <div class="col">
+                <h1 class="page-header">
+                    {{ entity.name }}
+                    <a href="{{ path('game_edit', {'id': entity.id}) }}">edit</a>
+                </h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <img class="thumbnail" src="{{ entity.headerImagePath }}"/>
+            </div>
+        </div>
     </div>
 </div>
 <div class="row">

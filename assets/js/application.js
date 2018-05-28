@@ -6,6 +6,8 @@ import dashboard from './dashboard';
 const enableSelect2 = () => {
   $('#blog_post_game').select2();
   $('#purchase_game').select2();
+
+  $('.select2-container').addClass('col-form-label');
 };
 
 const setWeekyDashboard = () => {
@@ -45,10 +47,16 @@ const setPlaytimeGame = () => {
   }
 };
 
+const addImgClass = () => {
+  const image = $('img');
+  image.addClass('img-fluid');
+  image.removeAttr('style');
+};
+
 $(document).ready(() => {
   enableSelect2();
   setWeekyDashboard();
   setMonthlyDashboard();
   setPlaytimeGame();
-  $('.select2-container').addClass('col-form-label');
+  addImgClass();
 });
