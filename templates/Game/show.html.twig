@@ -15,8 +15,8 @@
 
 </div>
 <div class="row">
-    <div class="col">
-        <img class="thumbnail" src="{{ entity.headerImagePath }}"/>
+    <div class="col mb-3">
+        <img src='{{ entity.headerImagePath }}' alt='{{ entity.name }}' class='img-responsive card-img-top'/>
     </div>
     {% include '_modules/Game/information-card.html.twig' %}
     {% include '_modules/Game/session-card.html.twig' %}
