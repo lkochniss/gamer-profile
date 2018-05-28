@@ -2,22 +2,39 @@
 {% block body %}
     {{ form_start(form) }}
     <div class="row">
-        <div class="col">
-            {{ form_row(form.type) }}
+        <div class="col-md-1 col-form-label">
+            <label>{% trans from "messages" %}type{% endtrans %}</label>
         </div>
-        <div class="col">
-            {{ form_row(form.price) }}
+        <div class="col-md-2">
+            {{ form_widget(form.type) }}
+        </div>
+        <div class="col-md-1 col-form-label">
+            <label>{% trans from "messages" %}game{% endtrans %}</label>
+        </div>
+        <div class="col-md-2">
+            {{ form_widget(form.game) }}
+        </div>
+        <div class="col-md-1 col-form-label">
+            <label>{% trans from "messages" %}price{% endtrans %}</label>
+        </div>
+        <div class="col-md-1">
+            {{ form_widget(form.price) }}
+        </div>
+        <div class="col-md-1">
             {{ form_widget(form.currency) }}
         </div>
-        <div class="col">
-            {{ form_row(form.game) }}
-        </div>
-        <div class="col">
-            {{ form_row(form.boughtAt) }}
-        </div>
     </div>
-    <div class="row">
-        <div class="col">
+    <div class="row mb-4">
+        <div class="col-md-1 col-form-label">
+            <label>{% trans from "messages" %}bought_at{% endtrans %}</label>
+        </div>
+        <div class="col-md-2">
+            {{ form_widget(form.boughtAt) }}
+        </div>
+        <div class="col-md-1 col-form-label">
+            <label>{% trans from "messages" %}notice{% endtrans %}</label>
+        </div>
+        <div class="col-md-2">
             {{ form_widget(form.notice) }}
         </div>
     </div>

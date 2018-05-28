@@ -7,40 +7,15 @@
     </div>
     {{ form_start(form) }}
     <div class="row">
-        <div class="col huge">
-            {{ form_label(form.boughtAt) }}
+        <div class="col text-right col-form-label">
+            <label>{% trans from "messages" %}bought_at{% endtrans %}</label>
         </div>
-    </div>
-    <div class="row">
-        <div class="col">
+        <div class="col-md-2">
             {{ form_widget(form.boughtAt) }}
         </div>
-    </div>
-    <div class="row">
-        <div class="col huge">
-            {{ form_label(form.description) }}
-        </div>
-    </div>
-    <div class="row">
-        <div class="col">
-            {{ form_widget(form.description) }}
-        </div>
-    </div>
-    <div class="row">
         <div class="col">
             {{ form_row(form.submit) }}
         </div>
     </div>
     {{ form_end(form) }}
-{% endblock %}
-{% block javascripts %}
-    {{ parent() }}
-    <script src="https://cdn.ckeditor.com/4.8.0/standard/ckeditor.js"></script>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            CKEDITOR.replace('game_description',{
-              'entities': false
-            });
-        });
-    </script>
 {% endblock %}

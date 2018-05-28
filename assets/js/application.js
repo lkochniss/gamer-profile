@@ -9,31 +9,40 @@ const enableSelect2 = () => {
 };
 
 const setWeekyDashboard = () => {
-  $.getJSON({
-    url: '/admin/sessions/recently',
-    success: (data) => {
-      dashboard('#playtime-last-week', data, '%d-%m-%y');
-    },
-  });
+  const id = '#playtime-last-week';
+  if ($(id).length) {
+    $.getJSON({
+      url: '/admin/sessions/recently',
+      success: (data) => {
+        dashboard(id, data, '%d-%m-%y');
+      },
+    });
+  }
 };
 
 const setMonthlyDashboard = () => {
-  $.getJSON({
-    url: '/admin/sessions/per-month',
-    success: (data) => {
-      dashboard('#playtime-per-month', data, '%m-%y');
-    },
-  });
+  const id = '#playtime-per-month';
+  if ($(id).length) {
+    $.getJSON({
+      url: '/admin/sessions/per-month',
+      success: (data) => {
+        dashboard(id, data, '%m-%y');
+      },
+    });
+  }
 };
 
 const setPlaytimeGame = () => {
-  const gameId = $('#playtime-game').data('game-id');
-  $.getJSON({
-    url: `/admin/sessions/game/${gameId}`,
-    success: (data) => {
-      dashboard('#playtime-game', data, '%d-%m-%y');
-    },
-  });
+  const id = '#playtime-game';
+  if ($(id).length) {
+    const gameId = $(id).data('game-id');
+    $.getJSON({
+      url: `/admin/sessions/game/${gameId}`,
+      success: (data) => {
+        dashboard(id, data, '%d-%m-%y');
+      },
+    });
+  }
 };
 
 $(document).ready(() => {
@@ -41,4 +50,5 @@ $(document).ready(() => {
   setWeekyDashboard();
   setMonthlyDashboard();
   setPlaytimeGame();
+  $('.select2-container').addClass('col-form-label');
 });
