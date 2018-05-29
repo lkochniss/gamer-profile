@@ -1,8 +1,4 @@
 {% extends 'admin-base.html.twig' %}
- {% block stylesheets %}
-     {{ parent() }}
-     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
- {% endblock %}
 {% block body %}
     <h1>
         {{ game.name }}
@@ -32,13 +28,4 @@
         {% endfor %}
         </tbody>
     </table>
-{% endblock %}
-{% block javascripts %}
-    {{ parent() }}
-    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $('#game-session-list').DataTable();
-        });
-    </script>
 {% endblock %}

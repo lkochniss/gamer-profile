@@ -1,7 +1,8 @@
-import 'select2';
 import 'bootstrap';
+import 'select2';
 import $ from 'jquery';
 import dashboard from './dashboard';
+import datatables from './datatables';
 
 const enableSelect2 = () => {
   $('#blog_post_game').select2();
@@ -53,10 +54,22 @@ const addImgClass = () => {
   image.removeAttr('style');
 };
 
+const addDataTables = () => {
+  datatables('#blog-post-list', 3, 'DESC');
+  datatables('#blog-post-for-game-list', 1, 'DESC');
+  datatables('#blog-post-frontend-list', 1, 'DESC');
+  datatables('#game-list-backend', 3, 'DESC');
+  datatables('#game-session-list');
+  datatables('#game-session-for-game-list', 1, 'DESC');
+  datatables('#game-list');
+  datatables('#purchase-list', 4, 'DESC');
+}
+
 $(document).ready(() => {
   enableSelect2();
   setWeekyDashboard();
   setMonthlyDashboard();
   setPlaytimeGame();
   addImgClass();
+  addDataTables();
 });
