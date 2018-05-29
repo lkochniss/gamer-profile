@@ -72,7 +72,7 @@ const addDataTables = () => {
   dataTables('#blog-post-list', 3, 'DESC');
   dataTables('#blog-post-for-game-list', 1, 'DESC');
   dataTables('#blog-post-frontend-list', 1, 'DESC');
-  dataTables('#game-list-backend', 3, 'DESC');
+  dataTables('#game-list-backend', 4, 'DESC');
   dataTables('#game-session-list');
   dataTables('#game-session-for-game-list', 1, 'DESC');
   dataTables('#game-list');

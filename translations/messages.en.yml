@@ -3,6 +3,7 @@ average_session: 'Average Session'
 blog_post_list: 'List Blog Posts'
 blog_posts: 'Blog Posts'
 bought_at: 'Bought At'
+bought_for: 'Bought For'
 create_new_blog_post: 'Create new Blog Post'
 create_new_purchase: 'Create New Purchase'
 costs: Costs
@@ -37,10 +38,10 @@ most_played: 'Most Played'
 name: Name
 new_games: 'New Games'
 notice: Notice
-number_of_blog_posts: 'Number of Blog Posts'
-number_of_game_sessions: 'Number Of Game Sessions'
-number_of_purchases: 'Number of Purchases'
-number_of_sessions: 'Number Of Sessions'
+number_of_blog_posts: 'Blog Posts'
+number_of_game_sessions: 'Game Sessions'
+number_of_purchases: 'Purchases'
+number_of_sessions: 'Sessions'
 overall_costs: 'Overall Costs'
 overall_playtime: 'Overall Playtime'
 password: Password
