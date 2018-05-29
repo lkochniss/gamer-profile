@@ -20,10 +20,12 @@ export default (id, data) => {
   const y = d3.scaleLinear().rangeRound([0, height]);
 
   x.domain(data.map(d => d.date));
-  y.domain([d3.max(data, d => d.money), 0]);
+  y.domain([d3.max(data, d => d.price), 0]);
 
   const g = svg.append('g')
     .attr('transform', `translate(${margin.left},${margin.top})`);
+
+  const tooltip = d3.select('body').append('div').attr('class', 'toolTip');
 
   g.append('g')
     .attr('class', 'axis axis--x')
@@ -45,7 +47,15 @@ export default (id, data) => {
     .enter().append('rect')
     .attr('class', 'bar')
     .attr('x', d => x(d.date))
-    .attr('y', d => y(d.money))
+    .attr('y', d => y(d.price))
     .attr('width', x.bandwidth())
-    .attr('height', d => height - y(d.money));
+    .attr('height', d => height - y(d.price))
+    .on('mousemove', (d) => {
+      tooltip
+        .style('left', `${d3.event.pageX - 50}px`)
+        .style('top', `${d3.event.pageY - 70}px`)
+        .style('display', 'inline-block')
+        .html(`${d.price} ${d.currency}`);
+    })
+    .on('mouseout', () => { tooltip.style('display', 'none'); });
 };

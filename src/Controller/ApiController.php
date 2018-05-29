@@ -126,7 +126,8 @@ class ApiController extends Controller
 
         $data = array_map(function ($date, $money) {
             return [
-                'money' => $money,
+                'price' => round($money, 2),
+                'currency' => getenv('DEFAULT_CURRENCY'),
                 'date' => $date,
             ];
         }, array_keys($data), $data);
