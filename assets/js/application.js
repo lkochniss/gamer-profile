@@ -1,8 +1,8 @@
 import 'bootstrap';
 import 'select2';
 import $ from 'jquery';
-import dashboard from './dashboard';
-import datatables from './datatables';
+import moneyGraph from './money-graph';
+import dataTables from './data-tables';
 
 const enableSelect2 = () => {
   $('#blog_post_game').select2();
@@ -17,7 +17,7 @@ const setWeekyDashboard = () => {
     $.getJSON({
       url: '/admin/sessions/recently',
       success: (data) => {
-        dashboard(id, data, '%d-%m-%y');
+        moneyGraph(id, data, '%d-%m-%y');
       },
     });
   }
@@ -29,7 +29,7 @@ const setMonthlyDashboard = () => {
     $.getJSON({
       url: '/admin/sessions/per-month',
       success: (data) => {
-        dashboard(id, data, '%m-%y');
+        moneyGraph(id, data, '%m-%y');
       },
     });
   }
@@ -42,7 +42,7 @@ const setPlaytimeGame = () => {
     $.getJSON({
       url: `/admin/sessions/game/${gameId}`,
       success: (data) => {
-        dashboard(id, data, '%d-%m-%y');
+        moneyGraph(id, data, '%d-%m-%y');
       },
     });
   }
@@ -55,14 +55,14 @@ const addImgClass = () => {
 };
 
 const addDataTables = () => {
-  datatables('#blog-post-list', 3, 'DESC');
-  datatables('#blog-post-for-game-list', 1, 'DESC');
-  datatables('#blog-post-frontend-list', 1, 'DESC');
-  datatables('#game-list-backend', 3, 'DESC');
-  datatables('#game-session-list');
-  datatables('#game-session-for-game-list', 1, 'DESC');
-  datatables('#game-list');
-  datatables('#purchase-list', 4, 'DESC');
+  dataTables('#blog-post-list', 3, 'DESC');
+  dataTables('#blog-post-for-game-list', 1, 'DESC');
+  dataTables('#blog-post-frontend-list', 1, 'DESC');
+  dataTables('#game-list-backend', 3, 'DESC');
+  dataTables('#game-session-list');
+  dataTables('#game-session-for-game-list', 1, 'DESC');
+  dataTables('#game-list');
+  dataTables('#purchase-list', 4, 'DESC');
 }
 
 $(document).ready(() => {
