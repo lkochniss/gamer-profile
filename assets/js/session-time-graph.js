@@ -68,7 +68,7 @@ export default (id, data, xFormat) => {
         .style('left', `${d3.event.pageX - 50}px`)
         .style('top', `${d3.event.pageY - 70}px`)
         .style('display', 'inline-block')
-        .html(`${formatTime(d.date)}: <b>${d.timeInMinutes}</b>`);
+        .html(`${formatTime(d.date)}: <b>${d.timeForTooltip}</b>`);
     })
     .on('mouseout', () => { tooltip.style('display', 'none'); });
 };

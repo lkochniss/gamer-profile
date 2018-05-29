@@ -8,6 +8,7 @@ use App\Repository\GameRepository;
 use App\Repository\GameSessionRepository;
 use App\Repository\PlaytimePerMonthRepository;
 use App\Repository\PurchaseRepository;
+use App\Service\TimeConverterService;
 use App\Service\Util\PurchaseUtil;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -19,6 +20,20 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 class ApiController extends Controller
 {
     /**
+     * @var TimeConverterService
+     */
+    private $timeConverterService;
+
+    /**
+     * ApiController constructor.
+     * @param TimeConverterService $timeConverterService
+     */
+    public function __construct(TimeConverterService $timeConverterService)
+    {
+        $this->timeConverterService = $timeConverterService;
+    }
+
+    /**
      * @param PlaytimePerMonthRepository $playtimePerMonthRepository
      * @return JsonResponse
      */
@@ -29,8 +44,9 @@ class ApiController extends Controller
         $data = [];
         foreach ($playtimePerMonth as $playtime) {
             $data[] = [
+                'date' => $playtime->getMonth()->format('M Y'),
                 'timeInMinutes' => $playtime->getDuration(),
-                'date' => $playtime->getMonth()->format('M Y')
+                'timeForTooltip' => $this->timeConverterService->convertOverallTime($playtime->getDuration())
             ];
         }
 
@@ -60,8 +76,9 @@ class ApiController extends Controller
 
         $data = array_map(function ($month, $duration) {
             return [
+                'date' => $month,
                 'timeInMinutes' => $duration,
-                'date' => $month
+                'timeForTooltip' => $this->timeConverterService->convertRecentTime($duration)
             ];
         }, array_keys($data), $data);
 
@@ -91,8 +108,9 @@ class ApiController extends Controller
          */
         foreach ($game->getGameSessions() as $session) {
             $data[] = [
+                'date' => $session->getCreatedAt()->format('d M Y'),
                 'timeInMinutes' => $session->getDuration(),
-                'date' => $session->getCreatedAt()->format('d M Y')
+                'timeForTooltip' => $this->timeConverterService->convertRecentTime($session->getDuration())
             ];
         }
 
