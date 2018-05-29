@@ -1,50 +1,35 @@
 {% extends 'base.html.twig' %}
- {% block stylesheets %}
-     {{ parent() }}
-     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
- {% endblock %}
 {% block body %}
-    <div class="container">
-        <table id="game-list" class="table">
-            <thead>
+    <table id="game-list" class="table">
+        <thead>
+        <tr>
+            <th scope="col">
+                {% trans from 'messages' %}name{% endtrans %}
+            </th>
+            <th scope="col">
+                {% trans from 'messages' %}number_of_sessions{% endtrans %}
+            </th>
+            <th scope="col">
+                {% trans from 'messages' %}number_of_blog_posts{% endtrans %}
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for game in entities %}
             <tr>
-                <th scope="col">
-                    {% trans from 'messages' %}name{% endtrans %}
-                </th>
-                <th scope="col">
-                    {% trans from 'messages' %}number_of_sessions{% endtrans %}
-                </th>
-                <th scope="col">
-                    {% trans from 'messages' %}number_of_blog_posts{% endtrans %}
-                </th>
+                <td scope="row">
+                    <a href="{{ path('game_show', {'slug': game.slug}) }}">
+                        {{ game.name }}
+                    </a>
+                </td>
+                <td scope="col">
+                    {{ game.gameSessions|length }}
+                </td>
+                <td scope="col">
+                    {{ game.blogPosts|length }}
+                </td>
             </tr>
-            </thead>
-            <tbody>
-            {% for game in entities %}
-                <tr>
-                    <td scope="row">
-                        <a href="{{ path('game_show', {'slug': game.slug}) }}">
-                            {{ game.name }}
-                        </a>
-                    </td>
-                    <td scope="col">
-                        {{ game.gameSessions|length }}
-                    </td>
-                    <td scope="col">
-                        {{ game.blogPosts|length }}
-                    </td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
-    </div>
-{% endblock %}
-{% block javascripts %}
-    {{ parent() }}
-    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $('#game-list').DataTable();
-        });
-    </script>
+        {% endfor %}
+        </tbody>
+    </table>
 {% endblock %}

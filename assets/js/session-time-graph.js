@@ -15,10 +15,11 @@ export default (id, data, xFormat) => {
   const x = d3.scaleTime().range([0, width]);
   const y = d3.scaleLinear().range([height, 0]);
   const parseTime = d3.timeParse(xFormat);
+  const formatTime = d3.timeFormat(xFormat);
 
   const valueline = d3.line()
-    .x(d => x(d.month))
-    .y(d => y(d.total));
+    .x(d => x(d.date))
+    .y(d => y(d.timeInMinutes));
 
   const svg = d3.select(id).append('svg')
     .attr('width', width + margin.left + margin.right)
@@ -30,12 +31,12 @@ export default (id, data, xFormat) => {
     );
 
   data.forEach((d) => {
-    d.month = parseTime(d.month);
-    d.total = +d.total;
+    d.date = parseTime(d.date);
+    d.timeInMinutes = +d.timeInMinutes;
   });
 
-  x.domain(d3.extent(data, d => d.month));
-  y.domain([0, d3.max(data, d => d.total)]);
+  x.domain(d3.extent(data, d => d.date));
+  y.domain([0, d3.max(data, d => d.timeInMinutes)]);
 
   svg.append('path')
     .data([data])
@@ -53,4 +54,21 @@ export default (id, data, xFormat) => {
 
   svg.append('g')
     .call(d3.axisLeft(y));
+
+  const tooltip = d3.select('body').append('div').attr('class', 'toolTip');
+
+  svg.selectAll('dot')
+    .data(data)
+    .enter().append('circle')
+    .attr('r', 5)
+    .attr('cx', d => x(d.date))
+    .attr('cy', d => y(d.timeInMinutes))
+    .on('mouseover', (d) => {
+      tooltip
+        .style('left', `${d3.event.pageX - 50}px`)
+        .style('top', `${d3.event.pageY - 70}px`)
+        .style('display', 'inline-block')
+        .html(`${formatTime(d.date)}: <b>${d.timeInMinutes}</b>`);
+    })
+    .on('mouseout', () => { tooltip.style('display', 'none'); });
 };

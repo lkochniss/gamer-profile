@@ -9,3 +9,7 @@ sessions_last_week:
 sessions_for_game:
     path:   /sessions/game/{id}
     defaults: { _controller: 'App\Controller\ApiController::sessionsForGame'  }
+
+invested_money_per_month:
+    path:   /money/per-month
+    defaults: { _controller: 'App\Controller\ApiController::investedMoneyPerMonth'  }

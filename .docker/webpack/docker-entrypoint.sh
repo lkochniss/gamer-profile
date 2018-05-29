@@ -1,1 +1,3 @@
-`npm bin`/webpack-cli --watch
+#!/bin/sh
+
+yarn webpack-cli --watch

@@ -47,6 +47,19 @@ module.exports = {
         test: /\.(otf|eot|svg|ttf|woff)/,
         loader: 'url-loader?limit=8192',
       },
+      {
+        test: /\.(png|jpg|jpeg|gif|ico)$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: '[name].[hash].[ext]',
+              outputPath: 'img/',
+              publicPath: '../img'
+            }
+          }
+        ]
+      },
     ],
   },
   plugins: [

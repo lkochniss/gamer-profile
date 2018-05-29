@@ -7,6 +7,8 @@ use App\Entity\GameSession;
 use App\Repository\GameRepository;
 use App\Repository\GameSessionRepository;
 use App\Repository\PlaytimePerMonthRepository;
+use App\Repository\PurchaseRepository;
+use App\Service\Util\PurchaseUtil;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -27,8 +29,8 @@ class ApiController extends Controller
         $data = [];
         foreach ($playtimePerMonth as $playtime) {
             $data[] = [
-                'total' => $playtime->getDuration(),
-                'month' => $playtime->getMonth()->format('m-y')
+                'timeInMinutes' => $playtime->getDuration(),
+                'date' => $playtime->getMonth()->format('M Y')
             ];
         }
 
@@ -49,16 +51,17 @@ class ApiController extends Controller
          * @var GameSession $session
          */
         foreach ($sessions as $session) {
-            if (!array_key_exists($session->getCreatedAt()->format('d-m-y'), $data)) {
-                $data[$session->getCreatedAt()->format('d-m-y')] = 0;
+            $key = $session->getCreatedAt()->format('d M Y');
+            if (!array_key_exists($key, $data)) {
+                $data[$key] = 0;
             }
-            $data[$session->getCreatedAt()->format('d-m-y')] += $session->getDuration();
+            $data[$key] += $session->getDuration();
         }
 
         $data = array_map(function ($month, $duration) {
             return [
-                'total' => $duration,
-                'month' => $month
+                'timeInMinutes' => $duration,
+                'date' => $month
             ];
         }, array_keys($data), $data);
 
@@ -88,10 +91,50 @@ class ApiController extends Controller
          */
         foreach ($game->getGameSessions() as $session) {
             $data[] = [
-                'total' => $session->getDuration(),
-                'month' => $session->getCreatedAt()->format('d-m-y')
+                'timeInMinutes' => $session->getDuration(),
+                'date' => $session->getCreatedAt()->format('d M Y')
             ];
         }
+
+        return new JsonResponse($data);
+    }
+
+    /**
+     * @param PurchaseRepository $purchaseRepository
+     * @param PurchaseUtil $purchaseUtil
+     * @return JsonResponse
+     */
+    public function investedMoneyPerMonth(
+        PurchaseRepository $purchaseRepository,
+        PurchaseUtil $purchaseUtil
+    ): JsonResponse {
+        $purchases = $purchaseRepository->findAll();
+        $defaultCurrency = getenv('DEFAULT_CURRENCY');
+
+        $data = [];
+        foreach ($purchases as $purchase) {
+            $key = $purchase->getBoughtAt()->format('M Y');
+            if (!array_key_exists($key, $data)) {
+                $data[$key] = 0;
+            }
+            $data[$key] += $purchaseUtil->transformPrice(
+                $purchase->getPrice(),
+                $purchase->getCurrency(),
+                $defaultCurrency
+            );
+        }
+
+        $data = array_map(function ($date, $money) {
+            return [
+                'price' => round($money, 2),
+                'currency' => getenv('DEFAULT_CURRENCY'),
+                'date' => $date,
+            ];
+        }, array_keys($data), $data);
+
+        usort($data, function ($a, $b) {
+            return strtotime($a["date"]) - strtotime($b["date"]);
+        });
 
         return new JsonResponse($data);
     }
