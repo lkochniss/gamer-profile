@@ -58,7 +58,7 @@
                         </a>
                     </div>
                     <div class="card-body">
-                        {{ gameStats.wastedMoney }} {{ gameStats.currency }}
+                        {{ gameStats.wastedMoney }}{{ gameStats.currency|trans }}
                     </div>
                 </div>
             </div>
@@ -71,18 +71,23 @@
                         </a>
                     </div>
                     <div class="card-body">
-                        {{ gameStats.investedMoney }} {{ gameStats.currency }}
+                        {{ gameStats.investedMoney }}{{ gameStats.currency|trans }}
                     </div>
                 </div>
             </div>
         {% endif %}
     </div>
-    <div class="row" style="height: 350px">
+    <div class="row mb-5" style="height: 350px">
         <div class="col-md-6" id="playtime-last-week">
             <h3>{% trans %}session_time_last_days{% endtrans %}</h3>
         </div>
         <div class="col-md-6" id="playtime-per-month">
             <h3>{% trans %}session_time_per_month{% endtrans %}</h3>
+        </div>
+    </div>
+    <div class="row" style="height: 350px">
+        <div class="col-md-12" id="invested-money-per-month">
+            <h3>{% trans with {'%currency%' :gameStats.currency |trans } %}invested_money_per_month{% endtrans %}</h3>
         </div>
     </div>
 {% endblock %}

@@ -22,6 +22,7 @@ game: Game
 games: Games
 information: Information
 invested_money: 'Invested Money'
+invested_money_per_month: 'Invested %currency% per month'
 last_session: 'Last Session'
 last_session_date_played_for: 'Last played on %date% for %time%'
 last_played: 'Last Played'
