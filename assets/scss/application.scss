@@ -20,3 +20,15 @@
   padding: 14px;
   text-align: center;
 }
+
+div.tooltip {
+  position: absolute;
+  text-align: center;
+  width: 60px;
+  height: 28px;
+  padding: 2px;
+  font: 12px sans-serif;
+  background: none repeat scroll 0 0 #ffffff;
+  border: 1px solid #6F257F;
+  pointer-events: none;
+}

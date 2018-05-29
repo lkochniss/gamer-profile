@@ -30,7 +30,7 @@ class ApiController extends Controller
         foreach ($playtimePerMonth as $playtime) {
             $data[] = [
                 'timeInMinutes' => $playtime->getDuration(),
-                'date' => $playtime->getMonth()->format('m-y')
+                'date' => $playtime->getMonth()->format('M Y')
             ];
         }
 
@@ -51,10 +51,11 @@ class ApiController extends Controller
          * @var GameSession $session
          */
         foreach ($sessions as $session) {
-            if (!array_key_exists($session->getCreatedAt()->format('d-m-y'), $data)) {
-                $data[$session->getCreatedAt()->format('d-m-y')] = 0;
+            $key = $session->getCreatedAt()->format('d M Y');
+            if (!array_key_exists($key, $data)) {
+                $data[$key] = 0;
             }
-            $data[$session->getCreatedAt()->format('d-m-y')] += $session->getDuration();
+            $data[$key] += $session->getDuration();
         }
 
         $data = array_map(function ($month, $duration) {
@@ -91,7 +92,7 @@ class ApiController extends Controller
         foreach ($game->getGameSessions() as $session) {
             $data[] = [
                 'timeInMinutes' => $session->getDuration(),
-                'date' => $session->getCreatedAt()->format('d-m-y')
+                'date' => $session->getCreatedAt()->format('d M Y')
             ];
         }
 
@@ -106,8 +107,7 @@ class ApiController extends Controller
     public function investedMoneyPerMonth(
         PurchaseRepository $purchaseRepository,
         PurchaseUtil $purchaseUtil
-    ): JsonResponse
-    {
+    ): JsonResponse {
         $purchases = $purchaseRepository->findAll();
         $defaultCurrency = getenv('DEFAULT_CURRENCY');
 

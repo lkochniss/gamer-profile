@@ -15,6 +15,7 @@ export default (id, data, xFormat) => {
   const x = d3.scaleTime().range([0, width]);
   const y = d3.scaleLinear().range([height, 0]);
   const parseTime = d3.timeParse(xFormat);
+  const formatTime = d3.timeFormat(xFormat);
 
   const valueline = d3.line()
     .x(d => x(d.date))
@@ -53,4 +54,21 @@ export default (id, data, xFormat) => {
 
   svg.append('g')
     .call(d3.axisLeft(y));
+
+  const tooltip = d3.select('body').append('div').attr('class', 'toolTip');
+
+  svg.selectAll('dot')
+    .data(data)
+    .enter().append('circle')
+    .attr('r', 5)
+    .attr('cx', d => x(d.date))
+    .attr('cy', d => y(d.timeInMinutes))
+    .on('mouseover', (d) => {
+      tooltip
+        .style('left', `${d3.event.pageX - 50}px`)
+        .style('top', `${d3.event.pageY - 70}px`)
+        .style('display', 'inline-block')
+        .html(`${formatTime(d.date)}: <b>${d.timeInMinutes}</b>`);
+    })
+    .on('mouseout', () => { tooltip.style('display', 'none'); });
 };

@@ -18,7 +18,7 @@ const setWeekyDashboard = () => {
     $.getJSON({
       url: '/admin/sessions/recently',
       success: (data) => {
-        sessionTimeGraph(id, data, '%d-%m-%y');
+        sessionTimeGraph(id, data, '%d %b %Y');
       },
     });
   }
@@ -30,7 +30,7 @@ const setMonthlyDashboard = () => {
     $.getJSON({
       url: '/admin/sessions/per-month',
       success: (data) => {
-        sessionTimeGraph(id, data, '%m-%y');
+        sessionTimeGraph(id, data, '%b %Y');
       },
     });
   }
@@ -43,7 +43,7 @@ const setPlaytimeGame = () => {
     $.getJSON({
       url: `/admin/sessions/game/${gameId}`,
       success: (data) => {
-        sessionTimeGraph(id, data, '%d-%m-%y');
+        sessionTimeGraph(id, data, '%d %b %Y');
       },
     });
   }
@@ -62,7 +62,7 @@ const setInvestedMoneyPerMonth = () => {
     $.getJSON({
       url: '/admin/money/per-month',
       success: (data) => {
-        moneyBarChart(id, data);
+        moneyBarChart(id, data, '%b %Y');
       },
     });
   }

@@ -1,7 +1,7 @@
 import $ from 'jquery';
 import * as d3 from 'd3';
 
-export default (id, data) => {
+export default (id, data, xFormat) => {
   const margin = {
     top: 20,
     right: 20,
@@ -55,7 +55,7 @@ export default (id, data) => {
         .style('left', `${d3.event.pageX - 50}px`)
         .style('top', `${d3.event.pageY - 70}px`)
         .style('display', 'inline-block')
-        .html(`${d.price} ${d.currency}`);
+        .html(`${d.date}: <b>${d.price} ${d.currency}</b>`);
     })
     .on('mouseout', () => { tooltip.style('display', 'none'); });
 };
