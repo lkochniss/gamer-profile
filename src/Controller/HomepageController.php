@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\GameSessionsPerMonth;
-use App\Listener\InvestedMoneyListener;
 use App\Repository\GameRepository;
 use App\Repository\GameSessionsPerMonthRepository;
 use App\Repository\OverallGameStatsRepository;
