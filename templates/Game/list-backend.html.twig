@@ -34,7 +34,7 @@
                 </td>
                 {% if game.hasGamePurchase %}
                     <td data-order="{{ game.boughtAt | date('Y-m-d') }}">
-                        {{ game.boughtAt|date('d.m.Y') }}
+                        {{ game.gamePurchase.boughtAt |date('d.m.Y') }}
                     </td>
                 {% else %}
                     <td data-order="0">
