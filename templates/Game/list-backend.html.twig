@@ -33,7 +33,7 @@
                     <a href="{{ path('game_dashboard', {'id': game.id}) }}">{{ game.name }}</a>
                 </td>
                 {% if game.hasGamePurchase %}
-                    <td data-order="{{ game.boughtAt | date('Y-m-d') }}">
+                    <td data-order="{{ game.gamePurchase.boughtAt | date('Y-m-d') }}">
                         {{ game.gamePurchase.boughtAt |date('d.m.Y') }}
                     </td>
                 {% else %}
