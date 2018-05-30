@@ -96,6 +96,7 @@ class CreateNewGameService extends ReportService
         $game->setHeaderImagePath($gameInformation->getHeaderImagePath());
         $game->setPrice($gameInformation->getPrice());
         $game->setCurrency($gameInformation->getCurrency());
+        $game->setReleaseDate($gameInformation->getReleaseDate());
 
         $game->setTimePlayed($userInformation->getTimePlayed());
         $game->setRecentlyPlayed($userInformation->getRecentlyPlayed());

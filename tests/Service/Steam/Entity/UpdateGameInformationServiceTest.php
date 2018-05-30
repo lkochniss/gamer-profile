@@ -24,6 +24,9 @@ class UpdateGameInformationServiceTest extends TestCase
             'price_overview' => [
                 'currency' => 'EUR',
                 'final' => '1000'
+            ],
+            'release_date' => [
+                'date' => '10 Oct, 2017'
             ]
         ];
         $gameInformation = new GameInformation($gameInformationArray);

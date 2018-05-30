@@ -1,5 +1,5 @@
 {% if game.gameSessions %}
-{% set sum = 0 %}
+    {% set sum = 0 %}
     {% for gameSession in game.gameSessions %}
         {% set sum = sum + gameSession.duration %}
     {% endfor %}

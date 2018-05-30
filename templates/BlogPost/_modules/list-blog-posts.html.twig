@@ -1,10 +1,10 @@
-<a href="
 {% if is_granted('ROLE_ADMIN') %}
-    {{ path('blog_post_list_for_game', { 'id': game.id }) }}
+    {% set url = path('blog_post_list_for_game', { 'id': game.id })  %}
 {% else %}
-    {{ path('blog_post_list_frontend', { 'gameSlug': game.slug }) }}
+    {% set url =path('blog_post_list_frontend', { 'gameSlug': game.slug }) %}
 {% endif %}
-">
+
+<a href="{{ url }}">
     <div class="panel-footer">
         <span class="pull-left">{% trans from "messages" %}view_all_blog_posts{% endtrans %}</span>
     </div>

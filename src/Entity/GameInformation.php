@@ -28,6 +28,11 @@ class GameInformation extends AbstractEntity
     private $currency;
 
     /**
+     * @var \DateTime
+     */
+    private $releaseDate;
+
+    /**
      * GameInformation constructor.
      * @param array $gameInformation
      */
@@ -44,6 +49,10 @@ class GameInformation extends AbstractEntity
 
         $this->price = $price;
         $this->currency = $currency;
+
+        $date = $gameInformation['release_date']['date'];
+        $date = str_replace(',', '', $date);
+        $this->releaseDate = new \DateTime($date);
     }
 
     /**
@@ -76,5 +85,13 @@ class GameInformation extends AbstractEntity
     public function getCurrency(): string
     {
         return $this->currency;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getReleaseDate(): \DateTime
+    {
+        return $this->releaseDate;
     }
 }

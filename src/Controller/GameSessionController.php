@@ -2,50 +2,53 @@
 
 namespace App\Controller;
 
-use App\Entity\GameSession;
+use App\Repository\GameRepository;
+use App\Repository\GameSessionRepository;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Class SessionController
  */
-class GameSessionController extends AbstractCrudController
+class GameSessionController extends Controller
 {
     /**
-     * @return GameSession
+     * @param GameSessionRepository $gameSessionRepository
+     * @return Response
      */
-    protected function createNewEntity()
+    public function listBackend(GameSessionRepository $gameSessionRepository): Response
     {
-        return new GameSession();
+        $entities = $gameSessionRepository->findAll();
+        return $this->render(
+            'GameSession/list-backend.html.twig',
+            [
+                'entities' => $entities,
+            ]
+        );
     }
 
     /**
-     * @return string
+     * @param int $id
+     * @param GameRepository $gameRepository
+     * @param GameSessionRepository $gameSessionRepository
+     * @return Response
+     *
+     * @SuppressWarnings(PHPMD.ShortVariableName)
      */
-    protected function getFormType(): string
-    {
-        return '';
-    }
+    public function listBackendForGame(
+        int $id,
+        GameRepository $gameRepository,
+        GameSessionRepository $gameSessionRepository
+    ): Response {
+        $game = $gameRepository->find($id);
+        $entities = $gameSessionRepository->findBy(['game' => $id]);
 
-    /**
-     * @return string
-     */
-    protected function getTemplateBasePath(): string
-    {
-        return 'GameSession';
-    }
-
-    /**
-     * @return string
-     */
-    protected function getEntityName(): string
-    {
-        return 'App\Entity\GameSession';
-    }
-
-    /**
-     * @return string
-     */
-    protected function getRoutePrefix(): string
-    {
-        return 'game_session';
+        return $this->render(
+            'GameSession/list-backend-for-game.html.twig',
+            [
+                'entities' => $entities,
+                'game' => $game
+            ]
+        );
     }
 }

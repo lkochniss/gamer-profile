@@ -1,0 +1,17 @@
+<div class="col-sm">
+    <div class="card mb-4">
+        <div class="card-header bg-info">
+            <i class="fa fa-steam fa-2x" aria-hidden="true"></i>
+            {% trans from "messages" %}information{% endtrans %}
+        </div>
+        <div class="card-body">
+            {% include 'Game/_modules/steam-app-id.html.twig' with {'game': entity} only %}
+            {% include 'Game/_modules/steam-user-achievements.html.twig' with {'game': entity} only %}
+            {% include 'Game/_modules/steam-screenshots.html.twig' with {'game': entity} only %}
+            {% include 'Game/_modules/created-at.html.twig' with {'game': entity} only %}
+            {% include 'Game/_modules/modified-at.html.twig' with {'game': entity} only %}
+            {% include 'Game/_modules/bought-at.html.twig' with {'game': entity} only %}
+            {% include 'Game/_modules/update-information.html.twig' with {'game': entity} only %}
+        </div>
+    </div>
+</div>

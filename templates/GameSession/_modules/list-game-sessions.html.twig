@@ -1,0 +1,9 @@
+{% if is_granted('ROLE_ADMIN') %}
+    <a href="{{ path('game_session_list_for_game', {'id': game.id}) }}">
+        <div class="panel-footer mt-3">
+            <span class="pull-left">{% trans from "messages" %}view_all_game_sessions{% endtrans %}</span>
+            <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+            <div class="clearfix"></div>
+        </div>
+    </a>
+{% endif %}

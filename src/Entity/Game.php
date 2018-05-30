@@ -37,7 +37,7 @@ class Game extends AbstractEntity
     /**
      * @var \DateTime
      */
-    private $boughtAt;
+    private $releaseDate;
 
     /**
      * @var int
@@ -190,22 +190,17 @@ class Game extends AbstractEntity
     /**
      * @return \DateTime
      */
-    public function getBoughtAt(): \DateTime
+    public function getReleaseDate(): \DateTime
     {
-        return $this->boughtAt ? $this->boughtAt : new \DateTime();
+        return $this->releaseDate ? $this->releaseDate : new \DateTime();
     }
 
     /**
-     * @param \DateTime $boughtAt
+     * @param \DateTime $releaseDate
      */
-    public function setBoughtAt(\DateTime $boughtAt): void
+    public function setReleaseDate(\DateTime $releaseDate): void
     {
-        $this->boughtAt = $boughtAt;
-    }
-
-    public function hasBoughtAt(): bool
-    {
-        return $this->boughtAt? true: false;
+        $this->releaseDate = $releaseDate;
     }
 
     /**
