@@ -1,13 +1,13 @@
 <?php
 
-
 namespace App\Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
-class GameSessionControllerTest extends WebTestCase
+class ApiControllerTest extends WebTestCase
 {
     /**
      * @var LoginHelper
@@ -23,7 +23,7 @@ class GameSessionControllerTest extends WebTestCase
      * @param string $url
      * @dataProvider backendUrlProvider
      */
-    public function testBackendGameActionsReturnOk(string $url): void
+    public function testBackendBlogActionsReturnOk(string $url): void
     {
         $client = static::createClient();
         $this->loginHelper->logIn($client);
@@ -36,7 +36,7 @@ class GameSessionControllerTest extends WebTestCase
      * @param string $url
      * @dataProvider backendUrlProvider
      */
-    public function testBackendGameActionsWithoutCredentialsRedirectsToLogin(string $url): void
+    public function testBackendBlogActionsWithoutCredentialsRedirectsToLogin(string $url): void
     {
         $this->expectException(AccessDeniedException::class);
 
@@ -54,10 +54,10 @@ class GameSessionControllerTest extends WebTestCase
     public function backendUrlProvider(): array
     {
         return [
-            ['/admin/session'],
-            ['admin/game/1/session'],
-            ['admin/game/2/session'],
-            ['admin/game/3/session'],
+            ['/admin/sessions/per-month'],
+            ['/admin/sessions/recently'],
+            ['/admin/sessions/game/1'],
+            ['/admin/money/per-month'],
         ];
     }
 }

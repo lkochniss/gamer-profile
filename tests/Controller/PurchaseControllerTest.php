@@ -5,6 +5,7 @@ namespace App\Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class PurchaseControllerTest extends WebTestCase
 {
@@ -37,7 +38,10 @@ class PurchaseControllerTest extends WebTestCase
      */
     public function testBackendPurchaseActionsWithoutCredentialsRedirectsToLogin(string $url): void
     {
+        $this->expectException(AccessDeniedException::class);
+
         $client = static::createClient();
+        $client->catchExceptions(false);
         $client->request('GET', $url);
         $crawler = $client->followRedirect();
 
