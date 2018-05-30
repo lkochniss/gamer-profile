@@ -76,7 +76,6 @@ class GameControllerTest extends WebTestCase
     {
         return [
             ['/admin/game'],
-            ['/admin/game/1/edit'],
             ['/admin/game/1/dashboard'],
         ];
     }

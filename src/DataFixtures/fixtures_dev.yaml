@@ -7,7 +7,7 @@ App\Entity\Game:
         time_played: '<numberBetween(0, 2000)>'
         recently_played: '0'
         header_image_path: 'https://steamcdn-a.akamaihd.net/steam/apps/427520/header.jpg?t=1513200518'
-        bought_at (50%?): '<dateTimeBetween("-1 year", "now")>'
+        release_date: '<dateTimeBetween("-5 year", "now")>'
         price: '<numberBetween(0, 2000)>'
         currency: 'USD'
         playerAchievements: '<numberBetween(0, 100)>'

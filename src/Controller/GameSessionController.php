@@ -20,7 +20,7 @@ class GameSessionController extends Controller
     {
         $entities = $gameSessionRepository->findAll();
         return $this->render(
-           'GameSession/list-backend.html.twig',
+            'GameSession/list-backend.html.twig',
             [
                 'entities' => $entities,
             ]
@@ -44,7 +44,7 @@ class GameSessionController extends Controller
         $entities = $gameSessionRepository->findBy(['game' => $id]);
 
         return $this->render(
-            sprintf('%s/list-backend-for-game.html.twig', $this->getTemplateBasePath()),
+            'GameSession/list-backend-for-game.html.twig',
             [
                 'entities' => $entities,
                 'game' => $game
