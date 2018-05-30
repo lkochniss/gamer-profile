@@ -19,7 +19,9 @@
             {% for post in entities %}
                 <tr>
                     <td scope="row">
-                        <a href="{{ path('blog_post_show', {'gameSlug': post.game.slug, 'blogPostSlug': post.slug}) }}"> {{ post.title }}</a>
+                        <a href="{{ path('blog_post_show', {'gameSlug': post.game.slug, 'blogPostSlug': post.slug}) }}">
+                            {{ post.title }}
+                        </a>
                     </td>
                     <td scope="col" data-order="{{ post.createdAt|date('Y-m-d') }}">
                         {{ post.createdAt|date('d.m.Y H:i') }}

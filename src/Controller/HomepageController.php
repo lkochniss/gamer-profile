@@ -32,7 +32,7 @@ class HomepageController extends Controller
         RecentlyPlayedGamesService $recentlyPlayedService
     ): Response {
         $recentlyPlayedGames = $gameRepository->getRecentlyPlayedGames();
-        return $this->render('Homepage/recentlyPlayed.html.twig', [
+        return $this->render('Homepage/recently-played.html.twig', [
             'games' => $recentlyPlayedService->sortRecentlyPlayedGamesByLastSession($recentlyPlayedGames)
         ]);
     }
@@ -43,7 +43,7 @@ class HomepageController extends Controller
      */
     public function mostPlayed(GameRepository $gameRepository): Response
     {
-        return $this->render('Homepage/mostPlayed.html.twig', [
+        return $this->render('Homepage/most-played.html.twig', [
             'games' => $gameRepository->getMostPlayedGames(12)
         ]);
     }
@@ -54,7 +54,7 @@ class HomepageController extends Controller
      */
     public function newGames(GameRepository $gameRepository): Response
     {
-        return $this->render('Homepage/newGames.html.twig', [
+        return $this->render('Homepage/new-games.html.twig', [
             'games' => $gameRepository->getNewGames()
         ]);
     }
@@ -82,7 +82,7 @@ class HomepageController extends Controller
             }
         }
 
-        return $this->render('Homepage/gameOfTheMonth.html.twig', [
+        return $this->render('Homepage/game-of-the-month.html.twig', [
             'bestGamePerMonth' => $bestGamePerMonth
         ]);
     }
@@ -122,7 +122,7 @@ class HomepageController extends Controller
         OverallGameStatsRepository $overallGameStatsRepository,
         PlaytimePerMonthRepository $playtimePerMonthRepository
     ): Response {
-        return $this->render('Homepage/backendDashboard.html.twig', [
+        return $this->render('Homepage/backend-dashboard.html.twig', [
             'gameStats' => $overallGameStatsRepository->findOneBy(['identifier' => getenv('STEAM_USER_ID')]),
             'playtimePerMonths' => $playtimePerMonthRepository->findAll()
         ]);

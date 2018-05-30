@@ -12,9 +12,9 @@
             </a>
             <div class="card-body list-group p-0">
                 <h4 class='list-group-item'>{% trans from 'messages' %}statistics{% endtrans %}</h4>
-                {% include '_modules/last-session.html.twig' with { game: game } %}
-                {% include '_modules/recently-played.html.twig' with { game: game } %}
-                {% include '_modules/overall-played.html.twig' with { game: game } %}
+                {% include 'Homepage/_modules/last-session.html.twig' with { game: game } %}
+                {% include 'Homepage/_modules/recently-played.html.twig' with { game: game } %}
+                {% include 'Homepage/_modules/overall-played.html.twig' with { game: game } %}
             </div>
         </div>
     </div>

@@ -1,0 +1,15 @@
+<div class="col-sm">
+    <div class="card mb-4">
+        <div class="card-header bg-primary">
+            <i class="fa fa-file-text fa-2x" aria-hidden="true"></i>
+            {% trans from "messages" %}blog_posts{% endtrans %}
+        </div>
+        <div class="card-body">
+            {% include 'BlogPost/_modules/number-of-blog-posts.html.twig' with {'game': entity} only %}
+            {% include 'BlogPost/_modules/last-blog-post.html.twig' with {'game': entity} only %}
+            {% include 'BlogPost/_modules/create-blog-post.html.twig' with {'game': entity} only %}
+            {% include 'BlogPost/_modules/list-blog-posts.html.twig' with {'game': entity} only %}
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,20 @@
+<div class="col-sm">
+    <div class="card mb-4">
+        <div class="card-header bg-danger">
+            <i class="fa fa-calendar fa-2x" aria-hidden="true"></i>
+            {% trans from "messages" %}sessions{% endtrans %}
+        </div>
+        <div class="card-body">
+            {% include 'GameSession/_modules/number-of-game-sessions.html.twig' with {'game': entity} only %}
+            {% include 'GameSession/_modules/last-game-session.html.twig' with {'game': entity} only %}
+            {% include 'GameSession/_modules/average-game-session.html.twig' with {'game': entity} only %}
+            {% include 'GameSession/_modules/longest-game-session.html.twig' with {'game': entity} only %}
+            <div class="panel-footer mt-3">
+                <span>
+                    {% include 'GameSession/_modules/overall-played.html.twig' with {'game': entity} only %}
+                </span>
+            </div>
+            {% include 'GameSession/_modules/list-game-sessions.html.twig' with {'game': entity} only %}
+        </div>
+    </div>
+</div>
