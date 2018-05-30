@@ -55,10 +55,10 @@ module.exports = {
             options: {
               name: '[name].[hash].[ext]',
               outputPath: 'img/',
-              publicPath: '../img'
-            }
-          }
-        ]
+              publicPath: '../img',
+            },
+          },
+        ],
       },
     ],
   },
