@@ -32,3 +32,20 @@ div.tooltip {
   border: 1px solid #6F257F;
   pointer-events: none;
 }
+
+.day {
+  fill: #fff;
+  stroke: #ddd;
+}
+
+.month {
+  fill: none;
+  stroke: #000;
+  stroke-width: 2px;
+}
+
+.RdYlGn .q0-11{fill:rgb(102,189,99)}
+.RdYlGn .q1-11{fill:rgb(26,152,80)}
+.RdYlGn .q2-11{fill:rgb(244,109,67)}
+.RdYlGn .q3-11{fill:rgb(215,48,39)}
+.RdYlGn .q4-11{fill:rgb(165,0,38)}

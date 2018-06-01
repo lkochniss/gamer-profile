@@ -61,28 +61,7 @@ class ApiController extends Controller
     {
         $sessions = $gameSessionRepository->findForLastDays();
 
-        $data = [];
-
-        /**
-         * @var GameSession $session
-         */
-        foreach ($sessions as $session) {
-            $key = $session->getCreatedAt()->format('d M Y');
-            if (!array_key_exists($key, $data)) {
-                $data[$key] = 0;
-            }
-            $data[$key] += $session->getDuration();
-        }
-
-        $data = array_map(function ($month, $duration) {
-            return [
-                'date' => $month,
-                'timeInMinutes' => $duration,
-                'timeForTooltip' => $this->timeConverterService->convertRecentTime($duration)
-            ];
-        }, array_keys($data), $data);
-
-        return new JsonResponse($data);
+        return new JsonResponse($this->mapSessionData($sessions));
     }
 
     /**
@@ -155,5 +134,46 @@ class ApiController extends Controller
         });
 
         return new JsonResponse($data);
+    }
+
+    /**
+     * @param GameSessionRepository $sessionRepository
+     * @return JsonResponse
+     */
+    public function sessionsThisYear(GameSessionRepository $sessionRepository): JsonResponse
+    {
+        $sessions = $sessionRepository->findForThisYear();
+
+        return new JsonResponse($this->mapSessionData($sessions));
+    }
+
+    /**
+     * @param array $sessions
+     * @return array
+     */
+    private function mapSessionData(array $sessions): array
+    {
+        $data = [];
+
+        /**
+         * @var GameSession $session
+         */
+        foreach ($sessions as $session) {
+            $key = $session->getCreatedAt()->format('d M Y');
+            if (!array_key_exists($key, $data)) {
+                $data[$key] = 0;
+            }
+            $data[$key] += $session->getDuration();
+        }
+
+        $data = array_map(function ($month, $duration) {
+            return [
+                'date' => $month,
+                'timeInMinutes' => $duration,
+                'timeForTooltip' => $this->timeConverterService->convertRecentTime($duration)
+            ];
+        }, array_keys($data), $data);
+
+        return $data;
     }
 }

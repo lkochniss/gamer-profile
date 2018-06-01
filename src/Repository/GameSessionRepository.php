@@ -35,6 +35,20 @@ class GameSessionRepository extends AbstractRepository#
         return $query->getResult();
     }
 
+    public function findForThisYear()
+    {
+        $start = new \DateTime('first day of January');
+        $end = new \DateTime('last day of December');
+        $query = $this->createQueryBuilder('game_session')
+            ->where('game_session.createdAt > :start')
+            ->andWhere('game_session.createdAt < :end')
+            ->setParameter('start', $start)
+            ->setParameter('end', $end)
+            ->getQuery();
+
+        return $query->getResult();
+    }
+
     /**
      * @return string
      */
