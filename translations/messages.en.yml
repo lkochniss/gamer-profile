@@ -23,7 +23,8 @@ game: Game
 games: Games
 information: Information
 invested_money: 'Invested Money'
-invested_money_per_month: 'Invested %currency% per month'
+invested_money_per_month: 'Invested %currency% last twelve months'
+invested_money_per_year: 'Invested %currency% per year'
 last_session: 'Last Session'
 last_session_date_played_for: 'Last played on %date% for %time%'
 last_played: 'Last Played'
@@ -59,6 +60,7 @@ screenshots: Screenshots
 session_time_last_days: 'Session playtime last two weeks'
 session_time_per_month: 'Session playtime per month'
 sessions: Sessions
+sessions_this_year: 'Sessions this year'
 shortest_session: 'Shortest Session'
 show: Show
 show_all: 'Show All'

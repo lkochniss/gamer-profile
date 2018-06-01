@@ -17,3 +17,7 @@ sessions_for_game:
 invested_money_per_month:
     path:   /money/per-month
     defaults: { _controller: 'App\Controller\ApiController::investedMoneyPerMonth'  }
+
+invested_money_per_year:
+    path:   /money/per-year
+    defaults: { _controller: 'App\Controller\ApiController::investedMoneyPerYear'  }

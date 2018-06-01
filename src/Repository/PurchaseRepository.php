@@ -22,6 +22,23 @@ class PurchaseRepository extends AbstractRepository
     }
 
     /**
+     * @return array|null
+     */
+    public function findForLastTwelveMonth(): ?array
+    {
+        $start = new \DateTime('last day of this month last year');
+        $end = new \DateTime('last day of this month');
+        $query = $this->createQueryBuilder('purchase')
+            ->where('purchase.boughtAt > :start')
+            ->andWhere('purchase.boughtAt < :end')
+            ->setParameter('start', $start)
+            ->setParameter('end', $end)
+            ->getQuery();
+
+        return $query->getResult();
+    }
+
+    /**
      * @return string
      */
     protected function getEntity(): string
