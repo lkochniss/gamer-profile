@@ -3,11 +3,10 @@
 namespace tests\App\Command\Steam;
 
 use App\Command\Steam\UpdateRecentlyPlayedGamesCommand;
+use App\Entity\Game;
 use App\Repository\GameRepository;
-use App\Service\ReportService;
 use App\Service\Steam\Entity\UpdateGameInformationService;
 use App\Service\Steam\Entity\UpdateUserInformationService;
-use App\Service\Steam\GamesOwnedService;
 use App\Service\Steam\Transformation\GameUserInformationService;
 use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
@@ -56,10 +55,28 @@ class UpdateRecentlyPlayedGamesCommandTest extends KernelTestCase
         $kernel = static::createKernel();
         $kernel->boot();
 
+        $actualGame = new Game();
+        $actualGame->setSteamAppId(2);
+        $actualGame->setRecentlyPlayed(10);
+
+        $oldRecentlyPlayed = [$actualGame];
+
+        $expectedGame = new Game();
+        $expectedGame->setSteamAppId(2);
+        $expectedGame->setRecentlyPlayed(0);
+
         $this->updateGameInformationServiceMock = $this->createMock(UpdateGameInformationService::class);
         $this->updateUserInformationServiceMock = $this->createMock(UpdateUserInformationService::class);
         $this->gameUserInformationServiceMock = $this->createMock(GameUserInformationService::class);
         $this->gameRepositoryMock = $this->createMock(GameRepository::class);
+        $this->gameRepositoryMock->expects($this->any())
+            ->method('getRecentlyPlayedGames')
+            ->willReturn($oldRecentlyPlayed);
+
+        $this->gameRepositoryMock->expects($this->any())
+            ->method('save')
+            ->with($expectedGame);
+
         $this->application = new Application($kernel);
     }
 

@@ -1,3 +1,7 @@
+sessions_this_year:
+    path:   /sessions/this-year
+    defaults: { _controller: 'App\Controller\ApiController::sessionsThisYear'  }
+
 sessions_per_month:
     path:   /sessions/per-month
     defaults: { _controller: 'App\Controller\ApiController::sessionsPerMonth'  }

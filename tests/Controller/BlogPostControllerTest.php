@@ -4,6 +4,8 @@ namespace App\Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class BlogPostControllerTest extends WebTestCase
 {
@@ -47,7 +49,10 @@ class BlogPostControllerTest extends WebTestCase
 
     public function testMissingSlugReturnsNotFoundException(): void
     {
+        $this->expectException(NotFoundHttpException::class);
+
         $client = static::createClient();
+        $client->catchExceptions(false);
         $client->request('GET', 'game-1/asdf');
 
         $this->assertEquals(Response::HTTP_NOT_FOUND, $client->getResponse()->getStatusCode());
@@ -72,7 +77,10 @@ class BlogPostControllerTest extends WebTestCase
      */
     public function testBackendBlogActionsWithoutCredentialsRedirectsToLogin(string $url): void
     {
+        $this->expectException(AccessDeniedException::class);
+
         $client = static::createClient();
+        $client->catchExceptions(false);
         $client->request('GET', $url);
         $crawler = $client->followRedirect();
 

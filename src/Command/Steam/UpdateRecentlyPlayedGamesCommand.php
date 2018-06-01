@@ -83,7 +83,6 @@ class UpdateRecentlyPlayedGamesCommand extends ContainerAwareCommand
             $this->gameRepository->save($oldRecentlyPlayedGame);
         }
 
-
         $mySteamGames = $this->gameUserInformationService->getRecentlyPlayedGames();
         foreach ($mySteamGames as $mySteamGame) {
             $steamAppId =  $mySteamGame['appid'];

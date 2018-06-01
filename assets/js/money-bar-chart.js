@@ -1,7 +1,7 @@
 import $ from 'jquery';
 import * as d3 from 'd3';
 
-export default (id, data, xFormat) => {
+export default (id, data) => {
   const margin = {
     top: 20,
     right: 20,

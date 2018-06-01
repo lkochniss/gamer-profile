@@ -4,6 +4,7 @@ import $ from 'jquery';
 import dataTables from './data-tables';
 import moneyBarChart from './money-bar-chart';
 import sessionTimeGraph from './session-time-graph';
+import sessionCalendar from './session-calender';
 
 const enableSelect2 = () => {
   $('#blog_post_game').select2();
@@ -12,7 +13,7 @@ const enableSelect2 = () => {
   $('.select2-container').addClass('col-form-label');
 };
 
-const setWeekyDashboard = () => {
+const setWeeklyDashboard = () => {
   const id = '#playtime-last-week';
   if ($(id).length) {
     $.getJSON({
@@ -43,7 +44,7 @@ const setPlaytimeGame = () => {
     $.getJSON({
       url: `/admin/sessions/game/${gameId}`,
       success: (data) => {
-        sessionTimeGraph(id, data, '%d %b %Y');
+        sessionCalendar(id, data, '%d %b %Y');
       },
     });
   }
@@ -68,6 +69,19 @@ const setInvestedMoneyPerMonth = () => {
   }
 };
 
+const setSessionsThisYear = () => {
+  const id = '#sessions-this-year';
+
+  if ($(id).length) {
+    $.getJSON({
+      url: '/admin/sessions/this-year',
+      success: (data) => {
+        sessionCalendar(id, data, '%d %b %Y');
+      },
+    });
+  }
+};
+
 const addDataTables = () => {
   dataTables('#blog-post-list', 3, 'DESC');
   dataTables('#blog-post-for-game-list', 1, 'DESC');
@@ -81,10 +95,11 @@ const addDataTables = () => {
 
 $(document).ready(() => {
   enableSelect2();
-  setWeekyDashboard();
+  setWeeklyDashboard();
   setMonthlyDashboard();
   setPlaytimeGame();
   addImgClass();
   addDataTables();
   setInvestedMoneyPerMonth();
+  setSessionsThisYear();
 });
