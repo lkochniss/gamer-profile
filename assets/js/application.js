@@ -69,6 +69,19 @@ const setInvestedMoneyPerMonth = () => {
   }
 };
 
+const setInvestedMoneyPerYear = () => {
+  const id = '#invested-money-per-year';
+
+  if ($(id).length) {
+    $.getJSON({
+      url: '/admin/money/per-year',
+      success: (data) => {
+        moneyBarChart(id, data, '%Y');
+      },
+    });
+  }
+};
+
 const setSessionsThisYear = () => {
   const id = '#sessions-this-year';
 
@@ -101,5 +114,6 @@ $(document).ready(() => {
   addImgClass();
   addDataTables();
   setInvestedMoneyPerMonth();
+  setInvestedMoneyPerYear();
   setSessionsThisYear();
 });

@@ -21,7 +21,10 @@ class GameSessionRepository extends AbstractRepository#
         $this->getEntityManager()->flush($entity);
     }
 
-    public function findForLastDays()
+    /**
+     * @return array|null
+     */
+    public function findForLastDays(): ?array
     {
         $start = new \DateTime('-15 day');
         $end = new \DateTime();
@@ -35,7 +38,10 @@ class GameSessionRepository extends AbstractRepository#
         return $query->getResult();
     }
 
-    public function findForThisYear()
+    /**
+     * @return array|null
+     */
+    public function findForThisYear(): ?array
     {
         $start = new \DateTime('first day of January');
         $end = new \DateTime('last day of December');

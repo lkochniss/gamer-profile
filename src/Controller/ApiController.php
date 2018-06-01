@@ -105,12 +105,49 @@ class ApiController extends Controller
         PurchaseRepository $purchaseRepository,
         PurchaseUtil $purchaseUtil
     ): JsonResponse {
+        $purchases = $purchaseRepository->findForLastTwelveMonth();
+
+        return new JsonResponse($this->mapInvestedMoneyData($purchases, 'M Y', $purchaseUtil));
+    }
+
+    /**
+     * @param PurchaseRepository $purchaseRepository
+     * @param PurchaseUtil $purchaseUtil
+     * @return JsonResponse
+     */
+    public function investedMoneyPerYear(
+        PurchaseRepository $purchaseRepository,
+        PurchaseUtil $purchaseUtil
+    ): JsonResponse {
         $purchases = $purchaseRepository->findAll();
+
+        return new JsonResponse($this->mapInvestedMoneyData($purchases, 'Y', $purchaseUtil));
+    }
+
+    /**
+     * @param GameSessionRepository $sessionRepository
+     * @return JsonResponse
+     */
+    public function sessionsThisYear(GameSessionRepository $sessionRepository): JsonResponse
+    {
+        $sessions = $sessionRepository->findForThisYear();
+
+        return new JsonResponse($this->mapSessionData($sessions));
+    }
+
+    /**
+     * @param array $purchases
+     * @param string $format
+     * @param PurchaseUtil $purchaseUtil
+     * @return array
+     */
+    private function mapInvestedMoneyData(array $purchases, string $format, PurchaseUtil $purchaseUtil): array
+    {
         $defaultCurrency = getenv('DEFAULT_CURRENCY');
 
         $data = [];
         foreach ($purchases as $purchase) {
-            $key = $purchase->getBoughtAt()->format('M Y');
+            $key = $purchase->getBoughtAt()->format($format);
             if (!array_key_exists($key, $data)) {
                 $data[$key] = 0;
             }
@@ -133,18 +170,7 @@ class ApiController extends Controller
             return strtotime($a["date"]) - strtotime($b["date"]);
         });
 
-        return new JsonResponse($data);
-    }
-
-    /**
-     * @param GameSessionRepository $sessionRepository
-     * @return JsonResponse
-     */
-    public function sessionsThisYear(GameSessionRepository $sessionRepository): JsonResponse
-    {
-        $sessions = $sessionRepository->findForThisYear();
-
-        return new JsonResponse($this->mapSessionData($sessions));
+        return $data;
     }
 
     /**
