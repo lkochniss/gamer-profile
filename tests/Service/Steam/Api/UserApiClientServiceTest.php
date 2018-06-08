@@ -5,7 +5,6 @@ namespace tests\App\Service\Steam\Api;
 use App\Service\Steam\Api\UserApiClientService;
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Psr7\Response;
-use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -13,28 +12,40 @@ use PHPUnit\Framework\TestCase;
  */
 class UserApiClientServiceTest extends TestCase
 {
+
     /**
-     * @var MockObject
+     * @param string $endpoint
+     * @param string $expectedUrl
+     *
+     * @dataProvider urlProvider
      */
-    private $guzzleClientMock;
-
-    public function setUp(): void
+    public function testGet(string $endpoint, string $expectedUrl): void
     {
-        $this->guzzleClientMock = $this->createMock(GuzzleClient::class);
-    }
-
-    public function testGet(): void
-    {
-        $this->setGuzzleClientMock();
-        $steamApiClient = new UserApiClientService($this->guzzleClientMock);
-
-        $this->assertEquals(new Response(), $steamApiClient->get(''));
-    }
-
-    private function setGuzzleClientMock(): void
-    {
-        $this->guzzleClientMock->expects($this->any())
+        $guzzleClientMock = $this->createMock(GuzzleClient::class);
+        $guzzleClientMock->expects($this->any())
             ->method('request')
+            ->with(
+                'GET',
+                $expectedUrl,
+                [
+                    'headers' => [
+                        'Accept' => 'application/json',
+                        'Content-Type' => 'application/json',
+                    ]
+                ]
+            )
             ->willReturn(new Response());
+
+        $steamApiClient = new UserApiClientService($guzzleClientMock);
+
+        $this->assertEquals(new Response(), $steamApiClient->get($endpoint));
+    }
+
+    public function urlProvider(): array
+    {
+        return [
+            ['/', 'http://api.steampowered.com/?key=unittest&steamid=&format=json'],
+            ['/1?asd=2', 'http://api.steampowered.com/1?asd=2&key=unittest&steamid=&format=json'],
+        ];
     }
 }

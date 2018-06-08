@@ -21,7 +21,7 @@ class UserApiClientService extends AbstractApiClientService
     {
         $separator = '?';
 
-        if (strpos($endpoint, '?') !== false) {
+        if (strpos($endpoint, $separator) !== false) {
             $separator = '&';
         }
 
