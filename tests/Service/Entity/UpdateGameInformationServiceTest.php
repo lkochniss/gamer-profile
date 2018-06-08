@@ -1,12 +1,12 @@
 <?php
 
-namespace tests\App\Service\Steam\Entity;
+namespace tests\App\Service\Entity;
 
 use App\Entity\Game;
 use App\Entity\GameInformation;
 use App\Repository\GameRepository;
-use App\Service\Steam\Entity\UpdateGameInformationService;
-use App\Service\Steam\Transformation\GameInformationService;
+use App\Service\Entity\UpdateGameInformationService;
+use App\Service\Transformation\GameInformationService;
 use PHPUnit\Framework\TestCase;
 
 /**

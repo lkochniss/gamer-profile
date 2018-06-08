@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Command\Steam;
+namespace App\Command;
 
 use App\Repository\GameRepository;
-use App\Service\Steam\Entity\UpdateGameInformationService;
+use App\Service\Entity\UpdateGameInformationService;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;

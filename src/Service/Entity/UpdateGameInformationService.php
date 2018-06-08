@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Service\Steam\Entity;
+namespace App\Service\Entity;
 
 use App\Repository\GameRepository;
 use App\Service\ReportService;
-use App\Service\Steam\Transformation\GameInformationService;
+use App\Service\Transformation\GameInformationService;
 
 /**
  * Class UpdateGameInformationService

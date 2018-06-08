@@ -1,13 +1,13 @@
 <?php
 
-namespace tests\App\Command\Steam;
+namespace tests\App\Command;
 
-use App\Command\Steam\UpdateRecentlyPlayedGamesCommand;
+use App\Command\UpdateRecentlyPlayedGamesCommand;
 use App\Entity\Game;
 use App\Repository\GameRepository;
-use App\Service\Steam\Entity\UpdateGameInformationService;
-use App\Service\Steam\Entity\UpdateUserInformationService;
-use App\Service\Steam\Transformation\GameUserInformationService;
+use App\Service\Entity\UpdateGameInformationService;
+use App\Service\Entity\UpdateUserInformationService;
+use App\Service\Transformation\GameUserInformationService;
 use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Bundle\FrameworkBundle\Console\Application;

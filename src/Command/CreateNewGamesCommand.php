@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Command\Steam;
+namespace App\Command;
 
-use App\Service\Steam\Entity\CreateNewGameService;
-use App\Service\Steam\Transformation\GameUserInformationService;
+use App\Service\Entity\CreateNewGameService;
+use App\Service\Transformation\GameUserInformationService;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;

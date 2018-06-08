@@ -1,10 +1,10 @@
 <?php
 
-namespace tests\App\Service\Steam\Transformation;
+namespace tests\App\Service\Transformation;
 
 use App\Entity\GameInformation;
-use App\Service\Steam\Api\GameApiClientService;
-use App\Service\Steam\Transformation\GameInformationService;
+use App\Service\Api\GameApiClientService;
+use App\Service\Transformation\GameInformationService;
 use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;

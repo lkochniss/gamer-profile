@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Service\Steam\Entity;
+namespace App\Service\Entity;
 
 use App\Entity\Achievements;
 use App\Entity\GameSession;
 use App\Repository\GameRepository;
 use App\Service\ReportService;
-use App\Service\Steam\Transformation\GameUserInformationService;
+use App\Service\Transformation\GameUserInformationService;
 
 /**
  * Class UpdateUserInformationService

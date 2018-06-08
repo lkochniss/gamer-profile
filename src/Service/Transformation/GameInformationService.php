@@ -1,10 +1,9 @@
 <?php
 
-namespace App\Service\Steam\Transformation;
+namespace App\Service\Transformation;
 
 use App\Entity\GameInformation;
-use App\Service\Steam\Api\GameApiClientService;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use App\Service\Api\GameApiClientService;
 
 /**
  * Class GameInformationService

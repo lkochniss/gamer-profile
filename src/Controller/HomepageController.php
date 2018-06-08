@@ -9,7 +9,7 @@ use App\Repository\OverallGameStatsRepository;
 use App\Repository\PlaytimePerMonthRepository;
 use App\Service\Stats\InvestedMoneyService;
 use App\Service\Stats\WastedMoneyService;
-use App\Service\Steam\Transformation\RecentlyPlayedGamesService;
+use App\Service\Transformation\RecentlyPlayedGamesService;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;

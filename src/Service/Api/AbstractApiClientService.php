@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Service\Steam\Api;
+namespace App\Service\Api;
 
 use GuzzleHttp\Psr7\Response;
 use GuzzleHttp\Client as GuzzleClient;

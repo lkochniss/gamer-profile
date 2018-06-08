@@ -1,10 +1,10 @@
 <?php
 
-namespace tests\App\Command\Steam;
+namespace tests\App\Command;
 
-use App\Command\Steam\CreateNewGamesCommand;
-use App\Service\Steam\Entity\CreateNewGameService;
-use App\Service\Steam\Transformation\GameUserInformationService;
+use App\Command\CreateNewGamesCommand;
+use App\Service\Entity\CreateNewGameService;
+use App\Service\Transformation\GameUserInformationService;
 use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Bundle\FrameworkBundle\Console\Application;

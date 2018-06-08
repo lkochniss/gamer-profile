@@ -1,8 +1,8 @@
 <?php
 
-namespace tests\App\Service\Steam\Api;
+namespace tests\App\Service\Api;
 
-use App\Service\Steam\Api\GameApiClientService;
+use App\Service\Api\GameApiClientService;
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\MockObject\MockObject;

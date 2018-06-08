@@ -2,7 +2,7 @@
 
 namespace tests\App\Service\Steam\Api;
 
-use App\Service\Steam\Api\UserApiClientService;
+use App\Service\Api\UserApiClientService;
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\TestCase;

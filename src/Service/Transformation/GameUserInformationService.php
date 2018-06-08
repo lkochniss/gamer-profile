@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Service\Steam\Transformation;
+namespace App\Service\Transformation;
 
 use App\Entity\UserInformation;
-use App\Service\Steam\Api\UserApiClientService;
+use App\Service\Api\UserApiClientService;
 use GuzzleHttp\Exception\ClientException;
 use Nette\Utils\JsonException;
 

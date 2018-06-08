@@ -1,10 +1,10 @@
 <?php
 
-namespace tests\App\Service\Steam\Transformation;
+namespace tests\App\Service\Transformation;
 
 use App\Entity\Game;
 use App\Entity\GameSession;
-use App\Service\Steam\Transformation\RecentlyPlayedGamesService;
+use App\Service\Transformation\RecentlyPlayedGamesService;
 use PHPUnit\Framework\TestCase;
 
 /**

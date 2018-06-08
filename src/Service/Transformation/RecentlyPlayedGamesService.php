@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Service\Steam\Transformation;
+namespace App\Service\Transformation;
 
 use App\Entity\Game;
 
