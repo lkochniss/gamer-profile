@@ -27,20 +27,19 @@ class GameInformationService
     }
 
     /**
-     * @param int $appId
-     *
+     * @param int $steamAppId
      * @return array
      */
-    public function getGameInformationForSteamAppId(int $appId): array
+    public function getGameInformationForSteamAppId(int $steamAppId): array
     {
-        $gamesOwnedResponse = $this->gameApiClientService->get('/api/appdetails?appids=' . $appId);
+        $gamesOwnedResponse = $this->gameApiClientService->get('/api/appdetails?appids=' . $steamAppId);
         $game = json_decode($gamesOwnedResponse->getBody(), true);
 
-        if ($game[$appId]['success'] === false) {
+        if ($game[$steamAppId]['success'] === false) {
             return [];
         }
 
-        return $game[$appId]['data'];
+        return $game[$steamAppId]['data'];
     }
 
     /**

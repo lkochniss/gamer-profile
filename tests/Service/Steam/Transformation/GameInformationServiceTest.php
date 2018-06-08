@@ -2,6 +2,7 @@
 
 namespace tests\App\Service\Steam\Transformation;
 
+use App\Entity\GameInformation;
 use App\Service\Steam\Api\GameApiClientService;
 use App\Service\Steam\Transformation\GameInformationService;
 use GuzzleHttp\Psr7\Response;
@@ -41,6 +42,18 @@ class GameInformationServiceTest extends TestCase
         $gameInformation = $gameInformationService->getGameInformationForSteamAppId(1);
 
         $this->assertEquals([], $gameInformation);
+    }
+
+    public function testGetGameInformationEntityForSteamAppId(): void
+    {
+        $this->setSteamGameApiClientMock();
+
+        $gameInformationService = new GameInformationService($this->steamGameApiServiceMock);
+        $gameInformation = $gameInformationService->getGameInformationEntityForSteamAppId(1);
+
+        $expectedGameInformation = new GameInformation($this->getGameArray());
+
+        $this->assertEquals($expectedGameInformation, $gameInformation);
     }
 
     private function setSteamGameApiClientMock(): void
@@ -94,6 +107,10 @@ class GameInformationServiceTest extends TestCase
             'name' => 'Demo game',
             'steam_appid' => 1,
             'required_age' => 0,
+            'header_image' => 'demo.img',
+            'release_date' => [
+                'date' => '10 Oct, 2017'
+            ]
         ];
     }
 }
