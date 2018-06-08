@@ -49,6 +49,9 @@ class UpdateUserInformationService
         }
 
         $game = $this->userInformationService->addPlaytime($game);
+        if ($game === null) {
+            return 'F';
+        }
         $this->gameRepository->save($game);
 
         return 'U';

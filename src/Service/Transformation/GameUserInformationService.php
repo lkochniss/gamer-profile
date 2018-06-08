@@ -123,17 +123,17 @@ class GameUserInformationService
 
     /**
      * @param Game $game
-     * @return Game
-     * @throws \Nette\Utils\JsonException
+     * @return Game|null
+     * @throws JsonException
      */
-    public function addPlaytime(Game $game): Game
+    public function addPlaytime(Game $game): ?Game
     {
         $userInformation = $this->getUserInformationEntityForSteamAppId(
             $game->getSteamAppId()
         );
 
         if ($userInformation === null) {
-            return $game;
+            return null;
         }
 
         $game->setTimePlayed($userInformation->getTimePlayed());

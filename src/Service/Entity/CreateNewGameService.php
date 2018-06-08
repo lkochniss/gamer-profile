@@ -63,8 +63,19 @@ class CreateNewGameService
         $game->setModifiedAt();
 
         $game = $this->gameInformationService->addToGame($game);
+        if ($game == null) {
+            return 'F';
+        }
+
         $game = $this->userInformationService->addPlaytime($game);
+        if ($game == null) {
+            return 'F';
+        }
+
         $game = $this->userInformationService->addAchievements($game);
+        if ($game == null) {
+            return 'F';
+        }
 
         $this->gameRepository->save($game);
 

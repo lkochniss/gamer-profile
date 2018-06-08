@@ -58,13 +58,13 @@ class GameInformationService
 
     /**
      * @param Game $game
-     * @return Game
+     * @return Game|null
      */
-    public function addToGame(Game $game): Game
+    public function addToGame(Game $game): ?Game
     {
         $gameInformation = $this->getGameInformationEntityForSteamAppId($game->getSteamAppId());
         if ($gameInformation === null) {
-            return $game;
+            return null;
         }
 
         $game->setName($gameInformation->getName());

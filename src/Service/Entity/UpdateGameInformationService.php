@@ -50,6 +50,10 @@ class UpdateGameInformationService
         }
 
         $game = $this->gameInformationService->addToGame($game);
+        if ($game === null) {
+            return 'F';
+        }
+
         $this->gameRepository->save($game);
 
         return 'U';
