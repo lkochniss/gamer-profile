@@ -2,6 +2,7 @@
 
 namespace App\Service\Transformation;
 
+use App\Entity\Game;
 use App\Entity\GameInformation;
 use App\Service\Api\GameApiClientService;
 
@@ -53,5 +54,25 @@ class GameInformationService
         }
 
         return new GameInformation($gameInformation);
+    }
+
+    /**
+     * @param Game $game
+     * @return Game
+     */
+    public function addToGame(Game $game): Game
+    {
+        $gameInformation = $this->getGameInformationEntityForSteamAppId($game->getSteamAppId());
+        if ($gameInformation === null) {
+            return $game;
+        }
+
+        $game->setName($gameInformation->getName());
+        $game->setHeaderImagePath($gameInformation->getHeaderImagePath());
+        $game->setPrice($gameInformation->getPrice());
+        $game->setCurrency($gameInformation->getCurrency());
+        $game->setReleaseDate($gameInformation->getReleaseDate());
+
+        return $game;
     }
 }

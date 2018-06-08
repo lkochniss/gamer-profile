@@ -22,14 +22,16 @@ class UpdateGameInformationService
 
     /**
      * UpdateGameInformationService constructor.
-     * @param $gameInformationService
-     * @param $gameRepository
+     * @param GameInformationService $writeGameInformationService
+     * @param GameRepository $gameRepository
      *
      * @SuppressWarnings(PHPMD.LongVariableName)
      */
-    public function __construct(GameInformationService $gameInformationService, GameRepository $gameRepository)
-    {
-        $this->gameInformationService = $gameInformationService;
+    public function __construct(
+        GameInformationService $writeGameInformationService,
+        GameRepository $gameRepository
+    ) {
+        $this->gameInformationService = $writeGameInformationService;
         $this->gameRepository = $gameRepository;
     }
 
@@ -47,18 +49,7 @@ class UpdateGameInformationService
             return 'F';
         }
 
-        $gameInformation = $this->gameInformationService->getGameInformationEntityForSteamAppId($steamAppId);
-
-        if ($gameInformation === null) {
-            return 'F';
-        }
-
-        $game->setName($gameInformation->getName());
-        $game->setHeaderImagePath($gameInformation->getHeaderImagePath());
-        $game->setPrice($gameInformation->getPrice());
-        $game->setCurrency($gameInformation->getCurrency());
-        $game->setReleaseDate($gameInformation->getReleaseDate());
-
+        $game = $this->gameInformationService->addToGame($game);
         $this->gameRepository->save($game);
 
         return 'U';

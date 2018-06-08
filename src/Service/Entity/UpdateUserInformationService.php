@@ -2,8 +2,6 @@
 
 namespace App\Service\Entity;
 
-use App\Entity\Achievements;
-use App\Entity\GameSession;
 use App\Repository\GameRepository;
 use App\Service\Transformation\GameUserInformationService;
 
@@ -15,7 +13,7 @@ class UpdateUserInformationService
     /**
      * @var GameUserInformationService
      */
-    private $gameUserInformationService;
+    private $userInformationService;
 
     /**
      * @var GameRepository
@@ -24,12 +22,14 @@ class UpdateUserInformationService
 
     /**
      * UpdateUserInformationService constructor.
-     * @param GameUserInformationService $gameUserInformationService
+     * @param GameUserInformationService $writeGameUserInformationService
      * @param GameRepository $gameRepository
      */
-    public function __construct(GameUserInformationService $gameUserInformationService, GameRepository $gameRepository)
-    {
-        $this->gameUserInformationService = $gameUserInformationService;
+    public function __construct(
+        GameUserInformationService $writeGameUserInformationService,
+        GameRepository $gameRepository
+    ) {
+        $this->userInformationService = $writeGameUserInformationService;
         $this->gameRepository = $gameRepository;
     }
 
@@ -48,15 +48,7 @@ class UpdateUserInformationService
             return 'F';
         }
 
-        $userInformation = $this->gameUserInformationService->getUserInformationEntityForSteamAppId($steamAppId);
-
-        if ($userInformation === null) {
-            return 'F';
-        }
-
-        $game->setTimePlayed($userInformation->getTimePlayed());
-        $game->setRecentlyPlayed($userInformation->getRecentlyPlayed());
-
+        $game = $this->userInformationService->addPlaytime($game);
         $this->gameRepository->save($game);
 
         return 'U';
@@ -77,23 +69,10 @@ class UpdateUserInformationService
             return 'F';
         }
 
-        $userInformation = $this->gameUserInformationService->getUserInformationEntityForSteamAppId($steamAppId);
+        $game = $this->userInformationService->addSession($game);
+        $this->gameRepository->save($game);
 
-        if ($userInformation === null) {
-            return 'F';
-        }
-
-        if ($userInformation->getRecentlyPlayed() > 0 && $userInformation->getTimePlayed() > $game->getTimePlayed()) {
-            $gameSession = new GameSession();
-            $duration = $userInformation->getTimePlayed() - $game->getTimePlayed();
-            $gameSession->setDuration($duration);
-            $game->addGameSession($gameSession);
-            $this->gameRepository->save($game);
-
-            return 'S';
-        }
-
-        return '';
+        return 'N';
     }
 
     /**
@@ -109,18 +88,7 @@ class UpdateUserInformationService
             return 'F';
         }
 
-        $gameAchievements = $this->gameUserInformationService->getAchievementsForGame($steamAppId);
-        if (empty($gameAchievements) ||
-            array_key_exists('playerstats', $gameAchievements) === false ||
-            array_key_exists('achievements', $gameAchievements['playerstats']) === false
-        ) {
-            return 'F';
-        }
-
-        $achievements = new Achievements($gameAchievements);
-        $game->setPlayerAchievements($achievements->getPlayerAchievements());
-        $game->setOverallAchievements($achievements->getOverallAchievements());
-
+        $game = $this->userInformationService->addAchievements($game);
         $this->gameRepository->save($game);
 
         return 'U';

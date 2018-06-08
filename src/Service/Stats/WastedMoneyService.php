@@ -2,9 +2,7 @@
 
 namespace App\Service\Stats;
 
-use App\Entity\Game;
 use App\Entity\OverallGameStats;
-use App\Entity\Purchase;
 use App\Repository\OverallGameStatsRepository;
 use App\Repository\PurchaseRepository;
 use App\Service\Util\PurchaseUtil;

@@ -2,6 +2,9 @@
 
 namespace App\Service\Transformation;
 
+use App\Entity\Achievements;
+use App\Entity\Game;
+use App\Entity\GameSession;
 use App\Entity\UserInformation;
 use App\Service\Api\UserApiClientService;
 use GuzzleHttp\Exception\ClientException;
@@ -116,5 +119,65 @@ class GameUserInformationService
         }
 
         return $games;
+    }
+
+    /**
+     * @param Game $game
+     * @return Game
+     * @throws \Nette\Utils\JsonException
+     */
+    public function addPlaytime(Game $game): Game
+    {
+        $userInformation = $this->getUserInformationEntityForSteamAppId(
+            $game->getSteamAppId()
+        );
+
+        if ($userInformation === null) {
+            return $game;
+        }
+
+        $game->setTimePlayed($userInformation->getTimePlayed());
+        $game->setRecentlyPlayed($userInformation->getRecentlyPlayed());
+
+        return $game;
+    }
+
+    /**
+     * @param Game $game
+     * @return Game
+     */
+    public function addAchievements(Game $game): Game
+    {
+        $gameAchievements = $this->getAchievementsForGame($game->getSteamAppId());
+
+        if (!empty($gameAchievements) && array_key_exists('achievements', $gameAchievements['playerstats'])) {
+            $achievements = new Achievements($gameAchievements);
+            $game->setPlayerAchievements($achievements->getPlayerAchievements());
+            $game->setOverallAchievements($achievements->getOverallAchievements());
+        }
+
+        return $game;
+    }
+
+    /**
+     * @param Game $game
+     * @return Game
+     * @throws \Nette\Utils\JsonException
+     */
+    public function addSession(Game $game): Game
+    {
+        $userInformation = $this->getUserInformationEntityForSteamAppId($game->getSteamAppId());
+
+        if ($userInformation !== null &&
+            $userInformation->getRecentlyPlayed() > 0
+            && $userInformation->getTimePlayed() > $game->getTimePlayed()
+        ) {
+            $gameSession = new GameSession();
+            $duration = $userInformation->getTimePlayed() - $game->getTimePlayed();
+            $gameSession->setDuration($duration);
+            $game->addGameSession($gameSession);
+        }
+
+        return $game;
     }
 }
