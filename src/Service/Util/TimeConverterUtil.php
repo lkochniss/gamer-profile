@@ -1,18 +1,14 @@
 <?php
 
-namespace App\Service;
+namespace App\Service\Util;
 
-use App\Entity\Game;
-use App\Service\Util\PurchaseUtil;
 use App\Service\Transformation\TimeTransformation;
 use Symfony\Component\Translation\TranslatorInterface;
-use Twig\Extension\AbstractExtension;
-use Twig\TwigFilter;
 
 /**
- * Class TimeConverterService
+ * Class TimeConverterUtil
  */
-class TimeConverterService
+class TimeConverterUtil
 {
     private $translator;
 

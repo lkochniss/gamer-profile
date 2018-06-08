@@ -8,7 +8,7 @@ use App\Repository\GameRepository;
 use App\Repository\GameSessionRepository;
 use App\Repository\PlaytimePerMonthRepository;
 use App\Repository\PurchaseRepository;
-use App\Service\TimeConverterService;
+use App\Service\Util\TimeConverterUtil;
 use App\Service\Util\PurchaseUtil;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -20,15 +20,15 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 class ApiController extends Controller
 {
     /**
-     * @var TimeConverterService
+     * @var TimeConverterUtil
      */
     private $timeConverterService;
 
     /**
      * ApiController constructor.
-     * @param TimeConverterService $timeConverterService
+     * @param TimeConverterUtil $timeConverterService
      */
-    public function __construct(TimeConverterService $timeConverterService)
+    public function __construct(TimeConverterUtil $timeConverterService)
     {
         $this->timeConverterService = $timeConverterService;
     }

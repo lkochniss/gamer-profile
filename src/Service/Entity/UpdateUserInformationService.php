@@ -5,13 +5,12 @@ namespace App\Service\Entity;
 use App\Entity\Achievements;
 use App\Entity\GameSession;
 use App\Repository\GameRepository;
-use App\Service\ReportService;
 use App\Service\Transformation\GameUserInformationService;
 
 /**
  * Class UpdateUserInformationService
  */
-class UpdateUserInformationService extends ReportService
+class UpdateUserInformationService
 {
     /**
      * @var GameUserInformationService
@@ -46,21 +45,17 @@ class UpdateUserInformationService extends ReportService
         $game = $this->gameRepository->findOneBySteamAppId($steamAppId);
 
         if ($game === null) {
-            $this->addEntryToList($steamAppId, ReportService::GAME_NOT_FOUND_ERROR);
             return 'F';
         }
 
         $userInformation = $this->gameUserInformationService->getUserInformationEntityForSteamAppId($steamAppId);
 
         if ($userInformation === null) {
-            $this->addEntryToList($steamAppId, ReportService::FIND_USER_INFORMATION_ERROR);
             return 'F';
         }
 
         $game->setTimePlayed($userInformation->getTimePlayed());
         $game->setRecentlyPlayed($userInformation->getRecentlyPlayed());
-
-        $this->addEntryToList($game->getName(), ReportService::UPDATED_GAME_USER_INFORMATION);
 
         $this->gameRepository->save($game);
 
@@ -79,14 +74,12 @@ class UpdateUserInformationService extends ReportService
         $game = $this->gameRepository->findOneBySteamAppId($steamAppId);
 
         if ($game === null) {
-            $this->addEntryToList($steamAppId, ReportService::GAME_NOT_FOUND_ERROR);
             return 'F';
         }
 
         $userInformation = $this->gameUserInformationService->getUserInformationEntityForSteamAppId($steamAppId);
 
         if ($userInformation === null) {
-            $this->addEntryToList($steamAppId, ReportService::FIND_USER_INFORMATION_ERROR);
             return 'F';
         }
 
@@ -96,7 +89,6 @@ class UpdateUserInformationService extends ReportService
             $gameSession->setDuration($duration);
             $game->addGameSession($gameSession);
             $this->gameRepository->save($game);
-            $this->addEntryToList($game->getName(), ReportService::FIND_USER_INFORMATION_ERROR);
 
             return 'S';
         }
@@ -114,7 +106,6 @@ class UpdateUserInformationService extends ReportService
     {
         $game = $this->gameRepository->findOneBySteamAppId($steamAppId);
         if ($game === null) {
-            $this->addEntryToList($steamAppId, ReportService::GAME_NOT_FOUND_ERROR);
             return 'F';
         }
 

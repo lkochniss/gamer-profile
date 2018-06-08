@@ -5,14 +5,13 @@ namespace App\Service\Entity;
 use App\Entity\Achievements;
 use App\Entity\Game;
 use App\Repository\GameRepository;
-use App\Service\ReportService;
 use App\Service\Transformation\GameInformationService;
 use App\Service\Transformation\GameUserInformationService;
 
 /**
  * Class CreateNewGameService
  */
-class CreateNewGameService extends ReportService
+class CreateNewGameService
 {
     /**
      * @var GameUserInformationService
@@ -59,8 +58,6 @@ class CreateNewGameService extends ReportService
         $game = $this->gameRepository->findOneBySteamAppId($steamAppId);
 
         if ($game !== null) {
-            $this->addEntryToList($game->getName(), ReportService::SKIPPED_GAME);
-
             return 'S';
         }
 
@@ -78,13 +75,11 @@ class CreateNewGameService extends ReportService
     {
         $gameInformation = $this->gameInformationService->getGameInformationEntityForSteamAppId($steamAppId);
         if ($gameInformation === null) {
-            $this->addEntryToList($steamAppId, ReportService::FIND_GAME_INFORMATION_ERROR);
             return 'F';
         }
 
         $userInformation = $this->gameUserInformationService->getUserInformationEntityForSteamAppId($steamAppId);
         if ($userInformation === null) {
-            $this->addEntryToList($steamAppId, ReportService::FIND_USER_INFORMATION_ERROR);
             return 'F';
         }
 
@@ -109,7 +104,6 @@ class CreateNewGameService extends ReportService
             $game->setOverallAchievements($achievements->getOverallAchievements());
         }
 
-        $this->addEntryToList($game->getName(), ReportService::NEW_GAME);
         $this->gameRepository->save($game);
 
         return 'N';

@@ -65,11 +65,5 @@ class CreateNewGamesCommand extends ContainerAwareCommand
             $status = $this->createNewGameService->createGameIfNotExist($mySteamGame['appid']);
             $output->write($status);
         }
-
-        $output->writeln(['','','Summary:']);
-        $status = $this->createNewGameService->getSummary();
-        foreach ($status as $key => $value) {
-            $output->writeln('- ' . sprintf($key, $value));
-        }
     }
 }

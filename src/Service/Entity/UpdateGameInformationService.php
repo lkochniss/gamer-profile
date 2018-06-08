@@ -3,13 +3,12 @@
 namespace App\Service\Entity;
 
 use App\Repository\GameRepository;
-use App\Service\ReportService;
 use App\Service\Transformation\GameInformationService;
 
 /**
  * Class UpdateGameInformationService
  */
-class UpdateGameInformationService extends ReportService
+class UpdateGameInformationService
 {
     /**
      * @var GameInformationService
@@ -45,14 +44,12 @@ class UpdateGameInformationService extends ReportService
         $game = $this->gameRepository->findOneBySteamAppId($steamAppId);
 
         if ($game === null) {
-            $this->addEntryToList($steamAppId, ReportService::GAME_NOT_FOUND_ERROR);
             return 'F';
         }
 
         $gameInformation = $this->gameInformationService->getGameInformationEntityForSteamAppId($steamAppId);
 
         if ($gameInformation === null) {
-            $this->addEntryToList($steamAppId, ReportService::FIND_GAME_INFORMATION_ERROR);
             return 'F';
         }
 
@@ -61,7 +58,6 @@ class UpdateGameInformationService extends ReportService
         $game->setPrice($gameInformation->getPrice());
         $game->setCurrency($gameInformation->getCurrency());
         $game->setReleaseDate($gameInformation->getReleaseDate());
-        $this->addEntryToList($game->getName(), ReportService::UPDATED_GAME_INFORMATION);
 
         $this->gameRepository->save($game);
 
