@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\GameSession;
 use App\Entity\GameSessionsPerMonth;
 use App\Repository\GameRepository;
+use App\Repository\GameSessionRepository;
 use App\Repository\GameSessionsPerMonthRepository;
 use App\Repository\OverallGameStatsRepository;
 use App\Repository\PlaytimePerMonthRepository;
@@ -115,16 +117,39 @@ class HomepageController extends Controller
 
     /**
      * @param OverallGameStatsRepository $overallGameStatsRepository
-     * @param PlaytimePerMonthRepository $playtimePerMonthRepository
+     * @param GameSessionRepository $gameSessionRepository
      * @return Response
      */
     public function backendDashboard(
         OverallGameStatsRepository $overallGameStatsRepository,
-        PlaytimePerMonthRepository $playtimePerMonthRepository
+        GameSessionRepository $gameSessionRepository
     ): Response {
+
+        $gameSessions = $gameSessionRepository->findForThisMonth();
+        $playedThisMonth = [];
+
+        /**
+         * @var GameSession $gameSession
+         */
+        foreach ($gameSessions as $gameSession) {
+            $key = $gameSession->getGame()->getId();
+            if (array_key_exists($key, $playedThisMonth) === false){
+                $playedThisMonth[$key] = [
+                    'name' => $gameSession->getGame()->getName(),
+                    'duration' => 0
+                ];
+            }
+
+            $playedThisMonth[$key]['duration'] += $gameSession->getDuration();
+        }
+
+        usort($playedThisMonth, function (array $gameA, array $gameB) {
+            return $gameA['duration'] > $gameB['duration'] ? -1: 1;
+        });
+
         return $this->render('Homepage/backend-dashboard.html.twig', [
             'gameStats' => $overallGameStatsRepository->findOneBy(['identifier' => getenv('STEAM_USER_ID')]),
-            'playtimePerMonths' => $playtimePerMonthRepository->findAll()
+            'playedThisMonth' => array_slice($playedThisMonth, 0, 10)
         ]);
     }
 }

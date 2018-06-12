@@ -41,6 +41,23 @@ class GameSessionRepository extends AbstractRepository#
     /**
      * @return array|null
      */
+    public function findForThisMonth(): ?array
+    {
+        $start = new \DateTime('first day of this month');
+        $end = new \DateTime('last day of this month');
+        $query = $this->createQueryBuilder('game_session')
+            ->where('game_session.createdAt > :start')
+            ->andWhere('game_session.createdAt < :end')
+            ->setParameter('start', $start)
+            ->setParameter('end', $end)
+            ->getQuery();
+
+        return $query->getResult();
+    }
+
+    /**
+     * @return array|null
+     */
     public function findForThisYear(): ?array
     {
         $start = new \DateTime('first day of January');

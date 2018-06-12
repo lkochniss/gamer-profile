@@ -70,6 +70,7 @@ steam_profile: 'Steam Profile'
 statistics: Statistics
 submit: Submit
 title: Title
+top_played_this_month: 'Top games played this month'
 translate_days: '{0}%count% days|{1}1 day|]1,Inf[%count% days'
 translate_hours: '{0}%count% hours|{1}1 hour|]1,Inf[%count% hours'
 translate_minutes: '{0}%count% minutes|{1}1 minute|]1,Inf[%count% minutes'

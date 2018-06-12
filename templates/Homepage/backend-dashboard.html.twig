@@ -88,6 +88,16 @@
         <div class="col-md-6" id="playtime-last-week">
             <h3>{% trans %}session_time_last_days{% endtrans %}</h3>
         </div>
+        <div class="col-md-6" id="playtime-last-week">
+            <h3>{% trans %}top_played_this_month{% endtrans %}</h3>
+            {% for topGame in playedThisMonth %}
+                <div class="row">
+                    <div class="col">{{ topGame.name }}</div>
+                    <div class="col">{{ topGame.duration|convert_recent_time }}</div>
+                </div>
+            {% endfor %}
+
+        </div>
     </div>
     <div class="row mb-5" style="height: 350px">
         <div class="col-md-6" id="average-per-month">
