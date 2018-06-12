@@ -25,11 +25,24 @@ const setWeeklyDashboard = () => {
   }
 };
 
-const setMonthlyDashboard = () => {
+const setMonthlyPlaytimeDashboard = () => {
   const id = '#playtime-per-month';
   if ($(id).length) {
     $.getJSON({
       url: '/admin/sessions/per-month',
+      success: (data) => {
+        sessionTimeGraph(id, data, '%b %Y');
+      },
+    });
+  }
+};
+
+
+const setMonthlyAverageDashboard = () => {
+  const id = '#average-per-month';
+  if ($(id).length) {
+    $.getJSON({
+      url: '/admin/average/per-month',
       success: (data) => {
         sessionTimeGraph(id, data, '%b %Y');
       },
@@ -109,7 +122,8 @@ const addDataTables = () => {
 $(document).ready(() => {
   enableSelect2();
   setWeeklyDashboard();
-  setMonthlyDashboard();
+  setMonthlyPlaytimeDashboard();
+  setMonthlyAverageDashboard();
   setPlaytimeGame();
   addImgClass();
   addDataTables();

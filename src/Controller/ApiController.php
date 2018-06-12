@@ -8,7 +8,7 @@ use App\Repository\GameRepository;
 use App\Repository\GameSessionRepository;
 use App\Repository\PlaytimePerMonthRepository;
 use App\Repository\PurchaseRepository;
-use App\Service\TimeConverterService;
+use App\Service\Util\TimeConverterUtil;
 use App\Service\Util\PurchaseUtil;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -20,15 +20,15 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 class ApiController extends Controller
 {
     /**
-     * @var TimeConverterService
+     * @var TimeConverterUtil
      */
     private $timeConverterService;
 
     /**
      * ApiController constructor.
-     * @param TimeConverterService $timeConverterService
+     * @param TimeConverterUtil $timeConverterService
      */
-    public function __construct(TimeConverterService $timeConverterService)
+    public function __construct(TimeConverterUtil $timeConverterService)
     {
         $this->timeConverterService = $timeConverterService;
     }
@@ -47,6 +47,28 @@ class ApiController extends Controller
                 'date' => $playtime->getMonth()->format('M Y'),
                 'timeInMinutes' => $playtime->getDuration(),
                 'timeForTooltip' => $this->timeConverterService->convertOverallTime($playtime->getDuration())
+            ];
+        }
+
+        return new JsonResponse($data);
+    }
+
+    /**
+     * @param PlaytimePerMonthRepository $playtimePerMonthRepository
+     * @return JsonResponse
+     */
+    public function averagePerMonth(PlaytimePerMonthRepository $playtimePerMonthRepository): JsonResponse
+    {
+        $playtimePerMonth = $playtimePerMonthRepository->findAll();
+
+        $data = [];
+        foreach ($playtimePerMonth as $playtime) {
+            $lastDayOfMonth = new \DateTime(' last day of ' . $playtime->getMonth()->format('M Y'));
+            $average = $playtime->getDuration() / $lastDayOfMonth->format('d');
+            $data[] = [
+                'date' => $playtime->getMonth()->format('M Y'),
+                'timeInMinutes' => $average,
+                'timeForTooltip' => $this->timeConverterService->convertRecentTime($average)
             ];
         }
 

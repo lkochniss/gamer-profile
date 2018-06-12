@@ -19,6 +19,7 @@
         <env name="CURRENT_VERSION" value="0" />
         <env name="USER_NAME" value="tester" />
         <env name="USER_PASS" value="test" />
+        <env name="STEAM_API_KEY" value="unittest" />
         <env name="CSRF_SECURITY_LOGIN_TOKEN" value="token" />
         <env name="STEAM_USER_NAME" value="testUser" />
         <!-- ###+ doctrine/doctrine-bundle ### -->

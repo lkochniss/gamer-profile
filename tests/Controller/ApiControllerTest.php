@@ -54,10 +54,13 @@ class ApiControllerTest extends WebTestCase
     public function backendUrlProvider(): array
     {
         return [
+            ['/admin/sessions/this-year'],
             ['/admin/sessions/per-month'],
+            ['/admin/average/per-month'],
             ['/admin/sessions/recently'],
             ['/admin/sessions/game/1'],
             ['/admin/money/per-month'],
+            ['/admin/money/per-year'],
         ];
     }
 }

@@ -5,9 +5,7 @@ namespace App\Controller;
 use App\Entity\Game;
 use App\Form\Type\GameType;
 use App\Repository\GameRepository;
-use App\Service\Steam\Entity\UpdateGameInformationService;
-use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\HttpFoundation\Request;
+use App\Service\Entity\UpdateGameInformationService;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
