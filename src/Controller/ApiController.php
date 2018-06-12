@@ -54,6 +54,28 @@ class ApiController extends Controller
     }
 
     /**
+     * @param PlaytimePerMonthRepository $playtimePerMonthRepository
+     * @return JsonResponse
+     */
+    public function averagePerMonth(PlaytimePerMonthRepository $playtimePerMonthRepository): JsonResponse
+    {
+        $playtimePerMonth = $playtimePerMonthRepository->findAll();
+
+        $data = [];
+        foreach ($playtimePerMonth as $playtime) {
+            $lastDayOfMonth = new \DateTime(' last day of ' . $playtime->getMonth()->format('M Y'));
+            $average = $playtime->getDuration() / $lastDayOfMonth->format('d');
+            $data[] = [
+                'date' => $playtime->getMonth()->format('M Y'),
+                'timeInMinutes' => $average,
+                'timeForTooltip' => $this->timeConverterService->convertRecentTime($average)
+            ];
+        }
+
+        return new JsonResponse($data);
+    }
+
+    /**
      * @param GameSessionRepository $gameSessionRepository
      * @return JsonResponse
      */
