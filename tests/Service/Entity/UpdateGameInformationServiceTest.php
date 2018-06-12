@@ -3,7 +3,6 @@
 namespace tests\App\Service\Entity;
 
 use App\Entity\Game;
-use App\Entity\GameInformation;
 use App\Repository\GameRepository;
 use App\Service\Entity\UpdateGameInformationService;
 use App\Service\Transformation\GameInformationService;
@@ -16,29 +15,22 @@ class UpdateGameInformationServiceTest extends TestCase
 {
     public function testUpdateGameInformationForExistingGame()
     {
-        $gameInformationArray = [
-            'type' => 'game',
-            'name' => 'Demo game',
-            'steam_appid' => 1,
-            'header_image' => 'http://header.image/src.jpg',
-            'price_overview' => [
-                'currency' => 'EUR',
-                'final' => '1000'
-            ],
-            'release_date' => [
-                'date' => '10 Oct, 2017'
-            ]
-        ];
-        $gameInformation = new GameInformation($gameInformationArray);
+        $game = new game();
+        $game->setsteamappid(1);
+
+        $game = new Game();
+        $game->setSteamAppId(1);
 
         $gameInformationServiceMock = $this->createMock(GameInformationService::class);
         $gameInformationServiceMock->expects($this->any())
-            ->method('getGameInformationEntityForSteamAppId')
-            ->with(1)
-            ->willReturn($gameInformation);
+            ->method('addToGame')
+            ->willReturn($game);
 
-        $game = new Game();
-        $game->setName('Demo Game');
+        $gameRepositoryMock = $this->createMock(GameRepository::class);
+        $gameRepositoryMock->expects($this->any())
+            ->method('save')
+            ->willReturn(null);
+
         $gameRepositoryMock = $this->createMock(GameRepository::class);
         $gameRepositoryMock->expects($this->any())
             ->method('findOneBySteamAppId')

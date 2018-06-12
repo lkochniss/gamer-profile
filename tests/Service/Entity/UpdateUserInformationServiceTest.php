@@ -16,19 +16,23 @@ class UpdateUserInformationServiceTest extends TestCase
 {
     public function testUpdateGameInformationForExistingGame()
     {
-        $userInformationArray = [
-            'appid' => 1,
-            'playtime_forever' => 0
-        ];
-        $userInformation = new UserInformation($userInformationArray);
-        $gameUserInformationServiceMock = $this->createMock(GameUserInformationService::class);
-        $gameUserInformationServiceMock->expects($this->any())
-            ->method('getUserInformationEntityForSteamAppId')
-            ->with(1)
-            ->willReturn($userInformation);
-
         $game = new Game();
-        $game->setName('Demo Game');
+        $game->setSteamAppId(1);
+
+        $userInformationServiceMock = $this->createMock(GameUserInformationService::class);
+        $userInformationServiceMock->expects($this->any())
+            ->method('addPlaytime')
+            ->willReturn($game);
+
+        $userInformationServiceMock->expects($this->any())
+            ->method('addAchievements')
+            ->willReturn($game);
+
+        $gameRepositoryMock = $this->createMock(GameRepository::class);
+        $gameRepositoryMock->expects($this->any())
+            ->method('save')
+            ->willReturn(null);
+
         $gameRepositoryMock = $this->createMock(GameRepository::class);
         $gameRepositoryMock->expects($this->any())
             ->method('findOneBySteamAppId')
@@ -36,7 +40,7 @@ class UpdateUserInformationServiceTest extends TestCase
             ->willReturn($game);
 
         $updateGameInformationService = new UpdateUserInformationService(
-            $gameUserInformationServiceMock,
+            $userInformationServiceMock,
             $gameRepositoryMock
         );
 

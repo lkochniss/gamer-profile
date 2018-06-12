@@ -49,47 +49,30 @@ class CreateNewGameServiceTest extends TestCase
 
     public function testCreateGameIfGameNotExist(): void
     {
-        $userInformationArray = [
-            'appid' => 1,
-            'playtime_forever' => 0
-        ];
-
-        $userInformation = new UserInformation($userInformationArray);
-
-        $ownedGamesServiceMock = $this->createMock(GameUserInformationService::class);
-        $ownedGamesServiceMock->expects($this->any())
-            ->method('getUserInformationEntityForSteamAppId')
-            ->willReturn($userInformation);
-
-        $gameInformationArray = [
-            'type' => 'game',
-            'name' => 'Demo game',
-            'steam_appid' => 1,
-            'header_image' => 'http://header.image/src.jpg',
-            'price_overview' => [
-                'currency' => 'EUR',
-                'final' => '1000'
-            ],
-            'release_date' => [
-                'date' => '10 Oct, 2017'
-            ]
-        ];
-        $gameInformation = new GameInformation($gameInformationArray);
+        $game = new Game();
+        $game->setSteamAppId(1);
 
         $gameInformationServiceMock = $this->createMock(GameInformationService::class);
         $gameInformationServiceMock->expects($this->any())
-            ->method('getGameInformationEntityForSteamAppId')
-            ->with(1)
-            ->willReturn($gameInformation);
+            ->method('addToGame')
+            ->willReturn($game);
+
+        $userInformationServiceMock = $this->createMock(GameUserInformationService::class);
+        $userInformationServiceMock->expects($this->any())
+            ->method('addPlaytime')
+            ->willReturn($game);
+
+        $userInformationServiceMock->expects($this->any())
+            ->method('addAchievements')
+            ->willReturn($game);
 
         $gameRepositoryMock = $this->createMock(GameRepository::class);
         $gameRepositoryMock->expects($this->any())
-            ->method('findOneBySteamAppId')
-            ->with(1)
+            ->method('save')
             ->willReturn(null);
 
         $createNewGameService = new CreateNewGameService(
-            $ownedGamesServiceMock,
+            $userInformationServiceMock,
             $gameInformationServiceMock,
             $gameRepositoryMock
         );

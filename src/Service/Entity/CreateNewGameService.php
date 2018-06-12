@@ -29,17 +29,17 @@ class CreateNewGameService
 
     /**
      * CreateNewGameService constructor.
-     * @param GameUserInformationService $writeGameUserInformationService
-     * @param GameInformationService $writeGameInformationService
+     * @param GameUserInformationService $userInformationService
+     * @param GameInformationService $gameInformationService
      * @param GameRepository $gameRepository
      */
     public function __construct(
-        GameUserInformationService $writeGameUserInformationService,
-        GameInformationService $writeGameInformationService,
+        GameUserInformationService $userInformationService,
+        GameInformationService $gameInformationService,
         GameRepository $gameRepository
     ) {
-        $this->userInformationService = $writeGameUserInformationService;
-        $this->gameInformationService = $writeGameInformationService;
+        $this->userInformationService = $userInformationService;
+        $this->gameInformationService = $gameInformationService;
         $this->gameRepository = $gameRepository;
     }
 

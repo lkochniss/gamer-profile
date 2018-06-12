@@ -133,7 +133,7 @@ class HomepageController extends Controller
          */
         foreach ($gameSessions as $gameSession) {
             $key = $gameSession->getGame()->getId();
-            if (array_key_exists($key, $playedThisMonth) === false){
+            if (array_key_exists($key, $playedThisMonth) === false) {
                 $playedThisMonth[$key] = [
                     'name' => $gameSession->getGame()->getName(),
                     'duration' => 0

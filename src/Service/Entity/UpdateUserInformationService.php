@@ -22,14 +22,14 @@ class UpdateUserInformationService
 
     /**
      * UpdateUserInformationService constructor.
-     * @param GameUserInformationService $writeGameUserInformationService
+     * @param GameUserInformationService $gameUserInformationService
      * @param GameRepository $gameRepository
      */
     public function __construct(
-        GameUserInformationService $writeGameUserInformationService,
+        GameUserInformationService $gameUserInformationService,
         GameRepository $gameRepository
     ) {
-        $this->userInformationService = $writeGameUserInformationService;
+        $this->userInformationService = $gameUserInformationService;
         $this->gameRepository = $gameRepository;
     }
 
