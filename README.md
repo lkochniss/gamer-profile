@@ -1,6 +1,7 @@
 # Gamer-Profile - a way to share your game experience
 
-[Demo Page](https://satannorris.de)
+- [Demo Frontend](https://gamer-profile.kochniss.com)
+- [Demo Backend](https://gamer-profile.kochniss.com/admin/) User:*admin* Password:*admin*
 
 Gaming can be a lot of fun and thanks to YouTube and Twitch you can share your
 sessions as live stream or VOD. But what about writing small blog posts or sharing
