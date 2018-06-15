@@ -45,6 +45,9 @@
                 <div class="card mb-4">
                     <div class="card-header">
                         {% trans from "messages" %}game_sessions{% endtrans %}
+                        <a href="{{ path('homepage_backend_update_sessions') }}">
+                            <span class="pull-right"><i class="fa fa-refresh"></i></span>
+                        </a>
                     </div>
                     <div class="card-body">
                         {{ gameStats.gameSessions }}

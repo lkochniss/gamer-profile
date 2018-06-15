@@ -9,6 +9,8 @@ use App\Repository\GameSessionRepository;
 use App\Repository\GameSessionsPerMonthRepository;
 use App\Repository\OverallGameStatsRepository;
 use App\Repository\PlaytimePerMonthRepository;
+use App\Service\Stats\GameSessionService;
+use App\Service\Stats\GameSessionsPerMonthService;
 use App\Service\Stats\InvestedMoneyService;
 use App\Service\Stats\WastedMoneyService;
 use App\Service\Transformation\RecentlyPlayedGamesService;
@@ -111,6 +113,19 @@ class HomepageController extends Controller
     public function updateInvested(InvestedMoneyService $moneyService): RedirectResponse
     {
         $moneyService->recalculate();
+
+        return $this->redirectToRoute('homepage_backend_dashboard');
+    }
+
+    /**
+     * @param GameSessionService $gameSessionService
+     * @return RedirectResponse
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function updateSessions(GameSessionService $gameSessionService): RedirectResponse
+    {
+        $gameSessionService->recalculate();
 
         return $this->redirectToRoute('homepage_backend_dashboard');
     }

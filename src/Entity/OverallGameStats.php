@@ -131,6 +131,14 @@ class OverallGameStats extends AbstractEntity
     }
 
     /**
+     * @param int $sessions
+     */
+    public function setGameSessions(int $sessions): void
+    {
+        $this->gameSessions = $sessions;
+    }
+
+    /**
      * @return int
      */
     public function getGameSessions(): int
