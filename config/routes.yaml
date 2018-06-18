@@ -13,8 +13,9 @@ secruity_admin:
 ## Homepage
 
 homepage_backend:
-    resource: routing/homepage_backend.yaml
+    resource: routing/homepage_admin.yaml
     prefix: /admin
+    trailing_slash_on_root: false
 
 ## Game
 game_admin:
