@@ -3,12 +3,15 @@
     <a target="_blank"
        href="https://steamcommunity.com/id/{{ steam_user_name }}/stats/{{ game.steamAppId }}/achievements">
         <span class="pull-right">
-            {{ game.playerAchievements }} / {{ game.overallAchievements }}
-            {% set percentage = game.playerAchievements / game.overallAchievements  * 100 %}
-            ({{ percentage|round(2) }}%)
+             {% if overallAchievements > 0 %}
+                 {{ game.playerAchievements }} / {{ game.overallAchievements }}
+                 {% set percentage = game.playerAchievements / game.overallAchievements  * 100 %}
+                 ({{ percentage|round(2) }}%)
+             {% else %}
+                 {% trans from "messages" %}profile_not_public{% endtrans %}
+             {% endif %}
         </span>
 
     </a>
     <div class="clearfix"></div>
 </div>
-
