@@ -37,6 +37,10 @@ game_session_admin:
     resource: routing/game_session_admin.yaml
     prefix: /admin
 
+settings_admin:
+    resource: routing/settings_admin.yaml
+    prefix: /admin
+
 # Frontend
 
 ## Homepage

@@ -13,10 +13,12 @@ created_at: 'Created At'
 current_steam_price: 'Current Steam Price'
 dashboard: Dashboard
 date: Date
+default_currency: 'Default Currency'
 duration: Duration
 edit: Edit
 EUR: €
 first_indexed_on: 'First Indexed On'
+ga_tracking: 'Google Analytics Tracking Id'
 game_of_the_month: 'Game Of The Month'
 game_list: 'Game List'
 game_sessions: 'Game Sessions'
@@ -62,11 +64,15 @@ session_time_last_days: 'Session playtime last two weeks'
 session_time_per_month: 'Session playtime per month'
 sessions: Sessions
 sessions_this_year: 'Sessions this year'
+settings: Settings
 shortest_session: 'Shortest Session'
 show: Show
 show_all: 'Show All'
+steam_api_key: 'Steam Api Key'
 steam_app_id: 'Steam AppId'
 steam_profile: 'Steam Profile'
+steam_user_id: 'Steam User Id'
+steam_user_name: 'Steam User Name'
 statistics: Statistics
 submit: Submit
 title: Title

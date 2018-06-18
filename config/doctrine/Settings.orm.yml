@@ -1,0 +1,18 @@
+App\Entity\Settings:
+    type: entity
+    repositoryClass: App\Repository\SettingsRepository
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        settingsKey:
+            type: string
+            length: 100
+            unique: true
+            column: settings_key
+        settingsValue:
+            type: string
+            length: 100
+            nullable: true
+            column: settings_value
