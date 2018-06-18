@@ -15,7 +15,7 @@
                         {% trans from "messages" %}achievements{% endtrans %}
                     </div>
                     <div class="card-body">
-                        {% if overallAchievements > 0 %}
+                        {% if gameStats.overallAchievements > 0 %}
                             {{ gameStats.playerAchievements }}/{{ gameStats.overallAchievements }}
                             {% set percentage = gameStats.playerAchievements / gameStats.overallAchievements  * 100 %}
                             ({{ percentage|round(2) }}%)
