@@ -3,7 +3,7 @@
     <a target="_blank"
        href="https://steamcommunity.com/id/{{ steam_user_name }}/stats/{{ game.steamAppId }}/achievements">
         <span class="pull-right">
-             {% if overallAchievements > 0 %}
+             {% if game.overallAchievements > 0 %}
                  {{ game.playerAchievements }} / {{ game.overallAchievements }}
                  {% set percentage = game.playerAchievements / game.overallAchievements  * 100 %}
                  ({{ percentage|round(2) }}%)
