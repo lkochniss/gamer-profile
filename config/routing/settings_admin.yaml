@@ -1,0 +1,3 @@
+settings_edit:
+    path:   /settings
+    defaults: { _controller: 'App\Controller\SettingsController::edit'  }

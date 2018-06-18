@@ -62,6 +62,12 @@
         </ul>
         <ul class="navbar-nav mr-auto right">
             <li class="nav-item ">
+                <a class="nav-link" href="{{ path('settings_edit') }}">
+                    <i class="fa fa-cog fa-fw"></i>
+                    {% trans from "messages" %}settings{% endtrans %}
+                </a>
+            </li>
+            <li class="nav-item ">
                 <a class="nav-link" href="{{ path('security_logout') }}">
                     <i class="fa fa-sign-out fa-fw"></i>
                     {% trans from "messages" %}logout{% endtrans %}
