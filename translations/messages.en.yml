@@ -54,6 +54,7 @@ playtime_game: 'Playtime'
 playtime_since_purchase: 'Played for %time% since purchase'
 playtime_since_purchase_date: 'Played for %time% since %date%'
 price: Price
+profile_not_public: "Your profile is not public some data can't be shown"
 posted_at: 'Posted At'
 purchase_list: 'List Purchases'
 purchases: Purchases
