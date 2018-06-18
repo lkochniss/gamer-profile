@@ -2,7 +2,6 @@
 
 namespace App\Service\Stats;
 
-use App\Repository\GameRepository;
 use App\Repository\GameSessionRepository;
 use App\Repository\OverallGameStatsRepository;
 

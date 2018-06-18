@@ -60,10 +60,16 @@ class ApiController extends Controller
     public function averagePerMonth(PlaytimePerMonthRepository $playtimePerMonthRepository): JsonResponse
     {
         $playtimePerMonth = $playtimePerMonthRepository->findAll();
+        $today = new \DateTime();
 
         $data = [];
         foreach ($playtimePerMonth as $playtime) {
             $lastDayOfMonth = new \DateTime(' last day of ' . $playtime->getMonth()->format('M Y'));
+
+            if ($today->format('M-Y') == $lastDayOfMonth->format('M-Y')) {
+                $lastDayOfMonth = $today;
+            }
+
             $average = $playtime->getDuration() / $lastDayOfMonth->format('d');
             $data[] = [
                 'date' => $playtime->getMonth()->format('M Y'),
