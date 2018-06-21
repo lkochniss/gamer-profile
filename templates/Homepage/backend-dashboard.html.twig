@@ -116,10 +116,10 @@
     </div>
     <div class="row" style="height: 350px">
         <div class="col-md-6" id="invested-money-per-month">
-            <h3>{% trans with {'%currency%' :gameStats.currency |trans } %}invested_money_per_month{% endtrans %}</h3>
+            <h3>{% trans with {'%currency%' :gameStats ? gameStats.currency : default_currency |trans } %}invested_money_per_month{% endtrans %}</h3>
         </div>
         <div class="col-md-6" id="invested-money-per-year">
-            <h3>{% trans with {'%currency%' :gameStats.currency |trans } %}invested_money_per_year{% endtrans %}</h3>
+            <h3>{% trans with {'%currency%' :gameStats ? gameStats.currency : default_currency |trans } %}invested_money_per_year{% endtrans %}</h3>
         </div>
     </div>
 {% endblock %}

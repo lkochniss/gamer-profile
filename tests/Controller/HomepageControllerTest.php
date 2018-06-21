@@ -79,7 +79,7 @@ class HomepageControllerTest extends WebTestCase
     public function backendUrlProvider(): array
     {
         return [
-            ['/admin/'],
+            ['/admin'],
         ];
     }
 }

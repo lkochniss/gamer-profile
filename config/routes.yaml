@@ -10,6 +10,10 @@ secruity_admin:
     resource: routing/security_admin.yaml
     prefix: /admin
 
+steam_admin:
+    resource: routing/steam_admin.yaml
+    prefix: /admin
+
 ## Homepage
 
 homepage_backend:

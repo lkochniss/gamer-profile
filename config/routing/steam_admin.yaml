@@ -1,0 +1,3 @@
+steam_authenticate:
+    path:   /steam/authenticate
+    defaults: { _controller: 'App\Controller\SteamController::authenticate'  }

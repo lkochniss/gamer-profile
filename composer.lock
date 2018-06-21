@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "8cf13c30641f87a8adc84dbbadcb2495",
+    "content-hash": "4a4ce5de30648f48949b803db64074eb",
     "packages": [
         {
             "name": "api-platform/api-pack",
@@ -1438,6 +1438,63 @@
                 "url"
             ],
             "time": "2017-03-20T17:10:46+00:00"
+        },
+        {
+            "name": "hybridauth/hybridauth",
+            "version": "v3.0.0-rc.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/hybridauth/hybridauth.git",
+                "reference": "2a91a188f69edaee34d95d5f384178ecbd1898d1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/hybridauth/hybridauth/zipball/2a91a188f69edaee34d95d5f384178ecbd1898d1",
+                "reference": "2a91a188f69edaee34d95d5f384178ecbd1898d1",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "ext-curl": "*",
+                "phpunit/phpunit": "~4.8.35"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Hybridauth\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Miled",
+                    "email": "hybridauth@gmail.com"
+                }
+            ],
+            "description": "PHP Social Authentication Library",
+            "homepage": "https://hybridauth.github.io",
+            "keywords": [
+                "Authentication",
+                "OpenId",
+                "api",
+                "authorization",
+                "facebook",
+                "google",
+                "oauth",
+                "social",
+                "twitter"
+            ],
+            "time": "2018-06-01T06:20:56+00:00"
         },
         {
             "name": "jdorn/sql-formatter",
@@ -8049,6 +8106,7 @@
     "aliases": [],
     "minimum-stability": "beta",
     "stability-flags": {
+        "hybridauth/hybridauth": 5,
         "symfony/browser-kit": 5,
         "symfony/console": 10,
         "symfony/lts": 20,

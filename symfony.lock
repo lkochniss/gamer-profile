@@ -101,6 +101,9 @@
     "guzzlehttp/psr7": {
         "version": "1.4.2"
     },
+    "hybridauth/hybridauth": {
+        "version": "v3.0.0-rc.6"
+    },
     "jdorn/sql-formatter": {
         "version": "v1.2.17"
     },
