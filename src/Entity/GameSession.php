@@ -18,6 +18,11 @@ class GameSession extends AbstractEntity
     private $duration;
 
     /**
+     * @var User
+     */
+    private $user;
+
+    /**
      * @return Game
      */
     public function getGame(): Game
@@ -47,6 +52,22 @@ class GameSession extends AbstractEntity
     public function setDuration(int $duration): void
     {
         $this->duration = $duration;
+    }
+
+    /**
+     * @return User
+     */
+    public function getUser(): User
+    {
+        return $this->user;
+    }
+
+    /**
+     * @param User $user
+     */
+    public function setUser(User $user): void
+    {
+        $this->user = $user;
     }
 
     public function setSlug(): void

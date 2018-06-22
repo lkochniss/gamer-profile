@@ -12,3 +12,9 @@ App\Entity\PlaytimePerMonth:
             type: integer
         sessions:
             type: integer
+    manyToOne:
+        user:
+            targetEntity: User
+            joinColumn:
+                name: user_id
+                referenceColumnName: id

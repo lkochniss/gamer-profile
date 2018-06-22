@@ -43,6 +43,11 @@ class Purchase extends AbstractEntity
     private $game;
 
     /**
+     * @var User
+     */
+    private $user;
+
+    /**
      * Purchase constructor.
      */
     public function __construct()
@@ -53,7 +58,6 @@ class Purchase extends AbstractEntity
         $this->notice = '';
         $this->boughtAt = new \DateTime();
     }
-
 
     /**
      * @return string
@@ -149,6 +153,22 @@ class Purchase extends AbstractEntity
     public function setGame(Game $game): void
     {
         $this->game = $game;
+    }
+
+    /**
+     * @return User
+     */
+    public function getUser(): User
+    {
+        return $this->user;
+    }
+
+    /**
+     * @param User $user
+     */
+    public function setUser(User $user): void
+    {
+        $this->user = $user;
     }
 
     public function setSlug(): void

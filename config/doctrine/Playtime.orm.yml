@@ -1,0 +1,25 @@
+App\Entity\Playtime:
+    type: entity
+    repositoryClass: App\Repository\PlaytimeRepository
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        recentPlaytime:
+            type: integer
+            column: recent_playtime
+        overallPlaytime:
+            type: integer
+            nullable: overall_playtime
+    manyToOne:
+          user:
+              targetEntity: User
+              joinColumn:
+                  name: user_id
+                  referenceColumnName: id
+          game:
+              targetEntity: Game
+              joinColumn:
+                  name: game_id
+                  referenceColumnName: id

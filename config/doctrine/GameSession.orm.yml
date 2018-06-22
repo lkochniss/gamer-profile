@@ -9,6 +9,11 @@ App\Entity\GameSession:
         duration:
             type: integer
     manyToOne:
+        user:
+            targetEntity: User
+            joinColumn:
+                name: user_id
+                referenceColumnName: id
         game:
             targetEntity: Game
             inversedBy: gameSessions

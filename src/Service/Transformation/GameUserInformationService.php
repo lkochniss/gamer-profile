@@ -2,7 +2,7 @@
 
 namespace App\Service\Transformation;
 
-use App\Entity\Achievements;
+use App\Entity\Achievement;
 use App\Entity\Game;
 use App\Entity\GameSession;
 use App\Entity\UserInformation;
@@ -151,7 +151,7 @@ class GameUserInformationService
         $gameAchievements = $this->getAchievementsForGame($game->getSteamAppId());
 
         if (!empty($gameAchievements) && array_key_exists('achievements', $gameAchievements['playerstats'])) {
-            $achievements = new Achievements($gameAchievements);
+            $achievements = new Achievement($gameAchievements);
             $game->setPlayerAchievements($achievements->getPlayerAchievements());
             $game->setOverallAchievements($achievements->getOverallAchievements());
         }

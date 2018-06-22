@@ -42,3 +42,9 @@ App\Entity\OverallGameStats:
         currency:
             type: string
             length: 4
+    manyToOne:
+        user:
+            targetEntity: User
+            joinColumn:
+                name: user_id
+                referenceColumnName: id

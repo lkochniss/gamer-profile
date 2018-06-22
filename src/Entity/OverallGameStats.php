@@ -53,6 +53,11 @@ class OverallGameStats extends AbstractEntity
     private $currency;
 
     /**
+     * @var User
+     */
+    private $user;
+
+    /**
      * OverallGameStats constructor.
      */
     public function __construct()
@@ -195,5 +200,21 @@ class OverallGameStats extends AbstractEntity
     public function getCurrency(): string
     {
         return $this->currency;
+    }
+
+    /**
+     * @return User
+     */
+    public function getUser(): User
+    {
+        return $this->user;
+    }
+
+    /**
+     * @param User $user
+     */
+    public function setUser(User $user): void
+    {
+        $this->user = $user;
     }
 }
