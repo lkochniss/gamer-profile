@@ -2,6 +2,7 @@
 
 namespace App\Command;
 
+use App\Repository\GameRepository;
 use App\Repository\PlaytimeRepository;
 use App\Repository\UserRepository;
 use App\Service\Entity\PlaytimeService;
@@ -36,11 +37,17 @@ class UpdatePlaytimesCommand extends ContainerAwareCommand
     private $playtimeRepository;
 
     /**
-     * UpdatePlaytimeCommand constructor.
+     * @var GameRepository
+     */
+    private $gameRepository;
+
+    /**
+     * UpdatePlaytimesCommand constructor.
      * @param PlaytimeService $playtimeService
      * @param GameUserInformationService $gameUserInformationService
      * @param UserRepository $userRepository
      * @param PlaytimeRepository $playtimeRepository
+     * @param GameRepository $gameRepository
      *
      * @SuppressWarnings(PHPMD.LongVariableName)
      */
@@ -48,13 +55,16 @@ class UpdatePlaytimesCommand extends ContainerAwareCommand
         PlaytimeService $playtimeService,
         GameUserInformationService $gameUserInformationService,
         UserRepository $userRepository,
-        PlaytimeRepository $playtimeRepository
-    ) {
+        PlaytimeRepository $playtimeRepository,
+        GameRepository $gameRepository
+    )
+    {
         parent::__construct();
         $this->playtimeService = $playtimeService;
         $this->gameUserInformationService = $gameUserInformationService;
         $this->userRepository = $userRepository;
         $this->playtimeRepository = $playtimeRepository;
+        $this->gameRepository = $gameRepository;
     }
 
 
@@ -90,7 +100,8 @@ class UpdatePlaytimesCommand extends ContainerAwareCommand
 
             $games = $this->gameUserInformationService->getRecentlyPlayedGames($user->getSteamid());
 
-            foreach ($games as $game) {
+            foreach ($games as $gameArray) {
+                $game = $this->gameRepository->findOneBy(['steamAppId' => $gameArray['appid']]);
                 $playtime = $this->playtimeRepository->findOneBy(['user' => $user, 'game' => $game]);
 
                 $status = 'F';

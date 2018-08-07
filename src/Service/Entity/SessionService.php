@@ -60,7 +60,7 @@ class SessionService
             $session->setGameStats($gameStats);
         }
 
-        $diff = $jsonPlaytime->getRecentPlaytime() - $playtime->getRecentPlaytime() - $session->getDuration();
+        $diff = $jsonPlaytime->getRecentPlaytime() - $playtime->getRecentPlaytime();
         $session->setDuration($diff);
 
         $this->gameSessionRepository->save($session);
