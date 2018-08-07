@@ -1,7 +1,7 @@
 <div class="panel-footer">
     <span class="pull-left">{% trans from "messages" %}achievements{% endtrans %}</span>
     <a target="_blank"
-       href="https://steamcommunity.com/id/{{ steam_user_name }}/stats/{{ gameStats.game.steamAppId }}/achievements">
+       href="https://steamcommunity.com/profiles/{{ app.user.steamId }}/stats/{{ gameStats.game.steamAppId }}/achievements">
         <span class="pull-right">
              {% if gameStats.achievement.overallAchievements > 0 %}
                  {{ gameStats.achievement.playerAchievements }} / {{ gameStats.achievement.overallAchievements }}
