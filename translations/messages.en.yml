@@ -14,6 +14,7 @@ current_steam_price: 'Current Steam Price'
 dashboard: Dashboard
 date: Date
 default_currency: 'Default Currency'
+dlc_purchase: 'DLC Purchase'
 duration: Duration
 edit: Edit
 EUR: €
@@ -21,10 +22,12 @@ first_indexed_on: 'First Indexed On'
 ga_tracking: 'Google Analytics Tracking Id'
 game_of_the_month: 'Game Of The Month'
 game_list: 'Game List'
+game_purchase: 'Game Purchase'
 game_sessions: 'Game Sessions'
 game: Game
 games: Games
 information: Information
+ingame_purchase: 'Ingame Purchase'
 invested_money: 'Invested Money'
 invested_money_per_month: 'Invested %currency% last twelve months'
 invested_money_per_year: 'Invested %currency% per year'
@@ -46,6 +49,7 @@ number_of_blog_posts: 'Blog Posts'
 number_of_game_sessions: 'Game Sessions'
 number_of_purchases: 'Purchases'
 number_of_sessions: 'Sessions'
+other_purchase: 'Other Purchase'
 overall_costs: 'Overall Costs'
 overall_playtime: 'Overall Playtime'
 password: Password
