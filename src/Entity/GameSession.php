@@ -23,19 +23,35 @@ class GameSession extends AbstractEntity
     private $user;
 
     /**
+     * @var GameStats
+     */
+    private $gameStats;
+
+    /**
+     * @var \DateTime
+     */
+    private $date;
+
+    /**
+     * GameSession constructor.
+     * @param User $user
+     * @param Game $game
+     * @param \DateTime $date
+     */
+    public function __construct(Game $game, User $user, \DateTime $date)
+    {
+        $this->date = $date;
+        $this->game = $game;
+        $this->user = $user;
+        $this->duration = 0;
+    }
+
+    /**
      * @return Game
      */
     public function getGame(): Game
     {
         return $this->game;
-    }
-
-    /**
-     * @param Game $game
-     */
-    public function setGame(Game $game): void
-    {
-        $this->game = $game;
     }
 
     /**
@@ -63,15 +79,34 @@ class GameSession extends AbstractEntity
     }
 
     /**
-     * @param User $user
+     * @return GameStats
      */
-    public function setUser(User $user): void
+    public function getGameStats(): GameStats
     {
-        $this->user = $user;
+        return $this->gameStats;
     }
 
-    public function setSlug(): void
+    /**
+     * @param GameStats $gameStats
+     */
+    public function setGameStats(GameStats $gameStats): void
     {
-        $this->slug = $this->slugify($this->getCreatedAt()->format('Y-m-d-') . $this->getGame()->getName());
+        $this->gameStats = $gameStats;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getDate(): \DateTime
+    {
+        return $this->date;
+    }
+
+    /**
+     * @param \DateTime $date
+     */
+    public function setDate(\DateTime $date): void
+    {
+        $this->date = $date;
     }
 }

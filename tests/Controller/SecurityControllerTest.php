@@ -12,7 +12,7 @@ class SecurityControllerTest extends WebTestCase
     public function testLoginActionReturnHttpOk(): void
     {
         $client = static::createClient();
-        $client->request('GET', '/admin/login');
+        $client->request('GET', '/login');
 
         $this->assertEquals(Response::HTTP_OK, $client->getResponse()->getStatusCode());
     }

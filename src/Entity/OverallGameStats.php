@@ -8,11 +8,6 @@ namespace App\Entity;
 class OverallGameStats extends AbstractEntity
 {
     /**
-     * @var string
-     */
-    private $identifier;
-
-    /**
      * @var int
      */
     private $overallAchievements = 0;
@@ -25,12 +20,12 @@ class OverallGameStats extends AbstractEntity
     /**
      * @var int
      */
-    private $recentlyPlayed = 0;
+    private $recentPlaytime = 0;
 
     /**
      * @var int
      */
-    private $timePlayed = 0;
+    private $overallPlaytime = 0;
 
     /**
      * @var int
@@ -59,11 +54,12 @@ class OverallGameStats extends AbstractEntity
 
     /**
      * OverallGameStats constructor.
+     * @param User $user
      */
-    public function __construct()
+    public function __construct(User $user)
     {
-        $this->identifier = getenv('STEAM_USER_ID');
         $this->currency = getenv('DEFAULT_CURRENCY');
+        $this->user = $user;
     }
 
     /**
@@ -101,33 +97,33 @@ class OverallGameStats extends AbstractEntity
     /**
      * @param int $number
      */
-    public function addToRecentlyPlayed(int $number): void
+    public function addToRecentPlaytime(int $number): void
     {
-        $this->recentlyPlayed += $number;
+        $this->recentPlaytime += $number;
     }
 
     /**
      * @return int
      */
-    public function getRecentlyPlayed(): int
+    public function getRecentPlaytime(): int
     {
-        return $this->recentlyPlayed;
+        return $this->recentPlaytime;
     }
 
     /**
      * @param int $number
      */
-    public function addToTimePlayed(int $number): void
+    public function addToOverallPlaytime(int $number): void
     {
-        $this->timePlayed += $number;
+        $this->overallPlaytime += $number;
     }
 
     /**
      * @return int
      */
-    public function getTimePlayed(): int
+    public function getOverallPlaytime(): int
     {
-        return $this->timePlayed;
+        return $this->overallPlaytime;
     }
 
     public function addGameSessions(): void
@@ -208,13 +204,5 @@ class OverallGameStats extends AbstractEntity
     public function getUser(): User
     {
         return $this->user;
-    }
-
-    /**
-     * @param User $user
-     */
-    public function setUser(User $user): void
-    {
-        $this->user = $user;
     }
 }

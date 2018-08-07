@@ -1,4 +1,4 @@
-{% set lastSession = game.gameSessions | last %}
+{% set lastSession = gameStats.gameSessions | last %}
 {% if lastSession %}
     <div class="panel-footer">
         <span class="pull-left">{% trans from "messages" %}last_session{% endtrans %}</span>

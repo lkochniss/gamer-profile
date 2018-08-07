@@ -5,6 +5,7 @@ namespace App\Service\Stats;
 use App\Entity\Game;
 use App\Entity\OverallGameStats;
 use App\Entity\Purchase;
+use App\Entity\User;
 use App\Repository\OverallGameStatsRepository;
 use App\Repository\PurchaseRepository;
 use App\Service\Util\PurchaseUtil;
@@ -47,16 +48,17 @@ class InvestedMoneyService extends AbstractStatsService
     }
 
     /**
+     * @param User $user
      * @return OverallGameStats
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
-    public function recalculate(): OverallGameStats
+    public function recalculate(User $user): OverallGameStats
     {
-        $overallGameStats = $this->getOverallGameStats();
+        $overallGameStats = $this->getOverallGameStats($user);
         $overallGameStats->resetInvestedMoney();
 
-        $purchases = $this->purchaseRepository->findAll();
+        $purchases = $this->purchaseRepository->findBy(['user' => $user]);
         foreach ($purchases as $purchase) {
             $overallGameStats->addToInvestedMoney($this->purchaseUtil->transformPrice(
                 $purchase->getPrice(),

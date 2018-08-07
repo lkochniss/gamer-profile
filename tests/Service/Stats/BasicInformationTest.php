@@ -2,11 +2,11 @@
 
 namespace tests\App\Service\Stats;
 
-use App\Entity\BasicInformationChangeSet;
+use App\Entity\PlaytimeChangeSet;
 use App\Entity\Game;
 use App\Entity\OverallGameStats;
 use App\Repository\OverallGameStatsRepository;
-use App\Service\Stats\BasicInformationService;
+use App\Service\Stats\PlaytimeService;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -38,7 +38,7 @@ class BasicInformationTest extends TestCase
             ->method('save')
             ->with($expectedOverallGameStats);
 
-        $basicInformationService = new BasicInformationService($overallGameStatsRepositoryMock);
+        $basicInformationService = new PlaytimeService($overallGameStatsRepositoryMock);
 
         $this->assertEquals(
             $expectedOverallGameStats,
@@ -54,7 +54,7 @@ class BasicInformationTest extends TestCase
         $expectedOverallGameStats->addToRecentlyPlayed(10);
         $expectedOverallGameStats->addToTimePlayed(15);
 
-        $basicInformationChangeSet = new BasicInformationChangeSet();
+        $basicInformationChangeSet = new PlaytimeChangeSet();
         $basicInformationChangeSet->setOverallAchievements(5);
         $basicInformationChangeSet->setPlayerAchievements(1);
         $basicInformationChangeSet->setRecentlyPlayed(10);
@@ -70,7 +70,7 @@ class BasicInformationTest extends TestCase
             ->method('save')
             ->with($expectedOverallGameStats);
 
-        $basicInformationService = new BasicInformationService($overallGameStatsRepositoryMock);
+        $basicInformationService = new PlaytimeService($overallGameStatsRepositoryMock);
 
         $this->assertEquals(
             $expectedOverallGameStats,

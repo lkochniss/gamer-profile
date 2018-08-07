@@ -8,3 +8,4 @@ App\Entity\User:
     fields:
         steamId:
             type: bigint
+            unique: true

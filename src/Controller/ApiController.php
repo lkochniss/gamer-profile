@@ -13,6 +13,7 @@ use App\Service\Util\PurchaseUtil;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Class ApiController
@@ -35,11 +36,14 @@ class ApiController extends Controller
 
     /**
      * @param PlaytimePerMonthRepository $playtimePerMonthRepository
+     * @param UserInterface $user
      * @return JsonResponse
      */
-    public function sessionsPerMonth(PlaytimePerMonthRepository $playtimePerMonthRepository): JsonResponse
-    {
-        $playtimePerMonth = $playtimePerMonthRepository->findAll();
+    public function sessionsPerMonth(
+        PlaytimePerMonthRepository $playtimePerMonthRepository,
+        UserInterface $user
+    ): JsonResponse {
+        $playtimePerMonth = $playtimePerMonthRepository->findBy(['user' => $user]);
 
         $data = [];
         foreach ($playtimePerMonth as $playtime) {
@@ -55,11 +59,14 @@ class ApiController extends Controller
 
     /**
      * @param PlaytimePerMonthRepository $playtimePerMonthRepository
+     * @param UserInterface $user
      * @return JsonResponse
      */
-    public function averagePerMonth(PlaytimePerMonthRepository $playtimePerMonthRepository): JsonResponse
-    {
-        $playtimePerMonth = $playtimePerMonthRepository->findAll();
+    public function averagePerMonth(
+        PlaytimePerMonthRepository $playtimePerMonthRepository,
+        UserInterface $user
+    ): JsonResponse {
+        $playtimePerMonth = $playtimePerMonthRepository->findBy(['user' => $user]);
         $today = new \DateTime();
 
         $data = [];
@@ -83,11 +90,12 @@ class ApiController extends Controller
 
     /**
      * @param GameSessionRepository $gameSessionRepository
+     * @param UserInterface $user
      * @return JsonResponse
      */
-    public function sessionsLastDays(GameSessionRepository $gameSessionRepository): JsonResponse
+    public function sessionsLastDays(GameSessionRepository $gameSessionRepository, UserInterface $user): JsonResponse
     {
-        $sessions = $gameSessionRepository->findForLastDays();
+        $sessions = $gameSessionRepository->findForLastDays($user);
 
         return new JsonResponse($this->mapSessionData($sessions));
     }
@@ -95,10 +103,16 @@ class ApiController extends Controller
     /**
      * @param int $id
      * @param GameRepository $gameRepository
+     * @param GameSessionRepository $sessionRepository
+     * @param UserInterface $user
      * @return JsonResponse
      */
-    public function sessionsForGame(int $id, GameRepository $gameRepository): JsonResponse
-    {
+    public function sessionsForGame(
+        int $id,
+        GameRepository $gameRepository,
+        GameSessionRepository $sessionRepository,
+        UserInterface $user
+    ): JsonResponse {
         /**
          * @var Game $game
          */
@@ -107,13 +121,14 @@ class ApiController extends Controller
         if (!$game) {
             throw new NotFoundHttpException();
         }
+        $sessions = $sessionRepository->findBy(['game' => $game, 'user' => $user]);
 
         $data = [];
 
         /**
          * @var GameSession $session
          */
-        foreach ($game->getGameSessions() as $session) {
+        foreach ($sessions as $session) {
             $data[] = [
                 'date' => $session->getCreatedAt()->format('d M Y'),
                 'timeInMinutes' => $session->getDuration(),
@@ -127,13 +142,15 @@ class ApiController extends Controller
     /**
      * @param PurchaseRepository $purchaseRepository
      * @param PurchaseUtil $purchaseUtil
+     * @param UserInterface $user
      * @return JsonResponse
      */
     public function investedMoneyPerMonth(
         PurchaseRepository $purchaseRepository,
-        PurchaseUtil $purchaseUtil
+        PurchaseUtil $purchaseUtil,
+        UserInterface $user
     ): JsonResponse {
-        $purchases = $purchaseRepository->findForLastTwelveMonth();
+        $purchases = $purchaseRepository->findForLastTwelveMonth($user);
 
         return new JsonResponse($this->mapInvestedMoneyData($purchases, 'M Y', $purchaseUtil));
     }
@@ -141,24 +158,27 @@ class ApiController extends Controller
     /**
      * @param PurchaseRepository $purchaseRepository
      * @param PurchaseUtil $purchaseUtil
+     * @param UserInterface $user
      * @return JsonResponse
      */
     public function investedMoneyPerYear(
         PurchaseRepository $purchaseRepository,
-        PurchaseUtil $purchaseUtil
+        PurchaseUtil $purchaseUtil,
+        UserInterface $user
     ): JsonResponse {
-        $purchases = $purchaseRepository->findAll();
+        $purchases = $purchaseRepository->findBy(['user' => $user]);
 
         return new JsonResponse($this->mapInvestedMoneyData($purchases, 'Y', $purchaseUtil));
     }
 
     /**
      * @param GameSessionRepository $sessionRepository
+     * @param UserInterface $user
      * @return JsonResponse
      */
-    public function sessionsThisYear(GameSessionRepository $sessionRepository): JsonResponse
+    public function sessionsThisYear(GameSessionRepository $sessionRepository, UserInterface $user): JsonResponse
     {
-        $sessions = $sessionRepository->findForThisYear();
+        $sessions = $sessionRepository->findForThisYear($user);
 
         return new JsonResponse($this->mapSessionData($sessions));
     }

@@ -1,7 +1,7 @@
 {% if is_granted('ROLE_ADMIN') %}
 <div class="panel-footer">
     <span class="pull-left">{% trans from "messages" %}overall_costs{% endtrans %}</span>
-    <span class="pull-right"> {{ game |get_game_overall_costs }} {{ game.currency|trans }}</span>
+    <span class="pull-right"> {{ gameStats.game |get_overall_costs(app.user) }} {{ gameStats.game.currency|trans }}</span>
     <div class="clearfix"></div>
 </div>
 {% endif %}

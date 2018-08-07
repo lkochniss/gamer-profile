@@ -2,7 +2,6 @@
 
 namespace App\Listener;
 
-use App\Entity\Game;
 use App\Entity\OverallGameStats;
 use App\Entity\Purchase;
 use App\Service\Stats\InvestedMoneyService;
@@ -60,19 +59,19 @@ class InvestedMoneyListener
     {
         $entity = $args->getEntity();
 
-        if (($entity instanceof Game === false) && ($entity instanceof Purchase === false)) {
+        if ($entity instanceof Purchase === false) {
             return 'S';
         }
 
         $overallGameStatsRepository = $args->getEntityManager()->getRepository(OverallGameStats::class);
         $purchaseRepository = $args->getEntityManager()->getRepository(Purchase::class);
-        $wastedMoneyService = new InvestedMoneyService(
+        $investedMoneyService = new InvestedMoneyService(
             $this->purchaseUtil,
             $overallGameStatsRepository,
             $purchaseRepository
         );
 
-        $wastedMoneyService->recalculate();
+        $investedMoneyService->recalculate($entity->getUser());
 
         return 'U';
     }

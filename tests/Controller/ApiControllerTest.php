@@ -21,22 +21,24 @@ class ApiControllerTest extends WebTestCase
 
     /**
      * @param string $url
-     * @dataProvider backendUrlProvider
+     * @dataProvider urlProvider
      */
-    public function testBackendBlogActionsReturnOk(string $url): void
+    public function testApiActionsReturnOk(string $url): void
     {
         $client = static::createClient();
         $this->loginHelper->logIn($client);
         $client->request('GET', $url);
+
+        var_dump($client->getResponse()->getContent());die;
 
         $this->assertEquals(Response::HTTP_OK, $client->getResponse()->getStatusCode());
     }
 
     /**
      * @param string $url
-     * @dataProvider backendUrlProvider
+     * @dataProvider urlProvider
      */
-    public function testBackendBlogActionsWithoutCredentialsRedirectsToLogin(string $url): void
+    public function testApiActionsWithoutCredentialsRedirectsToLogin(string $url): void
     {
         $this->expectException(AccessDeniedException::class);
 
@@ -45,22 +47,22 @@ class ApiControllerTest extends WebTestCase
         $client->request('GET', $url);
         $crawler = $client->followRedirect();
 
-        $this->assertContains('/admin/login', $crawler->getUri());
+        $this->assertContains('/login', $crawler->getUri());
     }
 
     /**
      * @return array
      */
-    public function backendUrlProvider(): array
+    public function urlProvider(): array
     {
         return [
-            ['/admin/sessions/this-year'],
-            ['/admin/sessions/per-month'],
-            ['/admin/average/per-month'],
-            ['/admin/sessions/recently'],
-            ['/admin/sessions/game/1'],
-            ['/admin/money/per-month'],
-            ['/admin/money/per-year'],
+            ['/sessions/this-year'],
+            ['/sessions/per-month'],
+            ['/average/per-month'],
+            ['/sessions/recently'],
+            ['/sessions/game/1'],
+            ['/money/per-month'],
+            ['/money/per-year'],
         ];
     }
 }

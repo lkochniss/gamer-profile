@@ -52,7 +52,6 @@ rebuild-db:
 	${DOCKER_COMPOSE_PHP} ./bin/console do:da:dr --force --if-exists
 	${DOCKER_COMPOSE_PHP} ./bin/console do:da:cr
 	${DOCKER_COMPOSE_PHP} ./bin/console do:mi:mi -n
-	${DOCKER_COMPOSE_PHP} ./bin/console do:fi:lo -n
 
 build-test-db:
 	${DOCKER_COMPOSE_PHP} ./bin/console --env=test do:da:cr

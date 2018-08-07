@@ -60,7 +60,7 @@ class WastedMoneyListener
     {
         $entity = $args->getEntity();
 
-        if (($entity instanceof Game === false) && ($entity instanceof Purchase === false)) {
+        if ($entity instanceof Purchase === false) {
             return 'S';
         }
 
@@ -72,7 +72,7 @@ class WastedMoneyListener
             $purchaseRepository
         );
 
-        $wastedMoneyService->recalculate();
+        $wastedMoneyService->recalculate($entity->getUser());
 
         return 'U';
     }

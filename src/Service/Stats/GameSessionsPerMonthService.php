@@ -6,6 +6,7 @@ use App\Entity\Game;
 use App\Entity\GameSession;
 use App\Entity\GameSessionsPerMonth;
 use App\Entity\OverallGameStats;
+use App\Entity\User;
 use App\Repository\GameSessionsPerMonthRepository;
 use App\Repository\OverallGameStatsRepository;
 
@@ -39,13 +40,14 @@ class GameSessionsPerMonthService extends AbstractStatsService
     }
 
     /**
+     * @param User $user
      * @return OverallGameStats
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
-    public function addSessionToOverallGameStats(): OverallGameStats
+    public function addSessionToOverallGameStats(User $user): OverallGameStats
     {
-        $overallGameStats = $this->getOverallGameStats();
+        $overallGameStats = $this->getOverallGameStats($user);
         $overallGameStats->addGameSessions();
 
         $this->overallGameStatsRepository->save($overallGameStats);
@@ -61,7 +63,7 @@ class GameSessionsPerMonthService extends AbstractStatsService
      */
     public function addGameSession(GameSession $gameSession): GameSessionsPerMonth
     {
-        $gameSessionPerMonth = $this->getGameSessionsPerMonth($gameSession->getGame());
+        $gameSessionPerMonth = $this->getGameSessionsPerMonth($gameSession->getGame(), $gameSession->getUser());
         $gameSessionPerMonth->addToDuration($gameSession->getDuration());
 
         $this->gameSessionsPerMonthRepository->save($gameSessionPerMonth);
@@ -78,7 +80,7 @@ class GameSessionsPerMonthService extends AbstractStatsService
      */
     public function updateGameSession(int $diff, GameSession $gameSession): GameSessionsPerMonth
     {
-        $gameSessionPerMonth = $this->getGameSessionsPerMonth($gameSession->getGame());
+        $gameSessionPerMonth = $this->getGameSessionsPerMonth($gameSession->getGame(), $gameSession->getUser());
         $gameSessionPerMonth->addToDuration($diff);
 
         $this->gameSessionsPerMonthRepository->save($gameSessionPerMonth);
@@ -88,9 +90,10 @@ class GameSessionsPerMonthService extends AbstractStatsService
 
     /**
      * @param Game $game
+     * @param User $user
      * @return GameSessionsPerMonth
      */
-    private function getGameSessionsPerMonth(Game $game): GameSessionsPerMonth
+    private function getGameSessionsPerMonth(Game $game, User $user): GameSessionsPerMonth
     {
         $month = new \DateTime('first day of this month 00:00:00');
         $gameSessionsPerMonth = $this->gameSessionsPerMonthRepository->findOneBy([
@@ -99,7 +102,7 @@ class GameSessionsPerMonthService extends AbstractStatsService
         ]);
 
         if (is_null($gameSessionsPerMonth)) {
-            $gameSessionsPerMonth = new GameSessionsPerMonth($month, $game);
+            $gameSessionsPerMonth = new GameSessionsPerMonth($month, $game, $user);
         }
 
         return $gameSessionsPerMonth;

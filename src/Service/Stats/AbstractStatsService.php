@@ -3,6 +3,7 @@
 namespace App\Service\Stats;
 
 use App\Entity\OverallGameStats;
+use App\Entity\User;
 use App\Repository\OverallGameStatsRepository;
 
 /**
@@ -25,14 +26,15 @@ abstract class AbstractStatsService
     }
 
     /**
+     * @param User $user
      * @return OverallGameStats
      */
-    protected function getOverallGameStats(): OverallGameStats
+    protected function getOverallGameStats(User $user): OverallGameStats
     {
-        $overallGameStats = $this->overallGameStatsRepository->findOneBy(['identifier' => getenv('STEAM_USER_ID')]);
+        $overallGameStats = $this->overallGameStatsRepository->findOneBy(['user' => $user]);
 
         if (is_null($overallGameStats)) {
-            $overallGameStats = new OverallGameStats();
+            $overallGameStats = new OverallGameStats($user);
         }
 
         return $overallGameStats;

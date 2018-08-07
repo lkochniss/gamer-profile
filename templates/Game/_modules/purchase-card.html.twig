@@ -5,12 +5,12 @@
             {% trans from "messages" %}costs{% endtrans %}
         </div>
         <div class="card-body">
-            {% include 'Purchase/_modules/number-of-purchases.html.twig' with {'game': entity} only %}
-            {% include 'Purchase/_modules/current-steam-price.html.twig' with {'game': entity} only %}
-            {% include 'Purchase/_modules/overall-costs.html.twig' with {'game': entity} only %}
-            {% include 'Purchase/_modules/costs-per-hour.html.twig' with {'game': entity} only %}
-            {% include 'Purchase/_modules/create-purchase.html.twig' with {'game': entity} only %}
-            {% include 'Purchase/_modules/list-purchases.html.twig' with {'game': entity} only %}
+            {% include 'Purchase/_modules/number-of-purchases.html.twig' with {'gameStats': entity} only %}
+            {% include 'Purchase/_modules/current-steam-price.html.twig' with {'gameStats': entity} only %}
+            {% include 'Purchase/_modules/overall-costs.html.twig' with {'gameStats': entity} only %}
+            {% include 'Purchase/_modules/costs-per-hour.html.twig' with {'gameStats': entity} only %}
+            {% include 'Purchase/_modules/create-purchase.html.twig' with {'gameStats': entity} only %}
+            {% include 'Purchase/_modules/list-purchases.html.twig' with {'gameStats': entity} only %}
         </div>
     </div>
 </div>

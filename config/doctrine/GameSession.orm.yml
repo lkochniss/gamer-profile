@@ -6,6 +6,8 @@ App\Entity\GameSession:
             type: integer
             generator: { strategy: AUTO }
     fields:
+        date:
+            type: datetime
         duration:
             type: integer
     manyToOne:
@@ -16,7 +18,12 @@ App\Entity\GameSession:
                 referenceColumnName: id
         game:
             targetEntity: Game
-            inversedBy: gameSessions
             joinColumn:
                 name: game_id
                 referencedColumnName: id
+        gameStats:
+            targetEntity: GameStats
+            inversedBy: gameSessions
+            joinColumn:
+                name: game_stats_id
+                referenceColumnName: id

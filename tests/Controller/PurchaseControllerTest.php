@@ -21,9 +21,9 @@ class PurchaseControllerTest extends WebTestCase
 
     /**
      * @param string $url
-     * @dataProvider backendUrlProvider
+     * @dataProvider urlProvider
      */
-    public function testBackendPurchaseActionsReturnOk(string $url): void
+    public function testPurchaseActionsReturnOk(string $url): void
     {
         $client = static::createClient();
         $this->loginHelper->logIn($client);
@@ -34,9 +34,9 @@ class PurchaseControllerTest extends WebTestCase
 
     /**
      * @param string $url
-     * @dataProvider backendUrlProvider
+     * @dataProvider urlProvider
      */
-    public function testBackendPurchaseActionsWithoutCredentialsRedirectsToLogin(string $url): void
+    public function testPurchaseActionsWithoutCredentialsRedirectsToLogin(string $url): void
     {
         $this->expectException(AccessDeniedException::class);
 
@@ -45,22 +45,22 @@ class PurchaseControllerTest extends WebTestCase
         $client->request('GET', $url);
         $crawler = $client->followRedirect();
 
-        $this->assertContains('/admin/login', $crawler->getUri());
+        $this->assertContains('/login', $crawler->getUri());
     }
 
     /**
      * @return array
      */
-    public function backendUrlProvider(): array
+    public function urlProvider(): array
     {
         return [
-            ['/admin/purchase'],
-            ['admin/game/1/purchase/create'],
-            ['admin/game/1/purchase'],
-            ['admin/game/2/purchase'],
-            ['admin/game/3/purchase'],
-            ['admin/purchase/create'],
-            ['admin/purchase/1/edit'],
+            ['/purchase'],
+            ['/game/1/purchase/create'],
+            ['/game/1/purchase'],
+            ['/game/2/purchase'],
+            ['/game/3/purchase'],
+            ['/purchase/create'],
+            ['/purchase/1/edit'],
         ];
     }
 }

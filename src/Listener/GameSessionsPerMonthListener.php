@@ -36,7 +36,7 @@ class GameSessionsPerMonthListener
         );
 
         $gameSessionsPerMonthService->addGameSession($entity);
-        $gameSessionsPerMonthService->addSessionToOverallGameStats();
+        $gameSessionsPerMonthService->addSessionToOverallGameStats($entity->getUser());
 
         return 'U';
     }

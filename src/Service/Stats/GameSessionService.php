@@ -2,6 +2,7 @@
 
 namespace App\Service\Stats;
 
+use App\Entity\User;
 use App\Repository\GameSessionRepository;
 use App\Repository\OverallGameStatsRepository;
 
@@ -35,13 +36,15 @@ class GameSessionService extends AbstractStatsService
     }
 
     /**
+     * @param User $user
+     * @return string
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
-    public function recalculate(): string
+    public function recalculate(User $user): string
     {
-        $sessions = $this->sessionRepository->findAll();
-        $overallGameStats = $this->getOverallGameStats();
+        $sessions = $this->sessionRepository->findBy(['user' => $user]);
+        $overallGameStats = $this->getOverallGameStats($user);
 
         $overallGameStats->setGameSessions(count($sessions));
         $this->overallGameStatsRepository->save($overallGameStats);

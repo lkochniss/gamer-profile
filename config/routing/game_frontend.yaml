@@ -1,6 +1,0 @@
-game_list_frontend:
-    path: /game
-    defaults: { _controller: 'App\Controller\GameController::listFrontend' }
-game_show:
-    path: /{slug}
-    defaults: { _controller: 'App\Controller\GameController::show' }

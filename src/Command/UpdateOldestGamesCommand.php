@@ -3,7 +3,7 @@
 namespace App\Command;
 
 use App\Repository\GameRepository;
-use App\Service\Entity\UpdateGameInformationService;
+use App\Service\Entity\GameService;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -14,9 +14,9 @@ use Symfony\Component\Console\Output\OutputInterface;
 class UpdateOldestGamesCommand extends ContainerAwareCommand
 {
     /**
-     * @var UpdateGameInformationService
+     * @var GameService
      */
-    private $updateGameInformationService;
+    private $gameService;
 
     /**
      * @var GameRepository
@@ -25,22 +25,22 @@ class UpdateOldestGamesCommand extends ContainerAwareCommand
 
     /**
      * UpdateOldestGamesCommand constructor.
-     * @param UpdateGameInformationService $updateGameInformationService
+     * @param GameService $gameService
      * @param GameRepository $gameRepository
      * @SuppressWarnings(PHPMD.LongVariableName)
      */
     public function __construct(
-        UpdateGameInformationService $updateGameInformationService,
+        GameService $gameService,
         GameRepository $gameRepository
     ) {
         parent::__construct();
-        $this->updateGameInformationService = $updateGameInformationService;
+        $this->gameService = $gameService;
         $this->gameRepository = $gameRepository;
     }
 
     protected function configure(): void
     {
-        $this->setName('steam:update:oldest');
+        $this->setName('steam:update:games');
         $this->setDescription('Updates 20 least updated games');
     }
 
@@ -56,12 +56,10 @@ class UpdateOldestGamesCommand extends ContainerAwareCommand
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $output->writeln(['', 'Starting:']);
-        $mySteamGames = $this->gameRepository->getLeastUpdatedGames(20);
+        $localGames = $this->gameRepository->getLeastUpdatedGames(20);
 
-        foreach ($mySteamGames as $mySteamGame) {
-            $status = $this->updateGameInformationService->updateGameInformationForSteamAppId(
-                $mySteamGame->getSteamAppId()
-            );
+        foreach ($localGames as $game) {
+            $status = $this->gameService->update($game->getSteamAppId());
             $output->write($status);
         }
     }

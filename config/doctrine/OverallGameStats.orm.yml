@@ -6,11 +6,6 @@ App\Entity\OverallGameStats:
             type: integer
             generator: { strategy: AUTO }
     fields:
-        identifier:
-            type: string
-            length: 32
-            nullable: false
-            unique: true
         overallAchievements:
             column: overall_achievements
             type: integer
@@ -19,12 +14,12 @@ App\Entity\OverallGameStats:
             column: player_achievements
             type: integer
             nullable: false
-        recentlyPlayed:
-            column: recently_played
+        recentPlaytime:
+            column: recent_playtime
             type: integer
             nullable: false
-        timePlayed:
-            column: time_played
+        overallPlaytime:
+            column: overall_playtime
             type: integer
             nullable: false
         gameSessions:

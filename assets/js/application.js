@@ -17,7 +17,7 @@ const setWeeklyDashboard = () => {
   const id = '#playtime-last-week';
   if ($(id).length) {
     $.getJSON({
-      url: '/admin/sessions/recently',
+      url: '/sessions/recently',
       success: (data) => {
         sessionTimeGraph(id, data, '%d %b %Y');
       },
@@ -29,7 +29,7 @@ const setMonthlyPlaytimeDashboard = () => {
   const id = '#playtime-per-month';
   if ($(id).length) {
     $.getJSON({
-      url: '/admin/sessions/per-month',
+      url: '/sessions/per-month',
       success: (data) => {
         sessionTimeGraph(id, data, '%b %Y');
       },
@@ -42,7 +42,7 @@ const setMonthlyAverageDashboard = () => {
   const id = '#average-per-month';
   if ($(id).length) {
     $.getJSON({
-      url: '/admin/average/per-month',
+      url: '/average/per-month',
       success: (data) => {
         sessionTimeGraph(id, data, '%b %Y');
       },
@@ -55,7 +55,7 @@ const setPlaytimeGame = () => {
   if ($(id).length) {
     const gameId = $(id).data('game-id');
     $.getJSON({
-      url: `/admin/sessions/game/${gameId}`,
+      url: `/sessions/game/${gameId}`,
       success: (data) => {
         sessionCalendar(id, data, '%d %b %Y');
       },
@@ -74,7 +74,7 @@ const setInvestedMoneyPerMonth = () => {
 
   if ($(id).length) {
     $.getJSON({
-      url: '/admin/money/per-month',
+      url: '/money/per-month',
       success: (data) => {
         moneyBarChart(id, data, '%b %Y');
       },
@@ -87,7 +87,7 @@ const setInvestedMoneyPerYear = () => {
 
   if ($(id).length) {
     $.getJSON({
-      url: '/admin/money/per-year',
+      url: '/money/per-year',
       success: (data) => {
         moneyBarChart(id, data, '%Y');
       },
@@ -100,7 +100,7 @@ const setSessionsThisYear = () => {
 
   if ($(id).length) {
     $.getJSON({
-      url: '/admin/sessions/this-year',
+      url: '/sessions/this-year',
       success: (data) => {
         sessionCalendar(id, data, '%d %b %Y');
       },

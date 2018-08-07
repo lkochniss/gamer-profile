@@ -4,6 +4,7 @@ namespace App\Service\Stats;
 
 use App\Entity\GameSession;
 use App\Entity\PlaytimePerMonth;
+use App\Entity\User;
 use App\Repository\PlaytimePerMonthRepository;
 
 /**
@@ -33,7 +34,7 @@ class PlaytimePerMonthService
      */
     public function addSession(GameSession $gameSession): PlaytimePerMonth
     {
-        $playtimePerMonth = $this->getPlaytimePerMonth();
+        $playtimePerMonth = $this->getPlaytimePerMonth($gameSession->getUser());
 
         $playtimePerMonth->addToDuration($gameSession->getDuration());
         $playtimePerMonth->addSession();
@@ -45,13 +46,14 @@ class PlaytimePerMonthService
 
     /**
      * @param int $diff
+     * @param User $user
      * @return PlaytimePerMonth
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
-    public function updateSession(int $diff): PlaytimePerMonth
+    public function updateSession(int $diff, User $user): PlaytimePerMonth
     {
-        $playtimePerMonth = $this->getPlaytimePerMonth();
+        $playtimePerMonth = $this->getPlaytimePerMonth($user);
 
         $playtimePerMonth->addToDuration($diff);
 
@@ -61,9 +63,10 @@ class PlaytimePerMonthService
     }
 
     /**
+     * @param User $user
      * @return PlaytimePerMonth
      */
-    private function getPlaytimePerMonth(): PlaytimePerMonth
+    private function getPlaytimePerMonth(User $user): PlaytimePerMonth
     {
         $month = new \DateTime('first day of this month 00:00:00');
         $playtimePerMonth = $this->playtimePerMonthRepository->findOneBy([
@@ -71,7 +74,7 @@ class PlaytimePerMonthService
         ]);
 
         if (is_null($playtimePerMonth)) {
-            $playtimePerMonth = new PlaytimePerMonth($month);
+            $playtimePerMonth = new PlaytimePerMonth($month, $user);
         }
 
         return $playtimePerMonth;

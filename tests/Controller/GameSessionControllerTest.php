@@ -21,9 +21,9 @@ class GameSessionControllerTest extends WebTestCase
 
     /**
      * @param string $url
-     * @dataProvider backendUrlProvider
+     * @dataProvider urlProvider
      */
-    public function testBackendGameActionsReturnOk(string $url): void
+    public function testGameActionsReturnOk(string $url): void
     {
         $client = static::createClient();
         $this->loginHelper->logIn($client);
@@ -34,9 +34,9 @@ class GameSessionControllerTest extends WebTestCase
 
     /**
      * @param string $url
-     * @dataProvider backendUrlProvider
+     * @dataProvider urlProvider
      */
-    public function testBackendGameActionsWithoutCredentialsRedirectsToLogin(string $url): void
+    public function testGameActionsWithoutCredentialsRedirectsToLogin(string $url): void
     {
         $this->expectException(AccessDeniedException::class);
 
@@ -45,19 +45,19 @@ class GameSessionControllerTest extends WebTestCase
         $client->request('GET', $url);
         $crawler = $client->followRedirect();
 
-        $this->assertContains('/admin/login', $crawler->getUri());
+        $this->assertContains('/login', $crawler->getUri());
     }
 
     /**
      * @return array
      */
-    public function backendUrlProvider(): array
+    public function urlProvider(): array
     {
         return [
-            ['/admin/session'],
-            ['admin/game/1/session'],
-            ['admin/game/2/session'],
-            ['admin/game/3/session'],
+            ['/session'],
+            ['/game/1/session'],
+            ['/game/2/session'],
+            ['/game/3/session'],
         ];
     }
 }

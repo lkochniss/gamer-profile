@@ -3,144 +3,76 @@
 namespace App\Controller;
 
 use App\Entity\GameSession;
-use App\Entity\GameSessionsPerMonth;
-use App\Repository\GameRepository;
 use App\Repository\GameSessionRepository;
-use App\Repository\GameSessionsPerMonthRepository;
 use App\Repository\OverallGameStatsRepository;
-use App\Repository\PlaytimePerMonthRepository;
 use App\Service\Stats\GameSessionService;
-use App\Service\Stats\GameSessionsPerMonthService;
 use App\Service\Stats\InvestedMoneyService;
 use App\Service\Stats\WastedMoneyService;
-use App\Service\Transformation\RecentlyPlayedGamesService;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Class HomepageController
  */
 class HomepageController extends Controller
 {
-
-    /**
-     * @param GameRepository $gameRepository
-     * @param RecentlyPlayedGamesService $recentlyPlayedService
-     * @return Response
-     *
-     * @SuppressWarnings(PHPMD.LongVariableName)
-     */
-    public function recentlyPlayed(
-        GameRepository $gameRepository,
-        RecentlyPlayedGamesService $recentlyPlayedService
-    ): Response {
-        $recentlyPlayedGames = $gameRepository->getRecentlyPlayedGames();
-        return $this->render('Homepage/recently-played.html.twig', [
-            'games' => $recentlyPlayedService->sortRecentlyPlayedGamesByLastSession($recentlyPlayedGames)
-        ]);
-    }
-
-    /**
-     * @param GameRepository $gameRepository
-     * @return Response
-     */
-    public function mostPlayed(GameRepository $gameRepository): Response
-    {
-        return $this->render('Homepage/most-played.html.twig', [
-            'games' => $gameRepository->getMostPlayedGames(12)
-        ]);
-    }
-
-    /**
-     * @param GameRepository $gameRepository
-     * @return Response
-     */
-    public function newGames(GameRepository $gameRepository): Response
-    {
-        return $this->render('Homepage/new-games.html.twig', [
-            'games' => $gameRepository->getNewGames()
-        ]);
-    }
-
-    /**
-     * @param GameSessionsPerMonthRepository $gameSessionsPerMonthRepository
-     * @return Response
-     */
-    public function mostPlayedGamePerMonth(GameSessionsPerMonthRepository $gameSessionsPerMonthRepository): Response
-    {
-        $bestGamePerMonth = [];
-        $gamesPerMonth = $gameSessionsPerMonthRepository->findAll();
-
-        /**
-         * @var GameSessionsPerMonth $gamePerMonth
-         */
-        foreach ($gamesPerMonth as $gamePerMonth) {
-            $yearMonthKey = $gamePerMonth->getMonth()->format('Y-m');
-            if (!array_key_exists($yearMonthKey, $bestGamePerMonth)) {
-                $bestGamePerMonth[$yearMonthKey] = $gamePerMonth;
-            }
-
-            if ($bestGamePerMonth[$yearMonthKey]->getDuration() < $gamePerMonth->getDuration()) {
-                $bestGamePerMonth[$yearMonthKey] = $gamePerMonth;
-            }
-        }
-
-        return $this->render('Homepage/game-of-the-month.html.twig', [
-            'bestGamePerMonth' => $bestGamePerMonth
-        ]);
-    }
-
     /**
      * @param WastedMoneyService $moneyService
+     * @param UserInterface $user
      * @return RedirectResponse
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
-    public function updateWasted(WastedMoneyService $moneyService): RedirectResponse
+    public function updateWasted(WastedMoneyService $moneyService, UserInterface $user): RedirectResponse
     {
-        $moneyService->recalculate();
+        $moneyService->recalculate($user);
 
-        return $this->redirectToRoute('homepage_backend_dashboard');
+        return $this->redirectToRoute('homepage_dashboard');
     }
 
     /**
      * @param InvestedMoneyService $moneyService
+     * @param UserInterface $user
      * @return RedirectResponse
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
-    public function updateInvested(InvestedMoneyService $moneyService): RedirectResponse
+    public function updateInvested(InvestedMoneyService $moneyService, UserInterface $user): RedirectResponse
     {
-        $moneyService->recalculate();
+        $moneyService->recalculate($user);
 
-        return $this->redirectToRoute('homepage_backend_dashboard');
+        return $this->redirectToRoute('homepage_dashboard');
     }
 
     /**
      * @param GameSessionService $gameSessionService
+     * @param UserInterface $user
      * @return RedirectResponse
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
-    public function updateSessions(GameSessionService $gameSessionService): RedirectResponse
+    public function updateSessions(GameSessionService $gameSessionService, UserInterface $user): RedirectResponse
     {
-        $gameSessionService->recalculate();
+        $gameSessionService->recalculate($user);
 
-        return $this->redirectToRoute('homepage_backend_dashboard');
+        return $this->redirectToRoute('homepage_dashboard');
     }
 
     /**
      * @param OverallGameStatsRepository $overallGameStatsRepository
      * @param GameSessionRepository $gameSessionRepository
+     * @param UserInterface $user
      * @return Response
      */
-    public function backendDashboard(
+    public function dashboard(
         OverallGameStatsRepository $overallGameStatsRepository,
-        GameSessionRepository $gameSessionRepository
+        GameSessionRepository $gameSessionRepository,
+        UserInterface $user
     ): Response {
 
-        $gameSessions = $gameSessionRepository->findForThisMonth();
+        $gameSessions = $gameSessionRepository->findForThisMonth($user);
         $playedThisMonth = [];
 
         /**
@@ -162,8 +94,8 @@ class HomepageController extends Controller
             return $gameA['duration'] > $gameB['duration'] ? -1: 1;
         });
 
-        return $this->render('Homepage/backend-dashboard.html.twig', [
-            'gameStats' => $overallGameStatsRepository->findOneBy(['identifier' => getenv('STEAM_USER_ID')]),
+        return $this->render('Homepage/dashboard.html.twig', [
+            'gameStats' => $overallGameStatsRepository->findOneBy(['user' => $user]),
             'playedThisMonth' => array_slice($playedThisMonth, 0, 10)
         ]);
     }

@@ -21,34 +21,9 @@ class GameControllerTest extends WebTestCase
 
     /**
      * @param string $url
-     * @dataProvider frontendUrlProvider
+     * @dataProvider urlProvider
      */
-    public function testFrontendGameActionsReturnOk(string $url): void
-    {
-        $client = static::createClient();
-        $client->request('GET', $url);
-
-        $this->assertEquals(Response::HTTP_OK, $client->getResponse()->getStatusCode());
-    }
-
-    /**
-     * @return array
-     */
-    public function frontendUrlProvider(): array
-    {
-        return [
-            ['/game'],
-            ['/game-1'],
-            ['/game-2'],
-            ['/game-3'],
-        ];
-    }
-
-    /**
-     * @param string $url
-     * @dataProvider backendUrlProvider
-     */
-    public function testBackendGameActionsReturnOk(string $url): void
+    public function testGameActionsReturnOk(string $url): void
     {
         $client = static::createClient();
         $this->loginHelper->logIn($client);
@@ -59,7 +34,7 @@ class GameControllerTest extends WebTestCase
 
     /**
      * @param string $url
-     * @dataProvider backendUrlProvider
+     * @dataProvider urlProvider
      */
     public function testBackendGameActionsWithoutCredentialsRedirectsToLogin(string $url): void
     {
@@ -70,17 +45,17 @@ class GameControllerTest extends WebTestCase
         $client->request('GET', $url);
         $crawler = $client->followRedirect();
 
-        $this->assertContains('/admin/login', $crawler->getUri());
+        $this->assertContains('/login', $crawler->getUri());
     }
 
     /**
      * @return array
      */
-    public function backendUrlProvider(): array
+    public function urlProvider(): array
     {
         return [
-            ['/admin/game'],
-            ['/admin/game/1/dashboard'],
+            ['/game'],
+            ['/game/1/dashboard'],
         ];
     }
 
@@ -88,10 +63,10 @@ class GameControllerTest extends WebTestCase
     {
         $client = static::createClient();
         $this->loginHelper->logIn($client);
-        $client->request('GET', 'admin/game/1/update');
+        $client->request('GET', 'game/1/update');
         $crawler = $client->followRedirect();
 
-        $this->assertContains('/admin/game/1/dashboard', $crawler->getUri());
+        $this->assertContains('/game/1/dashboard', $crawler->getUri());
     }
 
     public function testGameUpdateWithoutCredentialsRedirectsToLogin(): void
@@ -100,9 +75,9 @@ class GameControllerTest extends WebTestCase
 
         $client = static::createClient();
         $client->catchExceptions(false);
-        $client->request('GET', 'admin/game/1/update');
+        $client->request('GET', 'game/1/update');
         $crawler = $client->followRedirect();
 
-        $this->assertContains('/admin/login', $crawler->getUri());
+        $this->assertContains('/login', $crawler->getUri());
     }
 }

@@ -28,6 +28,19 @@ class Playtime extends AbstractEntity
     private $game;
 
     /**
+     * Playtime constructor.
+     * @param User $user
+     * @param Game $game
+     */
+    public function __construct(User $user, Game $game)
+    {
+        $this->user = $user;
+        $this->game = $game;
+        $this->recentPlaytime = 0;
+        $this->overallPlaytime = 0;
+    }
+
+    /**
      * @return int
      */
     public function getRecentPlaytime(): int
@@ -68,26 +81,10 @@ class Playtime extends AbstractEntity
     }
 
     /**
-     * @param User $user
-     */
-    public function setUser(User $user): void
-    {
-        $this->user = $user;
-    }
-
-    /**
      * @return Game
      */
     public function getGame(): Game
     {
         return $this->game;
-    }
-
-    /**
-     * @param Game $game
-     */
-    public function setGame(Game $game): void
-    {
-        $this->game = $game;
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Service\Stats;
 
 use App\Entity\OverallGameStats;
+use App\Entity\User;
 use App\Repository\OverallGameStatsRepository;
 use App\Repository\PurchaseRepository;
 use App\Service\Util\PurchaseUtil;
@@ -45,16 +46,17 @@ class WastedMoneyService extends AbstractStatsService
     }
 
     /**
+     * @param User $user
      * @return OverallGameStats
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
-    public function recalculate(): OverallGameStats
+    public function recalculate(User $user): OverallGameStats
     {
-        $overallGameStats = $this->getOverallGameStats();
+        $overallGameStats = $this->getOverallGameStats($user);
         $overallGameStats->resetWastedMoney();
 
-        $purchases = $this->purchaseRepository->findAll();
+        $purchases = $this->purchaseRepository->findBy(['user' => $user]);
         foreach ($purchases as $purchase) {
             if ($purchase->getGame()->getTimePlayed() < 60) {
                 $overallGameStats->addToWastedMoney($this->purchaseUtil->transformPrice(

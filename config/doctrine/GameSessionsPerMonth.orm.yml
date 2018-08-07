@@ -18,7 +18,6 @@ App\Entity\GameSessionsPerMonth:
                 referenceColumnName: id
         game:
             targetEntity: Game
-            inversedBy: gameSessions
             joinColumn:
                 name: game_id
                 referencedColumnName: id

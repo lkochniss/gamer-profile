@@ -18,3 +18,9 @@ App\Entity\PlaytimePerMonth:
             joinColumn:
                 name: user_id
                 referenceColumnName: id
+        gameStats:
+            targetEntity: GameStats
+            inversedBy: playtimePerMonth
+            joinColumn:
+                name: game_stats_id
+                referencedColumnName: id

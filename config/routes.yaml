@@ -1,56 +1,28 @@
-# Admin
-
 ## Api
 api_admin:
-    resource: routing/api_admin.yaml
-    prefix: /admin
+    resource: routing/api.yaml
 
 ## Login
 secruity_admin:
-    resource: routing/security_admin.yaml
-    prefix: /admin
+    resource: routing/security.yaml
 
 steam_admin:
-    resource: routing/steam_admin.yaml
-    prefix: /admin
+    resource: routing/steam.yaml
 
 ## Homepage
 
 homepage_backend:
-    resource: routing/homepage_admin.yaml
-    prefix: /admin
+    resource: routing/homepage.yaml
     trailing_slash_on_root: false
 
 ## Game
 game_admin:
-    resource: routing/game_admin.yaml
-    prefix: /admin
-
-## BlogPost
-blog_post_admin:
-    resource: routing/blog_post_admin.yaml
-    prefix: /admin
+    resource: routing/game.yaml
 
 ## Purchase
 purchase_admin:
-    resource: routing/purchase_admin.yaml
-    prefix: /admin
+    resource: routing/purchase.yaml
 
 ## Purchase
 game_session_admin:
-    resource: routing/game_session_admin.yaml
-    prefix: /admin
-
-# Frontend
-
-## Homepage
-homepage_frontend:
-    resource: routing/homepage_frontend.yaml
-
-## Game
-game_frontend:
-    resource: routing/game_frontend.yaml
-
-## BlogPost
-blog_post_frontend:
-    resource: routing/blog_post_frontend.yaml
+    resource: routing/game_session.yaml

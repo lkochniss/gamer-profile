@@ -2,7 +2,9 @@
 
 namespace App\Command;
 
-use App\Service\Entity\CreateNewGameService;
+use App\Repository\UserRepository;
+use App\Service\Entity\GameService;
+use App\Service\Entity\GameStatsService;
 use App\Service\Transformation\GameUserInformationService;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
@@ -19,30 +21,46 @@ class CreateNewGamesCommand extends ContainerAwareCommand
     private $gameUserInformationService;
 
     /**
-     * @var CreateNewGameService
+     * @var GameService
      */
-    private $createNewGameService;
+    private $gameService;
+
+    /**
+     * @var GameStatsService
+     */
+    private $gameStatsService;
+
+    /**
+     * @var UserRepository
+     */
+    private $userRepository;
 
     /**
      * CreateNewGamesCommand constructor.
      * @param GameUserInformationService $gameUserInformationService
-     * @param CreateNewGameService $createNewGameService
+     * @param GameService $gameService
+     * @param GameStatsService $gameStatsService
+     * @param UserRepository $userRepository
      *
      * @SuppressWarnings(PHPMD.LongVariableName)
      */
     public function __construct(
         GameUserInformationService $gameUserInformationService,
-        CreateNewGameService $createNewGameService
+        GameService $gameService,
+        GameStatsService $gameStatsService,
+        UserRepository $userRepository
     ) {
         parent::__construct();
 
         $this->gameUserInformationService = $gameUserInformationService;
-        $this->createNewGameService = $createNewGameService;
+        $this->gameService = $gameService;
+        $this->gameStatsService = $gameStatsService;
+        $this->userRepository = $userRepository;
     }
 
     protected function configure(): void
     {
-        $this->setName('steam:create:new');
+        $this->setName('steam:create:games');
         $this->setDescription('Creates new games based on steam');
     }
 
@@ -58,12 +76,23 @@ class CreateNewGamesCommand extends ContainerAwareCommand
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $output->writeln(['', 'Starting:']);
-        $mySteamGames = $this->gameUserInformationService->getAllGames();
+        $users = $this->userRepository->findAll();
 
-        foreach ($mySteamGames as $mySteamGame) {
-            $status = $this->createNewGameService->createGameIfNotExist($mySteamGame['appid']);
-            $output->write($status);
+        foreach ($users as $user) {
+            $output->writeln(['', 'Starting user: ' . $user->getSteamId()]);
+            $games = $this->gameUserInformationService->getAllGames($user->getSteamId());
+            foreach ($games as $game) {
+                $game = $this->gameService->createGameIfNotExist($game['appid']);
+
+                $status = 'F';
+                if ($game) {
+                    $gameStats = $this->gameStatsService->createGameStatsIfNotExist($game, $user);
+
+                    $status = $gameStats ? 'N' : 'S';
+                }
+
+                $output->write($status);
+            }
         }
     }
 }

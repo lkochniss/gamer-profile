@@ -3,11 +3,14 @@
 namespace App\Controller;
 
 use App\Entity\Game;
+use App\Entity\GameStats;
 use App\Form\Type\GameType;
 use App\Repository\GameRepository;
-use App\Service\Entity\UpdateGameInformationService;
+use App\Repository\GameStatsRepository;
+use App\Service\Entity\GameService;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Class GameController
@@ -17,7 +20,7 @@ class GameController extends AbstractCrudController
     /**
      * @param int $id
      * @param GameRepository $gameRepository
-     * @param UpdateGameInformationService $updateGameInformationService
+     * @param GameService $gameService
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
@@ -28,23 +31,31 @@ class GameController extends AbstractCrudController
     public function update(
         int $id,
         GameRepository $gameRepository,
-        UpdateGameInformationService $updateGameInformationService
+        GameService $gameService
     ) {
         $game = $gameRepository->find($id);
-        $updateGameInformationService->updateGameInformationForSteamAppId($game->getSteamAppId());
+        $gameService->update($game->getSteamAppId());
 
         return $this->redirect($this->generateUrl('game_dashboard', ['id' => $id]));
     }
 
     /**
      * @param int $id
+     * @param GameStatsRepository $gameStatsRepository
+     * @param UserInterface $user
      * @return Response
      *
      * @SuppressWarnings(PHPMD.ShortVariableName)
      */
-    public function dashboard(int $id): Response
+    public function dashboard(int $id, GameStatsRepository $gameStatsRepository, UserInterface $user): Response
     {
-        $entity = $this->getDoctrine()->getRepository($this->getEntityName())->find($id);
+        $game = $this->getDoctrine()->getRepository($this->getEntityName())->find($id);
+        if (is_null($game)) {
+            throw new NotFoundHttpException();
+        }
+
+        $entity = $gameStatsRepository->findOneBy(['game' => $game, 'user' => $user]);
+
         if (is_null($entity)) {
             throw new NotFoundHttpException();
         }
@@ -53,6 +64,22 @@ class GameController extends AbstractCrudController
             sprintf('%s/dashboard.html.twig', $this->getTemplateBasePath()),
             [
                 'entity' => $entity
+            ]
+        );
+    }
+
+    /**
+     * @param UserInterface $user
+     * @return Response
+     */
+    public function list(UserInterface $user): Response
+    {
+        $entities = $this->getDoctrine()->getRepository(GameStats::class)->findBy(['user' => $user]);
+
+        return $this->render(
+            sprintf('%s/list.html.twig', $this->getTemplateBasePath()),
+            [
+                'entities' => $entities,
             ]
         );
     }

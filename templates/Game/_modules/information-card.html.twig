@@ -5,13 +5,13 @@
             {% trans from "messages" %}information{% endtrans %}
         </div>
         <div class="card-body">
-            {% include 'Game/_modules/steam-app-id.html.twig' with {'game': entity} only %}
-            {% include 'Game/_modules/steam-user-achievements.html.twig' with {'game': entity} only %}
-            {% include 'Game/_modules/steam-screenshots.html.twig' with {'game': entity} only %}
-            {% include 'Game/_modules/created-at.html.twig' with {'game': entity} only %}
-            {% include 'Game/_modules/modified-at.html.twig' with {'game': entity} only %}
-            {% include 'Game/_modules/bought-at.html.twig' with {'game': entity} only %}
-            {% include 'Game/_modules/update-information.html.twig' with {'game': entity} only %}
+            {% include 'Game/_modules/steam-app-id.html.twig' with {'gameStats': entity} only %}
+            {% include 'Game/_modules/steam-user-achievements.html.twig' with {'gameStats': entity} only %}
+            {% include 'Game/_modules/steam-screenshots.html.twig' with {'gameStats': entity} only %}
+            {% include 'Game/_modules/created-at.html.twig' with {'gameStats': entity} only %}
+            {% include 'Game/_modules/modified-at.html.twig' with {'gameStats': entity} only %}
+            {% include 'Game/_modules/bought-at.html.twig' with {'gameStats': entity} only %}
+            {% include 'Game/_modules/update-information.html.twig' with {'gameStats': entity} only %}
         </div>
     </div>
 </div>

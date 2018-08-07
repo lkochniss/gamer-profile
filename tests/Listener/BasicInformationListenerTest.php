@@ -5,7 +5,7 @@ namespace tests\App\Command\Steam;
 use App\Entity\Game;
 use App\Entity\GameSession;
 use App\Entity\OverallGameStats;
-use App\Listener\BasicInformationListener;
+use App\Listener\AchievemenListener;
 use App\Repository\OverallGameStatsRepository;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Event\LifecycleEventArgs;
@@ -36,7 +36,7 @@ class BasicInformationListenerTest extends TestCase
             ->method('getEntityManager')
             ->willReturn($entityManagerMock);
 
-        $basicInformationListener = new BasicInformationListener();
+        $basicInformationListener = new AchievemenListener();
 
         $this->assertEquals('S', $basicInformationListener->postPersist($argsMock));
     }
@@ -64,7 +64,7 @@ class BasicInformationListenerTest extends TestCase
             ->method('getEntityManager')
             ->willReturn($entityManagerMock);
 
-        $basicInformationListener = new BasicInformationListener();
+        $basicInformationListener = new AchievemenListener();
 
         $this->assertEquals('U', $basicInformationListener->postPersist($argsMock));
     }
@@ -88,7 +88,7 @@ class BasicInformationListenerTest extends TestCase
             ->method('getEntityManager')
             ->willReturn($entityManagerMock);
 
-        $basicInformationListener = new BasicInformationListener();
+        $basicInformationListener = new AchievemenListener();
 
         $this->assertEquals('S', $basicInformationListener->postUpdate($argsMock));
     }
@@ -131,7 +131,7 @@ class BasicInformationListenerTest extends TestCase
             ->method('getEntityManager')
             ->willReturn($entityManagerMock);
 
-        $basicInformationListener = new BasicInformationListener();
+        $basicInformationListener = new AchievemenListener();
 
         $this->assertEquals('U', $basicInformationListener->postUpdate($argsMock));
     }

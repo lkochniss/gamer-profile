@@ -1,4 +1,4 @@
-{% extends 'admin-base.html.twig' %}
+{% extends 'base.html.twig' %}
 {% block body %}
 
 <div class="row mb-4">
@@ -6,24 +6,23 @@
         <div class="row">
             <div class="col">
                 <h1 class="page-header">
-                    {{ entity.name }}
+                    {{ entity.game.name }}
                 </h1>
             </div>
         </div>
         <div class="row">
             <div class="col">
-                <img class="thumbnail" src="{{ entity.headerImagePath }}"/>
+                <img class="thumbnail" src="{{ entity.game.headerImagePath }}"/>
             </div>
         </div>
     </div>
-    <div data-game-id="{{ entity.id }}" class="col" id="playtime-game">
+    <div data-game-id="{{ entity.game.id }}" class="col" id="playtime-game">
         <h3>{% trans %}playtime_game{% endtrans %}</h3>
     </div>
 </div>
 <div class="row">
     {% include 'Game/_modules/information-card.html.twig' %}
     {% include 'Game/_modules/session-card.html.twig' %}
-    {% include 'Game/_modules/blog-post-card.html.twig' %}
     {% include 'Game/_modules/purchase-card.html.twig' %}
 </div>
 {% endblock %}

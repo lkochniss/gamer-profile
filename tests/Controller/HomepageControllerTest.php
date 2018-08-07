@@ -21,34 +21,9 @@ class HomepageControllerTest extends WebTestCase
 
     /**
      * @param string $url
-     * @dataProvider frontendUrlProvider
+     * @dataProvider urlProvider
      */
-    public function testFrontendActionsReturnHttpOk(string $url): void
-    {
-        $client = static::createClient();
-        $client->request('GET', $url);
-
-        $this->assertEquals(Response::HTTP_OK, $client->getResponse()->getStatusCode());
-    }
-
-    /**
-     * @return array
-     */
-    public function frontendUrlProvider(): array
-    {
-        return [
-            ['/'],
-            ['/top'],
-            ['/new'],
-            ['/game-of-the-month'],
-        ];
-    }
-
-    /**
-     * @param string $url
-     * @dataProvider backendUrlProvider
-     */
-    public function testBackendActionsReturnHttpOk(string $url): void
+    public function testHomepageActionsReturnHttpOk(string $url): void
     {
         $client = static::createClient();
         $this->loginHelper->logIn($client);
@@ -59,9 +34,9 @@ class HomepageControllerTest extends WebTestCase
 
     /**
      * @param string $url
-     * @dataProvider backendUrlProvider
+     * @dataProvider urlProvider
      */
-    public function testBackendActionsWithoutCredentialsRedirectsToLogin(string $url): void
+    public function testHomepageActionsWithoutCredentialsRedirectsToLogin(string $url): void
     {
         $this->expectException(AccessDeniedException::class);
 
@@ -70,16 +45,16 @@ class HomepageControllerTest extends WebTestCase
         $client->request('GET', $url);
         $crawler = $client->followRedirect();
 
-        $this->assertContains('/admin/login', $crawler->getUri());
+        $this->assertContains('/login', $crawler->getUri());
     }
 
     /**
      * @return array
      */
-    public function backendUrlProvider(): array
+    public function urlProvider(): array
     {
         return [
-            ['/admin'],
+            ['/'],
         ];
     }
 }

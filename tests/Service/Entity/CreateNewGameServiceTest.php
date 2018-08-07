@@ -3,10 +3,10 @@
 namespace tests\App\Service\Entity;
 
 use App\Entity\Game;
-use App\Entity\GameInformation;
-use App\Entity\UserInformation;
+use App\Entity\JsonGame;
+use App\Entity\JsonPlaytime;
 use App\Repository\GameRepository;
-use App\Service\Entity\CreateNewGameService;
+use App\Service\Entity\GameService;
 use App\Service\Transformation\GameInformationService;
 use App\Service\Transformation\GameUserInformationService;
 use PHPUnit\Framework\TestCase;
@@ -38,7 +38,7 @@ class CreateNewGameServiceTest extends TestCase
             ->with(1)
             ->willReturn($game);
 
-        $createNewGameService = new CreateNewGameService(
+        $createNewGameService = new GameService(
             $ownedGamesServiceMock,
             $gameInformationServiceMock,
             $gameRepositoryMock
@@ -71,7 +71,7 @@ class CreateNewGameServiceTest extends TestCase
             ->method('save')
             ->willReturn(null);
 
-        $createNewGameService = new CreateNewGameService(
+        $createNewGameService = new GameService(
             $userInformationServiceMock,
             $gameInformationServiceMock,
             $gameRepositoryMock

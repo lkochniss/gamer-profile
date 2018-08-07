@@ -1,0 +1,125 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">
+                {% trans from "messages" %}dashboard{% endtrans %}
+            </h1>
+        </div>
+    </div>
+    <div class="row text-center">
+        {% if gameStats is defined and gameStats is not empty %}
+            <div class="col-sm">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        {% trans from "messages" %}achievements{% endtrans %}
+                    </div>
+                    <div class="card-body">
+                        {% if gameStats.overallAchievements > 0 %}
+                            {{ gameStats.playerAchievements }}/{{ gameStats.overallAchievements }}
+                            {% set percentage = gameStats.playerAchievements / gameStats.overallAchievements  * 100 %}
+                            ({{ percentage|round(2) }}%)
+                        {% else %}
+                            {% trans from "messages" %}profile_not_public{% endtrans %}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        {% trans from "messages" %}recently_played{% endtrans %}
+                    </div>
+                    <div class="card-body">
+                        {{ gameStats.recentPlaytime|convert_overall_time }}
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        {% trans from "messages" %}overall_playtime{% endtrans %}
+                    </div>
+                    <div class="card-body">
+                        {{ gameStats.overallPlaytime|convert_overall_time }}
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        {% trans from "messages" %}game_sessions{% endtrans %}
+                        <a href="{{ path('homepage_update_sessions') }}">
+                            <span class="pull-right"><i class="fa fa-refresh"></i></span>
+                        </a>
+                    </div>
+                    <div class="card-body">
+                        {{ gameStats.gameSessions }}
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        {% trans from "messages" %}wasted_money{% endtrans %}
+                        <a href="{{ path('homepage_update_wasted_money') }}">
+                            <span class="pull-right"><i class="fa fa-refresh"></i></span>
+                        </a>
+                    </div>
+                    <div class="card-body">
+                        {{ gameStats.wastedMoney }}{{ gameStats.currency|trans }}
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        {% trans from "messages" %}invested_money{% endtrans %}
+                        <a href="{{ path('homepage_update_invested_money') }}">
+                            <span class="pull-right"><i class="fa fa-refresh"></i></span>
+                        </a>
+                    </div>
+                    <div class="card-body">
+                        {{ gameStats.investedMoney }}{{ gameStats.currency|trans }}
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+    <div class="row mb-5" style="height: 180px">
+        <div class="col-md-12" id="sessions-this-year">
+            <h3>{% trans %}sessions_this_year{% endtrans %}</h3>
+        </div>
+    </div>
+    <div class="row mb-5" style="height: 350px">
+        <div class="col-md-6" id="playtime-last-week">
+            <h3>{% trans %}session_time_last_days{% endtrans %}</h3>
+        </div>
+        <div class="col-md-6" id="playtime-last-week">
+            <h3>{% trans %}top_played_this_month{% endtrans %}</h3>
+            {% for topGame in playedThisMonth %}
+                <div class="row">
+                    <div class="col">{{ topGame.name }}</div>
+                    <div class="col">{{ topGame.duration|convert_recent_time }}</div>
+                </div>
+            {% endfor %}
+
+        </div>
+    </div>
+    <div class="row mb-5" style="height: 350px">
+        <div class="col-md-6" id="average-per-month">
+            <h3>{% trans %}average_daily_playtime_per_month{% endtrans %}</h3>
+        </div>
+        <div class="col-md-6" id="playtime-per-month">
+            <h3>{% trans %}session_time_per_month{% endtrans %}</h3>
+        </div>
+    </div>
+    <div class="row" style="height: 350px">
+        <div class="col-md-6" id="invested-money-per-month">
+            <h3>{% trans with {'%currency%' :gameStats ? gameStats.currency|trans : default_currency |trans } %}invested_money_per_month{% endtrans %}</h3>
+        </div>
+        <div class="col-md-6" id="invested-money-per-year">
+            <h3>{% trans with {'%currency%' :gameStats ? gameStats.currency|trans : default_currency |trans } %}invested_money_per_year{% endtrans %}</h3>
+        </div>
+    </div>
+{% endblock %}

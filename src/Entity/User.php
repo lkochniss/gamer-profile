@@ -2,15 +2,17 @@
 
 namespace App\Entity;
 
+use Symfony\Component\Security\Core\User\UserInterface;
+
 /**
  * Class User
  */
-class User extends AbstractEntity
+class User implements UserInterface
 {
     /**
-     * @var string
+     * @var
      */
-    private $userName;
+    private $id;
 
     /**
      * @var int
@@ -27,19 +29,11 @@ class User extends AbstractEntity
     }
 
     /**
-     * @return string
+     * @return mixed
      */
-    public function getUserName(): string
+    public function getId()
     {
-        return $this->userName;
-    }
-
-    /**
-     * @param string $userName
-     */
-    public function setUserName(string $userName): void
-    {
-        $this->userName = $userName;
+        return $this->id;
     }
 
     /**
@@ -50,8 +44,33 @@ class User extends AbstractEntity
         return $this->steamId;
     }
 
-    public function __toString()
+    public function __toString(): string
     {
         return strval($this->getSteamId());
+    }
+
+    public function getUsername(): string
+    {
+        return strval($this->getSteamId());
+    }
+
+    public function getSalt()
+    {
+        return null;
+    }
+
+    public function getRoles(): array
+    {
+        return ['ROLE_ADMIN'];
+    }
+
+    public function getPassword()
+    {
+        return null;
+    }
+
+    public function eraseCredentials()
+    {
+        return '';
     }
 }

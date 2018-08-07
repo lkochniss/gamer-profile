@@ -3,7 +3,7 @@
 namespace App\Service\Transformation;
 
 use App\Entity\Game;
-use App\Entity\GameInformation;
+use App\Entity\JSON\JsonGame;
 use App\Service\Api\GameApiClientService;
 
 /**
@@ -44,16 +44,16 @@ class GameInformationService
 
     /**
      * @param int $steamAppId
-     * @return GameInformation|null
+     * @return JsonGame|null
      */
-    public function getGameInformationEntityForSteamAppId(int $steamAppId): ?GameInformation
+    public function getGameInformationEntityForSteamAppId(int $steamAppId): ?JsonGame
     {
         $gameInformation = $this->getGameInformationForSteamAppId($steamAppId);
         if (empty($gameInformation)) {
             return null;
         }
 
-        return new GameInformation($gameInformation);
+        return new JsonGame($gameInformation);
     }
 
     /**

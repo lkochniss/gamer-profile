@@ -2,30 +2,32 @@
 
 namespace App\Repository;
 
-use App\Entity\AbstractEntity;
 use App\Entity\User;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
  * Class UserRepository
  */
-class UserRepository extends AbstractRepository
+class UserRepository extends ServiceEntityRepository
 {
     /**
-     * @param AbstractEntity $entity
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
+     * UserRepository constructor.
+     * @param RegistryInterface $registry
      */
-    public function save(AbstractEntity $entity): void
+    public function __construct(RegistryInterface $registry)
     {
-        $this->getEntityManager()->persist($entity);
-        $this->getEntityManager()->flush($entity);
+        parent::__construct($registry, User::class);
     }
 
     /**
-     * @return string
+     * @param User $user
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
      */
-    protected function getEntity(): string
+    public function save(User $user): void
     {
-        return User::class;
+        $this->getEntityManager()->persist($user);
+        $this->getEntityManager()->flush($user);
     }
 }

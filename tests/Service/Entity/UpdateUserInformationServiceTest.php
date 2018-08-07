@@ -3,7 +3,7 @@
 namespace tests\App\Service\Entity;
 
 use App\Entity\Game;
-use App\Entity\UserInformation;
+use App\Entity\JsonPlaytime;
 use App\Repository\GameRepository;
 use App\Service\Entity\UpdateUserInformationService;
 use App\Service\Transformation\GameUserInformationService;

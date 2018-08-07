@@ -17,14 +17,25 @@ App\Entity\Purchase:
         notice:
             type: string
             length: 100
+            nullable: true
         boughtAt:
             column: bought_at
             type: datetime
             nullable: false
     manyToOne:
+        user:
+            targetEntity: User
+            joinColumn:
+                name: user_id
+                referenceColumnName: id
         game:
             targetEntity: Game
-            inversedBy: purchases
             joinColumn:
                 name: game_id
+                referencedColumnName: id
+        gameStats:
+            targetEntity: GameStats
+            inversedBy: purchases
+            joinColumn:
+                name: game_stats_id
                 referencedColumnName: id

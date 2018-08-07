@@ -1,7 +1,7 @@
 {% if is_granted('ROLE_ADMIN') %}
-<div class="panel-footer">
-    <span class="pull-left">{% trans from "messages" %}number_of_purchases{% endtrans %}</span>
-    <span class="pull-right">{{ game.purchases|length }}</span>
-    <div class="clearfix"></div>
-</div>
+    <div class="panel-footer">
+        <span class="pull-left">{% trans from "messages" %}number_of_purchases{% endtrans %}</span>
+        <span class="pull-right">{{ gameStats.purchases|length }}</span>
+        <div class="clearfix"></div>
+    </div>
 {% endif %}

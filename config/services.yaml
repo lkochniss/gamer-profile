@@ -34,8 +34,8 @@ services:
         autowire: true
         public: true
 
-    App\Listener\BasicInformationListener:
-        class: App\Listener\BasicInformationListener
+    App\Listener\AchievementListener:
+        class: App\Listener\AchievementListener
         tags:
             - { name: doctrine.event_listener, event: postPersist }
             - { name: doctrine.event_listener, event: postUpdate }
@@ -46,8 +46,8 @@ services:
             - { name: doctrine.event_listener, event: postPersist }
             - { name: doctrine.event_listener, event: postUpdate }
 
-    App\Listener\InvestedMoneyListener:
-        class: App\Listener\InvestedMoneyListener
+    App\Listener\PlaytimeListener:
+        class: App\Listener\PlaytimeListener
         tags:
             - { name: doctrine.event_listener, event: postPersist }
             - { name: doctrine.event_listener, event: postUpdate }
@@ -56,9 +56,4 @@ services:
         class: App\Listener\PlaytimePerMonthListener
         tags:
             - { name: doctrine.event_listener, event: postPersist }
-            - { name: doctrine.event_listener, event: postUpdate }
-
-    App\Listener\WastedMoneyListener:
-        class: App\Listener\WastedMoneyListener
-        tags:
             - { name: doctrine.event_listener, event: postUpdate }

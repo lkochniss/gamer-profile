@@ -15,6 +15,10 @@ use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
  */
 class SteamController extends Controller
 {
+    const ALLOWED_BETA_USERS = [
+        '76561198045607524'
+    ];
+
     public function authenticate(Request $request, UserRepository $userRepository)
     {
         $config = [
@@ -33,6 +37,10 @@ class SteamController extends Controller
             $prefix = 'https://steamcommunity.com/openid/id/';
             $steamUserId = intval(substr($userProfile->identifier, strlen($prefix)));
 
+            if (in_array($steamUserId, $this::ALLOWED_BETA_USERS) == false) {
+                return $this->redirectToRoute('login');
+            }
+
             $user = $userRepository->findOneBy(['steamId' => $steamUserId]);
             if (is_null($user)) {
                 $user = new User($steamUserId);
@@ -47,6 +55,6 @@ class SteamController extends Controller
             echo $exception->getMessage();
         }
 
-        return $this->redirectToRoute('homepage_backend_dashboard');
+        return $this->redirectToRoute('homepage_dashboard');
     }
 }

@@ -1,10 +1,10 @@
-{% if game.gameSessions %}
+{% if gameStats.gameSessions %}
     {% set sum = 0 %}
-    {% for gameSession in game.gameSessions %}
+    {% for gameSession in gameStats.gameSessions %}
         {% set sum = sum + gameSession.duration %}
     {% endfor %}
 
-    {% set average = sum / game.gameSessions|length %}
+    {% set average = sum / gameSessions|length %}
 
     <div class="panel-footer">
         <span class="pull-left">{% trans from "messages" %}average_session{% endtrans %}</span>

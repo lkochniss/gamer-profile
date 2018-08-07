@@ -1,7 +1,7 @@
-{% if game.hasGamePurchase %}
+{% if gameStats.gamePurchase %}
     <div class="panel-footer">
         <span class="pull-left">{% trans from "messages" %}bought_at{% endtrans %}:</span>
-        <span class="pull-right">{{ game.gamePurchase.boughtAt|date("d.m.Y") }}</span>
+        <span class="pull-right">{{ gameStats.gamePurchase.boughtat|date("d.m.y") }}</span>
         <div class="clearfix"></div>
     </div>
 {% endif %}

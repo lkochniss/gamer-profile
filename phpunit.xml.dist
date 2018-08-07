@@ -11,17 +11,14 @@
         <ini name="error_reporting" value="-1" />
         <env name="KERNEL_CLASS" value="App\Kernel" />
         <env name="APP_ENV" value="test" />
-        <env name="APP_DEBUG" value="0" />
+        <env name="APP_DEBUG" value="1" />
         <env name="APP_SECRET" value="s$cretf0rt3st" />
         <!-- define your env variables for the test env here -->
         <env name="GA_TRACKING" value="TRACKING" />
         <env name="DEFAULT_CURRENCY" value="USD" />
-        <env name="CURRENT_VERSION" value="0" />
-        <env name="USER_NAME" value="tester" />
-        <env name="USER_PASS" value="test" />
+        <env name="USER_NAME" value="76561198045607524" />
         <env name="STEAM_API_KEY" value="unittest" />
         <env name="CSRF_SECURITY_LOGIN_TOKEN" value="token" />
-        <env name="STEAM_USER_NAME" value="testUser" />
         <!-- ###+ doctrine/doctrine-bundle ### -->
         <!-- Format described at http://docs.doctrine-project.org/projects/doctrine-dbal/en/latest/reference/configuration.html#connecting-using-a-url -->
         <!-- For an SQLite database, use: "sqlite:///%kernel.project_dir%/var/data.db" -->

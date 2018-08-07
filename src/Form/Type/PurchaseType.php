@@ -29,12 +29,12 @@ class PurchaseType extends AbstractType
                 ChoiceType::class,
                 [
                     'choices' => [
-                      'Game Purchase' => Purchase::GAME_PURCHASE,
-                      'DLC Purchase' => Purchase::DLC_PURCHASE,
-                      'Ingame Purchase' => Purchase::INGAME_PURCHASE,
-                      'Other Purchase' => Purchase::OTHER_PURCHASE
+                      'game_purchase' => Purchase::GAME_PURCHASE,
+                      'dlc_purchase' => Purchase::DLC_PURCHASE,
+                      'ingame_purchase' => Purchase::INGAME_PURCHASE,
+                      'other_purchase' => Purchase::OTHER_PURCHASE
                     ],
-                    'translation_domain' => 'purchase',
+                    'translation_domain' => 'messages',
                     'attr' =>
                         [
                             'class' => 'form-control'
@@ -55,9 +55,10 @@ class PurchaseType extends AbstractType
                 'currency',
                 ChoiceType::class,
                 [
+                    'translation_domain' => 'messages',
                     'choices' => [
-                        '$' => 'USD',
-                        '€' => 'EUR'
+                        'USD' => 'USD',
+                        'EUR' => 'EUR'
                     ],
                     'attr' =>
                         [
@@ -72,7 +73,8 @@ class PurchaseType extends AbstractType
                     'attr' =>
                         [
                             'class' => 'form-control'
-                        ]
+                        ],
+                    'required' => false
                 ]
             )
             ->add(
@@ -103,8 +105,9 @@ class PurchaseType extends AbstractType
                 'submit',
                 SubmitType::class,
                 [
+                    'label' => 'submit',
                     'attr' => [
-                        'class' => 'btn btn-success form-controll'
+                        'class' => 'btn btn-success form-control col-md-2'
                     ]
                 ]
             );

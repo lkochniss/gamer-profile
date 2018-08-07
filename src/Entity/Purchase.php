@@ -48,14 +48,21 @@ class Purchase extends AbstractEntity
     private $user;
 
     /**
-     * Purchase constructor.
+     * @var GameStats
      */
-    public function __construct()
+    private $gameStats;
+
+    /**
+     * Purchase constructor.
+     * @param User $user
+     */
+    public function __construct(User $user)
     {
         $this->type = $this::GAME_PURCHASE;
         $this->currency = 'USD';
         $this->price = 0;
         $this->notice = '';
+        $this->user = $user;
         $this->boughtAt = new \DateTime();
     }
 
@@ -112,13 +119,13 @@ class Purchase extends AbstractEntity
      */
     public function getNotice(): string
     {
-        return $this->notice;
+        return $this->stringTransform($this->notice);
     }
 
     /**
-     * @param string $notice
+     * @param null|string $notice
      */
-    public function setNotice(string $notice): void
+    public function setNotice(?string $notice): void
     {
         $this->notice = $notice;
     }
@@ -164,22 +171,18 @@ class Purchase extends AbstractEntity
     }
 
     /**
-     * @param User $user
+     * @return GameStats
      */
-    public function setUser(User $user): void
+    public function getGameStats(): GameStats
     {
-        $this->user = $user;
+        return $this->gameStats;
     }
 
-    public function setSlug(): void
+    /**
+     * @param GameStats $gameStats
+     */
+    public function setGameStats(GameStats $gameStats): void
     {
-        $this->slug = $this->slugify(
-            $this->getCreatedAt()->format('d-m-y-') .
-            $this->getGame()->getName() .
-            '-' .
-            $this->getType() .
-            '-' .
-            count($this->getGame()->getPurchases())
-        );
+        $this->gameStats = $gameStats;
     }
 }

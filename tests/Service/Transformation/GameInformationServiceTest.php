@@ -2,7 +2,7 @@
 
 namespace tests\App\Service\Transformation;
 
-use App\Entity\GameInformation;
+use App\Entity\JsonGame;
 use App\Service\Api\GameApiClientService;
 use App\Service\Transformation\GameInformationService;
 use GuzzleHttp\Psr7\Response;
@@ -51,7 +51,7 @@ class GameInformationServiceTest extends TestCase
         $gameInformationService = new GameInformationService($this->steamGameApiServiceMock);
         $gameInformation = $gameInformationService->getGameInformationEntityForSteamAppId(1);
 
-        $expectedGameInformation = new GameInformation($this->getGameArray());
+        $expectedGameInformation = new JsonGame($this->getGameArray());
 
         $this->assertEquals($expectedGameInformation, $gameInformation);
     }
