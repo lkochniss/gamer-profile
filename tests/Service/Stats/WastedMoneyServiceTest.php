@@ -12,7 +12,6 @@ use App\Entity\User;
 use App\Repository\OverallGameStatsRepository;
 use App\Repository\PurchaseRepository;
 use App\Service\Stats\WastedMoneyService;
-use App\Service\Util\PurchaseUtil;
 use PHPUnit\Framework\TestCase;
 
 /**
