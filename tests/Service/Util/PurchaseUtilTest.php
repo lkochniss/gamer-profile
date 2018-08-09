@@ -56,7 +56,7 @@ class PurchaseUtilTest extends TestCase
         $this->assertEquals(1, $purchaseService->generateOverallCosts($game, $user));
     }
 
-    public function testGenerateOverallCostsWithMultiplePurchaseesWorks(): void
+    public function testGenerateOverallCostsWithMultiplePurchasesWorks(): void
     {
         $game = new Game();
         $user = new User(1);
@@ -102,7 +102,7 @@ class PurchaseUtilTest extends TestCase
         $this->assertEquals(0.0, $purchaseService->generateCostsPerHour($game, $user));
     }
 
-    public function testGenerateCostsPerHourWithNoPlaytimeWorks()
+    public function testGenerateCostsPerHourWithNoPlaytimeWorks(): void
     {
         $game = new Game();
         $user = new User(1);
@@ -128,5 +128,63 @@ class PurchaseUtilTest extends TestCase
         $purchaseService = new PurchaseUtil($purchaseRepositoryMock, $playtimeRepositoryMock);
 
         $this->assertEquals(1, $purchaseService->generateCostsPerHour($game, $user));
+    }
+
+    public function testGenerateCostsPerHourWithPlaytimeBelowOneHourWorks(): void
+    {
+        $game = new Game();
+        $user = new User(1);
+        $purchase = new Purchase($user);
+        $purchase->setGame($game);
+        $purchase->setPrice(1);
+        $purchase->setCurrency('USD');
+
+        $purchaseRepositoryMock = $this->createMock(PurchaseRepository::class);
+        $purchaseRepositoryMock->expects($this->any())
+            ->method('findBy')
+            ->with(['game' => $game, 'user' => $user])
+            ->willReturn([$purchase]);
+
+        $playtime = new Playtime($user, $game);
+        $playtime->setOverallPlaytime(50);
+
+        $playtimeRepositoryMock = $this->createMock(PlaytimeRepository::class);
+        $playtimeRepositoryMock->expects($this->any())
+            ->method('findOneBy')
+            ->with(['game' => $game, 'user' => $user])
+            ->willReturn($playtime);
+
+        $purchaseService = new PurchaseUtil($purchaseRepositoryMock, $playtimeRepositoryMock);
+
+        $this->assertEquals(1, $purchaseService->generateCostsPerHour($game, $user));
+    }
+
+    public function testGenerateCostsPerHourWithPlaytimeAboveOneHourWorks(): void
+    {
+        $game = new Game();
+        $user = new User(1);
+        $purchase = new Purchase($user);
+        $purchase->setGame($game);
+        $purchase->setPrice(1);
+        $purchase->setCurrency('USD');
+
+        $purchaseRepositoryMock = $this->createMock(PurchaseRepository::class);
+        $purchaseRepositoryMock->expects($this->any())
+            ->method('findBy')
+            ->with(['game' => $game, 'user' => $user])
+            ->willReturn([$purchase]);
+
+        $playtime = new Playtime($user, $game);
+        $playtime->setOverallPlaytime(120);
+
+        $playtimeRepositoryMock = $this->createMock(PlaytimeRepository::class);
+        $playtimeRepositoryMock->expects($this->any())
+            ->method('findOneBy')
+            ->with(['game' => $game, 'user' => $user])
+            ->willReturn($playtime);
+
+        $purchaseService = new PurchaseUtil($purchaseRepositoryMock, $playtimeRepositoryMock);
+
+        $this->assertEquals(0.5, $purchaseService->generateCostsPerHour($game, $user));
     }
 }

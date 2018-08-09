@@ -46,7 +46,7 @@ class PurchaseUtil
         $purchases = $this->purchaseRepository->findBy(['game' => $game, 'user' => $user]);
 
         foreach ($purchases as $purchase) {
-            $sum += $this->transformPrice($purchase->getPrice(), $purchase->getCurrency(), $game->getCurrency());
+            $sum += CurrencyUtil::transformPrice($purchase->getPrice(), $purchase->getCurrency(), $game->getCurrency());
         }
 
         return $sum;
@@ -68,24 +68,5 @@ class PurchaseUtil
         $time = $playtime->getOverallPlaytime() > 60 ? $playtime->getOverallPlaytime() : 60;
 
         return round($this->generateOverallCosts($game, $user) / ($time / 60), 2);
-    }
-
-    /**
-     * @param float $price
-     * @param string $fromCurrency
-     * @param string $toCurrency
-     * @return float
-     */
-    public function transformPrice(float $price, string $fromCurrency, string $toCurrency): float
-    {
-        if ($fromCurrency === 'USD' && $toCurrency === 'EUR') {
-            $price *= 0.824;
-        }
-
-        if ($fromCurrency === 'EUR' && $toCurrency === 'USD') {
-            $price *= 1.213;
-        }
-
-        return round($price, 2);
     }
 }

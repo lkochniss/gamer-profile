@@ -6,18 +6,13 @@ use App\Entity\OverallGameStats;
 use App\Entity\User;
 use App\Repository\OverallGameStatsRepository;
 use App\Repository\PurchaseRepository;
-use App\Service\Util\PurchaseUtil;
+use App\Service\Util\CurrencyUtil;
 
 /**
  * Class WastedMoneyService
  */
 class WastedMoneyService extends AbstractStatsService
 {
-    /**
-     * @var PurchaseUtil
-     */
-    private $purchaseUtil;
-
     /**
      * @var OverallGameStatsRepository
      */
@@ -30,12 +25,10 @@ class WastedMoneyService extends AbstractStatsService
 
     /**
      * WastedMoneyService constructor.
-     * @param PurchaseUtil $purchaseUtil
      * @param OverallGameStatsRepository $overallGameStatsRepository
      * @param PurchaseRepository $purchaseRepository
      */
     public function __construct(
-        PurchaseUtil $purchaseUtil,
         OverallGameStatsRepository $overallGameStatsRepository,
         PurchaseRepository $purchaseRepository
     ) {
@@ -59,7 +52,7 @@ class WastedMoneyService extends AbstractStatsService
         $purchases = $this->purchaseRepository->findBy(['user' => $user]);
         foreach ($purchases as $purchase) {
             if ($purchase->getGame()->getTimePlayed() < 60) {
-                $overallGameStats->addToWastedMoney($this->purchaseUtil->transformPrice(
+                $overallGameStats->addToWastedMoney(CurrencyUtil::transformPrice(
                     $purchase->getPrice(),
                     $purchase->getCurrency(),
                     $overallGameStats->getCurrency()

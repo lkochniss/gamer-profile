@@ -2,12 +2,11 @@
 
 namespace App\Service\Stats;
 
-use App\Entity\Game;
 use App\Entity\OverallGameStats;
-use App\Entity\Purchase;
 use App\Entity\User;
 use App\Repository\OverallGameStatsRepository;
 use App\Repository\PurchaseRepository;
+use App\Service\Util\CurrencyUtil;
 use App\Service\Util\PurchaseUtil;
 
 /**
@@ -15,11 +14,6 @@ use App\Service\Util\PurchaseUtil;
  */
 class InvestedMoneyService extends AbstractStatsService
 {
-    /**
-     * @var PurchaseUtil
-     */
-    private $purchaseUtil;
-
     /**
      * @var OverallGameStatsRepository
      */
@@ -32,17 +26,14 @@ class InvestedMoneyService extends AbstractStatsService
 
     /**
      * WastedMoneyService constructor.
-     * @param PurchaseUtil $purchaseUtil
      * @param OverallGameStatsRepository $overallGameStatsRepository
      * @param PurchaseRepository $purchaseRepository
      */
     public function __construct(
-        PurchaseUtil $purchaseUtil,
         OverallGameStatsRepository $overallGameStatsRepository,
         PurchaseRepository $purchaseRepository
     ) {
         parent::__construct($overallGameStatsRepository);
-        $this->purchaseUtil = $purchaseUtil;
         $this->overallGameStatsRepository = $overallGameStatsRepository;
         $this->purchaseRepository = $purchaseRepository;
     }
@@ -60,7 +51,7 @@ class InvestedMoneyService extends AbstractStatsService
 
         $purchases = $this->purchaseRepository->findBy(['user' => $user]);
         foreach ($purchases as $purchase) {
-            $overallGameStats->addToInvestedMoney($this->purchaseUtil->transformPrice(
+            $overallGameStats->addToInvestedMoney(CurrencyUtil::transformPrice(
                 $purchase->getPrice(),
                 $purchase->getCurrency(),
                 $overallGameStats->getCurrency()

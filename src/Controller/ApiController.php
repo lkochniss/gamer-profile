@@ -8,6 +8,7 @@ use App\Repository\GameRepository;
 use App\Repository\GameSessionRepository;
 use App\Repository\PlaytimePerMonthRepository;
 use App\Repository\PurchaseRepository;
+use App\Service\Util\CurrencyUtil;
 use App\Service\Util\TimeConverterUtil;
 use App\Service\Util\PurchaseUtil;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -141,18 +142,14 @@ class ApiController extends Controller
 
     /**
      * @param PurchaseRepository $purchaseRepository
-     * @param PurchaseUtil $purchaseUtil
      * @param UserInterface $user
      * @return JsonResponse
      */
-    public function investedMoneyPerMonth(
-        PurchaseRepository $purchaseRepository,
-        PurchaseUtil $purchaseUtil,
-        UserInterface $user
+    public function investedMoneyPerMonth(PurchaseRepository $purchaseRepository, UserInterface $user
     ): JsonResponse {
         $purchases = $purchaseRepository->findForLastTwelveMonth($user);
 
-        return new JsonResponse($this->mapInvestedMoneyData($purchases, 'M Y', $purchaseUtil));
+        return new JsonResponse($this->mapInvestedMoneyData($purchases, 'M Y'));
     }
 
     /**
@@ -186,10 +183,9 @@ class ApiController extends Controller
     /**
      * @param array $purchases
      * @param string $format
-     * @param PurchaseUtil $purchaseUtil
      * @return array
      */
-    private function mapInvestedMoneyData(array $purchases, string $format, PurchaseUtil $purchaseUtil): array
+    private function mapInvestedMoneyData(array $purchases, string $format): array
     {
         $defaultCurrency = getenv('DEFAULT_CURRENCY');
 
@@ -199,7 +195,7 @@ class ApiController extends Controller
             if (!array_key_exists($key, $data)) {
                 $data[$key] = 0;
             }
-            $data[$key] += $purchaseUtil->transformPrice(
+            $data[$key] += CurrencyUtil::transformPrice(
                 $purchase->getPrice(),
                 $purchase->getCurrency(),
                 $defaultCurrency
