@@ -2,7 +2,7 @@
 
 namespace tests\App\Service\Transformation;
 
-use App\Entity\JsonGame;
+use App\Entity\JSON\JsonGame;
 use App\Service\Api\GameApiClientService;
 use App\Service\Transformation\GameInformationService;
 use GuzzleHttp\Psr7\Response;
