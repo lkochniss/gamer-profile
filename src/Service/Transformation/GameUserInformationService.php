@@ -34,8 +34,10 @@ class GameUserInformationService
      * @param UserApiClientService $userApiClientService
      * @param GameSessionRepository $gameSessionRepository
      */
-    public function __construct(UserApiClientService $userApiClientService, GameSessionRepository $gameSessionRepository)
-    {
+    public function __construct(
+        UserApiClientService $userApiClientService,
+        GameSessionRepository $gameSessionRepository
+    ) {
         $this->userApiClientService = $userApiClientService;
         $this->gameSessionRepository = $gameSessionRepository;
     }
@@ -203,15 +205,13 @@ class GameUserInformationService
             'date' => $date
         ]);
 
-        if ($gameSession === null){
+        if ($gameSession === null) {
             $gameSession = new GameSession($playtime->getGame(), $playtime->getUser(), $date);
         }
 
-        if (
-            $userInformation->getRecentPlaytime() > 0 &&
+        if ($userInformation->getRecentPlaytime() > 0 &&
             $userInformation->getOverallPlaytime() > $playtime->getOverallPlaytime()
         ) {
-
             $duration = $userInformation->getOverallPlaytime() - $playtime->getGame()->getTimePlayed();
             $gameSession->setDuration($duration);
             $this->gameSessionRepository->save($gameSession);
