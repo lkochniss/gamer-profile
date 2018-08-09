@@ -2,8 +2,10 @@
 
 namespace tests\App\Service\Stats;
 
+use App\Entity\Game;
 use App\Entity\GameSession;
 use App\Entity\PlaytimePerMonth;
+use App\Entity\User;
 use App\Repository\PlaytimePerMonthRepository;
 use App\Service\Stats\PlaytimePerMonthService;
 use PHPUnit\Framework\TestCase;
@@ -16,8 +18,9 @@ class PlaytimePerMonthServiceTest extends TestCase
     public function testAddSession(): void
     {
         $month = new \DateTime('first day of this month 00:00:00');
+        $user = new User(1);
 
-        $expectedPlaytimePerMonth = new PlaytimePerMonth($month);
+        $expectedPlaytimePerMonth = new PlaytimePerMonth($month, $user);
         $expectedPlaytimePerMonth->addToDuration(10);
         $expectedPlaytimePerMonth->addSession();
 
@@ -25,9 +28,10 @@ class PlaytimePerMonthServiceTest extends TestCase
         $repositoryMock->expects($this->any())
             ->method('findOneBy')
             ->with(['month' => $month])
-            ->willReturn(new PlaytimePerMonth($month));
+            ->willReturn(new PlaytimePerMonth($month, $user));
 
-        $gameSession = new GameSession();
+        $game = new Game();
+        $gameSession = new GameSession($game, $user, $month);
         $gameSession->setDuration(10);
 
         $playtimePerMonthService = new PlaytimePerMonthService($repositoryMock);
@@ -39,12 +43,13 @@ class PlaytimePerMonthServiceTest extends TestCase
     public function testUpdateSession(): void
     {
         $month = new \DateTime('first day of this month 00:00:00');
+        $user = new User(1);
 
-        $expectedPlaytimePerMonth = new PlaytimePerMonth($month);
+        $expectedPlaytimePerMonth = new PlaytimePerMonth($month, $user);
         $expectedPlaytimePerMonth->addToDuration(20);
         $expectedPlaytimePerMonth->addSession();
 
-        $oldSessionPerMonth = new PlaytimePerMonth($month);
+        $oldSessionPerMonth = new PlaytimePerMonth($month, $user);
         $oldSessionPerMonth->addToDuration(10);
         $oldSessionPerMonth->addSession();
 
@@ -54,11 +59,12 @@ class PlaytimePerMonthServiceTest extends TestCase
             ->with(['month' => $month])
             ->willReturn($oldSessionPerMonth);
 
-        $gameSession = new GameSession();
+        $game = new Game();
+        $gameSession = new GameSession($game, $user, $month);
         $gameSession->setDuration(10);
 
         $playtimePerMonthService = new PlaytimePerMonthService($repositoryMock);
-        $actualPlaytimePerMonth = $playtimePerMonthService->updateSession(10, $gameSession);
+        $actualPlaytimePerMonth = $playtimePerMonthService->updateSession(10, $user);
 
         $this->assertEquals($expectedPlaytimePerMonth, $actualPlaytimePerMonth);
     }
