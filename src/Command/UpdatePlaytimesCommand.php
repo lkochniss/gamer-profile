@@ -57,8 +57,7 @@ class UpdatePlaytimesCommand extends ContainerAwareCommand
         UserRepository $userRepository,
         PlaytimeRepository $playtimeRepository,
         GameRepository $gameRepository
-    )
-    {
+    ) {
         parent::__construct();
         $this->playtimeService = $playtimeService;
         $this->gameUserInformationService = $gameUserInformationService;
@@ -90,13 +89,6 @@ class UpdatePlaytimesCommand extends ContainerAwareCommand
 
         foreach ($users as $user) {
             $output->writeln(['', 'Starting user: ' . $user->getSteamId()]);
-
-            $playtimes = $this->playtimeRepository->getRecentPlaytime($user);
-
-            foreach ($playtimes as $playtime) {
-                $playtime->setRecentPlaytime(0);
-                $this->playtimeRepository->save($playtime);
-            }
 
             $games = $this->gameUserInformationService->getRecentlyPlayedGames($user->getSteamid());
 
