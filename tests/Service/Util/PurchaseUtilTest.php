@@ -3,7 +3,11 @@
 namespace tests\App\Service\Util;
 
 use App\Entity\Game;
+use App\Entity\Playtime;
 use App\Entity\Purchase;
+use App\Entity\User;
+use App\Repository\PlaytimeRepository;
+use App\Repository\PurchaseRepository;
 use App\Service\Util\PurchaseUtil;
 use PHPUnit\Framework\TestCase;
 
@@ -12,138 +16,117 @@ use PHPUnit\Framework\TestCase;
  */
 class PurchaseUtilTest extends TestCase
 {
-    public function testOverallCostsForGameWithInitialPriceAndWithoutPurchases(): void
+    public function testGenerateOverallCostsWithoutPurchaseWorks(): void
     {
         $game = new Game();
-        $game->setPrice(1);
-        $game->setCurrency('USD');
+        $user = new User(1);
 
-        $purchaseService = new PurchaseUtil();
+        $purchaseRepositoryMock = $this->createMock(PurchaseRepository::class);
+        $purchaseRepositoryMock->expects($this->any())
+            ->method('findBy')
+            ->with(['game' => $game, 'user' => $user])
+            ->willReturn([]);
 
-        $this->assertEquals(1, $purchaseService->generateOverallCosts($game));
+        $playtimeRepositoryMock = $this->createMock(PlaytimeRepository::class);
+
+        $purchaseService = new PurchaseUtil($purchaseRepositoryMock, $playtimeRepositoryMock);
+
+        $this->assertEquals(0, $purchaseService->generateOverallCosts($game, $user));
     }
 
-    public function testOverallCostsForGameWithInitialPriceAndDlcPurchases(): void
+    public function testGenerateOverallCostsWithOnePurchaseWorks(): void
     {
-        $purchase = new Purchase();
-        $purchase->setPrice(2);
+        $game = new Game();
+        $user = new User(1);
+        $purchase = new Purchase($user);
+        $purchase->setGame($game);
+        $purchase->setPrice(1);
         $purchase->setCurrency('USD');
-        $purchase->setType('dlc-purchase');
-        $game = new Game();
-        $game->setPrice(1);
-        $game->setCurrency('USD');
-        $game->addPurchase($purchase);
 
-        $purchaseService = new PurchaseUtil();
+        $purchaseRepositoryMock = $this->createMock(PurchaseRepository::class);
+        $purchaseRepositoryMock->expects($this->any())
+            ->method('findBy')
+            ->with(['game' => $game, 'user' => $user])
+            ->willReturn([$purchase]);
 
-        $this->assertEquals(3, $purchaseService->generateOverallCosts($game));
+        $playtimeRepositoryMock = $this->createMock(PlaytimeRepository::class);
+
+        $purchaseService = new PurchaseUtil($purchaseRepositoryMock, $playtimeRepositoryMock);
+
+        $this->assertEquals(1, $purchaseService->generateOverallCosts($game, $user));
     }
 
-    public function testOverallCostsForGameWithInitialPriceAndGamePurchases(): void
+    public function testGenerateOverallCostsWithMultiplePurchaseesWorks(): void
     {
-        $purchase = new Purchase();
-        $purchase->setPrice(2);
+        $game = new Game();
+        $user = new User(1);
+        $purchase = new Purchase($user);
+        $purchase->setGame($game);
+        $purchase->setPrice(1);
         $purchase->setCurrency('USD');
-        $purchase->setType('game-purchase');
-        $game = new Game();
-        $game->setPrice(1);
-        $game->setCurrency('USD');
-        $game->addPurchase($purchase);
 
-        $purchaseService = new PurchaseUtil();
+        $purchaseRepositoryMock = $this->createMock(PurchaseRepository::class);
+        $purchaseRepositoryMock->expects($this->any())
+            ->method('findBy')
+            ->with(['game' => $game, 'user' => $user])
+            ->willReturn([$purchase, $purchase]);
 
-        $this->assertEquals(2, $purchaseService->generateOverallCosts($game));
+        $playtimeRepositoryMock = $this->createMock(PlaytimeRepository::class);
+
+        $purchaseService = new PurchaseUtil($purchaseRepositoryMock, $playtimeRepositoryMock);
+
+        $this->assertEquals(2, $purchaseService->generateOverallCosts($game, $user));
     }
 
-    public function testOverallCostsForGameWithoutInitialPriceAndWithoutPurchases(): void
+    public function testGenerateCostsPerHourWithoutPurchaseWorks(): void
     {
         $game = new Game();
+        $user = new User(1);
 
-        $purchaseService = new PurchaseUtil();
+        $purchaseRepositoryMock = $this->createMock(PurchaseRepository::class);
+        $purchaseRepositoryMock->expects($this->any())
+            ->method('findBy')
+            ->with(['game' => $game, 'user' => $user])
+            ->willReturn([]);
 
-        $this->assertEquals(0, $purchaseService->generateOverallCosts($game));
+        $playtime = new Playtime($user, $game);
+
+        $playtimeRepositoryMock = $this->createMock(PlaytimeRepository::class);
+        $playtimeRepositoryMock->expects($this->any())
+            ->method('findOneBy')
+            ->with(['game' => $game, 'user' => $user])
+            ->willReturn($playtime);
+
+        $purchaseService = new PurchaseUtil($purchaseRepositoryMock, $playtimeRepositoryMock);
+
+        $this->assertEquals(0.0, $purchaseService->generateCostsPerHour($game, $user));
     }
 
-    public function testOverallCostsForGameWithoutInitialPriceAndDlcPurchases(): void
+    public function testGenerateCostsPerHourWithNoPlaytimeWorks()
     {
-        $purchase = new Purchase();
-        $purchase->setPrice(2);
+        $game = new Game();
+        $user = new User(1);
+        $purchase = new Purchase($user);
+        $purchase->setGame($game);
+        $purchase->setPrice(1);
         $purchase->setCurrency('USD');
-        $purchase->setType('dlc-purchase');
 
-        $game = new Game();
-        $game->addPurchase($purchase);
+        $purchaseRepositoryMock = $this->createMock(PurchaseRepository::class);
+        $purchaseRepositoryMock->expects($this->any())
+            ->method('findBy')
+            ->with(['game' => $game, 'user' => $user])
+            ->willReturn([$purchase]);
 
-        $purchaseService = new PurchaseUtil();
+        $playtime = new Playtime($user, $game);
 
-        $this->assertEquals(2, $purchaseService->generateOverallCosts($game));
-    }
+        $playtimeRepositoryMock = $this->createMock(PlaytimeRepository::class);
+        $playtimeRepositoryMock->expects($this->any())
+            ->method('findOneBy')
+            ->with(['game' => $game, 'user' => $user])
+            ->willReturn($playtime);
 
-    public function testOverallCostsForGameWithInitialEurPriceAndUsdDlcPurchases(): void
-    {
-        $purchase = new Purchase();
-        $purchase->setPrice(2);
-        $purchase->setCurrency('USD');
-        $purchase->setType('dlc-purchase');
-        $game = new Game();
-        $game->setPrice(1);
-        $game->setCurrency('EUR');
-        $game->addPurchase($purchase);
+        $purchaseService = new PurchaseUtil($purchaseRepositoryMock, $playtimeRepositoryMock);
 
-        $purchaseService = new PurchaseUtil();
-
-        $this->assertEquals(2.65, $purchaseService->generateOverallCosts($game));
-    }
-
-    public function testOverallCostsForGameWithInitialUsdPriceAndEurDlcPurchases(): void
-    {
-        $purchase = new Purchase();
-        $purchase->setPrice(2);
-        $purchase->setCurrency('EUR');
-        $purchase->setType('dlc-purchase');
-        $game = new Game();
-        $game->setPrice(1);
-        $game->setCurrency('USD');
-        $game->addPurchase($purchase);
-
-        $purchaseService = new PurchaseUtil();
-
-        $this->assertEquals(3.43, $purchaseService->generateOverallCosts($game));
-    }
-
-    public function testCostPerHourWithOneMinuteForGameWithInitialPriceAndWithoutPurchases(): void
-    {
-        $game = new Game();
-        $game->setPrice(1);
-        $game->setCurrency('USD');
-        $game->setTimePlayed(1);
-
-        $purchaseService = new PurchaseUtil();
-
-        $this->assertEquals(1, $purchaseService->generateCostsPerHour($game));
-    }
-
-    public function testCostPerHourWithOneHourForGameWithInitialPriceAndWithoutPurchases(): void
-    {
-        $game = new Game();
-        $game->setPrice(1);
-        $game->setCurrency('USD');
-        $game->setTimePlayed(60);
-
-        $purchaseService = new PurchaseUtil();
-
-        $this->assertEquals(1, $purchaseService->generateCostsPerHour($game));
-    }
-
-    public function testCostPerHourWithEightyMinutesForGameWithInitialPriceAndWithoutPurchases(): void
-    {
-        $game = new Game();
-        $game->setPrice(1);
-        $game->setCurrency('USD');
-        $game->setTimePlayed(80);
-
-        $purchaseService = new PurchaseUtil();
-
-        $this->assertEquals(0.75, $purchaseService->generateCostsPerHour($game));
+        $this->assertEquals(1, $purchaseService->generateCostsPerHour($game, $user));
     }
 }
