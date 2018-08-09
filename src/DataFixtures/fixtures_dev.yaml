@@ -18,20 +18,20 @@ App\Entity\User:
 App\Entity\GameSession:
     game_session_1:
         __construct:
-          0: '@user_1'
-          1: '@game_1'
+          0: '@game_1'
+          1: '@user_1'
           2: '<dateTimeBetween("now", "now")>'
         duration: '<numberBetween(1, 100)>'
     game_session_2:
         __construct:
-         0: '@user_1'
-         1: '@game_2'
+         0: '@game_2'
+         1: '@user_1'
          2: '<dateTimeBetween("-2 days", "-2 days")>'
         duration: '<numberBetween(1, 50)>'
     game_session_3:
         __construct:
-         0: '@user_2'
-         1: '@game_1'
+         0: '@game_1'
+         1: '@user_2'
          2: '<dateTimeBetween("now", "now")>'
         duration: '<numberBetween(1, 50)>'
 
