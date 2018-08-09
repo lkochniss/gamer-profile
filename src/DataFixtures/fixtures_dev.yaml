@@ -101,3 +101,17 @@ App\Entity\Purchase:
         currency: 'USD'
         notice: '<sentence()>'
         bought_at: '<dateTimeBetween("-1 week", "now")>'
+
+App\Entity\Playtime:
+    playtime_1:
+        __construct:
+          0: '@user_1'
+          1: '@game_1'
+
+App\Entity\GameStats:
+    gameStats_1:
+        __construct:
+          0: '@user_1'
+          1: '@game_1'
+          2: '@achievement_1'
+          3: '@playtime_1'
