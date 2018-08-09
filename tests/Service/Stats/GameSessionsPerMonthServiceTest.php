@@ -6,6 +6,7 @@ use App\Entity\Game;
 use App\Entity\GameSession;
 use App\Entity\GameSessionsPerMonth;
 use App\Entity\OverallGameStats;
+use App\Entity\User;
 use App\Repository\GameSessionsPerMonthRepository;
 use App\Repository\OverallGameStatsRepository;
 use App\Service\Stats\GameSessionsPerMonthService;
@@ -18,14 +19,15 @@ class GameSessionsPerMonthServiceTest extends TestCase
 {
     public function testAddSessionToOverallGameStats(): void
     {
-        $expectedOverallGameStats = new OverallGameStats();
+        $user = new User(1);
+        $expectedOverallGameStats = new OverallGameStats($user);
         $expectedOverallGameStats->addGameSessions();
 
         $overallGameStatsRepositoryMock = $this->createMock(OverallGameStatsRepository::class);
         $overallGameStatsRepositoryMock->expects($this->any())
             ->method('findOneBy')
-            ->with(['identifier' => getenv('STEAM_USER_ID')])
-            ->willReturn(new OverallGameStats());
+            ->with(['user' => $user])
+            ->willReturn(new OverallGameStats($user));
 
         $overallGameStatsRepositoryMock->expects($this->any())
             ->method('save')
@@ -33,27 +35,28 @@ class GameSessionsPerMonthServiceTest extends TestCase
 
         $repositoryMock = $this->createMock(GameSessionsPerMonthRepository::class);
 
-        $basicInformationService = new GameSessionsPerMonthService(
+        $gameSessionsPerMonthService = new GameSessionsPerMonthService(
             $repositoryMock,
             $overallGameStatsRepositoryMock
         );
 
         $this->assertEquals(
             $expectedOverallGameStats,
-            $basicInformationService->addSessionToOverallGameStats()
+            $gameSessionsPerMonthService->addSessionToOverallGameStats($user)
         );
     }
 
     public function testAddGameSession(): void
     {
         $game = new Game();
-        $gameSession = new GameSession();
-        $gameSession->setGame($game);
-        $gameSession->setDuration(10);
-
+        $user = new User(1);
         $month = new \DateTime('first day of this month 00:00:00');
 
-        $expectedGameSessionsPerMonth = new GameSessionsPerMonth($month, $game);
+        $gameSession = new GameSession($game, $user, $month);
+        $gameSession->setDuration(10);
+
+
+        $expectedGameSessionsPerMonth = new GameSessionsPerMonth($month, $game, $user);
         $expectedGameSessionsPerMonth->addToDuration(10);
 
         $overallGameStatsRepositoryMock = $this->createMock(OverallGameStatsRepository::class);
@@ -61,36 +64,36 @@ class GameSessionsPerMonthServiceTest extends TestCase
         $repositoryMock->expects($this->any())
             ->method('findOneBy')
             ->with(['game' => $game, 'month' => $month])
-            ->willReturn(new GameSessionsPerMonth($month, $game));
+            ->willReturn(new GameSessionsPerMonth($month, $game, $user));
 
         $repositoryMock->expects($this->any())
             ->method('save')
             ->with($expectedGameSessionsPerMonth);
 
-        $basicInformationService = new GameSessionsPerMonthService(
+        $gameSessionsPerMonthService = new GameSessionsPerMonthService(
             $repositoryMock,
             $overallGameStatsRepositoryMock
         );
 
         $this->assertEquals(
             $expectedGameSessionsPerMonth,
-            $basicInformationService->addGameSession($gameSession)
+            $gameSessionsPerMonthService->addGameSession($gameSession)
         );
     }
 
     public function testUpdateGameSession(): void
     {
         $game = new Game();
-        $gameSession = new GameSession();
-        $gameSession->setGame($game);
-        $gameSession->setDuration(20);
-
+        $user = new User(1);
         $month = new \DateTime('first day of this month 00:00:00');
 
-        $expectedGameSessionsPerMonth = new GameSessionsPerMonth($month, $game);
+        $gameSession = new GameSession($game, $user, $month);
+        $gameSession->setDuration(20);
+
+        $expectedGameSessionsPerMonth = new GameSessionsPerMonth($month, $game, $user);
         $expectedGameSessionsPerMonth->addToDuration(20);
 
-        $oldGameSessionsPerMonth = new GameSessionsPerMonth($month, $game);
+        $oldGameSessionsPerMonth = new GameSessionsPerMonth($month, $game, $user);
         $oldGameSessionsPerMonth->addToDuration(10);
 
         $overallGameStatsRepositoryMock = $this->createMock(OverallGameStatsRepository::class);
@@ -104,14 +107,14 @@ class GameSessionsPerMonthServiceTest extends TestCase
             ->method('save')
             ->with($expectedGameSessionsPerMonth);
 
-        $basicInformationService = new GameSessionsPerMonthService(
+        $gameSessionsPerMonthService = new GameSessionsPerMonthService(
             $repositoryMock,
             $overallGameStatsRepositoryMock
         );
 
         $this->assertEquals(
             $expectedGameSessionsPerMonth,
-            $basicInformationService->updateGameSession(10, $gameSession)
+            $gameSessionsPerMonthService->updateGameSession(10, $gameSession)
         );
     }
 }
