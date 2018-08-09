@@ -3,8 +3,6 @@
 namespace tests\App\Service\Entity;
 
 use App\Entity\Game;
-use App\Entity\JsonGame;
-use App\Entity\JsonPlaytime;
 use App\Repository\GameRepository;
 use App\Service\Entity\GameService;
 use App\Service\Transformation\GameInformationService;
@@ -44,7 +42,7 @@ class CreateNewGameServiceTest extends TestCase
             $gameRepositoryMock
         );
 
-        $this->assertEquals('S', $createNewGameService->createGameIfNotExist(1));
+        $this->assertEquals($game, $createNewGameService->createGameIfNotExist(1));
     }
 
     public function testCreateGameIfGameNotExist(): void
@@ -77,6 +75,6 @@ class CreateNewGameServiceTest extends TestCase
             $gameRepositoryMock
         );
 
-        $this->assertEquals('N', $createNewGameService->createGameIfNotExist(1));
+        $this->assertEquals($game, $createNewGameService->createGameIfNotExist(1));
     }
 }

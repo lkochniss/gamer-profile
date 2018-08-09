@@ -50,16 +50,22 @@ class PurchaseController extends AbstractCrudController
     /**
      * @param int $id
      * @param Request $request
+     * @param UserInterface $user
      * @return RedirectResponse|Response
      *
      * @SuppressWarnings(PHPMD.ShortVariableName)
      */
-    public function edit(int $id, Request $request)
+    public function edit(int $id, Request $request, UserInterface $user)
     {
-        $purchase = $this->getDoctrine()->getRepository($this->getEntityName())->find($id);
+        $purchase = $this->getDoctrine()->getRepository($this->getEntityName())->findOneBy([
+            'id' => $id,
+            'user' => $user
+        ]);
+
         if (is_null($purchase)) {
             throw new NotFoundHttpException();
         }
+
         return $this->createAndHandleForm($purchase, $request, 'edit', ['id' => $purchase->getId()]);
     }
 

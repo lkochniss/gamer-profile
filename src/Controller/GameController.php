@@ -60,7 +60,7 @@ class GameController extends AbstractCrudController
             throw new NotFoundHttpException();
         }
 
-        return $this->render(#
+        return $this->render(
             sprintf('%s/dashboard.html.twig', $this->getTemplateBasePath()),
             [
                 'entity' => $entity

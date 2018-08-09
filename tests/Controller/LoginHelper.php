@@ -3,20 +3,32 @@
 
 namespace App\Tests\Controller;
 
+use App\Entity\User;
 use Symfony\Component\HttpKernel\Client;
 use Symfony\Component\BrowserKit\Cookie;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
 class LoginHelper
 {
-    public function logIn(Client &$client)
+    const USER_1 = "76561198045607524";
+    const USER_2 = "12345";
+
+    /**
+     * @param Client $client
+     * @param int $userSteamId
+     */
+    public function logIn(Client &$client, int $userSteamId):void
     {
         $session = $client->getContainer()->get('session');
+
+        $user = $client->getContainer()->get('doctrine')->getRepository(User::class)->findOneBy([
+            'steamId' => $userSteamId
+        ]);
 
         // the firewall context defaults to the firewall name
         $firewallContext = 'admin';
 
-        $token = new UsernamePasswordToken(getenv('USER_NAME'), getenv('USER_PASS'), $firewallContext, ['ROLE_ADMIN']);
+        $token = new UsernamePasswordToken($user, null, $firewallContext, ['ROLE_ADMIN']);
         $session->set('_security_' . $firewallContext, serialize($token));
         $session->save();
 

@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Repository\GameRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -22,6 +23,31 @@ abstract class AbstractCrudController extends Controller
             sprintf('%s/list.html.twig', $this->getTemplateBasePath()),
             [
                 'entities' => $entities,
+            ]
+        );
+    }
+
+    /**
+     * @param int $id
+     * @param GameRepository $gameRepository
+     * @param UserInterface $user
+     * @return Response
+     *
+     * @SuppressWarnings(PHPMD.ShortVariableName)
+     */
+    public function listForGame(int $id, GameRepository $gameRepository, UserInterface $user): Response
+    {
+        $game = $gameRepository->find($id);
+        $entities = $this->getDoctrine()->getRepository($this->getEntityName())->findBy([
+            'game' => $id,
+            'user' => $user
+        ]);
+
+        return $this->render(
+            sprintf('%s/list-for-game.html.twig', $this->getTemplateBasePath()),
+            [
+                'entities' => $entities,
+                'game' => $game
             ]
         );
     }

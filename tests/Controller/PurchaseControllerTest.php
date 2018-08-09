@@ -26,7 +26,7 @@ class PurchaseControllerTest extends WebTestCase
     public function testPurchaseActionsReturnOk(string $url): void
     {
         $client = static::createClient();
-        $this->loginHelper->logIn($client);
+        $this->loginHelper->logIn($client, LoginHelper::USER_1);
         $client->request('GET', $url);
 
         $this->assertEquals(Response::HTTP_OK, $client->getResponse()->getStatusCode());

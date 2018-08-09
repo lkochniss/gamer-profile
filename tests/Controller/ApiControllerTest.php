@@ -26,10 +26,8 @@ class ApiControllerTest extends WebTestCase
     public function testApiActionsReturnOk(string $url): void
     {
         $client = static::createClient();
-        $this->loginHelper->logIn($client);
+        $this->loginHelper->logIn($client, LoginHelper::USER_1);
         $client->request('GET', $url);
-
-        var_dump($client->getResponse()->getContent());die;
 
         $this->assertEquals(Response::HTTP_OK, $client->getResponse()->getStatusCode());
     }
