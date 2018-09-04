@@ -6,6 +6,7 @@ use App\Command\UpdatePlaytimesCommand;
 use App\Entity\Game;
 use App\Entity\Playtime;
 use App\Entity\User;
+use App\Repository\GameRepository;
 use App\Repository\PlaytimeRepository;
 use App\Repository\UserRepository;
 use App\Service\Entity\PlaytimeService;
@@ -56,12 +57,15 @@ class UpdatePlaytimesCommandTest extends KernelTestCase
             ->with(['user' => $user, 'game' => $game])
             ->willReturn($playtime);
 
+        $gameRepositoryMock = $this->createMock(GameRepository::class);
+
         $application = new Application($kernel);
         $application->add(new UpdatePlaytimesCommand(
             $playtimeServiceMock,
             $gameUserInformationServiceMock,
             $userRepositoryMock,
-            $playtimeRepositoryMock
+            $playtimeRepositoryMock,
+            $gameRepositoryMock
         ));
 
         $command = $application->find('steam:update:playtime');
@@ -106,12 +110,15 @@ class UpdatePlaytimesCommandTest extends KernelTestCase
             ->with(['user' => $user, 'game' => $game])
             ->willReturn(null);
 
+        $gameRepositoryMock = $this->createMock(GameRepository::class);
+
         $application = new Application($kernel);
         $application->add(new UpdatePlaytimesCommand(
             $playtimeServiceMock,
             $gameUserInformationServiceMock,
             $userRepositoryMock,
-            $playtimeRepositoryMock
+            $playtimeRepositoryMock,
+            $gameRepositoryMock
         ));
 
         $command = $application->find('steam:update:playtime');

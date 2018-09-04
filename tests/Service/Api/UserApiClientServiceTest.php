@@ -38,14 +38,14 @@ class UserApiClientServiceTest extends TestCase
 
         $steamApiClient = new UserApiClientService($guzzleClientMock);
 
-        $this->assertEquals(new Response(), $steamApiClient->get($endpoint));
+        $this->assertEquals(new Response(), $steamApiClient->get($endpoint, 1));
     }
 
     public function urlProvider(): array
     {
         return [
-            ['/', 'http://api.steampowered.com/?key=unittest&steamid=&format=json'],
-            ['/1?asd=2', 'http://api.steampowered.com/1?asd=2&key=unittest&steamid=&format=json'],
+            ['/', 'http://api.steampowered.com/?key=unittest&steamid=1&format=json&l=english'],
+            ['/1?asd=2', 'http://api.steampowered.com/1?asd=2&key=unittest&steamid=1&format=json&l=english'],
         ];
     }
 }
