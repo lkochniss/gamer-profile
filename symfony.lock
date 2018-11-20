@@ -71,6 +71,9 @@
             "ref": "c1431086fec31f17fbcfe6d6d7e92059458facc1"
         }
     },
+    "doctrine/event-manager": {
+        "version": "v1.0.0"
+    },
     "doctrine/inflector": {
         "version": "v1.2.0"
     },
@@ -85,6 +88,12 @@
     },
     "doctrine/orm": {
         "version": "v2.5.13"
+    },
+    "doctrine/persistence": {
+        "version": "v1.0.1"
+    },
+    "doctrine/reflection": {
+        "version": "v1.0.0"
     },
     "fzaninotto/faker": {
         "version": "v1.7.1"
@@ -305,6 +314,9 @@
             "ref": "e7bbddb8dd603b2c3770cb10f163e692b4b414aa"
         }
     },
+    "symfony/contracts": {
+        "version": "v1.0.0-beta1"
+    },
     "symfony/debug": {
         "version": "v4.0.0-beta4"
     },
@@ -469,6 +481,9 @@
     },
     "symfony/var-dumper": {
         "version": "v4.0.2"
+    },
+    "symfony/var-exporter": {
+        "version": "v4.2.0-beta2"
     },
     "symfony/web-profiler-bundle": {
         "version": "3.3",
