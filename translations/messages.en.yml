@@ -22,6 +22,8 @@ ga_tracking: 'Google Analytics Tracking Id'
 game_of_the_month: 'Game Of The Month'
 game_list: 'Game List'
 game_sessions: 'Game Sessions'
+game_sessions_per_day: 'per day'
+game_sessions_per_month: 'per month'
 game: Game
 games: Games
 information: Information
@@ -38,6 +40,7 @@ login: login
 logout: logout
 longest_session: 'Longest Session'
 modified_at: 'Modified At'
+month: 'Month'
 most_played: 'Most Played'
 name: Name
 new_games: 'New Games'

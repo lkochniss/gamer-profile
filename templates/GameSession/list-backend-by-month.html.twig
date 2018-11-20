@@ -1,0 +1,33 @@
+{% extends 'admin-base.html.twig' %}
+{% block body %}
+    <table id="game-session-for-game-list" class="table">
+        <thead>
+        <tr>
+            <th scope="col">
+                {% trans from 'messages' %}game{% endtrans %}
+            </th>
+            <th scope="col">
+                {% trans from 'messages' %}month{% endtrans %}
+            </th>
+            <th scope="col">
+                {% trans from 'messages' %}duration{% endtrans %}
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for gameSession in entities %}
+            <tr>
+                <td scope="col">
+                    <a href="{{ path('game_dashboard', {'id': gameSession.game.id}) }}">{{ gameSession.game.name }}</a>
+                </td>
+                <td scope="col" data-order="{{ gameSession.createdAt|date('Y-m') }}">
+                    {{ gameSession.createdAt|date('F Y') }}
+                </td>
+                <td scope="col" data-order="{{ gameSession.duration }}">
+                    {{ gameSession.duration|convert_recent_time }}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
