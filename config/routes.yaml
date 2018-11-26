@@ -22,11 +22,6 @@ game_admin:
     resource: routing/game_admin.yaml
     prefix: /admin
 
-## BlogPost
-blog_post_admin:
-    resource: routing/blog_post_admin.yaml
-    prefix: /admin
-
 ## Purchase
 purchase_admin:
     resource: routing/purchase_admin.yaml
@@ -50,7 +45,3 @@ homepage_frontend:
 ## Game
 game_frontend:
     resource: routing/game_frontend.yaml
-
-## BlogPost
-blog_post_frontend:
-    resource: routing/blog_post_frontend.yaml

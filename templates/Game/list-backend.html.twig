@@ -21,9 +21,6 @@
             <th scope="col">
                 {% trans from 'messages' %}number_of_sessions{% endtrans %}
             </th>
-            <th scope="col">
-                {% trans from 'messages' %}number_of_blog_posts{% endtrans %}
-            </th>
         </tr>
         </thead>
         <tbody>
@@ -65,9 +62,6 @@
                 {% endif %}
                 <td>
                     {{ game.gameSessions | length }}
-                </td>
-                <td>
-                    {{ game.blogPosts|length }}
                 </td>
             </tr>
         {% endfor %}

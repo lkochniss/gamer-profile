@@ -13,7 +13,7 @@ abstract class AbstractRepository extends ServiceEntityRepository
 {
 
     /**
-     * BlogPostRepository constructor.
+     * AbstractRepository constructor.
      * @param RegistryInterface $registry
      */
     public function __construct(RegistryInterface $registry)

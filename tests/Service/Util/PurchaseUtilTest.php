@@ -12,42 +12,13 @@ use PHPUnit\Framework\TestCase;
  */
 class PurchaseUtilTest extends TestCase
 {
-    public function testOverallCostsForGameWithInitialPriceAndWithoutPurchases(): void
-    {
-        $game = new Game();
-        $game->setPrice(1);
-        $game->setCurrency('USD');
 
-        $purchaseService = new PurchaseUtil();
-
-        $this->assertEquals(1, $purchaseService->generateOverallCosts($game));
-    }
-
-    public function testOverallCostsForGameWithInitialPriceAndDlcPurchases(): void
+    public function testOverallCostsForGameWithDlcPurchases(): void
     {
         $purchase = new Purchase();
         $purchase->setPrice(2);
-        $purchase->setCurrency('USD');
-        $purchase->setType('dlc-purchase');
+
         $game = new Game();
-        $game->setPrice(1);
-        $game->setCurrency('USD');
-        $game->addPurchase($purchase);
-
-        $purchaseService = new PurchaseUtil();
-
-        $this->assertEquals(3, $purchaseService->generateOverallCosts($game));
-    }
-
-    public function testOverallCostsForGameWithInitialPriceAndGamePurchases(): void
-    {
-        $purchase = new Purchase();
-        $purchase->setPrice(2);
-        $purchase->setCurrency('USD');
-        $purchase->setType('game-purchase');
-        $game = new Game();
-        $game->setPrice(1);
-        $game->setCurrency('USD');
         $game->addPurchase($purchase);
 
         $purchaseService = new PurchaseUtil();
@@ -58,7 +29,6 @@ class PurchaseUtilTest extends TestCase
     public function testOverallCostsForGameWithoutInitialPriceAndWithoutPurchases(): void
     {
         $game = new Game();
-
         $purchaseService = new PurchaseUtil();
 
         $this->assertEquals(0, $purchaseService->generateOverallCosts($game));
@@ -68,8 +38,6 @@ class PurchaseUtilTest extends TestCase
     {
         $purchase = new Purchase();
         $purchase->setPrice(2);
-        $purchase->setCurrency('USD');
-        $purchase->setType('dlc-purchase');
 
         $game = new Game();
         $game->addPurchase($purchase);
@@ -79,71 +47,50 @@ class PurchaseUtilTest extends TestCase
         $this->assertEquals(2, $purchaseService->generateOverallCosts($game));
     }
 
-    public function testOverallCostsForGameWithInitialEurPriceAndUsdDlcPurchases(): void
+    public function testCostPerHourWithOneMinuteForGameWithPurchases(): void
     {
         $purchase = new Purchase();
         $purchase->setPrice(2);
-        $purchase->setCurrency('USD');
-        $purchase->setType('dlc-purchase');
+
         $game = new Game();
-        $game->setPrice(1);
-        $game->setCurrency('EUR');
-        $game->addPurchase($purchase);
-
-        $purchaseService = new PurchaseUtil();
-
-        $this->assertEquals(2.65, $purchaseService->generateOverallCosts($game));
-    }
-
-    public function testOverallCostsForGameWithInitialUsdPriceAndEurDlcPurchases(): void
-    {
-        $purchase = new Purchase();
-        $purchase->setPrice(2);
-        $purchase->setCurrency('EUR');
-        $purchase->setType('dlc-purchase');
-        $game = new Game();
-        $game->setPrice(1);
-        $game->setCurrency('USD');
-        $game->addPurchase($purchase);
-
-        $purchaseService = new PurchaseUtil();
-
-        $this->assertEquals(3.43, $purchaseService->generateOverallCosts($game));
-    }
-
-    public function testCostPerHourWithOneMinuteForGameWithInitialPriceAndWithoutPurchases(): void
-    {
-        $game = new Game();
-        $game->setPrice(1);
-        $game->setCurrency('USD');
         $game->setTimePlayed(1);
+        $game->addPurchase($purchase);
 
         $purchaseService = new PurchaseUtil();
 
-        $this->assertEquals(1, $purchaseService->generateCostsPerHour($game));
+        $this->assertEquals(2, $purchaseService->generateCostsPerHour($game));
     }
 
     public function testCostPerHourWithOneHourForGameWithInitialPriceAndWithoutPurchases(): void
     {
+        $gamePurchase = new Purchase();
+        $gamePurchase->setPrice(3);
+
+        $dlcPurchase = new Purchase();
+        $dlcPurchase->setPrice(1);
+        $dlcPurchase->setType(Purchase::DLC_PURCHASE);
+
         $game = new Game();
-        $game->setPrice(1);
-        $game->setCurrency('USD');
         $game->setTimePlayed(60);
+        $game->addPurchase($gamePurchase);
+        $game->addPurchase($dlcPurchase);
 
         $purchaseService = new PurchaseUtil();
 
-        $this->assertEquals(1, $purchaseService->generateCostsPerHour($game));
+        $this->assertEquals(4, $purchaseService->generateCostsPerHour($game));
     }
 
-    public function testCostPerHourWithEightyMinutesForGameWithInitialPriceAndWithoutPurchases(): void
+    public function testCostPerHourWithEightyMinutesForGameWithPurchases(): void
     {
+        $purchase = new Purchase();
+        $purchase->setPrice(2);
+
         $game = new Game();
-        $game->setPrice(1);
-        $game->setCurrency('USD');
         $game->setTimePlayed(80);
+        $game->addPurchase($purchase);
 
         $purchaseService = new PurchaseUtil();
 
-        $this->assertEquals(0.75, $purchaseService->generateCostsPerHour($game));
+        $this->assertEquals(1.5, $purchaseService->generateCostsPerHour($game));
     }
 }

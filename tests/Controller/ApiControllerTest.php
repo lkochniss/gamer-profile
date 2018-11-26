@@ -23,7 +23,7 @@ class ApiControllerTest extends WebTestCase
      * @param string $url
      * @dataProvider backendUrlProvider
      */
-    public function testBackendBlogActionsReturnOk(string $url): void
+    public function testBackendActionsReturnOk(string $url): void
     {
         $client = static::createClient();
         $this->loginHelper->logIn($client);
@@ -36,7 +36,7 @@ class ApiControllerTest extends WebTestCase
      * @param string $url
      * @dataProvider backendUrlProvider
      */
-    public function testBackendBlogActionsWithoutCredentialsRedirectsToLogin(string $url): void
+    public function testBackendActionsWithoutCredentialsRedirectsToLogin(string $url): void
     {
         $this->expectException(AccessDeniedException::class);
 

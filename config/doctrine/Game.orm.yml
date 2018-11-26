@@ -43,9 +43,6 @@ App\Entity\Game:
             type: integer
             nullable: overall_achievements
     oneToMany:
-          blogPosts:
-              targetEntity: BlogPost
-              mappedBy: game
           gameSessions:
               targetEntity: GameSession
               mappedBy: game
