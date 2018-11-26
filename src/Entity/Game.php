@@ -62,11 +62,6 @@ class Game extends AbstractEntity
     /**
      * @var ArrayCollection
      */
-    private $blogPosts;
-
-    /**
-     * @var ArrayCollection
-     */
     private $gameSessions;
 
     /**
@@ -85,7 +80,6 @@ class Game extends AbstractEntity
         $this->playerAchievements = 0;
         $this->overallAchievements = 0;
 
-        $this->blogPosts = new ArrayCollection();
         $this->gameSessions = new ArrayCollection();
         $this->purchases = new ArrayCollection();
     }
@@ -265,33 +259,6 @@ class Game extends AbstractEntity
     public function setOverallAchievements(int $overallAchievements): void
     {
         $this->overallAchievements = $overallAchievements;
-    }
-
-    /**
-     * @param BlogPost $blogPost
-     */
-    public function addBlogPost(BlogPost $blogPost): void
-    {
-        if (!$this->blogPosts->contains($blogPost)) {
-            $this->blogPosts->add($blogPost);
-            $blogPost->setGame($this);
-        }
-    }
-
-    /**
-     * @param BlogPost $blogPost
-     */
-    public function removeBlogPost(BlogPost $blogPost): void
-    {
-        $this->blogPosts->remove($blogPost);
-    }
-
-    /**
-     * @return array
-     */
-    public function getBlogPosts(): array
-    {
-        return $this->blogPosts->toArray();
     }
 
     /**

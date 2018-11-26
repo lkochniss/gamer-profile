@@ -10,7 +10,7 @@
                 {% trans from 'messages' %}number_of_sessions{% endtrans %}
             </th>
             <th scope="col">
-                {% trans from 'messages' %}number_of_blog_posts{% endtrans %}
+                {% trans from 'messages' %}overall_playtime{% endtrans %}
             </th>
         </tr>
         </thead>
@@ -25,8 +25,8 @@
                 <td scope="col">
                     {{ game.gameSessions|length }}
                 </td>
-                <td scope="col">
-                    {{ game.blogPosts|length }}
+                <td scope="col" data-order="{{ game.timePlayed }}">
+                    {{ game.timePlayed | convert_overall_time }}
                 </td>
             </tr>
         {% endfor %}

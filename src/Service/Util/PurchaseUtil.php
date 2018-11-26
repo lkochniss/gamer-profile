@@ -21,10 +21,6 @@ class PurchaseUtil
             $sum += $this->transformPrice($purchase->getPrice(), $purchase->getCurrency(), $game->getCurrency());
         }
 
-        if ($game->hasGamePurchase() === false) {
-            $sum += $game->getPrice();
-        }
-
         return $sum;
     }
 

@@ -13,20 +13,6 @@ App\Entity\Game:
         playerAchievements: '<numberBetween(0, 100)>'
         overallAchievements: '<numberBetween(0, 100)>'
 
-App\Entity\BlogPost:
-    blog_post_1:
-        game: '@game_1'
-        title: 'Post 1'
-        content: '<sentence()><sentence()><sentence()>'
-    blog_post_2:
-        game: '@game_2'
-        title: 'Post 2'
-        content: '<sentence()><sentence()><sentence()>'
-    blog_post_3:
-        game: '@game_2'
-        title: 'Post 3'
-        content: '<sentence()><sentence()><sentence()>'
-
 App\Entity\GameSession:
     game_session_1:
         game: '@game_1'
