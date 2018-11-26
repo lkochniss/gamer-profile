@@ -27,6 +27,8 @@ export default (id, data, xFormat) => {
     .style('text-anchor', 'middle')
     .text(d => d);
 
+  const tooltip = d3.select('body').append('div').attr('class', 'toolTip');
+
   const rect = svg.selectAll('.day')
     .data(d => d3.timeDays(new Date(d, 0, 1), new Date(d + 1, 0, 1)))
     .enter().append('rect')
@@ -36,9 +38,6 @@ export default (id, data, xFormat) => {
     .attr('x', d => d3.timeWeek.count(d3.timeYear(d), d) * cellSize)
     .attr('y', d => d.getDay() * cellSize)
     .datum(format);
-
-  rect.append('title')
-    .text(d => d);
 
   const monthPath = (t0) => {
     const t1 = new Date(t0.getFullYear(), t0.getMonth() + 1, 0);
@@ -71,6 +70,12 @@ export default (id, data, xFormat) => {
 
   rect.filter(d => chartData.has(d))
     .attr('class', d => `day ${color(chartData.get(d))}`)
-    .select('title')
-    .text(d => `${d}: ${tooltipData.get(d)}`);
+    .on('mouseover', (d) => {
+      tooltip
+        .style('left', `${d3.event.pageX - 50}px`)
+        .style('top', `${d3.event.pageY - 70}px`)
+        .style('display', 'inline-block')
+        .html(`${d}: ${(tooltipData.get(d))}`);
+    })
+    .on('mouseout', () => { tooltip.style('display', 'none'); });
 };
