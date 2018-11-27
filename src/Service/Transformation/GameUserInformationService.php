@@ -6,6 +6,7 @@ use App\Entity\Achievements;
 use App\Entity\Game;
 use App\Entity\GameSession;
 use App\Entity\UserInformation;
+use App\Repository\GameSessionRepository;
 use App\Service\Api\UserApiClientService;
 use GuzzleHttp\Exception\ClientException;
 use Nette\Utils\JsonException;
@@ -21,13 +22,21 @@ class GameUserInformationService
     private $userApiClientService;
 
     /**
-     * GamesOwnedService constructor.
-     *
-     * @param UserApiClientService $userApiClientService
+     * @var GameSessionRepository
      */
-    public function __construct(UserApiClientService $userApiClientService)
-    {
+    private $gameSessionRepository;
+
+    /**
+     * GameUserInformationService constructor.
+     * @param UserApiClientService $userApiClientService
+     * @param GameSessionRepository $gameSessionRepository
+     */
+    public function __construct(
+        UserApiClientService $userApiClientService,
+        GameSessionRepository $gameSessionRepository
+    ) {
         $this->userApiClientService = $userApiClientService;
+        $this->gameSessionRepository = $gameSessionRepository;
     }
 
     /**
@@ -137,7 +146,11 @@ class GameUserInformationService
         }
 
         $game->setTimePlayed($userInformation->getTimePlayed());
-        $game->setRecentlyPlayed($userInformation->getRecentlyPlayed());
+
+        // ensures a new game's first day will be recognized in sessions
+        if ($userInformation->getTimePlayed() > $userInformation->getRecentlyPlayed()) {
+            $game->setRecentlyPlayed($userInformation->getRecentlyPlayed());
+        }
 
         return $game;
     }
@@ -172,8 +185,17 @@ class GameUserInformationService
             $userInformation->getRecentlyPlayed() > 0
             && $userInformation->getTimePlayed() > $game->getTimePlayed()
         ) {
-            $gameSession = new GameSession();
-            $duration = $userInformation->getTimePlayed() - $game->getTimePlayed();
+            $gameSession = $this->gameSessionRepository->findOneBy([
+                'day' => new \DateTime('today 00:00:00'),
+                'game' => $game
+            ]);
+
+            if ($gameSession === null) {
+                $gameSession = new GameSession($game);
+            }
+
+
+            $duration = $userInformation->getTimePlayed() - $game->getTimePlayed() + $gameSession->getDuration();
             $gameSession->setDuration($duration);
             $game->addGameSession($gameSession);
         }

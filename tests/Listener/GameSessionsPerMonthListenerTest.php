@@ -64,8 +64,7 @@ class GameSessionsPerMonthListenerTest extends TestCase
 
     public function testPostPersistWorksCorrect(): void
     {
-        $gameSession = new GameSession();
-        $gameSession->setGame(new Game());
+        $gameSession = new GameSession(new Game());
         $gameSession->setDuration(10);
 
         $argsMock = $this->createMock(LifecycleEventArgs::class);
@@ -126,8 +125,7 @@ class GameSessionsPerMonthListenerTest extends TestCase
      */
     public function testPostUpdateWorksCorrect(array $changeSet): void
     {
-        $gameSession = new GameSession();
-        $gameSession->setGame(new Game());
+        $gameSession = new GameSession(new Game());
         $gameSession->setDuration(10);
 
         $argsMock = $this->createMock(LifecycleEventArgs::class);

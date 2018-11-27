@@ -15,10 +15,12 @@ App\Entity\Game:
 
 App\Entity\GameSession:
     game_session_1:
-        game: '@game_1'
+        __construct:
+            0: '@game_1'
         duration: '<numberBetween(1, 100)>'
     game_session_2:
-        game: '@game_2'
+        __construct:
+            0: '@game_2'
         duration: '<numberBetween(1, 50)>'
 
 App\Entity\Purchase:

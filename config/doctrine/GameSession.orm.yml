@@ -8,6 +8,9 @@ App\Entity\GameSession:
     fields:
         duration:
             type: integer
+        day:
+            type: datetime
+            nullable: true
     manyToOne:
         game:
             targetEntity: Game

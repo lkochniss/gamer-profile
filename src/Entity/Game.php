@@ -268,7 +268,6 @@ class Game extends AbstractEntity
     {
         if (!$this->gameSessions->contains($gameSession)) {
             $this->gameSessions->add($gameSession);
-            $gameSession->setGame($this);
         }
     }
 
