@@ -148,6 +148,7 @@ class HomepageController extends Controller
             $key = $gameSession->getGame()->getId();
             if (array_key_exists($key, $playedThisMonth) === false) {
                 $playedThisMonth[$key] = [
+                    'id' => $gameSession->getGame()->getId(),
                     'name' => $gameSession->getGame()->getName(),
                     'duration' => 0
                 ];

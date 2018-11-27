@@ -101,7 +101,9 @@
             <h3>{% trans %}top_played_this_month{% endtrans %}</h3>
             {% for topGame in playedThisMonth %}
                 <div class="row">
-                    <div class="col">{{ topGame.name }}</div>
+                    <div class="col">
+                        <a href="{{ path('game_dashboard', {'id': topGame.id}) }}">{{ topGame.name }}</a>
+                    </div>
                     <div class="col">{{ topGame.duration|convert_recent_time }}</div>
                 </div>
             {% endfor %}
