@@ -1,7 +1,5 @@
 FROM alpine:edge
 
-MAINTAINER Lukas Kochniss<lukas.kochniss@gmail.com>
-
 ENV COMPOSER_VERSION=1.6.3 \
     COMPOSER_HOME=/composer \
     PATH=$COMPOSER_HOME/vendor/bin:$PATH

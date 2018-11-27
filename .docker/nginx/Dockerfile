@@ -1,7 +1,5 @@
 FROM alpine:3.6
 
-MAINTAINER Lukas Kochniss<lukas.kochniss@gmail.com>
-
 RUN apk add --update nginx
 RUN rm -rf /var/cache/apk/* && rm -rf /tmp/*
 
