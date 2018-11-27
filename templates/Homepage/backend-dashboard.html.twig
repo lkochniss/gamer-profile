@@ -28,7 +28,9 @@
             <div class="col-sm">
                 <div class="card mb-4">
                     <div class="card-header">
-                        {% trans from "messages" %}recently_played{% endtrans %}
+                        <a href="{{ path('game_session_list_backend') }}">
+                            {% trans from "messages" %}recently_played{% endtrans %}
+                        </a>
                     </div>
                     <div class="card-body">
                         {{ gameStats.recentlyPlayed|convert_overall_time }}
