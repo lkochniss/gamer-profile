@@ -1,5 +1,7 @@
 # Gamer-Profile - a way to share your game experience
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/e75e4c16407042fba61f9531c8f79d8f)](https://app.codacy.com/app/lkochniss/gamer-profile?utm_source=github.com&utm_medium=referral&utm_content=lkochniss/gamer-profile&utm_campaign=Badge_Grade_Dashboard)
+
 - [Demo Frontend](https://gamer-profile.kochniss.com)
 - [Demo Backend](https://gamer-profile.kochniss.com/admin/) User:*admin* Password:*admin*
 
