@@ -17,7 +17,7 @@ use PHPUnit\Framework\TestCase;
  */
 class PlaytimePerMonthListenerTest extends TestCase
 {
-    public function testPostPersistSkipsOnWrongEntity(): void
+    public function testPostPersistAndPostUpdateSkipOnWrongEntity(): void
     {
         $argsMock = $this->createMock(LifecycleEventArgs::class);
         $argsMock->expects($this->any())
@@ -39,11 +39,12 @@ class PlaytimePerMonthListenerTest extends TestCase
         $playtimePerMonthListener = new PlaytimePerMonthListener();
 
         $this->assertEquals('S', $playtimePerMonthListener->postPersist($argsMock));
+        $this->assertEquals('S', $playtimePerMonthListener->postUpdate($argsMock));
     }
 
     public function testPostPersistWorksCorrect(): void
     {
-        $gameSession = new GameSession();
+        $gameSession = new GameSession(new Game());
         $gameSession->setDuration(10);
 
         $argsMock = $this->createMock(LifecycleEventArgs::class);
@@ -68,30 +69,6 @@ class PlaytimePerMonthListenerTest extends TestCase
         $this->assertEquals('U', $playtimePerMonthListener->postPersist($argsMock));
     }
 
-    public function testPostUpdateSkipsOnWrongEntity(): void
-    {
-        $argsMock = $this->createMock(LifecycleEventArgs::class);
-        $argsMock->expects($this->any())
-            ->method('getEntity')
-            ->willReturn(new Game());
-
-        $repositoryMock = $this->createMock(PlaytimePerMonthRepository::class);
-
-        $entityManagerMock = $this->createMock(EntityManager::class);
-        $entityManagerMock->expects($this->any())
-            ->method('getRepository')
-            ->with(PlaytimePerMonth::class)
-            ->willReturn($repositoryMock);
-
-        $argsMock->expects($this->any())
-            ->method('getEntityManager')
-            ->willReturn($entityManagerMock);
-
-        $playtimePerMonthListener = new PlaytimePerMonthListener();
-
-        $this->assertEquals('S', $playtimePerMonthListener->postUpdate($argsMock));
-    }
-
     /**
      * @param array $changeSet
      * @throws \Doctrine\ORM\ORMException
@@ -100,7 +77,7 @@ class PlaytimePerMonthListenerTest extends TestCase
      */
     public function testPostUpdateWorksCorrect(array $changeSet): void
     {
-        $gameSession = new GameSession();
+        $gameSession = new GameSession(new Game());
         $gameSession->setDuration(10);
 
         $argsMock = $this->createMock(LifecycleEventArgs::class);

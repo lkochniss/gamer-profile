@@ -28,7 +28,9 @@
             <div class="col-sm">
                 <div class="card mb-4">
                     <div class="card-header">
-                        {% trans from "messages" %}recently_played{% endtrans %}
+                        <a href="{{ path('game_session_list_backend') }}">
+                            {% trans from "messages" %}recently_played{% endtrans %}
+                        </a>
                     </div>
                     <div class="card-body">
                         {{ gameStats.recentlyPlayed|convert_overall_time }}
@@ -99,7 +101,9 @@
             <h3>{% trans %}top_played_this_month{% endtrans %}</h3>
             {% for topGame in playedThisMonth %}
                 <div class="row">
-                    <div class="col">{{ topGame.name }}</div>
+                    <div class="col">
+                        <a href="{{ path('game_dashboard', {'id': topGame.id}) }}">{{ topGame.name }}</a>
+                    </div>
                     <div class="col">{{ topGame.duration|convert_recent_time }}</div>
                 </div>
             {% endfor %}

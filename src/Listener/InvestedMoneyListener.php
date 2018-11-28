@@ -66,13 +66,13 @@ class InvestedMoneyListener
 
         $overallGameStatsRepository = $args->getEntityManager()->getRepository(OverallGameStats::class);
         $purchaseRepository = $args->getEntityManager()->getRepository(Purchase::class);
-        $wastedMoneyService = new InvestedMoneyService(
+        $investedMoneyService = new InvestedMoneyService(
             $this->purchaseUtil,
             $overallGameStatsRepository,
             $purchaseRepository
         );
 
-        $wastedMoneyService->recalculate();
+        $investedMoneyService->recalculate();
 
         return 'U';
     }

@@ -47,8 +47,7 @@ class GameSessionsPerMonthServiceTest extends TestCase
     public function testAddGameSession(): void
     {
         $game = new Game();
-        $gameSession = new GameSession();
-        $gameSession->setGame($game);
+        $gameSession = new GameSession($game);
         $gameSession->setDuration(10);
 
         $month = new \DateTime('first day of this month 00:00:00');
@@ -81,8 +80,7 @@ class GameSessionsPerMonthServiceTest extends TestCase
     public function testUpdateGameSession(): void
     {
         $game = new Game();
-        $gameSession = new GameSession();
-        $gameSession->setGame($game);
+        $gameSession = new GameSession($game);
         $gameSession->setDuration(20);
 
         $month = new \DateTime('first day of this month 00:00:00');

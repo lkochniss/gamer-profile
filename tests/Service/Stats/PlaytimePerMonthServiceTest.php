@@ -2,6 +2,7 @@
 
 namespace tests\App\Service\Stats;
 
+use App\Entity\Game;
 use App\Entity\GameSession;
 use App\Entity\PlaytimePerMonth;
 use App\Repository\PlaytimePerMonthRepository;
@@ -27,7 +28,7 @@ class PlaytimePerMonthServiceTest extends TestCase
             ->with(['month' => $month])
             ->willReturn(new PlaytimePerMonth($month));
 
-        $gameSession = new GameSession();
+        $gameSession = new GameSession(new Game());
         $gameSession->setDuration(10);
 
         $playtimePerMonthService = new PlaytimePerMonthService($repositoryMock);
@@ -54,7 +55,7 @@ class PlaytimePerMonthServiceTest extends TestCase
             ->with(['month' => $month])
             ->willReturn($oldSessionPerMonth);
 
-        $gameSession = new GameSession();
+        $gameSession = new GameSession(new Game());
         $gameSession->setDuration(10);
 
         $playtimePerMonthService = new PlaytimePerMonthService($repositoryMock);
