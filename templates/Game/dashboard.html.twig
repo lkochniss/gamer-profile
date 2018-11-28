@@ -25,4 +25,9 @@
     {% include 'Game/_modules/session-card.html.twig' %}
     {% include 'Game/_modules/purchase-card.html.twig' %}
 </div>
+
+<div data-game-id="{{ entity.id }}" class="col col-md-6" style="height: 180px" id="sessions-per-month-for-game">
+    <h3>{% trans %}session_per_month{% endtrans %}</h3>
+</div>
+
 {% endblock %}

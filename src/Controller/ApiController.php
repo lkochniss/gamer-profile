@@ -6,6 +6,7 @@ use App\Entity\Game;
 use App\Entity\GameSession;
 use App\Repository\GameRepository;
 use App\Repository\GameSessionRepository;
+use App\Repository\GameSessionsPerMonthRepository;
 use App\Repository\PlaytimePerMonthRepository;
 use App\Repository\PurchaseRepository;
 use App\Service\Util\TimeConverterUtil;
@@ -116,6 +117,39 @@ class ApiController extends Controller
         foreach ($game->getGameSessions() as $session) {
             $data[] = [
                 'date' => $session->getCreatedAt()->format('d M Y'),
+                'timeInMinutes' => $session->getDuration(),
+                'timeForTooltip' => $this->timeConverterService->convertRecentTime($session->getDuration())
+            ];
+        }
+
+        return new JsonResponse($data);
+    }
+
+    /**
+     * @param int $id
+     * @param GameRepository $gameRepository
+     * @param GameSessionsPerMonthRepository $gameSessionsPerMonthRepository
+     * @return JsonResponse
+     */
+    public function sessionsPerMonthForGame(
+        int $id,
+        GameRepository $gameRepository,
+        GameSessionsPerMonthRepository $gameSessionsPerMonthRepository
+    ): JsonResponse {
+        $game = $gameRepository->find($id);
+        if ($game === null) {
+            throw new NotFoundHttpException();
+        }
+
+        $sessions = $gameSessionsPerMonthRepository->findBy(['game' => $game]);
+        $data = [];
+
+        /**
+         * @var GameSession $session
+         */
+        foreach ($sessions as $session) {
+            $data[] = [
+                'date' => $session->getMonth()->format('M Y'),
                 'timeInMinutes' => $session->getDuration(),
                 'timeForTooltip' => $this->timeConverterService->convertRecentTime($session->getDuration())
             ];
