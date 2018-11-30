@@ -20,8 +20,8 @@
                 <td scope="col">
                     <a href="{{ path('game_dashboard', {'id': gameSession.game.id}) }}">{{ gameSession.game.name }}</a>
                 </td>
-                <td scope="col" data-order="{{ gameSession.createdAt|date('Y-m') }}">
-                    {{ gameSession.createdAt|date('F Y') }}
+                <td scope="col" data-order="{{ gameSession.month|date('Y-m') }}">
+                    {{ gameSession.month|date('F Y') }}
                 </td>
                 <td scope="col" data-order="{{ gameSession.duration }}">
                     {{ gameSession.duration|convert_recent_time }}

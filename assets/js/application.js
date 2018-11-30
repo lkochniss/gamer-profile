@@ -63,6 +63,19 @@ const setPlaytimeGame = () => {
   }
 };
 
+const setSessionsPerMonthForGame = () => {
+  const id = '#sessions-per-month-for-game';
+  if ($(id).length) {
+    const gameId = $(id).data('game-id');
+    $.getJSON({
+      url: `/admin/sessions/game/${gameId}/per-month`,
+      success: (data) => {
+        sessionTimeGraph(id, data, '%b %Y');
+      },
+    });
+  }
+};
+
 const addImgClass = () => {
   const image = $('img');
   image.addClass('img-fluid');
@@ -130,4 +143,5 @@ $(document).ready(() => {
   setInvestedMoneyPerMonth();
   setInvestedMoneyPerYear();
   setSessionsThisYear();
+  setSessionsPerMonthForGame();
 });
