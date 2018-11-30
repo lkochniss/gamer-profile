@@ -175,7 +175,9 @@ class GameUserInformationService
     /**
      * @param Game $game
      * @return Game
-     * @throws \Nette\Utils\JsonException
+     * @throws JsonException
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
      */
     public function addSession(Game $game): Game
     {
@@ -195,9 +197,11 @@ class GameUserInformationService
             }
 
 
-            $duration = $userInformation->getTimePlayed() - $game->getTimePlayed() + $gameSession->getDuration();
-            $gameSession->setDuration($duration);
+            $duration = $userInformation->getTimePlayed() - $game->getTimePlayed();
+            $gameSession->addDuration($duration);
             $game->addGameSession($gameSession);
+
+            $this->gameSessionRepository->save($gameSession);
         }
 
         return $game;

@@ -57,6 +57,11 @@ class GameSession extends AbstractEntity
         $this->duration = $duration;
     }
 
+    public function addDuration(int $duration): void
+    {
+        $this->duration += $duration;
+    }
+
     /**
      * @return \DateTime
      */
