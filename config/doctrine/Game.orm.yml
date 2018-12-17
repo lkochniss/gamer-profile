@@ -42,6 +42,10 @@ App\Entity\Game:
         overallAchievements:
             type: integer
             nullable: overall_achievements
+        status:
+            type: string
+            nullable: true
+            length: 8
     oneToMany:
           gameSessions:
               targetEntity: GameSession

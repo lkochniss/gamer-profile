@@ -7,3 +7,23 @@ game_update_steam_information:
 game_dashboard:
     path: /game/{id}/dashboard
     defaults: { _controller: 'App\Controller\GameController::dashboard' }
+
+game_status_open:
+    path: /game/{id}/status/open
+    defaults: { _controller: 'App\Controller\GameController::setStatusOpen' }
+
+game_status_paused:
+    path: /game/{id}/status/paused
+    defaults: { _controller: 'App\Controller\GameController::setStatusPaused' }
+
+game_status_playing:
+    path: /game/{id}/status/playing
+    defaults: { _controller: 'App\Controller\GameController::setStatusPlaying' }
+
+game_status_finished:
+    path: /game/{id}/status/finished
+    defaults: { _controller: 'App\Controller\GameController::setStatusFinished' }
+
+game_status_given_up:
+    path: /game/{id}/status/given-up
+    defaults: { _controller: 'App\Controller\GameController::setStatusGivenUp' }

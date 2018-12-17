@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Game;
 use App\Entity\GameSession;
 use App\Entity\GameSessionsPerMonth;
 use App\Repository\GameRepository;
@@ -131,11 +132,13 @@ class HomepageController extends Controller
     /**
      * @param OverallGameStatsRepository $overallGameStatsRepository
      * @param GameSessionRepository $gameSessionRepository
+     * @param GameRepository $gameRepository
      * @return Response
      */
     public function backendDashboard(
         OverallGameStatsRepository $overallGameStatsRepository,
-        GameSessionRepository $gameSessionRepository
+        GameSessionRepository $gameSessionRepository,
+        GameRepository $gameRepository
     ): Response {
 
         $gameSessions = $gameSessionRepository->findForThisMonth();
@@ -161,8 +164,23 @@ class HomepageController extends Controller
             return $gameA['duration'] > $gameB['duration'] ? -1: 1;
         });
 
+        $games = $gameRepository->findAll();
+        $gameStatus = [
+            'all' => count($games),
+            Game::OPEN => 0,
+            Game::PAUSED => 0,
+            Game::PLAYING => 0,
+            Game::FINISHED => 0,
+            Game::GIVEN_UP => 0
+        ];
+
+        foreach ($games as $game) {
+            $gameStatus[$game->getStatus()] += 1;
+        }
+
         return $this->render('Homepage/backend-dashboard.html.twig', [
             'gameStats' => $overallGameStatsRepository->findOneBy(['identifier' => getenv('STEAM_USER_ID')]),
+            'gameStatus' => $gameStatus,
             'playedThisMonth' => array_slice($playedThisMonth, 0, 10)
         ]);
     }
