@@ -123,7 +123,7 @@ class GameController extends AbstractCrudController
      */
     public function setStatusGivenUp(int $id): RedirectResponse
     {
-        $entity = $this->get($id);
+        $entity = $this->getGame($id);
         $entity->setStatusGivenUp();
         $this->getDoctrine()->getRepository($this->getEntityName())->save($entity);
 
