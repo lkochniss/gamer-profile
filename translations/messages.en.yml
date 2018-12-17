@@ -17,6 +17,7 @@ default_currency: 'Default Currency'
 duration: Duration
 edit: Edit
 EUR: €
+finished_games: 'Finished Games'
 first_indexed_on: 'First Indexed On'
 ga_tracking: 'Google Analytics Tracking Id'
 game_of_the_month: 'Game Of The Month'
@@ -26,6 +27,7 @@ game_sessions_per_day: 'per day'
 game_sessions_per_month: 'per month'
 game: Game
 games: Games
+given_up_games: 'Given up Games'
 information: Information
 invested_money: 'Invested Money'
 invested_money_per_month: 'Invested %currency% last twelve months'
@@ -49,10 +51,13 @@ number_of_blog_posts: 'Blog Posts'
 number_of_game_sessions: 'Game Sessions'
 number_of_purchases: 'Purchases'
 number_of_sessions: 'Sessions'
+open_games: 'Open Games'
 overall_costs: 'Overall Costs'
 overall_playtime: 'Overall Playtime'
 password: Password
+paused_games: 'Paused Games'
 played_for: 'Played For'
+playing_games: 'Playing Games'
 playtime_game: 'Playtime'
 playtime_since_purchase: 'Played for %time% since purchase'
 playtime_since_purchase_date: 'Played for %time% since %date%'
@@ -78,6 +83,12 @@ steam_profile: 'Steam Profile'
 steam_user_id: 'Steam User Id'
 steam_user_name: 'Steam User Name'
 statistics: Statistics
+status: 'Status'
+status_open: 'open'
+status_paused: 'paused'
+status_playing: 'playing'
+status_finished: 'finished'
+status_given_up: 'given up'
 submit: Submit
 title: Title
 top_played_this_month: 'Top games played this month'

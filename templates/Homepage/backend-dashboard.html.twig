@@ -50,19 +50,6 @@
             <div class="col-sm">
                 <div class="card mb-4">
                     <div class="card-header">
-                        {% trans from "messages" %}game_sessions{% endtrans %}
-                        <a href="{{ path('homepage_backend_update_sessions') }}">
-                            <span class="pull-right"><i class="fa fa-refresh"></i></span>
-                        </a>
-                    </div>
-                    <div class="card-body">
-                        {{ gameStats.gameSessions }}
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm">
-                <div class="card mb-4">
-                    <div class="card-header">
                         {% trans from "messages" %}wasted_money{% endtrans %}
                         <a href="{{ path('homepage_backend_update_wasted_money') }}">
                             <span class="pull-right"><i class="fa fa-refresh"></i></span>
@@ -87,6 +74,63 @@
                 </div>
             </div>
         {% endif %}
+    </div>
+    <div class="row text-center">
+        <div class="col-sm">
+            <div class="card mb-4">
+                <div class="card-header">
+                    {% trans from "messages" %}open_games{% endtrans %}
+                </div>
+                <div class="card-body">
+                    {% set percentage = gameStatus['open']  / gameStatus['all']  * 100 %}
+                    {{ gameStatus['open'] }} / {{ gameStatus['all'] }} ({{ percentage|round(2) }}%)
+                </div>
+            </div>
+        </div>
+        <div class="col-sm">
+            <div class="card mb-4">
+                <div class="card-header">
+                    {% trans from "messages" %}paused_games{% endtrans %}
+                </div>
+                <div class="card-body">
+                    {% set percentage = gameStatus['paused']  / gameStatus['all']  * 100 %}
+                    {{ gameStatus['paused'] }} / {{ gameStatus['all'] }} ({{ percentage|round(2) }}%)
+                </div>
+            </div>
+        </div>
+        <div class="col-sm">
+            <div class="card mb-4">
+                <div class="card-header">
+                    {% trans from "messages" %}playing_games{% endtrans %}
+                </div>
+                <div class="card-body">
+                    {% set percentage = gameStatus['playing']  / gameStatus['all']  * 100 %}
+                    {{ gameStatus['playing'] }} / {{ gameStatus['all'] }} ({{ percentage|round(2) }}%)
+                </div>
+            </div>
+        </div>
+        <div class="col-sm">
+            <div class="card mb-4">
+                <div class="card-header">
+                    {% trans from "messages" %}finished_games{% endtrans %}
+                </div>
+                <div class="card-body">
+                    {% set percentage = gameStatus['finished']  / gameStatus['all']  * 100 %}
+                    {{ gameStatus['finished'] }} / {{ gameStatus['all'] }} ({{ percentage|round(2) }}%)
+                </div>
+            </div>
+        </div>
+        <div class="col-sm">
+            <div class="card mb-4">
+                <div class="card-header">
+                    {% trans from "messages" %}given_up_games{% endtrans %}
+                </div>
+                <div class="card-body">
+                    {% set percentage = gameStatus['given_up']  / gameStatus['all']  * 100 %}
+                    {{ gameStatus['given_up'] }} / {{ gameStatus['all'] }} ({{ percentage|round(2) }}%)
+                </div>
+            </div>
+        </div>
     </div>
     <div class="row mb-5" style="height: 180px">
         <div class="col-md-12" id="sessions-this-year">

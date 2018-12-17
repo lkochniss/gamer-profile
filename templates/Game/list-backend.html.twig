@@ -7,6 +7,9 @@
                 {% trans from 'messages' %}name{% endtrans %}
             </th>
             <th scope="col">
+                {% trans from 'messages' %}status{% endtrans %}
+            </th>
+            <th scope="col">
                 {% trans from 'messages' %}bought_at{% endtrans %}
             </th>
             <th scope="col">
@@ -28,6 +31,9 @@
             <tr>
                 <td>
                     <a href="{{ path('game_dashboard', {'id': game.id}) }}">{{ game.name }}</a>
+                </td>
+                <td>
+                    {{ game.status |trans }}
                 </td>
                 {% if game.hasGamePurchase %}
                     <td data-order="{{ game.gamePurchase.boughtAt | date('Y-m-d') }}">

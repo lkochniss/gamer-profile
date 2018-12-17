@@ -9,6 +9,12 @@ use Doctrine\Common\Collections\ArrayCollection;
  */
 class Game extends AbstractEntity
 {
+    const OPEN = 'open';
+    const PAUSED = 'paused';
+    const PLAYING = 'playing';
+    const FINISHED = 'finished';
+    const GIVEN_UP = 'given_up';
+
     /**
      * @var int
      */
@@ -70,6 +76,11 @@ class Game extends AbstractEntity
     private $purchases;
 
     /**
+     * @var string
+     */
+    private $status;
+
+    /**
      * Game constructor.
      */
     public function __construct()
@@ -79,6 +90,8 @@ class Game extends AbstractEntity
 
         $this->playerAchievements = 0;
         $this->overallAchievements = 0;
+
+        $this->status = $this::OPEN;
 
         $this->gameSessions = new ArrayCollection();
         $this->purchases = new ArrayCollection();
@@ -352,6 +365,79 @@ class Game extends AbstractEntity
         }
 
         return false;
+    }
+
+    public function setStatusOpen()
+    {
+        $this->status = $this::OPEN;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isStatusOpen()
+    {
+        return $this->status === $this::OPEN || $this->status === null;
+    }
+
+    public function setStatusPaused()
+    {
+        $this->status = $this::PAUSED;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isStatusPaused()
+    {
+        return $this->status === $this::PAUSED;
+    }
+
+    public function setStatusPlaying()
+    {
+        $this->status = $this::PLAYING;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isStatusPlaying()
+    {
+        return $this->status === $this::PLAYING;
+    }
+
+    public function setStatusFinished()
+    {
+        $this->status = $this::FINISHED;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isStatusFinished()
+    {
+        return $this->status === $this::FINISHED;
+    }
+
+    public function setStatusGivenUp()
+    {
+        $this->status = $this::GIVEN_UP;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isStatusGivenUp()
+    {
+        return $this->status === $this::GIVEN_UP;
+    }
+
+    /**
+     * @return string
+     */
+    public function getStatus()
+    {
+        return $this->status ? $this->status : $this::OPEN;
     }
 
     public function setSlug(): void
