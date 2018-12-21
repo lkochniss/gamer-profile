@@ -91,6 +91,9 @@ class Game extends AbstractEntity
         $this->playerAchievements = 0;
         $this->overallAchievements = 0;
 
+        $this->recentlyPlayed = 0;
+        $this->$this->timePlayed = 0;
+
         $this->status = $this::OPEN;
 
         $this->gameSessions = new ArrayCollection();
