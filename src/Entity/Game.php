@@ -92,7 +92,7 @@ class Game extends AbstractEntity
         $this->overallAchievements = 0;
 
         $this->recentlyPlayed = 0;
-        $this->$this->timePlayed = 0;
+        $this->timePlayed = 0;
 
         $this->status = $this::OPEN;
 
