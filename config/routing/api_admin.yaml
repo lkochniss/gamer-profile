@@ -29,3 +29,7 @@ invested_money_per_month:
 invested_money_per_year:
     path:   /money/per-year
     defaults: { _controller: 'App\Controller\ApiController::investedMoneyPerYear'  }
+
+sessions_for_year:
+    path:   /sessions/{year}
+    defaults: { _controller: 'App\Controller\ApiController::sessionsForYear'  }

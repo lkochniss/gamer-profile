@@ -1,6 +1,6 @@
 import * as d3 from 'd3';
 
-export default (id, data, xFormat) => {
+export default (id, data, xFormat, year) => {
   const width = 960;
   const height = 136;
   const cellSize = 17; // cell size
@@ -10,7 +10,7 @@ export default (id, data, xFormat) => {
     .domain([0, 720])
     .range(d3.range(5).map(d => `q${d}-11`));
 
-  const currentTime = new Date();
+  const currentTime = new Date(year);
   const svg = d3.select(id)
     .selectAll('svg')
     .data(d3.range(currentTime.getFullYear(), currentTime.getFullYear() + 1))

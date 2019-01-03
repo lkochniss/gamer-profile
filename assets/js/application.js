@@ -108,15 +108,35 @@ const setInvestedMoneyPerYear = () => {
   }
 };
 
-const setSessionsThisYear = () => {
-  const id = '#sessions-this-year';
+const setSessionsForYear = () => {
+  const id = '#sessions-for-year';
 
   if ($(id).length) {
+    const year = $(id)[0].dataset.year;
     $.getJSON({
-      url: '/admin/sessions/this-year',
+      url: `/admin/sessions/${year}`,
       success: (data) => {
-        sessionCalendar(id, data, '%d %b %Y');
+        sessionCalendar(id, data, '%d %b %Y', year);
       },
+    });
+  }
+};
+
+const addSessionsForYearSelect = () => {
+  const id = '#sessions-for-year';
+  const selector = '.sessions-for-year-select';
+
+  const items = $(selector);
+
+  if (items.length) {
+    items.toArray().forEach((item) => {
+      item.addEventListener('click', () => {
+        $(id)[0].dataset.year = item.dataset.year;
+        $('#selectedYear').html(item.dataset.year);
+        $(`${id} svg`).remove();
+
+        setSessionsForYear();
+      });
     });
   }
 };
@@ -142,6 +162,7 @@ $(document).ready(() => {
   addDataTables();
   setInvestedMoneyPerMonth();
   setInvestedMoneyPerYear();
-  setSessionsThisYear();
+  setSessionsForYear();
+  addSessionsForYearSelect();
   setSessionsPerMonthForGame();
 });
