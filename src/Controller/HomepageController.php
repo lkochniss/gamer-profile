@@ -63,14 +63,27 @@ class HomepageController extends Controller
     }
 
     /**
+     * @param int|null $year
      * @param GameSessionsPerMonthRepository $gameSessionsPerMonthRepository
      * @return Response
      */
-    public function mostPlayedGamePerMonth(GameSessionsPerMonthRepository $gameSessionsPerMonthRepository): Response
+    public function mostPlayedGamePerMonth(?int $year, GameSessionsPerMonthRepository $gameSessionsPerMonthRepository): Response
     {
-        $bestGamePerMonth = [];
-        $gamesPerMonth = $gameSessionsPerMonthRepository->findAll();
+        $now = new \DateTime();
+        if (is_null($year)){
+            $year = $now->format('Y');
+        }
 
+        $oldestEntry = $gameSessionsPerMonthRepository->findOneBy([]);
+        $yearsWithSessions = [];
+        for ($potentialYear = $oldestEntry->getMonth()->format('Y'); $potentialYear <= $now->format('Y'); $potentialYear++) {
+            if ($gamesPerMonth = $gameSessionsPerMonthRepository->findByYear($potentialYear)){
+                $yearsWithSessions[] = $potentialYear;
+            }
+        }
+
+        $gamesPerMonth = $gameSessionsPerMonthRepository->findByYear($year);
+        $bestGamePerMonth = [];
         /**
          * @var GameSessionsPerMonth $gamePerMonth
          */
@@ -86,7 +99,8 @@ class HomepageController extends Controller
         }
 
         return $this->render('Homepage/game-of-the-month.html.twig', [
-            'bestGamePerMonth' => $bestGamePerMonth
+            'bestGamePerMonth' => $bestGamePerMonth,
+            'yearsWithSessions' => $yearsWithSessions
         ]);
     }
 
