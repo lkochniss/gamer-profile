@@ -104,6 +104,45 @@ class HomepageController extends Controller
         ]);
     }
 
+    public function mostPlayedGamesPerYear(GameSessionsPerMonthRepository $gameSessionsPerMonthRepository): Response
+    {
+        $now = new \DateTime();
+
+        $oldestEntry = $gameSessionsPerMonthRepository->findOneBy([]);
+        $gameSessionsPerYear = [];
+        for ($potentialYear = $oldestEntry->getMonth()->format('Y'); $potentialYear <= $now->format('Y'); $potentialYear++) {
+            $sessionsPerYear = $gameSessionsPerMonthRepository->findByYear($potentialYear);
+
+            if (!array_key_exists($potentialYear, $gameSessionsPerYear)) {
+                $gameSessionsPerYear[$potentialYear] = [];
+            }
+
+            /**
+             * @var GameSessionsPerMonth $session
+             */
+            foreach ($sessionsPerYear as $session) {
+                if (!array_key_exists($session->getGame()->getSteamAppId(), $gameSessionsPerYear[$potentialYear])) {
+                    $gameSessionsPerYear[$potentialYear][$session->getGame()->getSteamAppId()] = [
+                        'game' => $session->getGame(),
+                        'duration' => 0
+                    ];
+                }
+
+                $gameSessionsPerYear[$potentialYear][$session->getGame()->getSteamAppId()]['duration'] += $session->getDuration();
+            }
+
+            usort($gameSessionsPerYear[$potentialYear], function (array $sessionA, array $sessionB) {
+                return $sessionA['duration'] > $sessionB['duration'] ? -1: 1;
+            });
+
+            array_splice($gameSessionsPerYear[$potentialYear], 3);
+        }
+
+        return $this->render('Homepage/game-of-the-year.html.twig', [
+            'bestGamesPerYear' => $gameSessionsPerYear,
+        ]);
+    }
+
     /**
      * @param WastedMoneyService $moneyService
      * @return RedirectResponse

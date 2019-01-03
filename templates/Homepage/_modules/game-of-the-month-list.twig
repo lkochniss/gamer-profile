@@ -8,14 +8,14 @@
             <a href="{{ path('game_show', {'slug': gamePerMonth.game.slug}) }}">
                 <div class="card-header">
                     <h3 class="card-title">
-                        {{ gamePerMonth.game.name }}
+                        {{ gamePerMonth.month|date('F Y') }}
                     </h3>
                 </div>
                 <img src='{{ gamePerMonth.game.headerImagePath }}' alt='{{ gamePerMonth.game.name }}'
                      class='img-responsive card-img-top'/>
             </a>
             <div class="card-footer text-right">
-                {{ gamePerMonth.month|date('F Y') }}
+                {{ gamePerMonth.duration|convert_recent_time }}
             </div>
         </div>
 
