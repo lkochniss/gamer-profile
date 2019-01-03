@@ -198,6 +198,18 @@ class ApiController extends Controller
     }
 
     /**
+     * @param int $year
+     * @param GameSessionRepository $sessionRepository
+     * @return JsonResponse
+     */
+    public function sessionsForYear(int $year, GameSessionRepository $sessionRepository): JsonResponse
+    {
+        $sessions = $sessionRepository->findForYear($year);
+
+        return new JsonResponse($this->mapSessionData($sessions));
+    }
+
+    /**
      * @param array $purchases
      * @param string $format
      * @param PurchaseUtil $purchaseUtil
