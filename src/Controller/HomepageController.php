@@ -252,7 +252,7 @@ class HomepageController extends Controller
         $oldestEntry = $gameSessionsPerMonthRepository->findOneBy([]);
         $yearsWithSessions = [];
         for ($i = $oldestEntry->getMonth()->format('Y'); $i <= $now->format('Y'); $i++) {
-            if ($gamesPerMonth = $gameSessionsPerMonthRepository->findByYear($i)) {
+            if ($gameSessionsPerMonthRepository->findByYear($i)) {
                 $yearsWithSessions[] = $i;
             }
         }
