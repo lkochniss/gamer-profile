@@ -102,7 +102,8 @@ class HomepageController extends Controller
 
         return $this->render('Homepage/game-of-the-month.html.twig', [
             'bestGamePerMonth' => $bestGamePerMonth,
-            'yearsWithSessions' => $yearsWithSessions
+            'yearsWithSessions' => $yearsWithSessions,
+            'currentYear' => $year
         ]);
     }
 

@@ -6,6 +6,6 @@
             <a href="{{ path('homepage_game_of_month_for_year', {year: year}) }}">{{ year }}</a>
         {% endfor %}
     </div>
-    <h2 class="mb-3">{% trans from "messages" %}game_of_the_month{% endtrans %}</h2>
+    <h2 class="mb-3">{% trans from "messages" %}game_of_the_month{% endtrans %} {{ currentYear }}</h2>
     {% include 'Homepage/_modules/game-of-the-month-list.twig' %}
 {% endblock %}
