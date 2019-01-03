@@ -8,7 +8,7 @@
             <a href="{{ path('game_show', {'slug': gamePerMonth.game.slug}) }}">
                 <div class="card-header">
                     <h3 class="card-title">
-                        {{ gamePerMonth.month|date('F Y') }}
+                        {{ gamePerMonth.month|date('F') }}
                     </h3>
                 </div>
                 <img src='{{ gamePerMonth.game.headerImagePath }}' alt='{{ gamePerMonth.game.name }}'
