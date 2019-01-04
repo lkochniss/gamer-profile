@@ -52,13 +52,34 @@ const setMonthlyAverageDashboard = () => {
 
 const setPlaytimeGame = () => {
   const id = '#playtime-game';
+  const year = $(id)[0].dataset.year;
+
   if ($(id).length) {
     const gameId = $(id).data('game-id');
     $.getJSON({
       url: `/admin/sessions/game/${gameId}`,
       success: (data) => {
-        sessionCalendar(id, data, '%d %b %Y');
+        sessionCalendar(id, data, '%d %b %Y', year);
       },
+    });
+  }
+};
+
+const addPlaytimeGamesYearSelect = () => {
+  const id = '#playtime-game';
+  const selector = '.playtime-game-year-select';
+
+  const items = $(selector);
+
+  if (items.length) {
+    items.toArray().forEach((item) => {
+      item.addEventListener('click', () => {
+        $(id)[0].dataset.year = item.dataset.year;
+        $('#selectedYear').html(item.dataset.year);
+        $(`${id} svg`).remove();
+
+        setPlaytimeGame();
+      });
     });
   }
 };
@@ -158,6 +179,7 @@ $(document).ready(() => {
   setMonthlyPlaytimeDashboard();
   setMonthlyAverageDashboard();
   setPlaytimeGame();
+  addPlaytimeGamesYearSelect();
   addImgClass();
   addDataTables();
   setInvestedMoneyPerMonth();
