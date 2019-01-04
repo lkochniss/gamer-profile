@@ -52,14 +52,13 @@ const setMonthlyAverageDashboard = () => {
 
 const setPlaytimeGame = () => {
   const id = '#playtime-game';
-  const year = $(id)[0].dataset.year;
 
   if ($(id).length) {
     const gameId = $(id).data('game-id');
     $.getJSON({
       url: `/admin/sessions/game/${gameId}`,
       success: (data) => {
-        sessionCalendar(id, data, '%d %b %Y', year);
+        sessionCalendar(id, data, '%d %b %Y', $(id)[0].dataset.year);
       },
     });
   }
@@ -133,11 +132,10 @@ const setSessionsForYear = () => {
   const id = '#sessions-for-year';
 
   if ($(id).length) {
-    const year = $(id)[0].dataset.year;
     $.getJSON({
-      url: `/admin/sessions/${year}`,
+      url: `/admin/sessions/${$(id)[0].dataset.year}`,
       success: (data) => {
-        sessionCalendar(id, data, '%d %b %Y', year);
+        sessionCalendar(id, data, '%d %b %Y', $(id)[0].dataset.year);
       },
     });
   }
