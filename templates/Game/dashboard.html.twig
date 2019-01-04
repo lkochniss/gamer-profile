@@ -23,9 +23,16 @@
                 <img class="thumbnail" src="{{ entity.headerImagePath }}"/>
             </div>
             <div class="col">
-                <div data-game-id="{{ entity.id }}" class="col" id="playtime-game">
-                    <h3>{% trans %}playtime_game{% endtrans %}</h3>
+                <div data-game-id="{{ entity.id }}" class="col" id="playtime-game" data-year="{{ currentYear }}">
+                    <h3>{% trans %}playtime_game{% endtrans %} <span id="selectedYear">{{ currentYear }}</span></h3>
                 </div>
+                {% trans %}switch_to_year{% endtrans %}:
+                {% for year in yearsWithSessions %}
+                    <a href='#' class="playtime-game-year-select" data-year="{{ year }}">{{ year }}</a>
+                    {% if not loop.last %}
+                        |
+                    {% endif %}
+                {% endfor %}
             </div>
         </div>
     </div>

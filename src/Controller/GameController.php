@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Entity\Game;
 use App\Form\Type\GameType;
 use App\Repository\GameRepository;
+use App\Repository\GameSessionRepository;
+use App\Repository\GameSessionsPerMonthRepository;
 use App\Service\Entity\UpdateGameInformationService;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -39,18 +41,30 @@ class GameController extends AbstractCrudController
 
     /**
      * @param int $id
+     * @param GameSessionsPerMonthRepository $gameSessionsPerMonthRepository
      * @return Response
      *
      * @SuppressWarnings(PHPMD.ShortVariableName)
      */
-    public function dashboard(int $id): Response
+    public function dashboard(int $id, GameSessionsPerMonthRepository $gameSessionsPerMonthRepository): Response
     {
         $entity = $this->getGame($id);
+
+        $now = new \DateTime();
+        $oldestEntry = $gameSessionsPerMonthRepository->findOneBy([]);
+        $yearsWithSessions = [];
+        for ($i = $oldestEntry->getMonth()->format('Y'); $i <= $now->format('Y'); $i++) {
+            if ($gameSessionsPerMonthRepository->findByYear($i)) {
+                $yearsWithSessions[] = $i;
+            }
+        }
 
         return $this->render(
             sprintf('%s/dashboard.html.twig', $this->getTemplateBasePath()),
             [
-                'entity' => $entity
+                'entity' => $entity,
+                'yearsWithSessions' => $yearsWithSessions,
+                'currentYear' => $now->format('Y')
             ]
         );
     }
