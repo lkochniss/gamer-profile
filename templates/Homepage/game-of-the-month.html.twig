@@ -1,9 +1,12 @@
 {% extends 'base.html.twig' %}
 {% block body %}
     <div class="text-right">
+        {% trans %}archive{% endtrans %}:
         {% for year in yearsWithSessions %}
-            {% trans %}archive{% endtrans %}:
             <a href="{{ path('homepage_game_of_month_for_year', {year: year}) }}">{{ year }}</a>
+            {% if not loop.last %}
+                |
+            {% endif %}
         {% endfor %}
     </div>
     <h2 class="mb-3">{% trans from "messages" %}game_of_the_month{% endtrans %} {{ currentYear }}</h2>
