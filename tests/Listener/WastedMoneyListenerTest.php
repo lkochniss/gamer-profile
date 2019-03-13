@@ -46,7 +46,7 @@ class WastedMoneyListenerTest extends TestCase
         $argsMock = $this->createMock(LifecycleEventArgs::class);
         $argsMock->expects($this->any())
             ->method('getEntity')
-            ->willReturn(new GameSession());
+            ->willReturn(new GameSession(new Game()));
 
 
         $entityManagerMock = $this->createMock(EntityManager::class);
@@ -130,7 +130,7 @@ class WastedMoneyListenerTest extends TestCase
         $argsMock = $this->createMock(LifecycleEventArgs::class);
         $argsMock->expects($this->any())
             ->method('getEntity')
-            ->willReturn(new GameSession());
+            ->willReturn(new GameSession(new Game()));
 
 
         $entityManagerMock = $this->createMock(EntityManager::class);

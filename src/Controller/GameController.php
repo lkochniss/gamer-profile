@@ -4,8 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Game;
 use App\Entity\GameStats;
-use App\Form\Type\GameType;
 use App\Repository\GameRepository;
+use App\Repository\GameSessionsPerMonthRepository;
 use App\Repository\GameStatsRepository;
 use App\Service\Entity\GameService;
 use Symfony\Component\HttpFoundation\Response;
@@ -43,11 +43,12 @@ class GameController extends AbstractCrudController
      * @param int $id
      * @param GameStatsRepository $gameStatsRepository
      * @param UserInterface $user
+     * @param GameSessionsPerMonthRepository $gameSessionsPerMonthRepository
      * @return Response
      *
      * @SuppressWarnings(PHPMD.ShortVariableName)
      */
-    public function dashboard(int $id, GameStatsRepository $gameStatsRepository, UserInterface $user): Response
+    public function dashboard(int $id, GameStatsRepository $gameStatsRepository, UserInterface $user,  GameSessionsPerMonthRepository $gameSessionsPerMonthRepository): Response
     {
         $game = $this->getDoctrine()->getRepository($this->getEntityName())->find($id);
         if (is_null($game)) {
@@ -60,10 +61,21 @@ class GameController extends AbstractCrudController
             throw new NotFoundHttpException();
         }
 
+        $now = new \DateTime();
+        $oldestEntry = $gameSessionsPerMonthRepository->findOneBy([]);
+        $yearsWithSessions = [];
+        for ($i = $oldestEntry->getMonth()->format('Y'); $i <= $now->format('Y'); $i++) {
+            if ($gameSessionsPerMonthRepository->findByYear($i)) {
+                $yearsWithSessions[] = $i;
+            }
+        }
+
         return $this->render(
             sprintf('%s/dashboard.html.twig', $this->getTemplateBasePath()),
             [
-                'entity' => $entity
+                'entity' => $entity,
+                'yearsWithSessions' => $yearsWithSessions,
+                'currentYear' => $now->format('Y')
             ]
         );
     }
@@ -97,7 +109,7 @@ class GameController extends AbstractCrudController
      */
     protected function getFormType(): string
     {
-        return GameType::class;
+        return '';
     }
 
     /**
@@ -122,5 +134,15 @@ class GameController extends AbstractCrudController
     protected function getRoutePrefix(): string
     {
         return 'game';
+    }
+
+    private function getGame(int $id)
+    {
+        $entity = $this->getDoctrine()->getRepository($this->getEntityName())->find($id);
+        if (is_null($entity)) {
+            throw new NotFoundHttpException();
+        }
+
+        return $entity;
     }
 }

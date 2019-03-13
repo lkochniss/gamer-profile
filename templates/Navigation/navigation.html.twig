@@ -30,6 +30,22 @@
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
                    aria-expanded="false">
+                    <i class="fa fa-clock-o" aria-hidden="true">
+                        {% trans from "messages" %}game_sessions{% endtrans %}
+                    </i>
+                </a>
+                <div class="dropdown-menu">
+                    <a class="nav-link" href="{{ path('game_session_list_backend') }}">
+                        {% trans from "messages" %}game_sessions_per_day{% endtrans %}
+                    </a>
+                    <a class="nav-link" href="{{ path('game_session_list_per_month_backend') }}">
+                        {% trans from "messages" %}game_sessions_per_month{% endtrans %}
+                    </a>
+                </div>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
+                   aria-expanded="false">
                     <i class="fa fa-money" aria-hidden="true">
                         {% trans from "messages" %}purchases{% endtrans %}
                     </i>

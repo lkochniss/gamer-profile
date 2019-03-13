@@ -1,0 +1,25 @@
+{% set count = 0 %}
+{% for yearKey, year in bestGamesPerYear %}
+    <div class="row mb-5">
+    {% for gameKey, game in year %}
+        <div class="col-lg-4 col-md col-sm">
+            <div class="card">
+                <a href="{{ path('game_show', {'slug': game.game.slug}) }}">
+                    <div class="card-header">
+                        <h3 class="card-title">
+                            {% transchoice gameKey with {'year': yearKey}%}
+                                {0} first place %yearKey%|{1} second place %yearKey%|{2} third place %yearKey%
+                            {% endtranschoice %}
+                        </h3>
+                    </div>
+                    <img src='{{ game.game.headerImagePath }}' alt='{{ game.game.name }}'
+                         class='img-responsive card-img-top'/>
+                </a>
+                <div class="card-footer text-right">
+                    {{ game.duration|convert_recent_time }}
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+    </div>
+{% endfor %}

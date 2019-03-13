@@ -148,7 +148,7 @@ class Game extends AbstractEntity
      */
     public function getCurrency(): string
     {
-        return $this->currency ?: getenv('DEFAULT_CURRENCY');
+        return getenv('DEFAULT_CURRENCY');
     }
 
     /**

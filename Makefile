@@ -4,7 +4,11 @@ DOCKER_COMPOSE_YARN ?=docker-compose run yarn sh -c
 
 # TESTING
 phpunit:
-	${DOCKER_COMPOSE_PHP} ./bin/phpunit.sh
+	rm -Rf var/cache/test
+	rm -Rf var/data.db
+	make build-test-db
+	${DOCKER_COMPOSE_PHP} ./vendor/bin/phpunit
+	make tear-down-test-db
 
 # ANALYSIS
 codesniff:

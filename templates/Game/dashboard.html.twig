@@ -9,6 +9,14 @@
                     {{ entity.game.name }}
                 </h1>
             </div>
+            <div class="col text-right">
+                {% trans %}status{% endtrans %}:
+                <a class="btn-sm {{ entity.status == 'open' ? 'btn-primary' : 'btn-light' }}" href="{{ path('game_status_open', {'id': entity.id}) }}">{% trans %}status_open{% endtrans %}</a>
+                <a class="btn-sm {{ entity.status == 'paused' ? 'btn-primary' : 'btn-light' }}" href="{{ path('game_status_paused', {'id': entity.id}) }}">{% trans %}status_paused{% endtrans %}</a>
+                <a class="btn-sm {{ entity.status == 'playing' ? 'btn-primary' : 'btn-light' }}" href="{{ path('game_status_playing', {'id': entity.id}) }}">{% trans %}status_playing{% endtrans %}</a>
+                <a class="btn-sm {{ entity.status == 'finished' ? 'btn-primary' : 'btn-light' }}" href="{{ path('game_status_finished', {'id': entity.id}) }}">{% trans %}status_finished{% endtrans %}</a>
+                <a class="btn-sm {{ entity.status == 'given_up' ? 'btn-primary' : 'btn-light' }}" href="{{ path('game_status_given_up', {'id': entity.id}) }}">{% trans %}status_given_up{% endtrans %}</a>
+            </div>
         </div>
         <div class="row">
             <div class="col">
@@ -18,11 +26,30 @@
     </div>
     <div data-game-id="{{ entity.game.id }}" class="col" id="playtime-game">
         <h3>{% trans %}playtime_game{% endtrans %}</h3>
+            <div class="col">
+                <div data-game-id="{{ entity.id }}" class="col" id="playtime-game" data-year="{{ currentYear }}">
+                    <h3>{% trans %}playtime_game{% endtrans %} <span id="selectedYear">{{ currentYear }}</span></h3>
+                </div>
+                {% trans %}switch_to_year{% endtrans %}:
+                {% for year in yearsWithSessions %}
+                    <a href='#' class="playtime-game-year-select" data-year="{{ year }}">{{ year }}</a>
+                    {% if not loop.last %}
+                        |
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
     </div>
+
 </div>
 <div class="row">
     {% include 'Game/_modules/information-card.html.twig' %}
     {% include 'Game/_modules/session-card.html.twig' %}
     {% include 'Game/_modules/purchase-card.html.twig' %}
 </div>
+
+<div data-game-id="{{ entity.id }}" class="col col-md-6" style="height: 180px" id="sessions-per-month-for-game">
+    <h3>{% trans %}session_per_month{% endtrans %}</h3>
+</div>
+
 {% endblock %}

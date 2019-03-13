@@ -22,7 +22,7 @@ class BasicInformationListenerTest extends TestCase
         $argsMock = $this->createMock(LifecycleEventArgs::class);
         $argsMock->expects($this->any())
             ->method('getEntity')
-            ->willReturn(new GameSession());
+            ->willReturn(new GameSession(new Game()));
 
         $overallGameStatsRepositoryMock = $this->createMock(OverallGameStatsRepository::class);
 
@@ -74,7 +74,7 @@ class BasicInformationListenerTest extends TestCase
         $argsMock = $this->createMock(LifecycleEventArgs::class);
         $argsMock->expects($this->any())
             ->method('getEntity')
-            ->willReturn(new GameSession());
+            ->willReturn(new GameSession(new Game()));
 
         $overallGameStatsRepositoryMock = $this->createMock(OverallGameStatsRepository::class);
 

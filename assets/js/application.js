@@ -52,12 +52,45 @@ const setMonthlyAverageDashboard = () => {
 
 const setPlaytimeGame = () => {
   const id = '#playtime-game';
+
   if ($(id).length) {
     const gameId = $(id).data('game-id');
     $.getJSON({
       url: `/sessions/game/${gameId}`,
       success: (data) => {
-        sessionCalendar(id, data, '%d %b %Y');
+        sessionCalendar(id, data, '%d %b %Y', $(id)[0].dataset.year);
+      },
+    });
+  }
+};
+
+const addPlaytimeGamesYearSelect = () => {
+  const id = '#playtime-game';
+  const selector = '.playtime-game-year-select';
+
+  const items = $(selector);
+
+  if (items.length) {
+    items.toArray().forEach((item) => {
+      item.addEventListener('click', () => {
+        $(id)[0].dataset.year = item.dataset.year;
+        $('#selectedYear').html(item.dataset.year);
+        $(`${id} svg`).remove();
+
+        setPlaytimeGame();
+      });
+    });
+  }
+};
+
+const setSessionsPerMonthForGame = () => {
+  const id = '#sessions-per-month-for-game';
+  if ($(id).length) {
+    const gameId = $(id).data('game-id');
+    $.getJSON({
+      url: `/sessions/game/${gameId}/per-month`,
+      success: (data) => {
+        sessionTimeGraph(id, data, '%b %Y');
       },
     });
   }
@@ -95,15 +128,34 @@ const setInvestedMoneyPerYear = () => {
   }
 };
 
-const setSessionsThisYear = () => {
-  const id = '#sessions-this-year';
+const setSessionsForYear = () => {
+  const id = '#sessions-for-year';
 
   if ($(id).length) {
     $.getJSON({
-      url: '/sessions/this-year',
+      url: `/sessions/${$(id)[0].dataset.year}`,
       success: (data) => {
-        sessionCalendar(id, data, '%d %b %Y');
+        sessionCalendar(id, data, '%d %b %Y', $(id)[0].dataset.year);
       },
+    });
+  }
+};
+
+const addSessionsForYearSelect = () => {
+  const id = '#sessions-for-year';
+  const selector = '.sessions-for-year-select';
+
+  const items = $(selector);
+
+  if (items.length) {
+    items.toArray().forEach((item) => {
+      item.addEventListener('click', () => {
+        $(id)[0].dataset.year = item.dataset.year;
+        $('#selectedYear').html(item.dataset.year);
+        $(`${id} svg`).remove();
+
+        setSessionsForYear();
+      });
     });
   }
 };
@@ -125,9 +177,12 @@ $(document).ready(() => {
   setMonthlyPlaytimeDashboard();
   setMonthlyAverageDashboard();
   setPlaytimeGame();
+  addPlaytimeGamesYearSelect();
   addImgClass();
   addDataTables();
   setInvestedMoneyPerMonth();
   setInvestedMoneyPerYear();
-  setSessionsThisYear();
+  setSessionsForYear();
+  addSessionsForYearSelect();
+  setSessionsPerMonthForGame();
 });

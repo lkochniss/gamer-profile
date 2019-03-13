@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\GameSession;
 use App\Repository\GameSessionRepository;
+use App\Repository\GameSessionsPerMonthRepository;
 use App\Repository\OverallGameStatsRepository;
 use App\Service\Stats\GameSessionService;
 use App\Service\Stats\InvestedMoneyService;
@@ -63,12 +64,14 @@ class HomepageController extends Controller
     /**
      * @param OverallGameStatsRepository $overallGameStatsRepository
      * @param GameSessionRepository $gameSessionRepository
+     * @param GameSessionsPerMonthRepository $gameSessionsPerMonthRepository
      * @param UserInterface $user
      * @return Response
      */
     public function dashboard(
         OverallGameStatsRepository $overallGameStatsRepository,
         GameSessionRepository $gameSessionRepository,
+        GameSessionsPerMonthRepository $gameSessionsPerMonthRepository,
         UserInterface $user
     ): Response {
 
@@ -82,6 +85,7 @@ class HomepageController extends Controller
             $key = $gameSession->getGame()->getId();
             if (array_key_exists($key, $playedThisMonth) === false) {
                 $playedThisMonth[$key] = [
+                    'id' => $gameSession->getGame()->getId(),
                     'name' => $gameSession->getGame()->getName(),
                     'duration' => 0
                 ];
@@ -94,9 +98,32 @@ class HomepageController extends Controller
             return $gameA['duration'] > $gameB['duration'] ? -1: 1;
         });
 
+        $now = new \DateTime();
+        $yearsWithSessions = $this->getYearsWithGameSessions($gameSessionsPerMonthRepository);
+
         return $this->render('Homepage/dashboard.html.twig', [
-            'gameStats' => $overallGameStatsRepository->findOneBy(['user' => $user]),
-            'playedThisMonth' => array_slice($playedThisMonth, 0, 10)
+            'gameStats' => $overallGameStatsRepository->findOneBy(['identifier' => getenv('STEAM_USER_ID')]),
+            'playedThisMonth' => array_slice($playedThisMonth, 0, 10),
+            'yearsWithSessions' => $yearsWithSessions,
+            'currentYear' => $now->format('Y')
         ]);
+    }
+
+    /**
+     * @param $gameSessionsPerMonthRepository
+     * @return array
+     */
+    private function getYearsWithGameSessions($gameSessionsPerMonthRepository): array
+    {
+        $now = new \DateTime();
+        $oldestEntry = $gameSessionsPerMonthRepository->findOneBy([]);
+        $yearsWithSessions = [];
+        for ($i = $oldestEntry->getMonth()->format('Y'); $i <= $now->format('Y'); $i++) {
+            if ($gameSessionsPerMonthRepository->findByYear($i)) {
+                $yearsWithSessions[] = $i;
+            }
+        }
+
+        return $yearsWithSessions;
     }
 }

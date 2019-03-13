@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\GameSessionsPerMonth;
 use App\Repository\GameRepository;
 use App\Repository\GameSessionRepository;
+use App\Repository\GameSessionsPerMonthRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -52,6 +54,22 @@ class GameSessionController extends Controller
             [
                 'entities' => $entities,
                 'game' => $game
+            ]
+        );
+    }
+
+    /**
+     * @param GameSessionsPerMonthRepository $gameSessionsPerMonthRepository
+     * @return Response
+     */
+    public function listBackendPerMonth(GameSessionsPerMonthRepository $gameSessionsPerMonthRepository): Response
+    {
+        $gamesPerMonth = $gameSessionsPerMonthRepository->findAll();
+
+        return $this->render(
+            'GameSession/list-backend-by-month.html.twig',
+            [
+                'entities' => $gamesPerMonth,
             ]
         );
     }
