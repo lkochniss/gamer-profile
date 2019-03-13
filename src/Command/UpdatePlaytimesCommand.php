@@ -92,8 +92,7 @@ class UpdatePlaytimesCommand extends ContainerAwareCommand
 
             $games = $this->gameUserInformationService->getRecentlyPlayedGames($user->getSteamid());
 
-            foreach ($games as $gameArray) {
-                $game = $this->gameRepository->findOneBy(['steamAppId' => $gameArray['appid']]);
+            foreach ($games as $game) {
                 $playtime = $this->playtimeRepository->findOneBy(['user' => $user, 'game' => $game]);
 
                 $status = 'F';

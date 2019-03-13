@@ -44,6 +44,7 @@ class GameSessionService extends AbstractStatsService
     public function recalculate(User $user): string
     {
         $sessions = $this->sessionRepository->findBy(['user' => $user]);
+
         $overallGameStats = $this->getOverallGameStats($user);
 
         $overallGameStats->setGameSessions(count($sessions));

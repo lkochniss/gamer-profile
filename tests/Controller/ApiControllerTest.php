@@ -59,8 +59,6 @@ class ApiControllerTest extends WebTestCase
             ['/average/per-month'],
             ['/sessions/recently'],
             ['/sessions/game/1'],
-            ['/money/per-month'],
-            ['/money/per-year'],
         ];
     }
 }
