@@ -73,6 +73,10 @@ class GameController extends AbstractCrudController
             }
         }
 
+        if (empty($yearsWithSessions)) {
+            $yearsWithSessions[] = $now->format('Y');
+        }
+
         return $this->render(
             sprintf('%s/dashboard.html.twig', $this->getTemplateBasePath()),
             [
