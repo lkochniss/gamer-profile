@@ -64,7 +64,7 @@ class GameInformationService
     {
         $gameInformation = $this->getGameInformationEntityForSteamAppId($game->getSteamAppId());
         if ($gameInformation === null) {
-            return null;
+            return $game;
         }
 
         $game->setName($gameInformation->getName());

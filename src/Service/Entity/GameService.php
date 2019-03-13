@@ -59,12 +59,11 @@ class GameService
 
         $game = new Game();
         $game->setSteamAppId($steamAppId);
+        $game->setName('unknown game');
+        $game->setHeaderImagePath('https://steamcommunity-a.akamaihd.net/public/images/sharedfiles/steam_workshop_default_image.png');
         $game->setModifiedAt();
 
         $game = $this->gameInformationService->addToGame($game);
-        if ($game == null) {
-            return null;
-        }
 
         $this->gameRepository->save($game);
 
