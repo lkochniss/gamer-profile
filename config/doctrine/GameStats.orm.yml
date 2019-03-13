@@ -5,6 +5,10 @@ App\Entity\GameStats:
         id:
             type: integer
             generator: { strategy: AUTO }
+    fields:
+        status:
+            type: string
+            nullable: false
     oneToMany:
         gameSessions:
             targetEntity: GameSession

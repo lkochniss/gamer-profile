@@ -9,6 +9,12 @@ use Doctrine\Common\Collections\ArrayCollection;
  */
 class GameStats
 {
+    const OPEN = 'open';
+    const PAUSED = 'paused';
+    const PLAYING = 'playing';
+    const FINISHED = 'finished';
+    const GIVEN_UP = 'given_up';
+
     /**
      * @var int
      */
@@ -45,6 +51,11 @@ class GameStats
     private $user;
 
     /**
+     * @var string
+     */
+    private $status;
+
+    /**
      * GameStats constructor.
      * @param User $user
      * @param Game $game
@@ -57,6 +68,7 @@ class GameStats
         $this->playtime = $playtime;
         $this->game = $game;
         $this->user = $user;
+        $this->status = $this::OPEN;
 
         $this->playtimePerMonth = new ArrayCollection();
         $this->gameSessions = new ArrayCollection();
@@ -139,5 +151,79 @@ class GameStats
     public function getPlaytimePerMonths(): array
     {
         return $this->playtimePerMonth->toArray();
+    }
+
+    public function setStatusOpen()
+    {
+        $this->status = $this::OPEN;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isStatusOpen()
+    {
+        return $this->status === $this::OPEN || $this->status === null;
+    }
+
+    public function setStatusPaused()
+    {
+        $this->status = $this::PAUSED;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isStatusPaused()
+    {
+        return $this->status === $this::PAUSED;
+    }
+
+    public function setStatusPlaying()
+    {
+        $this->status = $this::PLAYING;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isStatusPlaying()
+    {
+        return $this->status === $this::PLAYING;
+    }
+
+
+    public function setStatusFinished()
+    {
+        $this->status = $this::FINISHED;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isStatusFinished()
+    {
+        return $this->status === $this::FINISHED;
+    }
+
+    public function setStatusGivenUp()
+    {
+        $this->status = $this::GIVEN_UP;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isStatusGivenUp()
+    {
+        return $this->status === $this::GIVEN_UP;
+    }
+
+    /**
+     * @return string
+     */
+    public function getStatus()
+    {
+        return $this->status ? $this->status : $this::OPEN;
     }
 }

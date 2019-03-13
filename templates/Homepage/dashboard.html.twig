@@ -62,6 +62,63 @@
             </div>
         {% endif %}
     </div>
+    <div class="row text-center">
+        <div class="col-sm">
+            <div class="card mb-4">
+                <div class="card-header">
+                    {% trans from "messages" %}open_games{% endtrans %}
+                </div>
+                <div class="card-body">
+                    {% set percentage = gameStats.statusOpen / gameStats.numberOfGames  * 100 %}
+                    {{ gameStats.statusOpen }} / {{ gameStats.numberOfGames }} ({{ percentage|round(2) }}%)
+                </div>
+            </div>
+        </div>
+        <div class="col-sm">
+            <div class="card mb-4">
+                <div class="card-header">
+                    {% trans from "messages" %}paused_games{% endtrans %}
+                </div>
+                <div class="card-body">
+                    {% set percentage = gameStats.statusPaused  / gameStats.numberOfGames  * 100 %}
+                    {{ gameStats.statusPaused }} / {{ gameStats.numberOfGames }} ({{ percentage|round(2) }}%)
+                </div>
+            </div>
+        </div>
+        <div class="col-sm">
+            <div class="card mb-4">
+                <div class="card-header">
+                    {% trans from "messages" %}playing_games{% endtrans %}
+                </div>
+                <div class="card-body">
+                    {% set percentage = gameStats.statusPlaying  / gameStats.numberOfGames  * 100 %}
+                    {{ gameStats.statusPlaying }} / {{ gameStats.numberOfGames }} ({{ percentage|round(2) }}%)
+                </div>
+            </div>
+        </div>
+        <div class="col-sm">
+            <div class="card mb-4">
+                <div class="card-header">
+                    {% trans from "messages" %}finished_games{% endtrans %}
+                </div>
+                <div class="card-body">
+                    {% set percentage = gameStats.statusFinished  / gameStats.numberOfGames  * 100 %}
+                    {{ gameStats.statusFinished }} / {{ gameStats.numberOfGames }} ({{ percentage|round(2) }}%)
+                </div>
+            </div>
+        </div>
+        <div class="col-sm">
+            <div class="card mb-4">
+                <div class="card-header">
+                    {% trans from "messages" %}given_up_games{% endtrans %}
+                </div>
+                <div class="card-body">
+                    {% set percentage = gameStats.statusGivenUp  / gameStats.numberOfGames  * 100 %}
+                    {{ gameStats.statusGivenUp }} / {{ gameStats.numberOfGames }} ({{ percentage|round(2) }}%)
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="row mb-5" style="height: 180px">
         <div class="col-md-12" id="sessions-for-year" data-year="{{ currentYear }}">
             <h3>{% trans %}sessions{% endtrans %} <span id="selectedYear">{{ currentYear }}</span></h3>

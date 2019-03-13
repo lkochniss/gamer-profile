@@ -33,6 +33,36 @@ class OverallGameStats extends AbstractEntity
     private $gameSessions = 0;
 
     /**
+     * @var int
+     */
+    private $statusOpen = 0;
+
+    /**
+     * @var int
+     */
+    private $statusPaused = 0;
+
+    /**
+     * @var int
+     */
+    private $statusPlaying = 0;
+
+    /**
+     * @var int
+     */
+    private $statusFinished = 0;
+
+    /**
+     * @var int
+     */
+    private $statusGivenUp = 0;
+
+    /**
+     * @var int
+     */
+    private $numberOfGames = 0;
+
+    /**
      * @var User
      */
     private $user;
@@ -137,5 +167,101 @@ class OverallGameStats extends AbstractEntity
     public function getUser(): User
     {
         return $this->user;
+    }
+
+    /**
+     * @return int
+     */
+    public function getStatusOpen(): int
+    {
+        return $this->statusOpen;
+    }
+
+    /**
+     * @param int $statusOpen
+     */
+    public function setStatusOpen(int $statusOpen): void
+    {
+        $this->statusOpen = $statusOpen;
+    }
+
+    /**
+     * @return int
+     */
+    public function getStatusPaused(): int
+    {
+        return $this->statusPaused;
+    }
+
+    /**
+     * @param int $statusPaused
+     */
+    public function setStatusPaused(int $statusPaused): void
+    {
+        $this->statusPaused = $statusPaused;
+    }
+
+    /**
+     * @return int
+     */
+    public function getStatusPlaying(): int
+    {
+        return $this->statusPlaying;
+    }
+
+    /**
+     * @param int $statusPlaying
+     */
+    public function setStatusPlaying(int $statusPlaying): void
+    {
+        $this->statusPlaying = $statusPlaying;
+    }
+
+    /**
+     * @return int
+     */
+    public function getStatusFinished(): int
+    {
+        return $this->statusFinished;
+    }
+
+    /**
+     * @param int $statusFinished
+     */
+    public function setStatusFinished(int $statusFinished): void
+    {
+        $this->statusFinished = $statusFinished;
+    }
+
+    /**
+     * @return int
+     */
+    public function getStatusGivenUp(): int
+    {
+        return $this->statusGivenUp;
+    }
+
+    /**
+     * @param int $statusGivenUp
+     */
+    public function setStatusGivenUp(int $statusGivenUp): void
+    {
+        $this->statusGivenUp = $statusGivenUp;
+    }
+
+    /**
+     * @return int
+     */
+    public function getNumberOfGames(): int
+    {
+        return $this->numberOfGames;
+    }
+
+    /**
+     * @param int $numberOfGames
+     */
+    public function setNumberOfGames(int $numberOfGames): void
+    {
+        $this->numberOfGames = $numberOfGames;
     }
 }

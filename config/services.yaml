@@ -57,3 +57,9 @@ services:
         tags:
             - { name: doctrine.event_listener, event: postPersist }
             - { name: doctrine.event_listener, event: postUpdate }
+
+    App\Listener\GameStatsListener:
+        class: App\Listener\GameStatsListener
+        tags:
+        - { name: doctrine.event_listener, event: postPersist }
+        - { name: doctrine.event_listener, event: postUpdate }

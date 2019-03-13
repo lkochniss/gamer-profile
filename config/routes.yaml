@@ -19,6 +19,9 @@ homepage_backend:
 game_admin:
     resource: routing/game.yaml
 
+game_stats:
+    resource: routing/game_stats.yaml
+
 ## Purchase
 game_session_admin:
     resource: routing/game_session.yaml

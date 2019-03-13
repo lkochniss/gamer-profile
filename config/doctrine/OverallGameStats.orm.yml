@@ -26,6 +26,30 @@ App\Entity\OverallGameStats:
             column: game_sessions
             type: integer
             nullable: false
+        statusOpen:
+            column: status_open
+            type: integer
+            nullable: false
+        statusPaused:
+            column: status_paused
+            type: integer
+            nullable: false
+        statusPlaying:
+            column: status_playing
+            type: integer
+            nullable: false
+        statusFinished:
+            column: status_finished
+            type: integer
+            nullable: false
+        statusGivenUp:
+            column: status_given_up
+            type: integer
+            nullable: false
+        numberOfGames:
+            column: number_of_games
+            type: integer
+            nullable: false
     manyToOne:
         user:
             targetEntity: User
