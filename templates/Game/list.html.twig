@@ -7,9 +7,6 @@
                 {% trans from 'messages' %}name{% endtrans %}
             </th>
             <th scope="col">
-                {% trans from 'messages' %}status{% endtrans %}
-            </th>
-            <th scope="col">
                 {% trans from 'messages' %}achievements{% endtrans %}
             </th>
             <th scope="col">
@@ -29,22 +26,15 @@
                 <td>
                     <a href="{{ path('game_dashboard', {'id': entity.game.id}) }}">{{ entity.game.name }}</a>
                 </td>
-                <td>
-                    {{ game.status |trans }}
-                </td>
-
-                {% if game.overallAchievements > 0 %}
-                {% set percentage = game.playerAchievements / game.overallAchievements  * 100 %}
-                <td data-order="{{ percentage }}">
-                    {{ percentage|round(2) }}%
-                </td>
+                {% if entity.achievement.overallAchievements > 0 %}
+                    {% set percentage = entity.achievement.playerAchievements / entity.achievement.overallAchievements  * 100 %}
+                    <td data-order="{{ percentage }}">
+                        {{ percentage|round(2) }}%
+                    </td>
                 {% else %}
                     <td data-order="0">
                         -
                     </td>
-                <td data-order="0">
-                    -
-                </td>
                 {% endif %}
                 <td data-order="{{ entity.playtime.overallPlaytime }}">
                     {% if entity.playtime.overallPlaytime > 0 %}

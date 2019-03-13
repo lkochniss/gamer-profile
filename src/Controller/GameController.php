@@ -64,9 +64,12 @@ class GameController extends AbstractCrudController
         $now = new \DateTime();
         $oldestEntry = $gameSessionsPerMonthRepository->findOneBy([]);
         $yearsWithSessions = [];
-        for ($i = $oldestEntry->getMonth()->format('Y'); $i <= $now->format('Y'); $i++) {
-            if ($gameSessionsPerMonthRepository->findByYear($i)) {
-                $yearsWithSessions[] = $i;
+
+        if ($oldestEntry) {
+            for ($i = $oldestEntry->getMonth()->format('Y'); $i <= $now->format('Y'); $i++) {
+                if ($gameSessionsPerMonthRepository->findByYear($i)) {
+                    $yearsWithSessions[] = $i;
+                }
             }
         }
 

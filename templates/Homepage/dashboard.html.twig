@@ -15,9 +15,9 @@
                         {% trans from "messages" %}achievements{% endtrans %}
                     </div>
                     <div class="card-body">
-                        {% if gameStats.achievement.overallAchievements > 0 %}
-                            {{ gameStats.achievement.playerAchievements }}/{{ gameStats.achievement.overallAchievements }}
-                            {% set percentage = gameStats.achievement.playerAchievements / gameStats.achievement.overallAchievements  * 100 %}
+                        {% if gameStats.overallAchievements > 0 %}
+                            {{ gameStats.playerAchievements }}/{{ gameStats.overallAchievements }}
+                            {% set percentage = gameStats.playerAchievements / gameStats.overallAchievements  * 100 %}
                             ({{ percentage|round(2) }}%)
                         {% else %}
                             {% trans from "messages" %}profile_not_public{% endtrans %}
@@ -28,7 +28,7 @@
             <div class="col-sm">
                 <div class="card mb-4">
                     <div class="card-header">
-                        <a href="{{ path('game_session_list_backend') }}">
+                        <a href="{{ path('game_list') }}">
                             {% trans from "messages" %}recently_played{% endtrans %}
                         </a>
                     </div>

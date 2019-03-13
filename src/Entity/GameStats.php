@@ -20,11 +20,6 @@ class GameStats
     private $gameSessions;
 
     /**
-     * @var ArrayCollection
-     */
-    private $purchases;
-
-    /**
      * @var Achievement
      */
     private $achievement;
@@ -63,7 +58,6 @@ class GameStats
         $this->game = $game;
         $this->user = $user;
 
-        $this->purchases = new ArrayCollection();
         $this->playtimePerMonth = new ArrayCollection();
         $this->gameSessions = new ArrayCollection();
     }
@@ -129,41 +123,6 @@ class GameStats
     }
 
     /**
-     * @param Purchase $purchase
-     */
-    public function addPurchase(Purchase $purchase): void
-    {
-        if (!$this->purchases->contains($purchase)) {
-            $this->purchases->add($purchase);
-            $purchase->setGameStats($this);
-        }
-    }
-
-    /**
-     * @return Purchase[]
-     */
-    public function getPurchases(): array
-    {
-        return $this->purchases->toArray();
-    }
-
-    /**
-     * -     * @return Purchase|null
-     * -     */
-    public function getGamePurchase(): ?Purchase
-    {
-        $purchases = $this->getPurchases();
-
-        foreach ($purchases as $purchase) {
-            if ($purchase->getType() == Purchase::GAME_PURCHASE) {
-                return $purchase;
-            }
-        }
-
-        return null;
-    }
-
-    /**
      * @param PlaytimePerMonth $playtimePerMonth
      */
     public function addPlaytimePerMonth(PlaytimePerMonth $playtimePerMonth): void
@@ -175,7 +134,7 @@ class GameStats
     }
 
     /**
-     * @return Purchase[]
+     * @return Playtime[]
      */
     public function getPlaytimePerMonths(): array
     {

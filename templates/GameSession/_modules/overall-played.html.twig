@@ -1,14 +1,6 @@
 <div class="panel-footer mt-3">
     <span>
-         {% if gameStats.gamePurchase %}
-             {% if gameStats.gamePurchase.boughtAt < game.releaseDate %}
-                 {% trans with {'%time%' : gameStats.playtime.overallPlaytime | convert_overall_time, '%date%' : gameStats.game.releaseDate|date('d.m.Y') } from 'messages' %}playtime_since_purchase_date{% endtrans %}
-             {% else %}
-                 {% trans with {'%time%' : gameStats.playtime.overallPlaytime | convert_overall_time, '%date%' : gameStats.gamePurchase.boughtAt|date('d.m.Y') } from 'messages' %}playtime_since_purchase_date{% endtrans %}
-             {% endif %}
-         {% else %}
-             {% trans with {'%time%' : gameStats.playtime.overallPlaytime | convert_overall_time } from 'messages' %}playtime_since_purchase{% endtrans %}
-         {% endif %}
+        {% trans with {'%time%' : gameStats.playtime.overallPlaytime | convert_overall_time } from 'messages' %}playtime_since_purchase{% endtrans %}
     </span>
     <div class="clearfix"></div>
 </div>
