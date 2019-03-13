@@ -28,9 +28,7 @@
             <div class="col-sm">
                 <div class="card mb-4">
                     <div class="card-header">
-                        <a href="{{ path('game_list') }}">
-                            {% trans from "messages" %}recently_played{% endtrans %}
-                        </a>
+                        {% trans from "messages" %}recently_played{% endtrans %}
                     </div>
                     <div class="card-body">
                         {{ gameStats.recentPlaytime|convert_overall_time }}
@@ -133,7 +131,7 @@
             {% endfor %}
         </div>
     </div>
-    <div class="row mb-5" style="height: 350px">
+    <div class="row mb-5 dashboardRow">
         <div class="col-md-6" id="playtime-last-week">
             <h3>{% trans %}session_time_last_days{% endtrans %}</h3>
         </div>
@@ -147,15 +145,14 @@
                     <div class="col">{{ topGame.duration|convert_recent_time }}</div>
                 </div>
             {% endfor %}
-
         </div>
     </div>
-    <div class="row mb-5" style="height: 350px">
-        <div class="col-md-6" id="average-per-month">
-            <h3>{% trans %}average_daily_playtime_per_month{% endtrans %}</h3>
-        </div>
-        <div class="col-md-6" id="playtime-per-month">
+    <div class="row mb-5 dashboardRow">
+        <div class="col-md-6 dashboardRow" id="playtime-per-month">
             <h3>{% trans %}session_time_per_month{% endtrans %}</h3>
+        </div>
+        <div class="col-md-6 dashboardRow" id="average-per-month">
+            <h3>{% trans %}average_daily_playtime_per_month{% endtrans %}</h3>
         </div>
     </div>
 {% endblock %}

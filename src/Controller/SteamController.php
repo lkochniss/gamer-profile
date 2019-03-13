@@ -16,7 +16,9 @@ use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 class SteamController extends Controller
 {
     const ALLOWED_BETA_USERS = [
-        '76561198045607524'
+        '76561198045607524',
+        '76561198049001294',
+        '76561198046898250'
     ];
 
     public function authenticate(Request $request, UserRepository $userRepository)

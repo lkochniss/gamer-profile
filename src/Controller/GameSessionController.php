@@ -62,12 +62,12 @@ class GameSessionController extends Controller
      * @param GameSessionsPerMonthRepository $gameSessionsPerMonthRepository
      * @return Response
      */
-    public function listBackendPerMonth(GameSessionsPerMonthRepository $gameSessionsPerMonthRepository): Response
+    public function listPerMonth(GameSessionsPerMonthRepository $gameSessionsPerMonthRepository): Response
     {
         $gamesPerMonth = $gameSessionsPerMonthRepository->findAll();
 
         return $this->render(
-            'GameSession/list-backend-by-month.html.twig',
+            'GameSession/list-per-month.html.twig',
             [
                 'entities' => $gamesPerMonth,
             ]

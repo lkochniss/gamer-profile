@@ -33,39 +33,21 @@ class HomepageController extends Controller
 
     /**
      * @param OverallGameStatsRepository $overallGameStatsRepository
-     * @param GameSessionRepository $gameSessionRepository
      * @param GameSessionsPerMonthRepository $gameSessionsPerMonthRepository
      * @param UserInterface $user
      * @return Response
      */
     public function dashboard(
         OverallGameStatsRepository $overallGameStatsRepository,
-        GameSessionRepository $gameSessionRepository,
         GameSessionsPerMonthRepository $gameSessionsPerMonthRepository,
         UserInterface $user
     ): Response {
 
-        $gameSessions = $gameSessionRepository->findForThisMonth($user);
-        $playedThisMonth = [];
+        $month = new \DateTime('first day of this month 00:00:00');
+        $gameSessions = $gameSessionsPerMonthRepository->findByMonth($month, $user);
 
-        /**
-         * @var GameSession $gameSession
-         */
-        foreach ($gameSessions as $gameSession) {
-            $key = $gameSession->getGame()->getId();
-            if (array_key_exists($key, $playedThisMonth) === false) {
-                $playedThisMonth[$key] = [
-                    'id' => $gameSession->getGame()->getId(),
-                    'name' => $gameSession->getGame()->getName(),
-                    'duration' => 0
-                ];
-            }
-
-            $playedThisMonth[$key]['duration'] += $gameSession->getDuration();
-        }
-
-        usort($playedThisMonth, function (array $gameA, array $gameB) {
-            return $gameA['duration'] > $gameB['duration'] ? -1: 1;
+        usort($gameSessions, function (array $gameA, array $gameB) {
+            return $gameA->getDuration() > $gameB->getDuration() ? -1: 1;
         });
 
         $now = new \DateTime();
@@ -73,7 +55,7 @@ class HomepageController extends Controller
 
         return $this->render('Homepage/dashboard.html.twig', [
             'gameStats' => $overallGameStatsRepository->findOneBy(['user' => $user]),
-            'playedThisMonth' => array_slice($playedThisMonth, 0, 10),
+            'playedThisMonth' => array_slice($gameSessions, 0, 10),
             'yearsWithSessions' => $yearsWithSessions,
             'currentYear' => $now->format('Y')
         ]);
