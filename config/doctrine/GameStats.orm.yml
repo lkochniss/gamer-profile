@@ -9,9 +9,6 @@ App\Entity\GameStats:
         gameSessions:
             targetEntity: GameSession
             mappedBy: gameStats
-        purchases:
-            targetEntity: Purchase
-            mappedBy: gameStats
         playtimePerMonth:
             targetEntity: PlaytimePerMonth
             mappedBy: gameStats

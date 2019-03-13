@@ -28,25 +28,6 @@ class Game extends AbstractEntity
     private $releaseDate;
 
     /**
-     * @var int
-     */
-    private $price;
-
-    /**
-     * @var string
-     */
-    private $currency;
-
-    /**
-     * Game constructor.
-     */
-    public function __construct()
-    {
-        $this->price = 0;
-        $this->currency = 'USD';
-    }
-
-    /**
      * @return int
      */
     public function getId(): int
@@ -125,37 +106,5 @@ class Game extends AbstractEntity
     public function setReleaseDate(?\DateTime $releaseDate): void
     {
         $this->releaseDate = $releaseDate;
-    }
-
-    /**
-     * @return float
-     */
-    public function getPrice(): float
-    {
-        return $this->price / 100;
-    }
-
-    /**
-     * @param float $price
-     */
-    public function setPrice(float $price): void
-    {
-        $this->price = intval($price * 100);
-    }
-
-    /**
-     * @return string
-     */
-    public function getCurrency(): string
-    {
-        return getenv('DEFAULT_CURRENCY');
-    }
-
-    /**
-     * @param string $currency
-     */
-    public function setCurrency(string $currency): void
-    {
-        $this->currency = $currency;
     }
 }

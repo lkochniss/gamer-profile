@@ -1,11 +1,3 @@
-homepage_update_wasted_money:
-    path: /update/wasted
-    defaults: { _controller: 'App\Controller\HomepageController::updateWasted' }
-
-homepage_update_invested_money:
-    path: /update/invested
-    defaults: { _controller: 'App\Controller\HomepageController::updateInvested' }
-
 homepage_update_sessions:
     path: /update/sessions
     defaults: { _controller: 'App\Controller\HomepageController::updateSessions' }

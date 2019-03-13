@@ -22,14 +22,6 @@ sessions_per_month_for_game:
     path:   /sessions/game/{id}/per-month
     defaults: { _controller: 'App\Controller\ApiController::sessionsPerMonthForGame'  }
 
-invested_money_per_month:
-    path:   /money/per-month
-    defaults: { _controller: 'App\Controller\ApiController::investedMoneyPerMonth'  }
-
-invested_money_per_year:
-    path:   /money/per-year
-    defaults: { _controller: 'App\Controller\ApiController::investedMoneyPerYear'  }
-
 sessions_for_year:
     path:   /sessions/{year}
     defaults: { _controller: 'App\Controller\ApiController::sessionsForYear'  }

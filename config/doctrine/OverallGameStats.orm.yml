@@ -26,17 +26,6 @@ App\Entity\OverallGameStats:
             column: game_sessions
             type: integer
             nullable: false
-        investedMoney:
-            column: invested_money
-            type: float
-            nullable: false
-        wastedMoney:
-            column: wasted_money
-            type: float
-            nullable: false
-        currency:
-            type: string
-            length: 4
     manyToOne:
         user:
             targetEntity: User

@@ -7,8 +7,6 @@ use App\Repository\GameSessionRepository;
 use App\Repository\GameSessionsPerMonthRepository;
 use App\Repository\OverallGameStatsRepository;
 use App\Service\Stats\GameSessionService;
-use App\Service\Stats\InvestedMoneyService;
-use App\Service\Stats\WastedMoneyService;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,34 +17,6 @@ use Symfony\Component\Security\Core\User\UserInterface;
  */
 class HomepageController extends Controller
 {
-    /**
-     * @param WastedMoneyService $moneyService
-     * @param UserInterface $user
-     * @return RedirectResponse
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
-     */
-    public function updateWasted(WastedMoneyService $moneyService, UserInterface $user): RedirectResponse
-    {
-        $moneyService->recalculate($user);
-
-        return $this->redirectToRoute('homepage_dashboard');
-    }
-
-    /**
-     * @param InvestedMoneyService $moneyService
-     * @param UserInterface $user
-     * @return RedirectResponse
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
-     */
-    public function updateInvested(InvestedMoneyService $moneyService, UserInterface $user): RedirectResponse
-    {
-        $moneyService->recalculate($user);
-
-        return $this->redirectToRoute('homepage_dashboard');
-    }
-
     /**
      * @param GameSessionService $gameSessionService
      * @param UserInterface $user
@@ -102,7 +72,7 @@ class HomepageController extends Controller
         $yearsWithSessions = $this->getYearsWithGameSessions($gameSessionsPerMonthRepository);
 
         return $this->render('Homepage/dashboard.html.twig', [
-            'gameStats' => $overallGameStatsRepository->findOneBy(['identifier' => getenv('STEAM_USER_ID')]),
+            'gameStats' => $overallGameStatsRepository->findOneBy(['user' => $user]),
             'playedThisMonth' => array_slice($playedThisMonth, 0, 10),
             'yearsWithSessions' => $yearsWithSessions,
             'currentYear' => $now->format('Y')
@@ -110,7 +80,7 @@ class HomepageController extends Controller
     }
 
     /**
-     * @param $gameSessionsPerMonthRepository
+     * @param GameSessionsPerMonthRepository $gameSessionsPerMonthRepository
      * @return array
      */
     private function getYearsWithGameSessions($gameSessionsPerMonthRepository): array
@@ -118,6 +88,11 @@ class HomepageController extends Controller
         $now = new \DateTime();
         $oldestEntry = $gameSessionsPerMonthRepository->findOneBy([]);
         $yearsWithSessions = [];
+
+        if (is_null($oldestEntry)) {
+            return $yearsWithSessions;
+        }
+
         for ($i = $oldestEntry->getMonth()->format('Y'); $i <= $now->format('Y'); $i++) {
             if ($gameSessionsPerMonthRepository->findByYear($i)) {
                 $yearsWithSessions[] = $i;

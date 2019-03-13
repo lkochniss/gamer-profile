@@ -21,10 +21,3 @@ App\Entity\Game:
             column: release_date
             type: datetime
             nullable: true
-        price:
-            type: integer
-            nullable: false
-        currency:
-            type: string
-            nullable: false
-            length: 3

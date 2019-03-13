@@ -20,9 +20,5 @@ game_admin:
     resource: routing/game.yaml
 
 ## Purchase
-purchase_admin:
-    resource: routing/purchase.yaml
-
-## Purchase
 game_session_admin:
     resource: routing/game_session.yaml

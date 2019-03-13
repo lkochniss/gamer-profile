@@ -34,14 +34,6 @@
                         {% trans from "messages" %}game_sessions{% endtrans %}
                     </i>
                 </a>
-                <div class="dropdown-menu">
-                    <a class="nav-link" href="{{ path('game_session_list_backend') }}">
-                        {% trans from "messages" %}game_sessions_per_day{% endtrans %}
-                    </a>
-                    <a class="nav-link" href="{{ path('game_session_list_per_month_backend') }}">
-                        {% trans from "messages" %}game_sessions_per_month{% endtrans %}
-                    </a>
-                </div>
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
@@ -50,14 +42,6 @@
                         {% trans from "messages" %}purchases{% endtrans %}
                     </i>
                 </a>
-                <div class="dropdown-menu">
-                    <a class="dropdown-item" href="{{ path('purchase_create') }}">
-                        {% trans from "messages" %}create_new_purchase{% endtrans %}
-                    </a>
-                    <a class="dropdown-item" href="{{ path('purchase_list') }}">
-                        {% trans from "messages" %}purchase_list{% endtrans %}
-                    </a>
-                </div>
             </li>
         </ul>
         <ul class="navbar-nav mr-auto right">

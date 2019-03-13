@@ -2,7 +2,6 @@ import 'bootstrap';
 import 'select2';
 import $ from 'jquery';
 import dataTables from './data-tables';
-import moneyBarChart from './money-bar-chart';
 import sessionTimeGraph from './session-time-graph';
 import sessionCalendar from './session-calender';
 
@@ -102,32 +101,6 @@ const addImgClass = () => {
   image.removeAttr('style');
 };
 
-const setInvestedMoneyPerMonth = () => {
-  const id = '#invested-money-per-month';
-
-  if ($(id).length) {
-    $.getJSON({
-      url: '/money/per-month',
-      success: (data) => {
-        moneyBarChart(id, data, '%b %Y');
-      },
-    });
-  }
-};
-
-const setInvestedMoneyPerYear = () => {
-  const id = '#invested-money-per-year';
-
-  if ($(id).length) {
-    $.getJSON({
-      url: '/money/per-year',
-      success: (data) => {
-        moneyBarChart(id, data, '%Y');
-      },
-    });
-  }
-};
-
 const setSessionsForYear = () => {
   const id = '#sessions-for-year';
 
@@ -180,8 +153,6 @@ $(document).ready(() => {
   addPlaytimeGamesYearSelect();
   addImgClass();
   addDataTables();
-  setInvestedMoneyPerMonth();
-  setInvestedMoneyPerYear();
   setSessionsForYear();
   addSessionsForYearSelect();
   setSessionsPerMonthForGame();

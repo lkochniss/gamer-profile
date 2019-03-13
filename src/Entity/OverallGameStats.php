@@ -33,21 +33,6 @@ class OverallGameStats extends AbstractEntity
     private $gameSessions = 0;
 
     /**
-     * @var float
-     */
-    private $investedMoney = 0.0;
-
-    /**
-     * @var float
-     */
-    private $wastedMoney = 0.0;
-
-    /**
-     * @var string
-     */
-    private $currency;
-
-    /**
      * @var User
      */
     private $user;
@@ -58,7 +43,6 @@ class OverallGameStats extends AbstractEntity
      */
     public function __construct(User $user)
     {
-        $this->currency = getenv('DEFAULT_CURRENCY');
         $this->user = $user;
     }
 
@@ -145,57 +129,6 @@ class OverallGameStats extends AbstractEntity
     public function getGameSessions(): int
     {
         return $this->gameSessions;
-    }
-
-    /**
-     * @param float $number
-     */
-    public function addToInvestedMoney(float $number): void
-    {
-        $this->investedMoney += $number;
-    }
-
-    public function resetInvestedMoney(): void
-    {
-        $this->investedMoney = 0;
-    }
-
-    /**
-     * @return float
-     */
-    public function getInvestedMoney(): float
-    {
-        return $this->investedMoney;
-    }
-
-    /**
-     * @param float $number
-     */
-    public function addToWastedMoney(float $number): void
-    {
-        $this->wastedMoney += $number;
-    }
-
-    public function resetWastedMoney(): void
-    {
-        $this->wastedMoney = 0;
-    }
-
-    /**
-     * @return float
-     */
-    public function getWastedMoney(): float
-    {
-        return $this->wastedMoney;
-    }
-
-
-    /**
-     * @return string
-     */
-    public function getCurrency(): string
-    {
-        return $this->currency;
     }
 
     /**
