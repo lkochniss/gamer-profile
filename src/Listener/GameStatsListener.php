@@ -12,28 +12,6 @@ use Doctrine\ORM\Event\LifecycleEventArgs;
 class GameStatsListener
 {
     /**
-     * @var array
-     */
-    private $getProperties = [
-        'open' => 'getStatusOpen',
-        'paused' => 'getStatusPaused',
-        'playing' => 'getStatusPlaying',
-        'finished' => 'getStatusFinished',
-        'given_up' => 'getStatusGivenUp',
-    ];
-
-    /**
-     * @var array
-     */
-    private $setProperties = [
-        'open' => 'setStatusOpen',
-        'paused' => 'setStatusPaused',
-        'playing' => 'setStatusPlaying',
-        'finished' => 'setStatusFinished',
-        'given_up' => 'setStatusGivenUp',
-    ];
-
-    /**
      * @param LifecycleEventArgs $args
      * @return string
      * @throws \Doctrine\ORM\ORMException
@@ -66,6 +44,27 @@ class GameStatsListener
      */
     public function postUpdate(LifecycleEventArgs $args): string
     {
+        /**
+         * @var array
+         */
+        $getProperties = [
+            'open' => 'getStatusOpen',
+            'paused' => 'getStatusPaused',
+            'playing' => 'getStatusPlaying',
+            'finished' => 'getStatusFinished',
+            'given_up' => 'getStatusGivenUp',
+        ];
+
+        /**
+         * @var array
+         */
+        $setProperties = [
+            'open' => 'setStatusOpen',
+            'paused' => 'setStatusPaused',
+            'playing' => 'setStatusPlaying',
+            'finished' => 'setStatusFinished',
+            'given_up' => 'setStatusGivenUp',
+        ];
         $entity = $args->getEntity();
 
         if ($entity instanceof GameStats === false) {
@@ -80,15 +79,18 @@ class GameStatsListener
 
         if (array_key_exists('status', $changeSet)) {
 
+
             // add one to the new status
-            $gameStats->$this->setProperties[$changeSet['duration'][1]](
-                $gameStats->$this->getProperties[$changeSet['duration'][1]] - 1
-            );
+            $getNew = $getProperties[$changeSet['status'][1]];
+            $setNew = $setProperties[$changeSet['status'][1]];
+            $gameStats->$setNew($gameStats->$getNew() + 1);
 
             // remove one from the old status
-            $gameStats->$this->setProperties[$changeSet['duration'][0]](
-                $gameStats->$this->getProperties[$changeSet['duration'][0]] - 1
-            );
+            $getOld = $getProperties[$changeSet['status'][0]];
+            $setOld = $setProperties[$changeSet['status'][0]];
+            $gameStats->$setOld($gameStats->$getOld() - 1);
+
+            $overallGameStatsRepository->save($gameStats);
         }
 
         return 'U';
