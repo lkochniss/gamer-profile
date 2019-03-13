@@ -69,8 +69,6 @@ class GameInformationService
 
         $game->setName($gameInformation->getName());
         $game->setHeaderImagePath($gameInformation->getHeaderImagePath());
-        $game->setPrice($gameInformation->getPrice());
-        $game->setCurrency($gameInformation->getCurrency());
         $game->setReleaseDate($gameInformation->getReleaseDate());
 
         return $game;
