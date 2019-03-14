@@ -2,6 +2,7 @@
 
 namespace App\Service;
 
+use App\Entity\Game;
 use App\Entity\User;
 use App\Repository\GameRepository;
 use App\Repository\UserRepository;
@@ -45,7 +46,7 @@ class SteamGameService
         $this->gameInformationService = $gameInformationService;
     }
 
-    public function fetchNewGames()
+    public function fetchNewGames(): void
     {
         $users = $this->userRepository->findAll();
 
@@ -55,17 +56,27 @@ class SteamGameService
         foreach ($users as $user) {
             $games = $this->gameUserInformationService->getAllGames($user->getSteamId());
 
-            if (empty($games)) {
-                return;
-            }
+            if (!empty($games)) {
+                foreach ($games['response']['games'] as $gameArray) {
 
-            foreach ($games['response']['games'] as $gameArray) {
+                    $steamAppId = $gameArray['appid'];
+                    $game = $this->gameRepository->findOneBySteamAppId($steamAppId);
 
-                $steamAppId = $gameArray['appid'];
-                $game = $this->gameRepository->findOneBySteamAppId($steamAppId);
+                    if (is_null($game)) {
+                        $gameInformation = $this->gameInformationService->getGameInformationForSteamAppId($steamAppId);
 
-                if (is_null($game)) {
-                    $this->gameInformationService->getGameInformationForSteamAppId($steamAppId);
+                        $game = new Game();
+                        $game->setSteamAppId($steamAppId);
+                        $game->setName(Game::NAME_FAILED);
+                        $game->setHeaderImagePath(Game::IMAGE_FAILED);
+
+                        if ($gameInformation) {
+                            $game->setName($gameInformation['name']);
+                            $game->setHeaderImagePath($gameInformation['header_image']);
+                        }
+
+                        $this->gameRepository->save($game);
+                    }
                 }
             }
         }

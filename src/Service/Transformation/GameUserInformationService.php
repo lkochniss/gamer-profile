@@ -43,8 +43,6 @@ class GameUserInformationService
     /**
      * @param int $steamUserId
      * @return array
-     * @throws JsonException
-     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function getAllGames(int $steamUserId): array
     {
@@ -54,8 +52,6 @@ class GameUserInformationService
     /**
      * @param int $steamUserId
      * @return array
-     * @throws JsonException
-     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function getRecentlyPlayedGames(int $steamUserId): array
     {
@@ -66,7 +62,6 @@ class GameUserInformationService
      * @param int $steamAppId
      * @param int $steamUserId
      * @return JsonAchievement
-     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function getAchievementsForGame(int $steamAppId, int $steamUserId): JsonAchievement
     {
@@ -120,8 +115,6 @@ class GameUserInformationService
      * @param string $apiEndpoint
      * @param int $steamUserId
      * @return array
-     * @throws JsonException
-     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     private function getGamesFromApiEndpoint(string $apiEndpoint, int $steamUserId): array
     {
@@ -130,7 +123,7 @@ class GameUserInformationService
 
         if (!array_key_exists('response', $gamesArray) ||
             !array_key_exists('games', $gamesArray['response'])) {
-            throw new JsonException('Response Body invalid');
+            return [];
         }
 
         foreach ($gamesArray['response']['games'] as $game) {
@@ -166,7 +159,6 @@ class GameUserInformationService
      * @param Achievement $achievement
      * @param int $steamUserId
      * @return Achievement
-     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function addAchievements(Achievement $achievement, int $steamUserId): Achievement
     {

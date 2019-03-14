@@ -29,8 +29,6 @@ class GameInformationService
     /**
      * @param int $steamAppId
      * @return array
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \Psr\Cache\InvalidArgumentException
      */
     public function getGameInformationForSteamAppId(int $steamAppId): array
     {
@@ -46,8 +44,6 @@ class GameInformationService
     /**
      * @param int $steamAppId
      * @return JsonGame|null
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \Psr\Cache\InvalidArgumentException
      */
     public function getGameInformationEntityForSteamAppId(int $steamAppId): ?JsonGame
     {
@@ -62,8 +58,6 @@ class GameInformationService
     /**
      * @param Game $game
      * @return Game|null
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \Psr\Cache\InvalidArgumentException
      */
     public function addToGame(Game $game): ?Game
     {

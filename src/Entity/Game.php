@@ -7,6 +7,9 @@ namespace App\Entity;
  */
 class Game extends AbstractEntity
 {
+    const NAME_FAILED = 'unknown game';
+    const IMAGE_FAILED = '';
+
     /**
      * @var int
      */
@@ -21,11 +24,6 @@ class Game extends AbstractEntity
      * @var string
      */
     private $headerImagePath;
-
-    /**
-     * @var \DateTime
-     */
-    private $releaseDate;
 
     /**
      * @return int
@@ -90,21 +88,5 @@ class Game extends AbstractEntity
     public function setHeaderImagePath(string $headerImagePath): void
     {
         $this->headerImagePath = $headerImagePath;
-    }
-
-    /**
-     * @return \DateTime
-     */
-    public function getReleaseDate(): \DateTime
-    {
-        return $this->releaseDate ? $this->releaseDate : new \DateTime();
-    }
-
-    /**
-     * @param \DateTime|null $releaseDate
-     */
-    public function setReleaseDate(?\DateTime $releaseDate): void
-    {
-        $this->releaseDate = $releaseDate;
     }
 }
