@@ -2,6 +2,7 @@
 
 namespace App\Command;
 
+use App\Service\SteamGameService;
 use App\Service\Transformation\GameInformationService;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -15,17 +16,16 @@ class CreateNewGamesCommand extends Command
     /**
      * @var GameInformationService
      */
-    private $service;
+    private $steamGameService;
 
     /**
      * CreateNewGamesCommand constructor.
-     *
-     * @SuppressWarnings(PHPMD.LongVariableName)
+     * @param SteamGameService $steamGameService
      */
-    public function __construct(GameInformationService $gameInformationService) {
+    public function __construct(SteamGameService $steamGameService) {
         parent::__construct();
 
-        $this->service = $gameInformationService;
+        $this->steamGameService = $steamGameService;
     }
 
     protected function configure(): void
@@ -43,6 +43,6 @@ class CreateNewGamesCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $this->service->getGameInformationForSteamAppId(10);
+        $this->steamGameService->fetchNewGame();
     }
 }

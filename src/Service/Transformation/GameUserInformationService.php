@@ -75,7 +75,7 @@ class GameUserInformationService
                 '/ISteamUserStats/GetPlayerAchievements/v0001/?appid=' . $steamAppId,
                 $steamUserId
             );
-            return new JsonAchievement(\GuzzleHttp\json_decode($userAchievements->getBody(), true));
+            return new JsonAchievement($userAchievements);
         } catch (ClientException $clientException) {
             return new JsonAchievement();
         }
@@ -125,9 +125,7 @@ class GameUserInformationService
      */
     private function getGamesFromApiEndpoint(string $apiEndpoint, int $steamUserId): array
     {
-        $gamesOwnedResponse = $this->userApiClientService->get($apiEndpoint, $steamUserId);
-        $gamesArray = \GuzzleHttp\json_decode($gamesOwnedResponse->getBody(), true);
-
+        $gamesArray = $this->userApiClientService->get($apiEndpoint, $steamUserId);
         $games = [];
 
         if (!array_key_exists('response', $gamesArray) ||
