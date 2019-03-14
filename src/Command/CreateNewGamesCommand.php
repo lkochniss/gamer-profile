@@ -2,8 +2,6 @@
 
 namespace App\Command;
 
-use App\Service\SteamGameService;
-use App\Service\Transformation\GameInformationService;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -14,18 +12,12 @@ use Symfony\Component\Console\Output\OutputInterface;
 class CreateNewGamesCommand extends Command
 {
     /**
-     * @var GameInformationService
-     */
-    private $steamGameService;
-
-    /**
      * CreateNewGamesCommand constructor.
-     * @param SteamGameService $steamGameService
+     *
+     * @SuppressWarnings(PHPMD.LongVariableName)
      */
-    public function __construct(SteamGameService $steamGameService) {
+    public function __construct() {
         parent::__construct();
-
-        $this->steamGameService = $steamGameService;
     }
 
     protected function configure(): void
@@ -38,11 +30,14 @@ class CreateNewGamesCommand extends Command
      * @param InputInterface $input
      * @param OutputInterface $output
      * @return int|null|void
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws \Nette\Utils\JsonException
      *
      * @SuppressWarnings("unused")
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $this->steamGameService->fetchNewGame();
+
     }
 }

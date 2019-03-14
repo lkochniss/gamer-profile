@@ -53,6 +53,7 @@ class UserApiClientService
             return $cacheObject->get();
         }
 
+        var_dump($this->generateRequestUrl($endpoint, $steamUserId));
         try {
             $response = $this->guzzleClient->request(
                 'GET',
