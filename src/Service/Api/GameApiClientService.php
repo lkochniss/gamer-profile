@@ -95,7 +95,7 @@ class GameApiClientService
      */
     private function generateCacheKey(string $endpoint): string
     {
-        return sprintf('steam-api.%s', md5($endpoint));
+        return sprintf('steam-game-api.%s', md5($endpoint));
     }
 
 }

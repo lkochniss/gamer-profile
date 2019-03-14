@@ -23,7 +23,7 @@ class GameApiClientServiceTest extends TestCase
         $this->client = $this->createMock(GuzzleClient::class);
     }
 
-    public function testGetAnswersWithArray(): void
+    public function testGetShouldReturnArrayOfResponse(): void
     {
         $this->setGuzzleClientMock();
         $steamApiClient = new GameApiClientService($this->client, 0);
@@ -31,7 +31,7 @@ class GameApiClientServiceTest extends TestCase
         $this->assertEquals(['success' => true], $steamApiClient->get('uncached-endpoint'));
     }
 
-    public function testGetAnswersWithCacheOnSecondCall(): void
+    public function testGetShouldCacheOnSecondCall(): void
     {
         $response = new Response(200, [], json_encode(['success' => true]));
         $this->client->expects($this->once())
@@ -43,6 +43,21 @@ class GameApiClientServiceTest extends TestCase
         $steamApiClient->get('cached-endpoint');
         $steamApiClient->get('cached-endpoint');
         $steamApiClient->get('cached-endpoint');
+    }
+
+    public function testGetShouldCacheMultipleEndpoints(): void
+    {
+        $response = new Response(200, [], json_encode(['success' => true]));
+        $this->client->expects($this->once())
+            ->method('request')
+            ->willReturn($response);
+
+        $steamApiClient = new GameApiClientService($this->client, 2);
+
+        $steamApiClient->get('cached-endpoint');
+        $steamApiClient->get('cached-endpoint');
+        $steamApiClient->get('cached-endpoint-2');
+        $steamApiClient->get('cached-endpoint-2');
     }
 
     private function setGuzzleClientMock(): void

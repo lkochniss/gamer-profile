@@ -5,6 +5,7 @@ namespace tests\App\Service\Steam\Api;
 use App\Service\Api\UserApiClientService;
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Psr7\Response;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -12,6 +13,23 @@ use PHPUnit\Framework\TestCase;
  */
 class UserApiClientServiceTest extends TestCase
 {
+    /**
+     * @var MockObject
+     */
+    private $client;
+
+    public function setUp(): void
+    {
+        $this->client = $this->createMock(GuzzleClient::class);
+    }
+
+    public function urlProvider(): array
+    {
+        return [
+            ['/', 'http://api.steampowered.com/?key=unittest&steamid=1&format=json&l=english'],
+            ['/1?asd=2', 'http://api.steampowered.com/1?asd=2&key=unittest&steamid=1&format=json&l=english'],
+        ];
+    }
 
     /**
      * @param string $endpoint
@@ -19,10 +37,11 @@ class UserApiClientServiceTest extends TestCase
      *
      * @dataProvider urlProvider
      */
-    public function testGet(string $endpoint, string $expectedUrl): void
+    public function testGetShouldReturnArrayOfResponse(string $endpoint, string $expectedUrl): void
     {
-        $guzzleClientMock = $this->createMock(GuzzleClient::class);
-        $guzzleClientMock->expects($this->any())
+        $response = new Response(200, [], json_encode(['success' => true]));
+
+        $this->client->expects($this->any())
             ->method('request')
             ->with(
                 'GET',
@@ -34,18 +53,42 @@ class UserApiClientServiceTest extends TestCase
                     ]
                 ]
             )
-            ->willReturn(new Response());
+            ->willReturn($response);
 
-        $steamApiClient = new UserApiClientService($guzzleClientMock);
+        $steamApiClient = new UserApiClientService($this->client, 0);
 
-        $this->assertEquals(new Response(), $steamApiClient->get($endpoint, 1));
+        $this->assertEquals(['success' => true], $steamApiClient->get($endpoint, 1));
     }
 
-    public function urlProvider(): array
+    public function testGetShouldReturnCacheOnSecondCall(): void
     {
-        return [
-            ['/', 'http://api.steampowered.com/?key=unittest&steamid=1&format=json&l=english'],
-            ['/1?asd=2', 'http://api.steampowered.com/1?asd=2&key=unittest&steamid=1&format=json&l=english'],
-        ];
+        $response = new Response(200, [], json_encode(['success' => true]));
+
+        $this->client->expects($this->once())
+            ->method('request')
+            ->willReturn($response);
+
+        $steamApiClient = new UserApiClientService($this->client, 2);
+
+        $steamApiClient->get('cached-endpoint', 1);
+        $steamApiClient->get('cached-endpoint', 1);
+    }
+
+    public function testGetShouldCacheMultipleEndpoints(): void
+    {
+        $response = new Response(200, [], json_encode(['success' => true]));
+
+        $this->client->expects($this->exactly(3))
+            ->method('request')
+            ->willReturn($response);
+
+        $steamApiClient = new UserApiClientService($this->client, 2);
+
+        $steamApiClient->get('multiple-cached-endpoint', 1);
+        $steamApiClient->get('multiple-cached-endpoint', 1);
+        $steamApiClient->get('multiple-cached-endpoints', 1);
+        $steamApiClient->get('multiple-cached-endpoints', 1);
+        $steamApiClient->get('multiple-cached-endpoint', 2);
+        $steamApiClient->get('multiple-cached-endpoint', 2);
     }
 }
