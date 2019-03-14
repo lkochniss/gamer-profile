@@ -2,6 +2,7 @@
 
 namespace App\Tests\Service;
 
+use App\Entity\Game;
 use App\Entity\User;
 use App\Repository\GameRepository;
 use App\Repository\UserRepository;
@@ -60,6 +61,47 @@ class SteamGameTest extends TestCase
         $steamGameService->fetchNewGames();
     }
 
+    public function testFetchNewGameShouldReturnExistingGame()
+    {
+        $userRepositoryMock = $this->createMock(UserRepository::class);
+        $userRepositoryMock
+            ->expects($this->once())
+            ->method('findAll')
+            ->willReturn([new User(1)]);
+
+        $gameRepositoryMock = $this->createMock(GameRepository::class);
+        $gameRepositoryMock->expects($this->once())
+            ->method('findOneBySteamAppId')
+            ->with(21)
+            ->willReturn(new Game());
+
+        $gameUserInformationServiceMock = $this->createMock(GameUserInformationService::class);
+        $gameUserInformationServiceMock->expects($this->once())
+            ->method('getAllGames')
+            ->with(1)
+            ->willReturn([
+                'response' => [
+                    'games' => [
+                        [
+                            'appid' => 21
+                        ]
+                    ]
+                ]
+            ]);
+
+        $gameInformationServiceMock = $this->createMock(GameInformationService::class);
+        $gameInformationServiceMock->expects($this->never())
+            ->method('getGameInformationForSteamAppId');
+
+        $steamGameService = new SteamGameService(
+            $userRepositoryMock,
+            $gameRepositoryMock,
+            $gameUserInformationServiceMock,
+            $gameInformationServiceMock
+        );
+        $steamGameService->fetchNewGames();
+    }
+
     public function testFetchNewGameShouldCallGameInformationService()
     {
         $userRepositoryMock = $this->createMock(UserRepository::class);
@@ -71,7 +113,7 @@ class SteamGameTest extends TestCase
         $gameRepositoryMock = $this->createMock(GameRepository::class);
         $gameRepositoryMock->expects($this->once())
             ->method('findOneBySteamAppId')
-            ->with(1)
+            ->with(21)
             ->willReturn(null);
 
         $gameUserInformationServiceMock = $this->createMock(GameUserInformationService::class);

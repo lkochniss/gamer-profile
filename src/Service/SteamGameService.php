@@ -59,12 +59,13 @@ class SteamGameService
                 return;
             }
 
-            foreach ($games['response']['games'] as $game) {
+            foreach ($games['response']['games'] as $gameArray) {
 
-                $game = $this->gameRepository->findOneBySteamAppId($game['appid']);
+                $steamAppId = $gameArray['appid'];
+                $game = $this->gameRepository->findOneBySteamAppId($steamAppId);
 
                 if (is_null($game)) {
-                    $this->gameInformationService->getGameInformationForSteamAppId($game['appid']);
+                    $this->gameInformationService->getGameInformationForSteamAppId($steamAppId);
                 }
             }
         }
