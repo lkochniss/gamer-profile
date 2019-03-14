@@ -3,19 +3,17 @@
 namespace App\Service\Transformation;
 
 use App\Entity\Achievement;
-use App\Entity\Game;
 use App\Entity\GameSession;
 use App\Entity\JSON\JsonAchievement;
 use App\Entity\Playtime;
 use App\Entity\JSON\JsonPlaytime;
-use App\Entity\User;
 use App\Repository\GameSessionRepository;
 use App\Service\Api\UserApiClientService;
 use GuzzleHttp\Exception\ClientException;
 use Nette\Utils\JsonException;
 
 /**
- * Class GamesOwnedService
+ * Class GameUserInformationService
  */
 class GameUserInformationService
 {
@@ -46,6 +44,7 @@ class GameUserInformationService
      * @param int $steamUserId
      * @return array
      * @throws JsonException
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function getAllGames(int $steamUserId): array
     {
@@ -56,6 +55,7 @@ class GameUserInformationService
      * @param int $steamUserId
      * @return array
      * @throws JsonException
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function getRecentlyPlayedGames(int $steamUserId): array
     {
@@ -66,6 +66,7 @@ class GameUserInformationService
      * @param int $steamAppId
      * @param int $steamUserId
      * @return JsonAchievement
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function getAchievementsForGame(int $steamAppId, int $steamUserId): JsonAchievement
     {
@@ -120,6 +121,7 @@ class GameUserInformationService
      * @param int $steamUserId
      * @return array
      * @throws JsonException
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     private function getGamesFromApiEndpoint(string $apiEndpoint, int $steamUserId): array
     {
@@ -166,6 +168,7 @@ class GameUserInformationService
      * @param Achievement $achievement
      * @param int $steamUserId
      * @return Achievement
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function addAchievements(Achievement $achievement, int $steamUserId): Achievement
     {

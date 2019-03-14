@@ -29,11 +29,12 @@ class GameInformationService
     /**
      * @param int $steamAppId
      * @return array
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \Psr\Cache\InvalidArgumentException
      */
     public function getGameInformationForSteamAppId(int $steamAppId): array
     {
-        $gamesOwnedResponse = $this->gameApiClientService->get('/api/appdetails?appids=' . $steamAppId);
-        $game = json_decode($gamesOwnedResponse->getBody(), true);
+        $game = $this->gameApiClientService->get('/api/appdetails?appids=' . $steamAppId);
 
         if ($game[$steamAppId]['success'] === false) {
             return [];
@@ -45,6 +46,8 @@ class GameInformationService
     /**
      * @param int $steamAppId
      * @return JsonGame|null
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \Psr\Cache\InvalidArgumentException
      */
     public function getGameInformationEntityForSteamAppId(int $steamAppId): ?JsonGame
     {
@@ -59,6 +62,8 @@ class GameInformationService
     /**
      * @param Game $game
      * @return Game|null
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \Psr\Cache\InvalidArgumentException
      */
     public function addToGame(Game $game): ?Game
     {

@@ -29,6 +29,7 @@ class UserApiClientService
      * @param string $endpoint
      * @param int $steamUserId
      * @return Response
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function get(string $endpoint, int $steamUserId) : Response
     {

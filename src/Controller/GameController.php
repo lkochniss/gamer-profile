@@ -4,10 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Game;
 use App\Entity\GameStats;
-use App\Repository\GameRepository;
 use App\Repository\GameSessionsPerMonthRepository;
 use App\Repository\GameStatsRepository;
-use App\Service\Entity\GameService;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -17,28 +15,6 @@ use Symfony\Component\Security\Core\User\UserInterface;
  */
 class GameController extends AbstractCrudController
 {
-    /**
-     * @param int $id
-     * @param GameRepository $gameRepository
-     * @param GameService $gameService
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
-     *
-     * @SuppressWarnings(PHPMD.ShortVariableName)
-     * @SuppressWarnings(PHPMD.LongVariableName)
-     */
-    public function update(
-        int $id,
-        GameRepository $gameRepository,
-        GameService $gameService
-    ) {
-        $game = $gameRepository->find($id);
-        $gameService->update($game->getSteamAppId());
-
-        return $this->redirect($this->generateUrl('game_dashboard', ['id' => $id]));
-    }
-
     /**
      * @param int $id
      * @param GameStatsRepository $gameStatsRepository
