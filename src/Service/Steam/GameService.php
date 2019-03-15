@@ -6,7 +6,7 @@ use App\Entity\Game;
 use App\Repository\GameRepository;
 use App\Service\Transformation\GameInformationService;
 
-class CreateGameService
+class GameService
 {
     /**
      * @var GameRepository
@@ -32,7 +32,7 @@ class CreateGameService
     /**
      * @param string $steamAppId
      */
-    public function execute(string $steamAppId)
+    public function create(string $steamAppId)
     {
         $game = $this->gameRepository->findOneBySteamAppId($steamAppId);
 

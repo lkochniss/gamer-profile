@@ -8,31 +8,31 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
- * Class CreateNewGamesCommand
+ * Class UpdateFailedGamesCommand
  */
-class CreateNewGamesCommand extends Command
+class UpdateFailedGamesCommand extends Command
 {
 
     /**
      * @var GamesForAllUsersService
      */
-    private $gamesForAllUsersService;
+    private $createGamesForAllUsersService;
 
     /**
      * CreateNewGamesCommand constructor.
-     * @param GamesForAllUsersService $gamesForAllUsersService
+     * @param GamesForAllUsersService $createGamesForAllUsersService
      */
-    public function __construct(GamesForAllUsersService $gamesForAllUsersService)
+    public function __construct(GamesForAllUsersService $createGamesForAllUsersService)
     {
         parent::__construct();
-        $this->gamesForAllUsersService = $gamesForAllUsersService;
+        $this->createGamesForAllUsersService = $createGamesForAllUsersService;
     }
 
 
     protected function configure(): void
     {
-        $this->setName('steam:create:games');
-        $this->setDescription('Creates new games based on steam');
+        $this->setName('steam:update:failed');
+        $this->setDescription('Update failed games based on steam');
     }
 
     /**
@@ -42,6 +42,6 @@ class CreateNewGamesCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $this->gamesForAllUsersService->create();
+        $this->createGamesForAllUsersService->create();
     }
 }

@@ -4,26 +4,26 @@ namespace App\Tests\Service;
 
 use App\Entity\Game;
 use App\Repository\GameRepository;
-use App\Service\Steam\CreateGameService;
+use App\Service\Steam\GameService;
 use App\Service\Transformation\GameInformationService;
 use PHPUnit\Framework\TestCase;
 
-class CreateGameServiceTest extends TestCase
+class GameServiceTest extends TestCase
 {
     private $steamAppId = 1;
 
-    public function testCreateGameServiceShouldCallGameRepository(): void
+    public function testGameServiceCreateShouldCallGameRepository(): void
     {
         $gameRepositoryMock = $this->createMock(GameRepository::class);
         $gameRepositoryMock->expects($this->once())
             ->method('findOneBySteamAppId');
         $gameInformationServiceMock = $this->createMock(GameInformationService::class);
 
-        $createGameService = new CreateGameService($gameRepositoryMock, $gameInformationServiceMock);
-        $createGameService->execute($this->steamAppId);
+        $GameServiceCreate = new GameService($gameRepositoryMock, $gameInformationServiceMock);
+        $GameServiceCreate->create($this->steamAppId);
     }
 
-    public function testCreateGameServiceShouldNotCallGameInformationServiceIfGameExists(): void
+    public function testGameServiceCreateShouldNotCallGameInformationServiceIfGameExists(): void
     {
         $gameRepositoryMock = $this->createMock(GameRepository::class);
         $gameRepositoryMock->expects($this->once())
@@ -34,11 +34,11 @@ class CreateGameServiceTest extends TestCase
         $gameInformationServiceMock->expects($this->never())
             ->method('getGameInformationForSteamAppId');
 
-        $createGameService = new CreateGameService($gameRepositoryMock, $gameInformationServiceMock);
-        $createGameService->execute($this->steamAppId);
+        $GameServiceCreate = new GameService($gameRepositoryMock, $gameInformationServiceMock);
+        $GameServiceCreate->create($this->steamAppId);
     }
 
-    public function testCreateGameServiceShouldCallGameInformationService(): void
+    public function testGameServiceCreateShouldCallGameInformationService(): void
     {
         $gameRepositoryMock = $this->createMock(GameRepository::class);
         $gameRepositoryMock->expects($this->once())
@@ -49,11 +49,11 @@ class CreateGameServiceTest extends TestCase
         $gameInformationServiceMock->expects($this->once())
             ->method('getGameInformationForSteamAppId');
 
-        $createGameService = new CreateGameService($gameRepositoryMock, $gameInformationServiceMock);
-        $createGameService->execute($this->steamAppId);
+        $GameServiceCreate = new GameService($gameRepositoryMock, $gameInformationServiceMock);
+        $GameServiceCreate->create($this->steamAppId);
     }
 
-    public function testCreateGameServiceShouldPersistFailedGame(): void
+    public function testGameServiceCreateShouldPersistFailedGame(): void
     {
         $gameRepositoryMock = $this->createMock(GameRepository::class);
         $gameRepositoryMock->expects($this->once())
@@ -73,11 +73,11 @@ class CreateGameServiceTest extends TestCase
             ->method('save')
             ->with($expectedGame);
 
-        $createGameService = new CreateGameService($gameRepositoryMock, $gameInformationServiceMock);
-        $createGameService->execute($this->steamAppId);
+        $GameServiceCreate = new GameService($gameRepositoryMock, $gameInformationServiceMock);
+        $GameServiceCreate->create($this->steamAppId);
     }
 
-    public function testCreateGameServiceShouldPersistGame(): void
+    public function testGameServiceCreateShouldPersistGame(): void
     {
         $gameRepositoryMock = $this->createMock(GameRepository::class);
         $gameRepositoryMock->expects($this->once())
@@ -100,7 +100,7 @@ class CreateGameServiceTest extends TestCase
             ->method('save')
             ->with($expectedGame);
 
-        $createGameService = new CreateGameService($gameRepositoryMock, $gameInformationServiceMock);
-        $createGameService->execute($this->steamAppId);
+        $GameServiceCreate = new GameService($gameRepositoryMock, $gameInformationServiceMock);
+        $GameServiceCreate->create($this->steamAppId);
     }
 }

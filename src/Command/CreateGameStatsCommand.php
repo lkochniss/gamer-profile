@@ -32,7 +32,7 @@ class CreateGameStatsCommand extends Command
     protected function configure(): void
     {
         $this->setName('user:create:gamestats');
-        $this->setDescription('Creates new games based on steam');
+        $this->setDescription('Creates game stats for users based on their owned games');
     }
 
     /**

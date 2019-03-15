@@ -21,15 +21,22 @@ class GameApiClientService
     private $cacheExpiration;
 
     /**
+     * @var
+     */
+    private $failureExpiration;
+
+    /**
      * GameApiClientService constructor.
      *
      * @param GuzzleClient $guzzleClient
      * @param int $cacheExpiration
+     * @param int $failureExpiration
      */
-    public function __construct(GuzzleClient $guzzleClient, int $cacheExpiration = 300)
+    public function __construct(GuzzleClient $guzzleClient, int $cacheExpiration = 3600, $failureExpiration = 60)
     {
         $this->guzzleClient = $guzzleClient;
         $this->cacheExpiration = $cacheExpiration;
+        $this->failureExpiration = $failureExpiration;
     }
 
     /**
@@ -64,11 +71,12 @@ class GameApiClientService
             );
 
             $cacheObject->set(json_decode($response->getBody(), true));
+            $cacheObject->expiresAfter($this->cacheExpiration);
         } catch (\GuzzleHttp\Exception\GuzzleException $exception) {
             $cacheObject->set([]);
+            $cacheObject->expiresAfter($this->failureExpiration);
         }
 
-        $cacheObject->expiresAfter($this->cacheExpiration);
         $cache->save($cacheObject);
 
         return $cacheObject->get();

@@ -4,7 +4,7 @@ namespace App\Service\Steam;
 
 use App\Service\Transformation\GameUserInformationService;
 
-class CreateGamesForUserService
+class GamesForUserService
 {
     /**
      * @var GameUserInformationService
@@ -12,31 +12,31 @@ class CreateGamesForUserService
     private $gameUserInformationService;
 
     /**
-     * @var CreateGameService
+     * @var GameService
      */
-    private $createGameService;
+    private $gameService;
 
     /**
-     * CreateGamesForUserService constructor.
+     * GamesForUserService constructor.
      * @param GameUserInformationService $gameUserInformationService
-     * @param CreateGameService $createGameService
+     * @param GameService $gameService
      */
-    public function __construct(GameUserInformationService $gameUserInformationService, CreateGameService $createGameService)
+    public function __construct(GameUserInformationService $gameUserInformationService, GameService $gameService)
     {
         $this->gameUserInformationService = $gameUserInformationService;
-        $this->createGameService = $createGameService;
+        $this->gameService = $gameService;
     }
 
     /**
      * @param string $steamUserId
      */
-    public function execute(string $steamUserId)
+    public function create(string $steamUserId)
     {
         $games = $this->gameUserInformationService->getAllGames($steamUserId);
 
         if (!empty($games)) {
             foreach ($games as $gameArray) {
-                $this->createGameService->execute($gameArray['appid']);
+                $this->gameService->create($gameArray['appid']);
             }
         }
     }
