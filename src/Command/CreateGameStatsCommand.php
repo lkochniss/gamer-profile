@@ -2,7 +2,7 @@
 
 namespace App\Command;
 
-use App\Service\Steam\CreateGamesForAllUsersService;
+use App\Service\GameStats\CreateGameStatsForAllUsersService;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -14,18 +14,18 @@ class CreateGameStatsCommand extends Command
 {
 
     /**
-     * @var CreateGamesForAllUsersService
+     * @var CreateGameStatsForAllUsersService
      */
-    private $createGamesForAllUsersService;
+    private $createGameStatsForAllUsersService;
 
     /**
-     * CreateNewGamesCommand constructor.
-     * @param CreateGamesForAllUsersService $createGamesForAllUsersService
+     * CreateGameStatsCommand constructor.
+     * @param CreateGameStatsForAllUsersService $createGameStatsForAllUsersService
      */
-    public function __construct(CreateGamesForAllUsersService $createGamesForAllUsersService)
+    public function __construct(CreateGameStatsForAllUsersService $createGameStatsForAllUsersService)
     {
         parent::__construct();
-        $this->createGamesForAllUsersService = $createGamesForAllUsersService;
+        $this->createGameStatsForAllUsersService = $createGameStatsForAllUsersService;
     }
 
 
@@ -42,6 +42,6 @@ class CreateGameStatsCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $this->createGamesForAllUsersService->execute();
+        $this->createGameStatsForAllUsersService->execute();
     }
 }
