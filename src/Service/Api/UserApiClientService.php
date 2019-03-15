@@ -27,7 +27,7 @@ class UserApiClientService
      * @param GuzzleClient $guzzleClient
      * @param int $cacheExpiration
      */
-    public function __construct(GuzzleClient $guzzleClient, int $cacheExpiration = 60)
+    public function __construct(GuzzleClient $guzzleClient, int $cacheExpiration = 300)
     {
         $this->guzzleClient = $guzzleClient;
         $this->cacheExpiration = $cacheExpiration;
@@ -53,7 +53,6 @@ class UserApiClientService
             return $cacheObject->get();
         }
 
-        var_dump($this->generateRequestUrl($endpoint, $steamUserId));
         try {
             $response = $this->guzzleClient->request(
                 'GET',

@@ -45,12 +45,8 @@ class CreateGamesForUserServiceTest extends TestCase
             ->method('getAllGames')
             ->with(1)
             ->willReturn([
-                'response' => [
-                    'games' => [
-                        [
-                            'appid' => 42
-                        ]
-                    ]
+                [
+                    'appid' => 42
                 ]
             ]);
 

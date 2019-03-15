@@ -34,7 +34,7 @@ class GameInformationService
     {
         $game = $this->gameApiClientService->get('/api/appdetails?appids=' . $steamAppId);
 
-        if ($game[$steamAppId]['success'] === false) {
+        if (empty($game) || $game[$steamAppId]['success'] === false) {
             return [];
         }
 

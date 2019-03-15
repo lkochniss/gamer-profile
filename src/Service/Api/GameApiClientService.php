@@ -26,7 +26,7 @@ class GameApiClientService
      * @param GuzzleClient $guzzleClient
      * @param int $cacheExpiration
      */
-    public function __construct(GuzzleClient $guzzleClient, int $cacheExpiration = 60)
+    public function __construct(GuzzleClient $guzzleClient, int $cacheExpiration = 300)
     {
         $this->guzzleClient = $guzzleClient;
         $this->cacheExpiration = $cacheExpiration;

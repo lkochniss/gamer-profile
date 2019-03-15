@@ -35,7 +35,7 @@ class CreateGamesForUserService
         $games = $this->gameUserInformationService->getAllGames($steamUserId);
 
         if (!empty($games)) {
-            foreach ($games['response']['games'] as $gameArray) {
+            foreach ($games as $gameArray) {
                 $this->createGameService->execute($gameArray['appid']);
             }
         }
