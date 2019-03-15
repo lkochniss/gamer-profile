@@ -32,7 +32,7 @@ class GameService
     /**
      * @param string $steamAppId
      */
-    public function create(string $steamAppId)
+    public function create(string $steamAppId): void
     {
         $game = $this->gameRepository->findOneBySteamAppId($steamAppId);
 
@@ -55,6 +55,37 @@ class GameService
             $this->gameRepository->save($game);
         } catch (\Doctrine\ORM\ORMException $exception) {
 
+        }
+    }
+
+    /**
+     * @param Game $game
+     */
+    public function update(Game $game): void
+    {
+        $gameInformation = $this->gameInformationService->getGameInformationForSteamAppId($game->getSteamAppId());
+
+        $game->setName(Game::NAME_FAILED);
+        $game->setHeaderImagePath(Game::IMAGE_FAILED);
+
+        if (!empty($gameInformation)) {
+            $game->setName($gameInformation['name']);
+            $game->setHeaderImagePath($gameInformation['header_image']);
+        }
+
+        try {
+            $this->gameRepository->save($game);
+        } catch (\Doctrine\ORM\ORMException $exception) {
+
+        }
+    }
+
+    public function updateFailed()
+    {
+        $failedGames = $this->gameRepository->findBy(['name' => Game::NAME_FAILED]);
+
+        foreach ($failedGames as $failedGame) {
+            $this->update($failedGame);
         }
     }
 }

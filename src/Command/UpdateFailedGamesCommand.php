@@ -2,7 +2,7 @@
 
 namespace App\Command;
 
-use App\Service\Steam\GamesForAllUsersService;
+use App\Service\Steam\GameService;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -14,18 +14,18 @@ class UpdateFailedGamesCommand extends Command
 {
 
     /**
-     * @var GamesForAllUsersService
+     * @var GameService
      */
-    private $createGamesForAllUsersService;
+    private $gameService;
 
     /**
-     * CreateNewGamesCommand constructor.
-     * @param GamesForAllUsersService $createGamesForAllUsersService
+     * UpdateFailedGamesCommand constructor.
+     * @param GameService $gameService
      */
-    public function __construct(GamesForAllUsersService $createGamesForAllUsersService)
+    public function __construct(GameService $gameService)
     {
         parent::__construct();
-        $this->createGamesForAllUsersService = $createGamesForAllUsersService;
+        $this->gameService = $gameService;
     }
 
 
@@ -42,6 +42,6 @@ class UpdateFailedGamesCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $this->createGamesForAllUsersService->create();
+        $this->gameService->updateFailed();
     }
 }
