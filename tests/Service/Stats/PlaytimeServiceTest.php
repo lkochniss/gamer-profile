@@ -23,7 +23,7 @@ class PlaytimeServiceTest extends TestCase
         $expectedOverallGameStats->addToRecentPlaytime(10);
         $expectedOverallGameStats->addToOverallPlaytime(15);
 
-        $game = new Game();
+        $game = new Game(1);
         $playtime = new Playtime($user, $game);
         $playtime->setRecentPlaytime(10);
         $playtime->setOverallPlaytime(15);

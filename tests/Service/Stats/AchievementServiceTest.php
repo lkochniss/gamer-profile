@@ -23,7 +23,7 @@ class AchievementServiceTest extends TestCase
         $expectedOverallGameStats->addToOverallAchievements(5);
         $expectedOverallGameStats->addToPlayerAchievements(1);
 
-        $game = new Game();
+        $game = new Game(1);
 
         $achievement = new Achievement($user, $game);
         $achievement->setOverallAchievements(5);

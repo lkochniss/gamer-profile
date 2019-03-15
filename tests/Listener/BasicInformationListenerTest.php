@@ -22,7 +22,7 @@ class BasicInformationListenerTest extends TestCase
         $argsMock = $this->createMock(LifecycleEventArgs::class);
         $argsMock->expects($this->any())
             ->method('getEntity')
-            ->willReturn(new GameSession(new Game()));
+            ->willReturn(new GameSession(new Game(1)));
 
         $overallGameStatsRepositoryMock = $this->createMock(OverallGameStatsRepository::class);
 
@@ -43,7 +43,7 @@ class BasicInformationListenerTest extends TestCase
 
     public function testPostPersistWorksCorrect(): void
     {
-        $game = new Game();
+        $game = new Game(1);
         $game->setRecentlyPlayed(10);
         $game->setTimePlayed(10);
 
@@ -74,7 +74,7 @@ class BasicInformationListenerTest extends TestCase
         $argsMock = $this->createMock(LifecycleEventArgs::class);
         $argsMock->expects($this->any())
             ->method('getEntity')
-            ->willReturn(new GameSession(new Game()));
+            ->willReturn(new GameSession(new Game(1)));
 
         $overallGameStatsRepositoryMock = $this->createMock(OverallGameStatsRepository::class);
 
@@ -101,7 +101,7 @@ class BasicInformationListenerTest extends TestCase
      */
     public function testPostUpdateWorksCorrect(array $changeSet): void
     {
-        $game = new Game();
+        $game = new Game(1);
         $game->setRecentlyPlayed(10);
         $game->setTimePlayed(10);
 

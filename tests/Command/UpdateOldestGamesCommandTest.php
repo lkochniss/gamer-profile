@@ -20,8 +20,7 @@ class UpdateOldestGamesCommandTest extends KernelTestCase
         $kernel = static::createKernel();
         $kernel->boot();
 
-        $game = new Game();
-        $game->setSteamAppId(1);
+        $game = new Game(1);
 
         $gameServiceMock = $this->createMock(GameService::class);
         $gameServiceMock->expects($this->any())

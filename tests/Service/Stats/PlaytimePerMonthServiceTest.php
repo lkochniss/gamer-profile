@@ -30,7 +30,7 @@ class PlaytimePerMonthServiceTest extends TestCase
             ->with(['month' => $month])
             ->willReturn(new PlaytimePerMonth($month, $user));
 
-        $game = new Game();
+        $game = new Game(1);
         $gameSession = new GameSession($game, $user, $month);
         $gameSession->setDuration(10);
 
@@ -59,7 +59,7 @@ class PlaytimePerMonthServiceTest extends TestCase
             ->with(['month' => $month])
             ->willReturn($oldSessionPerMonth);
 
-        $game = new Game();
+        $game = new Game(1);
         $gameSession = new GameSession($game, $user, $month);
         $gameSession->setDuration(10);
 

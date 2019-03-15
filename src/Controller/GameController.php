@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Entity\Game;
 use App\Entity\GameStats;
 use App\Repository\GameSessionsPerMonthRepository;
 use App\Repository\GameStatsRepository;
@@ -77,22 +76,6 @@ class GameController extends AbstractCrudController
                 'entities' => $entities,
             ]
         );
-    }
-
-    /**
-     * @return Game
-     */
-    protected function createNewEntity()
-    {
-        return new Game();
-    }
-
-    /**
-     * @return string
-     */
-    protected function getFormType(): string
-    {
-        return '';
     }
 
     /**

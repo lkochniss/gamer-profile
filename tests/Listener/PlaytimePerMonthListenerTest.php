@@ -22,7 +22,7 @@ class PlaytimePerMonthListenerTest extends TestCase
         $argsMock = $this->createMock(LifecycleEventArgs::class);
         $argsMock->expects($this->any())
             ->method('getEntity')
-            ->willReturn(new Game());
+            ->willReturn(new Game(1));
 
         $repositoryMock = $this->createMock(PlaytimePerMonthRepository::class);
 
@@ -44,7 +44,7 @@ class PlaytimePerMonthListenerTest extends TestCase
 
     public function testPostPersistWorksCorrect(): void
     {
-        $gameSession = new GameSession(new Game());
+        $gameSession = new GameSession(new Game(1));
         $gameSession->setDuration(10);
 
         $argsMock = $this->createMock(LifecycleEventArgs::class);
@@ -77,7 +77,7 @@ class PlaytimePerMonthListenerTest extends TestCase
      */
     public function testPostUpdateWorksCorrect(array $changeSet): void
     {
-        $gameSession = new GameSession(new Game());
+        $gameSession = new GameSession(new Game(1));
         $gameSession->setDuration(10);
 
         $argsMock = $this->createMock(LifecycleEventArgs::class);

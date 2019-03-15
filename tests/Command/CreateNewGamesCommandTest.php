@@ -28,8 +28,7 @@ class CreateNewGamesCommandTest extends KernelTestCase
 
         $user = new User(1);
 
-        $game = new Game();
-        $game->setSteamAppId(1);
+        $game = new Game(1);
 
         $gamesArray = [
             [
@@ -85,8 +84,7 @@ class CreateNewGamesCommandTest extends KernelTestCase
 
         $user = new User(1);
 
-        $game = new Game();
-        $game->setSteamAppId(1);
+        $game = new Game(1);
 
         $gamesArray = [
             [
@@ -140,8 +138,7 @@ class CreateNewGamesCommandTest extends KernelTestCase
 
         $user = new User(1);
 
-        $game = new Game();
-        $game->setSteamAppId(1);
+        $game = new Game(1);
 
         $gamesArray = [
             [

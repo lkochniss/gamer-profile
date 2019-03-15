@@ -28,7 +28,7 @@ class CreateGameServiceTest extends TestCase
         $gameRepositoryMock = $this->createMock(GameRepository::class);
         $gameRepositoryMock->expects($this->once())
             ->method('findOneBySteamAppId')
-            ->willReturn(new Game());
+            ->willReturn(new Game(1));
 
         $gameInformationServiceMock = $this->createMock(GameInformationService::class);
         $gameInformationServiceMock->expects($this->never())
@@ -65,8 +65,7 @@ class CreateGameServiceTest extends TestCase
             ->method('getGameInformationForSteamAppId')
             ->willReturn([]);
 
-        $expectedGame = new Game();
-        $expectedGame->setSteamAppId($this->steamAppId);
+        $expectedGame = new Game($this->steamAppId);
         $expectedGame->setName(Game::NAME_FAILED);
         $expectedGame->setHeaderImagePath(Game::IMAGE_FAILED);
 
@@ -85,8 +84,7 @@ class CreateGameServiceTest extends TestCase
             ->method('findOneBySteamAppId')
             ->willReturn(null);
 
-        $expectedGame = new Game();
-        $expectedGame->setSteamAppId($this->steamAppId);
+        $expectedGame = new Game($this->steamAppId);
         $expectedGame->setName('just a game');
         $expectedGame->setHeaderImagePath('image.jpg');
 

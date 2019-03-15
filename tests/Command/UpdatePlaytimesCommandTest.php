@@ -26,7 +26,7 @@ class UpdatePlaytimesCommandTest extends KernelTestCase
         $kernel->boot();
 
         $user = new User(1);
-        $game = new Game();
+        $game = new Game(1);
         $playtime = new Playtime($user, $game);
 
         $playtimeServiceMock = $this->createMock(PlaytimeService::class);
@@ -82,7 +82,7 @@ class UpdatePlaytimesCommandTest extends KernelTestCase
         $kernel->boot();
 
         $user = new User(1);
-        $game = new Game();
+        $game = new Game(1);
 
         $playtimeServiceMock = $this->createMock(PlaytimeService::class);
         $playtimeServiceMock->expects($this->never())

@@ -42,8 +42,7 @@ class CreateGameService
 
         $gameInformation = $this->gameInformationService->getGameInformationForSteamAppId($steamAppId);
 
-        $game = new Game();
-        $game->setSteamAppId($steamAppId);
+        $game = new Game($steamAppId);
         $game->setName(Game::NAME_FAILED);
         $game->setHeaderImagePath(Game::IMAGE_FAILED);
 

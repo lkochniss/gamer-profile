@@ -25,7 +25,7 @@ class GameSessionServiceTest extends TestCase
         $gameSessionRepositoryMock = $this->createMock(GameSessionRepository::class);
         $gameSessionRepositoryMock->expects($this->any())
             ->method('findAll')
-            ->willReturn([new GameSession(new Game(), $user, new \DateTime())]);
+            ->willReturn([new GameSession(new Game(1), $user, new \DateTime())]);
 
         $overallGameStatsRepositoryMock = $this->createMock(OverallGameStatsRepository::class);
         $overallGameStatsRepositoryMock->expects($this->any())
