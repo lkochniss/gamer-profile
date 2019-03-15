@@ -26,6 +26,15 @@ class Game extends AbstractEntity
     private $headerImagePath;
 
     /**
+     * Game constructor.
+     * @param int $steamAppId
+     */
+    public function __construct(int $steamAppId)
+    {
+        $this->steamAppId = $steamAppId;
+    }
+
+    /**
      * @return int
      */
     public function getId(): int
@@ -48,14 +57,6 @@ class Game extends AbstractEntity
     public function getSteamAppId(): int
     {
         return $this->steamAppId;
-    }
-
-    /**
-     * @param int $steamAppId
-     */
-    public function setSteamAppId(int $steamAppId): void
-    {
-        $this->steamAppId = $steamAppId;
     }
 
     /**

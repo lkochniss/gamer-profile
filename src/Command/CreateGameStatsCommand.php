@@ -10,7 +10,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 /**
  * Class CreateNewGamesCommand
  */
-class CreateNewGamesCommand extends Command
+class CreateGameStatsCommand extends Command
 {
 
     /**
@@ -31,7 +31,7 @@ class CreateNewGamesCommand extends Command
 
     protected function configure(): void
     {
-        $this->setName('steam:create:games');
+        $this->setName('user:create:gamestats');
         $this->setDescription('Creates new games based on steam');
     }
 
