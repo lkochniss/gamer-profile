@@ -8,7 +8,7 @@ use App\Entity\User;
 use App\Repository\AchievementRepository;
 use App\Service\Transformation\GameUserInformationService;
 
-class CreateAchievementService
+class AchievementService
 {
     /**
      * @var GameUserInformationService
@@ -36,7 +36,7 @@ class CreateAchievementService
      * @param Game $game
      * @return Achievement
      */
-    public function execute(User $user, Game $game): Achievement
+    public function create(User $user, Game $game): Achievement
     {
         $achievement = $this->achievementRepository->findOneBy(['game' => $game, 'user' => $user]);
 
@@ -47,6 +47,34 @@ class CreateAchievementService
         $gameAchievements = $this->gameUserInformationService->getAchievementsForGame($game->getSteamAppId(), $user->getSteamId());
 
         $achievement = new Achievement($user, $game);
+        $achievement->setOverallAchievements($gameAchievements->getOverallAchievements());
+        $achievement->setPlayerAchievements($gameAchievements->getPlayerAchievements());
+
+        try {
+            $this->achievementRepository->save($achievement);
+        } catch (\Doctrine\ORM\OptimisticLockException $optimisticLockException) {
+
+        } catch (\Doctrine\ORM\ORMException $ORMException) {
+
+        }
+
+        return $achievement;
+    }
+
+    /**
+     * @param Achievement $achievement
+     * @return Achievement
+     */
+    public function update(Achievement $achievement): Achievement
+    {
+
+        if (!is_null($achievement)) {
+            return $achievement;
+        }
+
+        $gameAchievements = $this->gameUserInformationService->getAchievementsForGame(
+            $achievement->getGame()->getSteamAppId(), $achievement->getUser()->getSteamId());
+
         $achievement->setOverallAchievements($gameAchievements->getOverallAchievements());
         $achievement->setPlayerAchievements($gameAchievements->getPlayerAchievements());
 

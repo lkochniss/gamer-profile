@@ -7,11 +7,11 @@ use App\Entity\Game;
 use App\Entity\JSON\JsonAchievement;
 use App\Entity\User;
 use App\Repository\AchievementRepository;
-use App\Service\GameStats\CreateAchievementService;
+use App\Service\GameStats\AchievementService;
 use App\Service\Transformation\GameUserInformationService;
 use PHPUnit\Framework\TestCase;
 
-class CreateAchievementServiceTest extends TestCase
+class AchievementServiceTest extends TestCase
 {
     /**
      * @var User
@@ -29,7 +29,7 @@ class CreateAchievementServiceTest extends TestCase
         $this->game = new Game(2);
     }
 
-    public function testCreateAchievementsShouldCallAchievementRepository(): void
+    public function testAchievementCreateShouldCallAchievementRepository(): void
     {
         $achievementRepositoryMock = $this->createMock(AchievementRepository::class);
         $achievementRepositoryMock->expects($this->once())
@@ -38,11 +38,11 @@ class CreateAchievementServiceTest extends TestCase
 
         $gameUserInformationServiceMock = $this->createMock(GameUserInformationService::class);
 
-        $createAchievementsService = new CreateAchievementService($gameUserInformationServiceMock, $achievementRepositoryMock);
-        $createAchievementsService->execute($this->user, $this->game);
+        $createAchievementsService = new AchievementService($gameUserInformationServiceMock, $achievementRepositoryMock);
+        $createAchievementsService->create($this->user, $this->game);
     }
 
-    public function testCreateAchievementsShouldReturnExistingAchievements(): void
+    public function testAchievementCreateShouldReturnExistingAchievements(): void
     {
         $expectedAchievement = new Achievement($this->user, $this->game);
         $achievementRepositoryMock = $this->createMock(AchievementRepository::class);
@@ -53,11 +53,11 @@ class CreateAchievementServiceTest extends TestCase
 
         $gameUserInformationServiceMock = $this->createMock(GameUserInformationService::class);
 
-        $createAchievementsService = new CreateAchievementService($gameUserInformationServiceMock, $achievementRepositoryMock);
-        $this->assertEquals($expectedAchievement, $createAchievementsService->execute($this->user, $this->game));
+        $createAchievementsService = new AchievementService($gameUserInformationServiceMock, $achievementRepositoryMock);
+        $this->assertEquals($expectedAchievement, $createAchievementsService->create($this->user, $this->game));
     }
 
-    public function testCreateAchievementsShouldCallGameUserInformationService(): void
+    public function testAchievementCreateShouldCallGameUserInformationService(): void
     {
         $achievementRepositoryMock = $this->createMock(AchievementRepository::class);
         $achievementRepositoryMock->expects($this->once())
@@ -67,11 +67,11 @@ class CreateAchievementServiceTest extends TestCase
 
         $gameUserInformationServiceMock = $this->createMock(GameUserInformationService::class);
 
-        $createAchievementsService = new CreateAchievementService($gameUserInformationServiceMock, $achievementRepositoryMock);
-        $createAchievementsService->execute($this->user, $this->game);
+        $createAchievementsService = new AchievementService($gameUserInformationServiceMock, $achievementRepositoryMock);
+        $createAchievementsService->create($this->user, $this->game);
     }
 
-    public function testCreateAchievementsShoulPersistAchievement(): void
+    public function testAchievementCreateShouldPersistAchievement(): void
     {
         $expectedAchievement = new Achievement($this->user, $this->game);
         $expectedAchievement->setPlayerAchievements(0);
@@ -92,11 +92,11 @@ class CreateAchievementServiceTest extends TestCase
             ->method('save')
             ->with($expectedAchievement);
 
-        $createAchievementsService = new CreateAchievementService($gameUserInformationServiceMock, $achievementRepositoryMock);
-        $this->assertEquals($expectedAchievement, $createAchievementsService->execute($this->user, $this->game));
+        $createAchievementsService = new AchievementService($gameUserInformationServiceMock, $achievementRepositoryMock);
+        $this->assertEquals($expectedAchievement, $createAchievementsService->create($this->user, $this->game));
     }
 
-    public function testCreateAchievementsShouldReturnAchievement(): void
+    public function testAchievementCreateShouldReturnAchievement(): void
     {
         $expectedAchievement = new Achievement($this->user, $this->game);
         $expectedAchievement->setPlayerAchievements(1);
@@ -124,7 +124,7 @@ class CreateAchievementServiceTest extends TestCase
                 ]
             ]));
 
-        $createAchievementsService = new CreateAchievementService($gameUserInformationServiceMock, $achievementRepositoryMock);
-        $this->assertEquals($expectedAchievement, $createAchievementsService->execute($this->user, $this->game));
+        $createAchievementsService = new AchievementService($gameUserInformationServiceMock, $achievementRepositoryMock);
+        $this->assertEquals($expectedAchievement, $createAchievementsService->create($this->user, $this->game));
     }
 }
