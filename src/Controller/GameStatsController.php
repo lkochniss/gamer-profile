@@ -3,7 +3,6 @@
 
 namespace App\Controller;
 
-
 use App\Entity\Game;
 use App\Entity\GameStats;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -92,7 +91,8 @@ class GameStatsController extends Controller
     /**
      * @return string
      */
-    private function getEntityName(): string {
+    private function getEntityName(): string
+    {
         return GameStats::class;
     }
 }

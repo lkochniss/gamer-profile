@@ -27,8 +27,10 @@ class UserListener
      * @param GamesForUserService $createGamesForUserService
      * @param CreateGameStatsForUsersGamesService $createGameStatsForUsersGamesService
      */
-    public function __construct(GamesForUserService $createGamesForUserService, CreateGameStatsForUsersGamesService $createGameStatsForUsersGamesService)
-    {
+    public function __construct(
+        GamesForUserService $createGamesForUserService,
+        CreateGameStatsForUsersGamesService $createGameStatsForUsersGamesService
+    ) {
         $this->createGamesForUserService = $createGamesForUserService;
         $this->createGameStatsForUsersGamesService = $createGameStatsForUsersGamesService;
     }
@@ -50,5 +52,4 @@ class UserListener
         $this->createGamesForUserService->create($entity->getSteamId());
         $this->createGameStatsForUsersGamesService->execute($entity);
     }
-
 }

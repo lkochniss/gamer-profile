@@ -23,8 +23,12 @@ class GameController extends AbstractCrudController
      *
      * @SuppressWarnings(PHPMD.ShortVariableName)
      */
-    public function dashboard(int $id, GameStatsRepository $gameStatsRepository, UserInterface $user,  GameSessionsPerMonthRepository $gameSessionsPerMonthRepository): Response
-    {
+    public function dashboard(
+        int $id,
+        GameStatsRepository $gameStatsRepository,
+        UserInterface $user,
+        GameSessionsPerMonthRepository $gameSessionsPerMonthRepository
+    ): Response {
         $game = $this->getDoctrine()->getRepository($this->getEntityName())->find($id);
         if (is_null($game)) {
             throw new NotFoundHttpException();

@@ -66,8 +66,10 @@ class HomepageController extends Controller
      * @param User $user
      * @return array
      */
-    private function getYearsWithGameSessions(GameSessionsPerMonthRepository $gameSessionsPerMonthRepository, User $user): array
-    {
+    private function getYearsWithGameSessions(
+        GameSessionsPerMonthRepository $gameSessionsPerMonthRepository,
+        User $user
+    ): array {
         $now = new \DateTime();
         $oldestEntry = $gameSessionsPerMonthRepository->findOneBy([]);
         $yearsWithSessions = [];

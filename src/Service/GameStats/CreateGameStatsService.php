@@ -30,8 +30,11 @@ class CreateGameStatsService
      * @param PlaytimeService $playtimeService
      * @param GameStatsRepository $gameStatsRepository
      */
-    public function __construct(AchievementService $achievementService, PlaytimeService $playtimeService, GameStatsRepository $gameStatsRepository)
-    {
+    public function __construct(
+        AchievementService $achievementService,
+        PlaytimeService $playtimeService,
+        GameStatsRepository $gameStatsRepository
+    ) {
         $this->achievementService = $achievementService;
         $this->playtimeService = $playtimeService;
         $this->gameStatsRepository = $gameStatsRepository;
@@ -51,10 +54,8 @@ class CreateGameStatsService
 
         try {
             $this->gameStatsRepository->save($gameStats);
-        }  catch (\Doctrine\ORM\OptimisticLockException $optimisticLockException) {
-
+        } catch (\Doctrine\ORM\OptimisticLockException $optimisticLockException) {
         } catch (\Doctrine\ORM\ORMException $ORMException) {
-
         }
     }
 }

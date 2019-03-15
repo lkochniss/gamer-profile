@@ -54,7 +54,6 @@ class GameService
         try {
             $this->gameRepository->save($game);
         } catch (\Doctrine\ORM\ORMException $exception) {
-
         }
     }
 
@@ -76,7 +75,6 @@ class GameService
         try {
             $this->gameRepository->save($game);
         } catch (\Doctrine\ORM\ORMException $exception) {
-
         }
     }
 

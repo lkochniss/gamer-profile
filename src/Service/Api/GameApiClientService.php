@@ -105,5 +105,4 @@ class GameApiClientService
     {
         return sprintf('steam-game-api.%s', md5($endpoint));
     }
-
 }

@@ -28,8 +28,10 @@ class CreateGameStatsForAllUsersService
      * @param CreateGameStatsForUsersGamesService $createGameStatsForUsersGamesService
      * @param UserRepository $userRepository
      */
-    public function __construct(CreateGameStatsForUsersGamesService $createGameStatsForUsersGamesService, UserRepository $userRepository)
-    {
+    public function __construct(
+        CreateGameStatsForUsersGamesService $createGameStatsForUsersGamesService,
+        UserRepository $userRepository
+    ) {
         $this->createGameStatsForUsersGamesService = $createGameStatsForUsersGamesService;
         $this->userRepository = $userRepository;
     }

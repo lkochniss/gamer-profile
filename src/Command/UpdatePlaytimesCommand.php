@@ -17,8 +17,8 @@ class UpdatePlaytimesCommand extends ContainerAwareCommand
      *
      * @SuppressWarnings(PHPMD.LongVariableName)
      */
-    public function __construct(
-    ) {
+    public function __construct()
+    {
         parent::__construct();
     }
 
@@ -41,6 +41,5 @@ class UpdatePlaytimesCommand extends ContainerAwareCommand
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-
     }
 }

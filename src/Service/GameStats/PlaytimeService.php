@@ -25,8 +25,10 @@ class PlaytimeService
      * @param GameUserInformationService $gameUserInformationService
      * @param PlaytimeRepository $playtimeRepository
      */
-    public function __construct(GameUserInformationService $gameUserInformationService, PlaytimeRepository $playtimeRepository)
-    {
+    public function __construct(
+        GameUserInformationService $gameUserInformationService,
+        PlaytimeRepository $playtimeRepository
+    ) {
         $this->gameUserInformationService = $gameUserInformationService;
         $this->playtimeRepository = $playtimeRepository;
     }
@@ -56,9 +58,7 @@ class PlaytimeService
         try {
             $this->playtimeRepository->save($playtime);
         } catch (\Doctrine\ORM\OptimisticLockException $optimisticLockException) {
-
         } catch (\Doctrine\ORM\ORMException $ORMException) {
-
         }
 
         return $playtime;
@@ -81,9 +81,7 @@ class PlaytimeService
         try {
             $this->playtimeRepository->save($playtime);
         } catch (\Doctrine\ORM\OptimisticLockException $optimisticLockException) {
-
         } catch (\Doctrine\ORM\ORMException $ORMException) {
-
         }
 
         return $playtime;

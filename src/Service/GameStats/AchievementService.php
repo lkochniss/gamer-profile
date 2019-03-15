@@ -25,8 +25,10 @@ class AchievementService
      * @param GameUserInformationService $gameUserInformationService
      * @param AchievementRepository $achievementRepository
      */
-    public function __construct(GameUserInformationService $gameUserInformationService, AchievementRepository $achievementRepository)
-    {
+    public function __construct(
+        GameUserInformationService $gameUserInformationService,
+        AchievementRepository $achievementRepository
+    ) {
         $this->gameUserInformationService = $gameUserInformationService;
         $this->achievementRepository = $achievementRepository;
     }
@@ -44,7 +46,10 @@ class AchievementService
             return $achievement;
         }
 
-        $gameAchievements = $this->gameUserInformationService->getAchievementsForGame($game->getSteamAppId(), $user->getSteamId());
+        $gameAchievements = $this->gameUserInformationService->getAchievementsForGame(
+            $game->getSteamAppId(),
+            $user->getSteamId()
+        );
 
         $achievement = new Achievement($user, $game);
         $achievement->setOverallAchievements($gameAchievements->getOverallAchievements());
@@ -53,9 +58,7 @@ class AchievementService
         try {
             $this->achievementRepository->save($achievement);
         } catch (\Doctrine\ORM\OptimisticLockException $optimisticLockException) {
-
         } catch (\Doctrine\ORM\ORMException $ORMException) {
-
         }
 
         return $achievement;
@@ -68,7 +71,9 @@ class AchievementService
     public function update(Achievement $achievement): Achievement
     {
         $gameAchievements = $this->gameUserInformationService->getAchievementsForGame(
-            $achievement->getGame()->getSteamAppId(), $achievement->getUser()->getSteamId());
+            $achievement->getGame()->getSteamAppId(),
+            $achievement->getUser()->getSteamId()
+        );
 
         $achievement->setOverallAchievements($gameAchievements->getOverallAchievements());
         $achievement->setPlayerAchievements($gameAchievements->getPlayerAchievements());
@@ -76,9 +81,7 @@ class AchievementService
         try {
             $this->achievementRepository->save($achievement);
         } catch (\Doctrine\ORM\OptimisticLockException $optimisticLockException) {
-
         } catch (\Doctrine\ORM\ORMException $ORMException) {
-
         }
 
         return $achievement;
