@@ -3,7 +3,7 @@
 namespace App\Entity\JSON;
 
 /**
- * Class UserInformation
+ * Class JsonPlaytime
  */
 class JsonPlaytime
 {
@@ -21,9 +21,12 @@ class JsonPlaytime
      * UserInformation constructor.
      * @param array $gameInformation
      */
-    public function __construct(array $gameInformation)
+    public function __construct(array $gameInformation = [])
     {
-        $this->overallPlaytime = $gameInformation['playtime_forever'];
+        $this->overallPlaytime = array_key_exists(
+            'playtime_forever',
+            $gameInformation
+        ) ? $gameInformation['playtime_forever'] : 0;
 
         $this->recentPlaytime = array_key_exists(
             'playtime_2weeks',

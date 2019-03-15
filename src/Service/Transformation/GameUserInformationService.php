@@ -80,7 +80,6 @@ class GameUserInformationService
      * @param int $steamAppId
      * @param int $steamUserId
      * @return array
-     * @throws JsonException
      */
     public function getUserInformationForSteamAppId(int $steamAppId, int $steamUserId): array
     {
@@ -99,13 +98,12 @@ class GameUserInformationService
      * @param int $steamAppId
      * @param int $steamUserId
      * @return JsonPlaytime|null
-     * @throws JsonException
      */
-    public function getUserInformationEntityForSteamAppId(int $steamAppId, int $steamUserId): ?JsonPlaytime
+    public function getPlaytimeForGame(int $steamAppId, int $steamUserId): JsonPlaytime
     {
         $userInformation = $this->getUserInformationForSteamAppId($steamAppId, $steamUserId);
         if (empty($userInformation)) {
-            return null;
+            return new JsonPlaytime();
         }
 
         return new JsonPlaytime($userInformation);
@@ -140,7 +138,7 @@ class GameUserInformationService
      */
     public function addPlaytime(Playtime $playtime): ?Playtime
     {
-        $userInformation = $this->getUserInformationEntityForSteamAppId(
+        $userInformation = $this->getPlaytimeForGame(
             $playtime->getGame()->getSteamAppId(),
             $playtime->getUser()->getSteamId()
         );
@@ -183,7 +181,7 @@ class GameUserInformationService
     {
         $date = new \DateTime('today 00:00:00');
 
-        $userInformation = $this->getUserInformationEntityForSteamAppId(
+        $userInformation = $this->getPlaytimeForGame(
             $playtime->getGame()->getSteamAppId(),
             $playtime->getUser()->getSteamId()
         );
