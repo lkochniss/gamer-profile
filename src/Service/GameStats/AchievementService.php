@@ -67,11 +67,6 @@ class AchievementService
      */
     public function update(Achievement $achievement): Achievement
     {
-
-        if (!is_null($achievement)) {
-            return $achievement;
-        }
-
         $gameAchievements = $this->gameUserInformationService->getAchievementsForGame(
             $achievement->getGame()->getSteamAppId(), $achievement->getUser()->getSteamId());
 
