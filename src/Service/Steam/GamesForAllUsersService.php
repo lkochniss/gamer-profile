@@ -27,12 +27,21 @@ class GamesForAllUsersService
         $this->gamesForUserService = $gamesForUserService;
     }
 
-    public function create()
+    public function create(): void
     {
         $users = $this->userRepository->findAll();
 
         foreach ($users as $user) {
             $this->gamesForUserService->create($user->getSteamId());
+        }
+    }
+
+    public function updateRecentlyPlayed(): void
+    {
+        $users = $this->userRepository->findAll();
+
+        foreach ($users as $user) {
+            $this->gamesForUserService->updateRecentlyPlayed($user->getSteamId());
         }
     }
 }

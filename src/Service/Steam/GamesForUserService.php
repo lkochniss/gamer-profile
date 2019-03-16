@@ -30,13 +30,27 @@ class GamesForUserService
     /**
      * @param string $steamUserId
      */
-    public function create(string $steamUserId)
+    public function create(string $steamUserId): void
     {
         $games = $this->gameUserInformationService->getAllGames($steamUserId);
 
         if (!empty($games)) {
             foreach ($games as $gameArray) {
                 $this->gameService->create($gameArray['appid']);
+            }
+        }
+    }
+
+    /**
+     * @param string $steamUserId
+     */
+    public function updateRecentlyPlayed(string $steamUserId): void
+    {
+        $games = $this->gameUserInformationService->getRecentlyPlayedGames($steamUserId);
+
+        if (!empty($games)) {
+            foreach ($games as $gameArray) {
+                $this->gameService->updateGameBySteamAppId($gameArray['appid']);
             }
         }
     }

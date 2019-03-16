@@ -86,4 +86,16 @@ class GameService
             $this->update($failedGame);
         }
     }
+
+    /**
+     * @param string $steamAppId
+     */
+    public function updateGameBySteamAppId(string $steamAppId)
+    {
+        $game = $this->gameRepository->findOneBySteamAppId($steamAppId);
+
+        if (!is_null($game)) {
+            $this->update($game);
+        }
+    }
 }
