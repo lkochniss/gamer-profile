@@ -86,4 +86,13 @@ class PlaytimeService
 
         return $playtime;
     }
+
+    public function updateGameForUser(Game $game, User $user)
+    {
+        $playtime = $this->playtimeRepository->findOneBy(['game' => $game, 'user' => $user]);
+
+        if (!is_null($playtime)) {
+            $this->update($playtime);
+        }
+    }
 }
