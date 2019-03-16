@@ -5,4 +5,3 @@ twig:
     globals:
       ga_tracking: '%env(resolve:GA_TRACKING)%'
       csrf_security_login_token: '%env(resolve:CSRF_SECURITY_LOGIN_TOKEN)%'
-      default_currency: '%env(resolve:DEFAULT_CURRENCY)%'
