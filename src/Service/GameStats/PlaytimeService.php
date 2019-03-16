@@ -21,16 +21,21 @@ class PlaytimeService
     private $playtimeRepository;
 
     /**
+     * @var GameSessionService
+     */
+    private $gameSessionService;
+
+    /**
      * PlaytimeService constructor.
      * @param GameUserInformationService $gameUserInformationService
      * @param PlaytimeRepository $playtimeRepository
+     * @param GameSessionService $gameSessionService
      */
-    public function __construct(
-        GameUserInformationService $gameUserInformationService,
-        PlaytimeRepository $playtimeRepository
-    ) {
+    public function __construct(GameUserInformationService $gameUserInformationService, PlaytimeRepository $playtimeRepository, GameSessionService $gameSessionService)
+    {
         $this->gameUserInformationService = $gameUserInformationService;
         $this->playtimeRepository = $playtimeRepository;
+        $this->gameSessionService = $gameSessionService;
     }
 
     /**
@@ -73,6 +78,13 @@ class PlaytimeService
         $gamePlaytime = $this->gameUserInformationService->getPlaytimeForGame(
             $playtime->getGame()->getSteamAppId(),
             $playtime->getUser()->getSteamId()
+        );
+
+
+        $gameSession = $this->gameSessionService->getTodaysGameSession($playtime->getUser(), $playtime->getGame());
+        $this->gameSessionService->updateGameSession(
+            $gameSession, $playtime->getOverallPlaytime(),
+            $gamePlaytime->getOverallPlaytime()
         );
 
         $playtime->setOverallPlaytime($gamePlaytime->getOverallPlaytime());

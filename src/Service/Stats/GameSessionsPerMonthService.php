@@ -98,7 +98,8 @@ class GameSessionsPerMonthService extends AbstractStatsService
         $month = new \DateTime('first day of this month 00:00:00');
         $gameSessionsPerMonth = $this->gameSessionsPerMonthRepository->findOneBy([
             'month' => $month,
-            'game' => $game
+            'game' => $game,
+            'user' => $user,
         ]);
 
         if (is_null($gameSessionsPerMonth)) {

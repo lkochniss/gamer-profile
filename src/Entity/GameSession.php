@@ -23,11 +23,6 @@ class GameSession extends AbstractEntity
     private $user;
 
     /**
-     * @var GameStats
-     */
-    private $gameStats;
-
-    /**
      * @var \DateTime
      */
     private $date;
@@ -36,14 +31,13 @@ class GameSession extends AbstractEntity
      * GameSession constructor.
      * @param User $user
      * @param Game $game
-     * @param \DateTime $date
      */
-    public function __construct(Game $game, User $user, \DateTime $date)
+    public function __construct(Game $game, User $user)
     {
-        $this->date = $date;
         $this->game = $game;
         $this->user = $user;
         $this->duration = 0;
+        $this->date = new \DateTime('today 00:00:00');
     }
 
     /**
@@ -87,34 +81,10 @@ class GameSession extends AbstractEntity
     }
 
     /**
-     * @return GameStats
-     */
-    public function getGameStats(): GameStats
-    {
-        return $this->gameStats;
-    }
-
-    /**
-     * @param GameStats $gameStats
-     */
-    public function setGameStats(GameStats $gameStats): void
-    {
-        $this->gameStats = $gameStats;
-    }
-
-    /**
      * @return \DateTime
      */
     public function getDate(): \DateTime
     {
         return $this->date;
-    }
-
-    /**
-     * @param \DateTime $date
-     */
-    public function setDate(\DateTime $date): void
-    {
-        $this->date = $date;
     }
 }

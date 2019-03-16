@@ -8,6 +8,7 @@ use App\Entity\JSON\JsonPlaytime;
 use App\Entity\User;
 use App\Repository\PlaytimeRepository;
 use App\Service\GameStats\PlaytimeService;
+use App\Service\GameStats\GameSessionService;
 use App\Service\Transformation\GameUserInformationService;
 use PHPUnit\Framework\TestCase;
 
@@ -38,8 +39,10 @@ class PlaytimeServiceTest extends TestCase
 
         $gameUserInformationServiceMock = $this->createMock(GameUserInformationService::class);
 
-        $createPlaytimesService = new PlaytimeService($gameUserInformationServiceMock, $PlaytimeRepositoryMock);
-        $createPlaytimesService->create($this->user, $this->game);
+        $gameSessionServiceMock = $this->createMock(GameSessionService::class);
+
+        $createPlaytimeService = new PlaytimeService($gameUserInformationServiceMock, $PlaytimeRepositoryMock, $gameSessionServiceMock);
+        $createPlaytimeService->create($this->user, $this->game);
     }
 
     public function testPlaytimeCreateShouldReturnExistingPlaytimes(): void
@@ -53,8 +56,10 @@ class PlaytimeServiceTest extends TestCase
 
         $gameUserInformationServiceMock = $this->createMock(GameUserInformationService::class);
 
-        $createPlaytimesService = new PlaytimeService($gameUserInformationServiceMock, $PlaytimeRepositoryMock);
-        $this->assertEquals($expectedPlaytime, $createPlaytimesService->create($this->user, $this->game));
+        $gameSessionServiceMock = $this->createMock(GameSessionService::class);
+
+        $createPlaytimeService = new PlaytimeService($gameUserInformationServiceMock, $PlaytimeRepositoryMock, $gameSessionServiceMock);
+        $this->assertEquals($expectedPlaytime, $createPlaytimeService->create($this->user, $this->game));
     }
 
     public function testPlaytimeCreateShouldCallGameUserInformationService(): void
@@ -67,8 +72,10 @@ class PlaytimeServiceTest extends TestCase
 
         $gameUserInformationServiceMock = $this->createMock(GameUserInformationService::class);
 
-        $createPlaytimesService = new PlaytimeService($gameUserInformationServiceMock, $PlaytimeRepositoryMock);
-        $createPlaytimesService->create($this->user, $this->game);
+        $gameSessionServiceMock = $this->createMock(GameSessionService::class);
+
+        $createPlaytimeService = new PlaytimeService($gameUserInformationServiceMock, $PlaytimeRepositoryMock, $gameSessionServiceMock);
+        $createPlaytimeService->create($this->user, $this->game);
     }
 
     public function testPlaytimeCreateShouldPersistPlaytime(): void
@@ -92,8 +99,10 @@ class PlaytimeServiceTest extends TestCase
             ->method('save')
             ->with($expectedPlaytime);
 
-        $createPlaytimesService = new PlaytimeService($gameUserInformationServiceMock, $PlaytimeRepositoryMock);
-        $createPlaytimesService->create($this->user, $this->game);
+        $gameSessionServiceMock = $this->createMock(GameSessionService::class);
+
+        $createPlaytimeService = new PlaytimeService($gameUserInformationServiceMock, $PlaytimeRepositoryMock, $gameSessionServiceMock);
+        $createPlaytimeService->create($this->user, $this->game);
     }
 
     public function testPlaytimeCreateShouldReturnPlaytime(): void
@@ -116,8 +125,10 @@ class PlaytimeServiceTest extends TestCase
                 'playtime_2weeks' => 10,
             ]));
 
-        $createPlaytimesService = new PlaytimeService($gameUserInformationServiceMock, $PlaytimeRepositoryMock);
-        $this->assertEquals($expectedPlaytime, $createPlaytimesService->create($this->user, $this->game));
+        $gameSessionServiceMock = $this->createMock(GameSessionService::class);
+
+        $createPlaytimeService = new PlaytimeService($gameUserInformationServiceMock, $PlaytimeRepositoryMock, $gameSessionServiceMock);
+        $this->assertEquals($expectedPlaytime, $createPlaytimeService->create($this->user, $this->game));
     }
 
     public function testPlaytimeUpdateShouldPersistPlaytime(): void
@@ -137,8 +148,10 @@ class PlaytimeServiceTest extends TestCase
             ->method('save')
             ->with($expectedPlaytime);
 
-        $createPlaytimesService = new PlaytimeService($gameUserInformationServiceMock, $PlaytimeRepositoryMock);
-        $createPlaytimesService->update(new Playtime($this->user, $this->game));
+        $gameSessionServiceMock = $this->createMock(GameSessionService::class);
+
+        $createPlaytimeService = new PlaytimeService($gameUserInformationServiceMock, $PlaytimeRepositoryMock, $gameSessionServiceMock);
+        $createPlaytimeService->update(new Playtime($this->user, $this->game));
     }
 
     public function testPlaytimeUpdateShouldReturnPlaytime(): void
@@ -157,7 +170,9 @@ class PlaytimeServiceTest extends TestCase
                 'playtime_2weeks' => 10,
             ]));
 
-        $createPlaytimesService = new PlaytimeService($gameUserInformationServiceMock, $PlaytimeRepositoryMock);
-        $this->assertEquals($expectedPlaytime, $createPlaytimesService->update(new Playtime($this->user, $this->game)));
+        $gameSessionServiceMock = $this->createMock(GameSessionService::class);
+
+        $createPlaytimeService = new PlaytimeService($gameUserInformationServiceMock, $PlaytimeRepositoryMock, $gameSessionServiceMock);
+        $this->assertEquals($expectedPlaytime, $createPlaytimeService->update(new Playtime($this->user, $this->game)));
     }
 }

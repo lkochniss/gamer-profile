@@ -21,9 +21,3 @@ App\Entity\GameSession:
             joinColumn:
                 name: game_id
                 referencedColumnName: id
-        gameStats:
-            targetEntity: GameStats
-            inversedBy: gameSessions
-            joinColumn:
-                name: game_stats_id
-                referenceColumnName: id

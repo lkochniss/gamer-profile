@@ -134,7 +134,6 @@ class GameUserInformationService
     /**
      * @param Playtime $playtime
      * @return Playtime|null
-     * @throws JsonException
      */
     public function addPlaytime(Playtime $playtime): ?Playtime
     {
@@ -173,7 +172,6 @@ class GameUserInformationService
     /**
      * @param Playtime $playtime
      * @return GameSession|null
-     * @throws JsonException
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
@@ -190,7 +188,7 @@ class GameUserInformationService
             return null;
         }
 
-        $gameSession  = $this->gameSessionRepository->findOneBy([
+        $gameSession = $this->gameSessionRepository->findOneBy([
             'game' => $playtime->getGame(),
             'user' => $playtime->getUser(),
             'date' => $date
