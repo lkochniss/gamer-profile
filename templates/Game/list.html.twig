@@ -44,7 +44,7 @@
                     {% endif %}
                 </td>
 
-                {% set lastSession = entity.gameSessions | last %}
+                {% set lastSession = entity|get_last_game_session %}
                 {% if lastSession %}
                     <td data-order="{{ lastSession.createdAt | date('Y-m-d') }}">
                         {{ lastSession.createdAt |date('d.m.Y') }}
@@ -55,7 +55,7 @@
                     </td>
                 {% endif %}
                 <td>
-                    {{ entity.gameSessions | length }}
+                    {{ entity|get_number_of_sessions }}
                 </td>
             </tr>
         {% endfor %}

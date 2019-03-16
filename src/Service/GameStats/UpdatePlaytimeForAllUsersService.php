@@ -21,8 +21,10 @@ class UpdatePlaytimeForAllUsersService
      * @param UpdatePlaytimeForUserService $updatePlaytimeForUserService
      * @param UserRepository $userRepository
      */
-    public function __construct(UpdatePlaytimeForUserService $updatePlaytimeForUserService, UserRepository $userRepository)
-    {
+    public function __construct(
+        UpdatePlaytimeForUserService $updatePlaytimeForUserService,
+        UserRepository $userRepository
+    ) {
         $this->updatePlaytimeForUserService = $updatePlaytimeForUserService;
         $this->userRepository = $userRepository;
     }

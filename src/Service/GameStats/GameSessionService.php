@@ -4,10 +4,8 @@ namespace App\Service\GameStats;
 
 use App\Entity\Game;
 use App\Entity\GameSession;
-use App\Entity\GameSessionsPerMonth;
 use App\Entity\User;
 use App\Repository\GameSessionRepository;
-use App\Repository\GameSessionsPerMonthRepository;
 
 class GameSessionService
 {
@@ -15,11 +13,6 @@ class GameSessionService
      * @var GameSessionRepository
      */
     private $gameSessionRepository;
-
-    /**
-     * @var GameSessionsPerMonthRepository
-     */
-    private $gameSessionsPerMonthRepository;
 
     /**
      * GameSessionService constructor.
