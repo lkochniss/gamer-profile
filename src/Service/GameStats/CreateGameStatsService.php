@@ -55,7 +55,7 @@ class CreateGameStatsService
         try {
             $this->gameStatsRepository->save($gameStats);
         } catch (\Doctrine\ORM\OptimisticLockException $optimisticLockException) {
-        } catch (\Doctrine\ORM\ORMException $ORMException) {
+        } catch (\Doctrine\ORM\ORMException $exception) {
         }
     }
 }

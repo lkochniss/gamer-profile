@@ -21,7 +21,6 @@ class UpdateOldestGamesCommand extends ContainerAwareCommand
     /**
      * UpdateOldestGamesCommand constructor.
      * @param GameRepository $gameRepository
-     * @SuppressWarnings(PHPMD.LongVariableName)
      */
     public function __construct(
         GameRepository $gameRepository
@@ -36,12 +35,11 @@ class UpdateOldestGamesCommand extends ContainerAwareCommand
         $this->setDescription('Updates 20 least updated games');
     }
 
+
     /**
      * @param InputInterface $input
      * @param OutputInterface $output
      * @return int|null|void
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
      *
      * @SuppressWarnings("unused")
      */

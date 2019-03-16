@@ -58,7 +58,7 @@ class AchievementService
         try {
             $this->achievementRepository->save($achievement);
         } catch (\Doctrine\ORM\OptimisticLockException $optimisticLockException) {
-        } catch (\Doctrine\ORM\ORMException $ORMException) {
+        } catch (\Doctrine\ORM\ORMException $exception) {
         }
 
         return $achievement;
@@ -81,7 +81,7 @@ class AchievementService
         try {
             $this->achievementRepository->save($achievement);
         } catch (\Doctrine\ORM\OptimisticLockException $optimisticLockException) {
-        } catch (\Doctrine\ORM\ORMException $ORMException) {
+        } catch (\Doctrine\ORM\ORMException $exception) {
         }
 
         return $achievement;

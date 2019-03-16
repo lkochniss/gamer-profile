@@ -105,14 +105,4 @@ class GameController extends AbstractCrudController
     {
         return 'game';
     }
-
-    private function getGame(int $id)
-    {
-        $entity = $this->getDoctrine()->getRepository($this->getEntityName())->find($id);
-        if (is_null($entity)) {
-            throw new NotFoundHttpException();
-        }
-
-        return $entity;
-    }
 }

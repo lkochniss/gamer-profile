@@ -58,7 +58,7 @@ class PlaytimeService
         try {
             $this->playtimeRepository->save($playtime);
         } catch (\Doctrine\ORM\OptimisticLockException $optimisticLockException) {
-        } catch (\Doctrine\ORM\ORMException $ORMException) {
+        } catch (\Doctrine\ORM\ORMException $exception) {
         }
 
         return $playtime;
@@ -81,7 +81,7 @@ class PlaytimeService
         try {
             $this->playtimeRepository->save($playtime);
         } catch (\Doctrine\ORM\OptimisticLockException $optimisticLockException) {
-        } catch (\Doctrine\ORM\ORMException $ORMException) {
+        } catch (\Doctrine\ORM\ORMException $exception) {
         }
 
         return $playtime;

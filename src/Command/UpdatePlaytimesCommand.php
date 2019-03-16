@@ -11,11 +11,8 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class UpdatePlaytimesCommand extends ContainerAwareCommand
 {
-
-
     /**
-     *
-     * @SuppressWarnings(PHPMD.LongVariableName)
+     * UpdatePlaytimesCommand constructor.
      */
     public function __construct()
     {
@@ -33,9 +30,6 @@ class UpdatePlaytimesCommand extends ContainerAwareCommand
      * @param InputInterface $input
      * @param OutputInterface $output
      * @return int|null|void
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
-     * @throws \Nette\Utils\JsonException
      *
      * @SuppressWarnings("unused")
      */
