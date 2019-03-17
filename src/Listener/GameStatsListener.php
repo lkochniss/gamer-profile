@@ -78,8 +78,6 @@ class GameStatsListener
         $gameStats = $overallGameStatsRepository->findOneBy(['user' => $entity->getUser()]);
 
         if (array_key_exists('status', $changeSet)) {
-
-
             // add one to the new status
             $getNew = $getProperties[$changeSet['status'][1]];
             $setNew = $setProperties[$changeSet['status'][1]];

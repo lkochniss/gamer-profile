@@ -2,8 +2,8 @@
 
 namespace App\Controller;
 
-use App\Entity\GameSession;
-use App\Repository\GameSessionRepository;
+use App\Entity\GameSessionsPerMonth;
+use App\Entity\User;
 use App\Repository\GameSessionsPerMonthRepository;
 use App\Repository\OverallGameStatsRepository;
 use App\Service\Stats\GameSessionService;
@@ -46,12 +46,12 @@ class HomepageController extends Controller
         $month = new \DateTime('first day of this month 00:00:00');
         $gameSessions = $gameSessionsPerMonthRepository->findByMonth($month, $user);
 
-        usort($gameSessions, function (array $gameA, array $gameB) {
-            return $gameA->getDuration() > $gameB->getDuration() ? -1: 1;
+        usort($gameSessions, function (GameSessionsPerMonth $sessionA, GameSessionsPerMonth $sessionB) {
+            return $sessionA->getDuration() > $sessionB->getDuration() ? -1: 1;
         });
 
         $now = new \DateTime();
-        $yearsWithSessions = $this->getYearsWithGameSessions($gameSessionsPerMonthRepository);
+        $yearsWithSessions = $this->getYearsWithGameSessions($gameSessionsPerMonthRepository, $user);
 
         return $this->render('Homepage/dashboard.html.twig', [
             'gameStats' => $overallGameStatsRepository->findOneBy(['user' => $user]),
@@ -63,10 +63,13 @@ class HomepageController extends Controller
 
     /**
      * @param GameSessionsPerMonthRepository $gameSessionsPerMonthRepository
+     * @param User $user
      * @return array
      */
-    private function getYearsWithGameSessions($gameSessionsPerMonthRepository): array
-    {
+    private function getYearsWithGameSessions(
+        GameSessionsPerMonthRepository $gameSessionsPerMonthRepository,
+        User $user
+    ): array {
         $now = new \DateTime();
         $oldestEntry = $gameSessionsPerMonthRepository->findOneBy([]);
         $yearsWithSessions = [];
@@ -76,7 +79,7 @@ class HomepageController extends Controller
         }
 
         for ($i = $oldestEntry->getMonth()->format('Y'); $i <= $now->format('Y'); $i++) {
-            if ($gameSessionsPerMonthRepository->findByYear($i)) {
+            if ($gameSessionsPerMonthRepository->findByYear($i, $user)) {
                 $yearsWithSessions[] = $i;
             }
         }

@@ -7,6 +7,9 @@ namespace App\Entity;
  */
 class Game extends AbstractEntity
 {
+    const NAME_FAILED = 'unknown game';
+    const IMAGE_FAILED = '';
+
     /**
      * @var int
      */
@@ -23,9 +26,13 @@ class Game extends AbstractEntity
     private $headerImagePath;
 
     /**
-     * @var \DateTime
+     * Game constructor.
+     * @param int $steamAppId
      */
-    private $releaseDate;
+    public function __construct(int $steamAppId)
+    {
+        $this->steamAppId = $steamAppId;
+    }
 
     /**
      * @return int
@@ -50,14 +57,6 @@ class Game extends AbstractEntity
     public function getSteamAppId(): int
     {
         return $this->steamAppId;
-    }
-
-    /**
-     * @param int $steamAppId
-     */
-    public function setSteamAppId(int $steamAppId): void
-    {
-        $this->steamAppId = $steamAppId;
     }
 
     /**
@@ -90,21 +89,5 @@ class Game extends AbstractEntity
     public function setHeaderImagePath(string $headerImagePath): void
     {
         $this->headerImagePath = $headerImagePath;
-    }
-
-    /**
-     * @return \DateTime
-     */
-    public function getReleaseDate(): \DateTime
-    {
-        return $this->releaseDate ? $this->releaseDate : new \DateTime();
-    }
-
-    /**
-     * @param \DateTime|null $releaseDate
-     */
-    public function setReleaseDate(?\DateTime $releaseDate): void
-    {
-        $this->releaseDate = $releaseDate;
     }
 }

@@ -3,19 +3,17 @@
 namespace App\Service\Transformation;
 
 use App\Entity\Achievement;
-use App\Entity\Game;
 use App\Entity\GameSession;
 use App\Entity\JSON\JsonAchievement;
 use App\Entity\Playtime;
 use App\Entity\JSON\JsonPlaytime;
-use App\Entity\User;
 use App\Repository\GameSessionRepository;
 use App\Service\Api\UserApiClientService;
 use GuzzleHttp\Exception\ClientException;
 use Nette\Utils\JsonException;
 
 /**
- * Class GamesOwnedService
+ * Class GameUserInformationService
  */
 class GameUserInformationService
 {
@@ -45,7 +43,6 @@ class GameUserInformationService
     /**
      * @param int $steamUserId
      * @return array
-     * @throws JsonException
      */
     public function getAllGames(int $steamUserId): array
     {
@@ -55,7 +52,6 @@ class GameUserInformationService
     /**
      * @param int $steamUserId
      * @return array
-     * @throws JsonException
      */
     public function getRecentlyPlayedGames(int $steamUserId): array
     {
@@ -74,7 +70,7 @@ class GameUserInformationService
                 '/ISteamUserStats/GetPlayerAchievements/v0001/?appid=' . $steamAppId,
                 $steamUserId
             );
-            return new JsonAchievement(\GuzzleHttp\json_decode($userAchievements->getBody(), true));
+            return new JsonAchievement($userAchievements);
         } catch (ClientException $clientException) {
             return new JsonAchievement();
         }
@@ -84,7 +80,6 @@ class GameUserInformationService
      * @param int $steamAppId
      * @param int $steamUserId
      * @return array
-     * @throws JsonException
      */
     public function getUserInformationForSteamAppId(int $steamAppId, int $steamUserId): array
     {
@@ -103,13 +98,12 @@ class GameUserInformationService
      * @param int $steamAppId
      * @param int $steamUserId
      * @return JsonPlaytime|null
-     * @throws JsonException
      */
-    public function getUserInformationEntityForSteamAppId(int $steamAppId, int $steamUserId): ?JsonPlaytime
+    public function getPlaytimeForGame(int $steamAppId, int $steamUserId): JsonPlaytime
     {
         $userInformation = $this->getUserInformationForSteamAppId($steamAppId, $steamUserId);
         if (empty($userInformation)) {
-            return null;
+            return new JsonPlaytime();
         }
 
         return new JsonPlaytime($userInformation);
@@ -119,18 +113,15 @@ class GameUserInformationService
      * @param string $apiEndpoint
      * @param int $steamUserId
      * @return array
-     * @throws JsonException
      */
     private function getGamesFromApiEndpoint(string $apiEndpoint, int $steamUserId): array
     {
-        $gamesOwnedResponse = $this->userApiClientService->get($apiEndpoint, $steamUserId);
-        $gamesArray = \GuzzleHttp\json_decode($gamesOwnedResponse->getBody(), true);
-
+        $gamesArray = $this->userApiClientService->get($apiEndpoint, $steamUserId);
         $games = [];
 
         if (!array_key_exists('response', $gamesArray) ||
             !array_key_exists('games', $gamesArray['response'])) {
-            throw new JsonException('Response Body invalid');
+            return [];
         }
 
         foreach ($gamesArray['response']['games'] as $game) {
@@ -143,11 +134,10 @@ class GameUserInformationService
     /**
      * @param Playtime $playtime
      * @return Playtime|null
-     * @throws JsonException
      */
     public function addPlaytime(Playtime $playtime): ?Playtime
     {
-        $userInformation = $this->getUserInformationEntityForSteamAppId(
+        $userInformation = $this->getPlaytimeForGame(
             $playtime->getGame()->getSteamAppId(),
             $playtime->getUser()->getSteamId()
         );
@@ -182,7 +172,6 @@ class GameUserInformationService
     /**
      * @param Playtime $playtime
      * @return GameSession|null
-     * @throws JsonException
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
@@ -190,7 +179,7 @@ class GameUserInformationService
     {
         $date = new \DateTime('today 00:00:00');
 
-        $userInformation = $this->getUserInformationEntityForSteamAppId(
+        $userInformation = $this->getPlaytimeForGame(
             $playtime->getGame()->getSteamAppId(),
             $playtime->getUser()->getSteamId()
         );
@@ -199,7 +188,7 @@ class GameUserInformationService
             return null;
         }
 
-        $gameSession  = $this->gameSessionRepository->findOneBy([
+        $gameSession = $this->gameSessionRepository->findOneBy([
             'game' => $playtime->getGame(),
             'user' => $playtime->getUser(),
             'date' => $date

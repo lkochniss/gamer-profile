@@ -70,7 +70,8 @@ class PlaytimePerMonthService
     {
         $month = new \DateTime('first day of this month 00:00:00');
         $playtimePerMonth = $this->playtimePerMonthRepository->findOneBy([
-            'month' => $month
+            'month' => $month,
+            'user' => $user
         ]);
 
         if (is_null($playtimePerMonth)) {

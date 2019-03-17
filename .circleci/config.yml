@@ -65,10 +65,6 @@ jobs:
           command: ./vendor/bin/phpcs --standard=PSR1,PSR2 --ignore=src/Migrations -s src/  -s tests/
 
       - run:
-          name: Launch Security Checker
-          command: ./vendor/bin/security-checker security:check
-
-      - run:
           name: Launch Copy & Paste Detection
           command: ./vendor/bin/phpcpd src || true
 

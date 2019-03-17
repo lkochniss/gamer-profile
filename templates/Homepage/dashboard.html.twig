@@ -140,7 +140,7 @@
             {% for topGame in playedThisMonth %}
                 <div class="row">
                     <div class="col">
-                        <a href="{{ path('game_dashboard', {'id': topGame.id}) }}">{{ topGame.name }}</a>
+                        <a href="{{ path('game_dashboard', {'id': topGame.game.id}) }}">{{ topGame.game.name }}</a>
                     </div>
                     <div class="col">{{ topGame.duration|convert_recent_time }}</div>
                 </div>

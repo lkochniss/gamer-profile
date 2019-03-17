@@ -17,7 +17,3 @@ App\Entity\Game:
         headerImagePath:
             column: header_image_path
             type: string
-        releaseDate:
-            column: release_date
-            type: datetime
-            nullable: true
