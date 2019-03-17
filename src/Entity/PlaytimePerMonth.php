@@ -28,11 +28,6 @@ class PlaytimePerMonth extends AbstractEntity
     private $user;
 
     /**
-     * @var GameStats
-     */
-    private $gameStats;
-
-    /**
      * PlaytimePerMonth constructor.
      * @param \DateTime $month
      * @param User $user
@@ -88,21 +83,5 @@ class PlaytimePerMonth extends AbstractEntity
     public function getUser(): User
     {
         return $this->user;
-    }
-
-    /**
-     * @return GameStats
-     */
-    public function getGameStats(): GameStats
-    {
-        return $this->gameStats;
-    }
-
-    /**
-     * @param GameStats $gameStats
-     */
-    public function setGameStats(GameStats $gameStats): void
-    {
-        $this->gameStats = $gameStats;
     }
 }
