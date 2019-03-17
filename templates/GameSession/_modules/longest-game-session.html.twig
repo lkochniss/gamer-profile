@@ -1,6 +1,7 @@
-{% if gameStats.gameSessions %}
-    {% set max = gameStats.gameSessions|first.duration %}
-    {% for gameSession in gameStats.gameSessions %}
+{% set gameSessions = gameStats | get_game_sessions %}
+{% if gameSessions %}
+    {% set max = gameSessions|first.duration %}
+    {% for gameSession in gameSessions %}
         {% if gameSession.duration > max %}
             {% set max = gameSession.duration %}
         {% endif %}

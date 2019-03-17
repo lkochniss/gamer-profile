@@ -30,9 +30,22 @@ class GameSessionExtension extends AbstractExtension
     public function getFilters(): array
     {
         return [
+            new TwigFilter('get_game_sessions', [$this, 'getGameSessions']),
             new TwigFilter('get_last_game_session', [$this, 'getLastGameSession']),
             new TwigFilter('get_number_of_sessions', [$this, 'getNumberOfSessions']),
         ];
+    }
+
+    /**
+     * @param GameStats $gameStats
+     * @return GameSession[]
+     */
+    public function getGameSessions(GameStats $gameStats): array
+    {
+        return $this->gameSessionRepository->findBy([
+            'game' => $gameStats->getGame(),
+            'user' => $gameStats->getUser()
+        ]);
     }
 
     /**
