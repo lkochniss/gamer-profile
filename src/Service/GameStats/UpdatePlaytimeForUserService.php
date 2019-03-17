@@ -45,6 +45,7 @@ class UpdatePlaytimeForUserService
      */
     public function execute(User $user): void
     {
+        $this->playtimeService->resetRecentPlaytimeForUser($user);
         $recentlyPlayedGames = $this->gameUserInformationService->getRecentlyPlayedGames($user->getSteamId());
 
         foreach ($recentlyPlayedGames as $gameArray) {

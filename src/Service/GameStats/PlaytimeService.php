@@ -115,4 +115,29 @@ class PlaytimeService
             $this->update($playtime);
         }
     }
+
+    /**
+     * @param Playtime $playtime
+     */
+    public function resetRecentPlaytime(Playtime $playtime): void
+    {
+        $playtime->setRecentPlaytime(0);
+        try {
+            $this->playtimeRepository->save($playtime);
+        } catch (\Doctrine\ORM\OptimisticLockException $optimisticLockException) {
+        } catch (\Doctrine\ORM\ORMException $exception) {
+        }
+    }
+
+    /**
+     * @param User $user
+     */
+    public function resetRecentPlaytimeForUser(User $user)
+    {
+        $playtimes = $this->playtimeRepository->getRecentPlaytime($user);
+
+        foreach ($playtimes as $playtime) {
+            $this->resetRecentPlaytime($playtime);
+        }
+    }
 }
