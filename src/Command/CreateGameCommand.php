@@ -8,9 +8,9 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
- * Class CreateNewGamesCommand
+ * Class CreateGameCommand
  */
-class CreateNewGamesCommand extends Command
+class CreateGameCommand extends Command
 {
 
     /**

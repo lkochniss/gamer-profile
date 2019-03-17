@@ -86,4 +86,17 @@ class AchievementService
 
         return $achievement;
     }
+
+    /**
+     * @param Game $game
+     * @param User $user
+     */
+    public function updateGameForUser(Game $game, User $user): void
+    {
+        $achievement = $this->achievementRepository->findOneBy(['game' => $game, 'user' => $user]);
+
+        if (!is_null($achievement)) {
+            $this->update($achievement);
+        }
+    }
 }

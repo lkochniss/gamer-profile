@@ -99,7 +99,11 @@ class PlaytimeService
         return $playtime;
     }
 
-    public function updateGameForUser(Game $game, User $user)
+    /**
+     * @param Game $game
+     * @param User $user
+     */
+    public function updateGameForUser(Game $game, User $user): void
     {
         $playtime = $this->playtimeRepository->findOneBy(['game' => $game, 'user' => $user]);
 
