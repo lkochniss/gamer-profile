@@ -84,17 +84,20 @@ class GameSessionRepository extends AbstractRepository#
 
     /**
      * @param int $year
+     * @param User $user
      * @return array|null
      */
-    public function findForYear(int $year): ?array
+    public function findForYear(int $year, User $user): ?array
     {
         $start = new \DateTime('first day of January '. $year);
         $end = new \DateTime('last day of December '. $year);
         $query = $this->createQueryBuilder('game_session')
             ->where('game_session.createdAt > :start')
             ->andWhere('game_session.createdAt < :end')
+            ->andWhere('game_session.user = :user')
             ->setParameter('start', $start)
             ->setParameter('end', $end)
+            ->setParameter('user', $user)
             ->getQuery();
 
         return $query->getResult();

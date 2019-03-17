@@ -142,19 +142,21 @@ class ApiController extends Controller
      * @param int $id
      * @param GameRepository $gameRepository
      * @param GameSessionsPerMonthRepository $gameSessionsPerMonthRepository
+     * @param UserInterface $user
      * @return JsonResponse
      */
     public function sessionsPerMonthForGame(
         int $id,
         GameRepository $gameRepository,
-        GameSessionsPerMonthRepository $gameSessionsPerMonthRepository
+        GameSessionsPerMonthRepository $gameSessionsPerMonthRepository,
+        UserInterface $user
     ): JsonResponse {
         $game = $gameRepository->find($id);
         if ($game === null) {
             throw new NotFoundHttpException();
         }
 
-        $sessions = $gameSessionsPerMonthRepository->findBy(['game' => $game]);
+        $sessions = $gameSessionsPerMonthRepository->findBy(['game' => $game, 'user' => $user]);
         $data = [];
 
         /**
@@ -186,11 +188,15 @@ class ApiController extends Controller
     /**
      * @param int $year
      * @param GameSessionRepository $sessionRepository
+     * @param UserInterface $user
      * @return JsonResponse
      */
-    public function sessionsForYear(int $year, GameSessionRepository $sessionRepository): JsonResponse
-    {
-        $sessions = $sessionRepository->findForYear($year);
+    public function sessionsForYear(
+        int $year,
+        GameSessionRepository $sessionRepository,
+        UserInterface $user
+    ): JsonResponse {
+        $sessions = $sessionRepository->findForYear($year, $user);
 
         return new JsonResponse($this->mapSessionData($sessions));
     }
