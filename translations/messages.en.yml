@@ -18,6 +18,7 @@ dlc_purchase: 'DLC Purchase'
 duration: Duration
 edit: Edit
 EUR: €
+initializing_data: 'initializing data...'
 finished_games: 'Finished Games'
 first_indexed_on: 'First Indexed On'
 ga_tracking: 'Google Analytics Tracking Id'

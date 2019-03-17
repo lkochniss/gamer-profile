@@ -7,58 +7,58 @@
             </h1>
         </div>
     </div>
+
+    {% if gameStats is defined and gameStats is not null %}
     <div class="row text-center">
-        {% if gameStats is defined and gameStats is not empty %}
-            <div class="col-sm">
-                <div class="card mb-4">
-                    <div class="card-header">
-                        {% trans from "messages" %}achievements{% endtrans %}
-                    </div>
-                    <div class="card-body">
-                        {% if gameStats.overallAchievements > 0 %}
-                            {{ gameStats.playerAchievements }}/{{ gameStats.overallAchievements }}
-                            {% set percentage = gameStats.playerAchievements / gameStats.overallAchievements  * 100 %}
-                            ({{ percentage|round(2) }}%)
-                        {% else %}
-                            {% trans from "messages" %}profile_not_public{% endtrans %}
-                        {% endif %}
-                    </div>
+        <div class="col-sm">
+            <div class="card mb-4">
+                <div class="card-header">
+                    {% trans from "messages" %}achievements{% endtrans %}
+                </div>
+                <div class="card-body">
+                    {% if gameStats.overallAchievements > 0 %}
+                        {{ gameStats.playerAchievements }}/{{ gameStats.overallAchievements }}
+                        {% set percentage = gameStats.playerAchievements / gameStats.overallAchievements  * 100 %}
+                        ({{ percentage|round(2) }}%)
+                    {% else %}
+                        {% trans from "messages" %}profile_not_public{% endtrans %}
+                    {% endif %}
                 </div>
             </div>
-            <div class="col-sm">
-                <div class="card mb-4">
-                    <div class="card-header">
-                        {% trans from "messages" %}recently_played{% endtrans %}
-                    </div>
-                    <div class="card-body">
-                        {{ gameStats.recentPlaytime|convert_overall_time }}
-                    </div>
+        </div>
+        <div class="col-sm">
+            <div class="card mb-4">
+                <div class="card-header">
+                    {% trans from "messages" %}recently_played{% endtrans %}
+                </div>
+                <div class="card-body">
+                    {{ gameStats.recentPlaytime|convert_overall_time }}
                 </div>
             </div>
-            <div class="col-sm">
-                <div class="card mb-4">
-                    <div class="card-header">
-                        {% trans from "messages" %}overall_playtime{% endtrans %}
-                    </div>
-                    <div class="card-body">
-                        {{ gameStats.overallPlaytime|convert_overall_time }}
-                    </div>
+        </div>
+        <div class="col-sm">
+            <div class="card mb-4">
+                <div class="card-header">
+                    {% trans from "messages" %}overall_playtime{% endtrans %}
+                </div>
+                <div class="card-body">
+                    {{ gameStats.overallPlaytime|convert_overall_time }}
                 </div>
             </div>
-            <div class="col-sm">
-                <div class="card mb-4">
-                    <div class="card-header">
-                        {% trans from "messages" %}game_sessions{% endtrans %}
-                        <a href="{{ path('homepage_update_sessions') }}">
-                            <span class="pull-right"><i class="fa fa-refresh"></i></span>
-                        </a>
-                    </div>
-                    <div class="card-body">
-                        {{ gameStats.gameSessions }}
-                    </div>
+        </div>
+        <div class="col-sm">
+            <div class="card mb-4">
+                <div class="card-header">
+                    {% trans from "messages" %}game_sessions{% endtrans %}
+                    <a href="{{ path('homepage_update_sessions') }}">
+                        <span class="pull-right"><i class="fa fa-refresh"></i></span>
+                    </a>
+                </div>
+                <div class="card-body">
+                    {{ gameStats.gameSessions }}
                 </div>
             </div>
-        {% endif %}
+        </div>
     </div>
     <div class="row text-center">
         <div class="col-sm">
@@ -155,4 +155,7 @@
             <h3>{% trans %}average_daily_playtime_per_month{% endtrans %}</h3>
         </div>
     </div>
+    {% else %}
+        {% trans %}initializing_data{% endtrans %}
+    {% endif %}
 {% endblock %}
