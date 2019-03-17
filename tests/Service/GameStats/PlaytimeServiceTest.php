@@ -41,7 +41,11 @@ class PlaytimeServiceTest extends TestCase
 
         $gameSessionServiceMock = $this->createMock(GameSessionService::class);
 
-        $createPlaytimeService = new PlaytimeService($gameUserInformationServiceMock, $PlaytimeRepositoryMock, $gameSessionServiceMock);
+        $createPlaytimeService = new PlaytimeService(
+            $gameUserInformationServiceMock,
+            $PlaytimeRepositoryMock,
+            $gameSessionServiceMock
+        );
         $createPlaytimeService->create($this->user, $this->game);
     }
 
@@ -58,7 +62,11 @@ class PlaytimeServiceTest extends TestCase
 
         $gameSessionServiceMock = $this->createMock(GameSessionService::class);
 
-        $createPlaytimeService = new PlaytimeService($gameUserInformationServiceMock, $PlaytimeRepositoryMock, $gameSessionServiceMock);
+        $createPlaytimeService = new PlaytimeService(
+            $gameUserInformationServiceMock,
+            $PlaytimeRepositoryMock,
+            $gameSessionServiceMock
+        );
         $this->assertEquals($expectedPlaytime, $createPlaytimeService->create($this->user, $this->game));
     }
 
@@ -74,7 +82,11 @@ class PlaytimeServiceTest extends TestCase
 
         $gameSessionServiceMock = $this->createMock(GameSessionService::class);
 
-        $createPlaytimeService = new PlaytimeService($gameUserInformationServiceMock, $PlaytimeRepositoryMock, $gameSessionServiceMock);
+        $createPlaytimeService = new PlaytimeService(
+            $gameUserInformationServiceMock,
+            $PlaytimeRepositoryMock,
+            $gameSessionServiceMock
+        );
         $createPlaytimeService->create($this->user, $this->game);
     }
 
@@ -101,7 +113,11 @@ class PlaytimeServiceTest extends TestCase
 
         $gameSessionServiceMock = $this->createMock(GameSessionService::class);
 
-        $createPlaytimeService = new PlaytimeService($gameUserInformationServiceMock, $PlaytimeRepositoryMock, $gameSessionServiceMock);
+        $createPlaytimeService = new PlaytimeService(
+            $gameUserInformationServiceMock,
+            $PlaytimeRepositoryMock,
+            $gameSessionServiceMock
+        );
         $createPlaytimeService->create($this->user, $this->game);
     }
 
@@ -127,7 +143,11 @@ class PlaytimeServiceTest extends TestCase
 
         $gameSessionServiceMock = $this->createMock(GameSessionService::class);
 
-        $createPlaytimeService = new PlaytimeService($gameUserInformationServiceMock, $PlaytimeRepositoryMock, $gameSessionServiceMock);
+        $createPlaytimeService = new PlaytimeService(
+            $gameUserInformationServiceMock,
+            $PlaytimeRepositoryMock,
+            $gameSessionServiceMock
+        );
         $this->assertEquals($expectedPlaytime, $createPlaytimeService->create($this->user, $this->game));
     }
 
@@ -150,7 +170,11 @@ class PlaytimeServiceTest extends TestCase
 
         $gameSessionServiceMock = $this->createMock(GameSessionService::class);
 
-        $createPlaytimeService = new PlaytimeService($gameUserInformationServiceMock, $PlaytimeRepositoryMock, $gameSessionServiceMock);
+        $createPlaytimeService = new PlaytimeService(
+            $gameUserInformationServiceMock,
+            $PlaytimeRepositoryMock,
+            $gameSessionServiceMock
+        );
         $createPlaytimeService->update(new Playtime($this->user, $this->game));
     }
 
@@ -172,7 +196,11 @@ class PlaytimeServiceTest extends TestCase
 
         $gameSessionServiceMock = $this->createMock(GameSessionService::class);
 
-        $createPlaytimeService = new PlaytimeService($gameUserInformationServiceMock, $PlaytimeRepositoryMock, $gameSessionServiceMock);
+        $createPlaytimeService = new PlaytimeService(
+            $gameUserInformationServiceMock,
+            $PlaytimeRepositoryMock,
+            $gameSessionServiceMock
+        );
         $this->assertEquals($expectedPlaytime, $createPlaytimeService->update(new Playtime($this->user, $this->game)));
     }
 }

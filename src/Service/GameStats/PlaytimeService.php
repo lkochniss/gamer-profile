@@ -31,8 +31,11 @@ class PlaytimeService
      * @param PlaytimeRepository $playtimeRepository
      * @param GameSessionService $gameSessionService
      */
-    public function __construct(GameUserInformationService $gameUserInformationService, PlaytimeRepository $playtimeRepository, GameSessionService $gameSessionService)
-    {
+    public function __construct(
+        GameUserInformationService $gameUserInformationService,
+        PlaytimeRepository $playtimeRepository,
+        GameSessionService $gameSessionService
+    ) {
         $this->gameUserInformationService = $gameUserInformationService;
         $this->playtimeRepository = $playtimeRepository;
         $this->gameSessionService = $gameSessionService;
@@ -83,7 +86,8 @@ class PlaytimeService
 
         $gameSession = $this->gameSessionService->getTodaysGameSession($playtime->getUser(), $playtime->getGame());
         $this->gameSessionService->updateGameSession(
-            $gameSession, $playtime->getOverallPlaytime(),
+            $gameSession,
+            $playtime->getOverallPlaytime(),
             $gamePlaytime->getOverallPlaytime()
         );
 

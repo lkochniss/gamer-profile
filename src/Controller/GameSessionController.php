@@ -66,8 +66,7 @@ class GameSessionController extends Controller
     public function listPerMonth(
         GameSessionsPerMonthRepository $gameSessionsPerMonthRepository,
         UserInterface $user
-    ): Response
-    {
+    ): Response {
         $gamesPerMonth = $gameSessionsPerMonthRepository->findBy(['user' => $user]);
 
         return $this->render(
