@@ -8,79 +8,83 @@ use App\Entity\GameStats;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 class GameStatsController extends Controller
 {
     /**
      * @param int $id
+     * @param UserInterface $user
      * @return RedirectResponse
-     *
-     * @SuppressWarnings(PHPMD.ShortVariableName)
      */
-    public function setStatusOpen(int $id): RedirectResponse
+    public function setStatusOpen(int $id, UserInterface $user): RedirectResponse
     {
-        $entity = $this->getGameStats($id);
+        $entity = $this->getGameStats($id, $user);
         $entity->setStatusOpen();
         $this->getDoctrine()->getRepository($this->getEntityName())->save($entity);
         return $this->redirectToRoute('game_dashboard', ['id' => $id]);
     }
+
     /**
      * @param int $id
+     * @param UserInterface $user
      * @return RedirectResponse
-     *
-     * @SuppressWarnings(PHPMD.ShortVariableName)
      */
-    public function setStatusPaused(int $id): RedirectResponse
+    public function setStatusPaused(int $id, UserInterface $user): RedirectResponse
     {
-        $entity = $this->getGameStats($id);
+        $entity = $this->getGameStats($id, $user);
         $entity->setStatusPaused();
         $this->getDoctrine()->getRepository($this->getEntityName())->save($entity);
         return $this->redirectToRoute('game_dashboard', ['id' => $id]);
     }
+
     /**
      * @param int $id
+     * @param UserInterface $user
      * @return RedirectResponse
-     *
-     * @SuppressWarnings(PHPMD.ShortVariableName)
      */
-    public function setStatusPlaying(int $id): RedirectResponse
+    public function setStatusPlaying(int $id, UserInterface $user): RedirectResponse
     {
-        $entity = $this->getGameStats($id);
+        $entity = $this->getGameStats($id, $user);
         $entity->setStatusPlaying();
         $this->getDoctrine()->getRepository($this->getEntityName())->save($entity);
         return $this->redirectToRoute('game_dashboard', ['id' => $id]);
     }
+
     /**
      * @param int $id
+     * @param UserInterface $user
      * @return RedirectResponse
-     *
-     * @SuppressWarnings(PHPMD.ShortVariableName)
      */
-    public function setStatusFinished(int $id): RedirectResponse
+    public function setStatusFinished(int $id, UserInterface $user): RedirectResponse
     {
-        $entity = $this->getGameStats($id);
+        $entity = $this->getGameStats($id, $user);
         $entity->setStatusFinished();
         $this->getDoctrine()->getRepository($this->getEntityName())->save($entity);
         return $this->redirectToRoute('game_dashboard', ['id' => $id]);
     }
+
     /**
      * @param int $id
+     * @param UserInterface $user
      * @return RedirectResponse
-     *
-     * @SuppressWarnings(PHPMD.ShortVariableName)
      */
-    public function setStatusGivenUp(int $id): RedirectResponse
+    public function setStatusGivenUp(int $id, UserInterface $user): RedirectResponse
     {
-        $entity = $this->getGameStats($id);
+        $entity = $this->getGameStats($id, $user);
         $entity->setStatusGivenUp();
         $this->getDoctrine()->getRepository($this->getEntityName())->save($entity);
         return $this->redirectToRoute('game_dashboard', ['id' => $id]);
     }
 
-    private function getGameStats(int $id)
+    private function getGameStats(int $id, UserInterface $user)
     {
         $game = $this->getDoctrine()->getRepository(Game::class)->find($id);
-        $entity = $this->getDoctrine()->getRepository($this->getEntityName())->findOneBy(['game' => $game]);
+        $entity = $this->getDoctrine()->getRepository($this->getEntityName())->findOneBy([
+            'game' => $game,
+            'user' => $user
+        ]);
+
         if (is_null($entity)) {
             throw new NotFoundHttpException();
         }
