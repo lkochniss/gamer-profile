@@ -2,6 +2,8 @@
 
 namespace App\Entity\JSON;
 
+use App\Entity\Game;
+
 /**
  * Class Game
  */
@@ -21,10 +23,17 @@ class JsonGame
      * GameInformation constructor.
      * @param array $gameInformation
      */
-    public function __construct(array $gameInformation)
+    public function __construct(array $gameInformation = [])
     {
-        $this->name = $gameInformation['name'];
-        $this->headerImagePath = $gameInformation['header_image'];
+        $this->name = array_key_exists(
+            'name',
+            $gameInformation
+        ) ? $gameInformation['name'] : Game::NAME_FAILED;
+
+        $this->headerImagePath = array_key_exists(
+            'header_image',
+            $gameInformation
+        ) ? $gameInformation['header_image'] : Game::IMAGE_FAILED;
     }
 
     /**

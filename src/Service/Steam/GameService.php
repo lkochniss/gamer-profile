@@ -40,16 +40,11 @@ class GameService
             return;
         }
 
-        $gameInformation = $this->gameInformationService->getGameInformationForSteamAppId($steamAppId);
+        $gameInformation = $this->gameInformationService->getGameInformationEntityForSteamAppId($steamAppId);
 
         $game = new Game($steamAppId);
-        $game->setName(Game::NAME_FAILED);
-        $game->setHeaderImagePath(Game::IMAGE_FAILED);
-
-        if (!empty($gameInformation)) {
-            $game->setName($gameInformation['name']);
-            $game->setHeaderImagePath($gameInformation['header_image']);
-        }
+        $game->setName($gameInformation->getName());
+        $game->setHeaderImagePath($gameInformation->getHeaderImagePath());
 
         try {
             $this->gameRepository->save($game);
@@ -62,16 +57,12 @@ class GameService
      */
     public function update(Game $game): void
     {
-        $gameInformation = $this->gameInformationService->getGameInformationForSteamAppId($game->getSteamAppId());
+        $gameInformation = $this->gameInformationService->getGameInformationEntityForSteamAppId($game->getSteamAppId());
 
-        $game->setName(Game::NAME_FAILED);
-        $game->setHeaderImagePath(Game::IMAGE_FAILED);
-
-        if (!empty($gameInformation)) {
-            $game->setName($gameInformation['name']);
-            $game->setHeaderImagePath($gameInformation['header_image']);
+        if ($gameInformation->getName() !== Game::NAME_FAILED) {
+            $game->setName($gameInformation->getName());
+            $game->setHeaderImagePath($gameInformation->getHeaderImagePath());
         }
-
         try {
             $this->gameRepository->save($game);
         } catch (\Doctrine\ORM\ORMException $exception) {
