@@ -6,9 +6,7 @@ use App\Entity\GameSessionsPerMonth;
 use App\Entity\User;
 use App\Repository\GameSessionsPerMonthRepository;
 use App\Repository\OverallGameStatsRepository;
-use App\Service\Stats\GameSessionService;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -17,20 +15,6 @@ use Symfony\Component\Security\Core\User\UserInterface;
  */
 class HomepageController extends Controller
 {
-    /**
-     * @param GameSessionService $gameSessionService
-     * @param UserInterface $user
-     * @return RedirectResponse
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
-     */
-    public function updateSessions(GameSessionService $gameSessionService, UserInterface $user): RedirectResponse
-    {
-        $gameSessionService->recalculate($user);
-
-        return $this->redirectToRoute('homepage_dashboard');
-    }
-
     /**
      * @param OverallGameStatsRepository $overallGameStatsRepository
      * @param GameSessionsPerMonthRepository $gameSessionsPerMonthRepository

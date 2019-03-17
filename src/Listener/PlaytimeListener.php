@@ -6,7 +6,7 @@ use App\Entity\Playtime;
 use App\Entity\ChangeSet\PlaytimeChangeSet;
 use App\Entity\Game;
 use App\Entity\OverallGameStats;
-use App\Service\Stats\PlaytimeService;
+use App\Service\GameStats\OverallGameStatsService;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 
 /**
@@ -24,24 +24,21 @@ class PlaytimeListener
 
     /**
      * @param LifecycleEventArgs $args
-     * @return string
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
-    public function postPersist(LifecycleEventArgs $args): string
+    public function postPersist(LifecycleEventArgs $args): void
     {
         $entity = $args->getEntity();
 
         if ($entity instanceof Playtime === false) {
-            return 'S';
+            return;
         }
 
         $overallGameStatsRepository = $args->getEntityManager()->getRepository(OverallGameStats::class);
-        $playtimeService = new PlaytimeService($overallGameStatsRepository);
+        $overallGameStatsService = new OverallGameStatsService($overallGameStatsRepository);
 
-        $playtimeService->addNew($entity);
-
-        return 'U';
+        $overallGameStatsService->addPlaytime($entity);
     }
 
     /**
@@ -58,11 +55,11 @@ class PlaytimeListener
         $entity = $args->getEntity();
 
         if ($entity instanceof Playtime === false) {
-            return 'S';
+            return;
         }
 
         $overallGameStatsRepository = $args->getEntityManager()->getRepository(OverallGameStats::class);
-        $playtimeService = new PlaytimeService($overallGameStatsRepository);
+        $overallGameStatsService = new OverallGameStatsService($overallGameStatsRepository);
 
         $unitOfWork = $args->getEntityManager()->getUnitOfWork();
         $changeSet = $unitOfWork->getEntityChangeSet($entity);
@@ -76,8 +73,6 @@ class PlaytimeListener
             }
         }
 
-        $playtimeService->updateChangeSet($playtimeChangeSet);
-
-        return 'U';
+        $overallGameStatsService->updatePlaytimeWithChangeSet($playtimeChangeSet);
     }
 }

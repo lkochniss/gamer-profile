@@ -1,19 +1,17 @@
 <?php
 
-namespace App\Service\Stats;
+namespace App\Service\GameStats;
 
 use App\Entity\Game;
 use App\Entity\GameSession;
 use App\Entity\GameSessionsPerMonth;
-use App\Entity\OverallGameStats;
 use App\Entity\User;
 use App\Repository\GameSessionsPerMonthRepository;
-use App\Repository\OverallGameStatsRepository;
 
 /**
  * Class GameSessionsPerMonthService
  */
-class GameSessionsPerMonthService extends AbstractStatsService
+class GameSessionsPerMonthService
 {
     /**
      * @var GameSessionsPerMonthRepository
@@ -21,38 +19,12 @@ class GameSessionsPerMonthService extends AbstractStatsService
     private $gameSessionsPerMonthRepository;
 
     /**
-     * @var OverallGameStatsRepository
-     */
-    private $overallGameStatsRepository;
-
-    /**
      * GameSessionsPerMonthService constructor.
      * @param GameSessionsPerMonthRepository $gameSessionsPerMonthRepository
-     * @param OverallGameStatsRepository $overallGameStatsRepository
      */
-    public function __construct(
-        GameSessionsPerMonthRepository $gameSessionsPerMonthRepository,
-        OverallGameStatsRepository $overallGameStatsRepository
-    ) {
-        parent::__construct($overallGameStatsRepository);
-        $this->gameSessionsPerMonthRepository = $gameSessionsPerMonthRepository;
-        $this->overallGameStatsRepository = $overallGameStatsRepository;
-    }
-
-    /**
-     * @param User $user
-     * @return OverallGameStats
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
-     */
-    public function addSessionToOverallGameStats(User $user): OverallGameStats
+    public function __construct(GameSessionsPerMonthRepository $gameSessionsPerMonthRepository)
     {
-        $overallGameStats = $this->getOverallGameStats($user);
-        $overallGameStats->addGameSessions();
-
-        $this->overallGameStatsRepository->save($overallGameStats);
-
-        return $overallGameStats;
+        $this->gameSessionsPerMonthRepository = $gameSessionsPerMonthRepository;
     }
 
     /**

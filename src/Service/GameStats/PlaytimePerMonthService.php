@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Service\Stats;
+namespace App\Service\GameStats;
 
 use App\Entity\GameSession;
 use App\Entity\PlaytimePerMonth;

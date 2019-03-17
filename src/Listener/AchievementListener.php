@@ -6,7 +6,7 @@ use App\Entity\Achievement;
 use App\Entity\ChangeSet\AchievementChangeSet;
 use App\Entity\Game;
 use App\Entity\OverallGameStats;
-use App\Service\Stats\AchievementService;
+use App\Service\GameStats\OverallGameStatsService;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 
 /**
@@ -37,9 +37,9 @@ class AchievementListener
         }
 
         $overallGameStatsRepository = $args->getEntityManager()->getRepository(OverallGameStats::class);
-        $achievementService = new AchievementService($overallGameStatsRepository);
+        $achievementService = new OverallGameStatsService($overallGameStatsRepository);
 
-        $achievementService->addNew($entity);
+        $achievementService->addAchievement($entity);
 
         return 'U';
     }
@@ -62,7 +62,7 @@ class AchievementListener
         }
 
         $overallGameStatsRepository = $args->getEntityManager()->getRepository(OverallGameStats::class);
-        $achievementService = new AchievementService($overallGameStatsRepository);
+        $achievementService = new OverallGameStatsService($overallGameStatsRepository);
 
         $unitOfWork = $args->getEntityManager()->getUnitOfWork();
         $changeSet = $unitOfWork->getEntityChangeSet($entity);
@@ -77,7 +77,7 @@ class AchievementListener
             }
         }
 
-        $achievementService->updateChangeSet($achievementChangeSet);
+        $achievementService->updateAchievementWithChangeSet($achievementChangeSet);
 
         return 'U';
     }

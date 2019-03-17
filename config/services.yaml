@@ -40,8 +40,8 @@ services:
             - { name: doctrine.event_listener, event: postPersist }
             - { name: doctrine.event_listener, event: postUpdate }
 
-    App\Listener\GameSessionsPerMonthListener:
-        class: App\Listener\GameSessionsPerMonthListener
+    App\Listener\GameSessionListener:
+        class: App\Listener\GameSessionListener
         tags:
             - { name: doctrine.event_listener, event: postPersist }
             - { name: doctrine.event_listener, event: postUpdate }

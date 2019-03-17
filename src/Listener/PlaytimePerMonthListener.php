@@ -4,7 +4,7 @@ namespace App\Listener;
 
 use App\Entity\GameSession;
 use App\Entity\PlaytimePerMonth;
-use App\Service\Stats\PlaytimePerMonthService;
+use App\Service\GameStats\PlaytimePerMonthService;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 
 /**
