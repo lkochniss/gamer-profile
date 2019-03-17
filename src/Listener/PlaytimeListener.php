@@ -47,7 +47,7 @@ class PlaytimeListener
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
-    public function postUpdate(LifecycleEventArgs $args): string
+    public function postUpdate(LifecycleEventArgs $args): void
     {
         /**
          * @var Game $entity
