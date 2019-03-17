@@ -23,12 +23,24 @@ class PlaytimePerMonth extends AbstractEntity
     private $sessions;
 
     /**
+     * @var User
+     */
+    private $user;
+
+    /**
+     * @var GameStats
+     */
+    private $gameStats;
+
+    /**
      * PlaytimePerMonth constructor.
      * @param \DateTime $month
+     * @param User $user
      */
-    public function __construct(\DateTime $month)
+    public function __construct(\DateTime $month, User $user)
     {
         $this->month = $month;
+        $this->user = $user;
         $this->duration = 0;
         $this->sessions = 0;
     }
@@ -68,5 +80,29 @@ class PlaytimePerMonth extends AbstractEntity
     public function addSession(): void
     {
         $this->sessions++;
+    }
+
+    /**
+     * @return User
+     */
+    public function getUser(): User
+    {
+        return $this->user;
+    }
+
+    /**
+     * @return GameStats
+     */
+    public function getGameStats(): GameStats
+    {
+        return $this->gameStats;
+    }
+
+    /**
+     * @param GameStats $gameStats
+     */
+    public function setGameStats(GameStats $gameStats): void
+    {
+        $this->gameStats = $gameStats;
     }
 }

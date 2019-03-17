@@ -18,19 +18,26 @@ class GameSession extends AbstractEntity
     private $duration;
 
     /**
+     * @var User
+     */
+    private $user;
+
+    /**
      * @var \DateTime
      */
-    private $day;
+    private $date;
 
     /**
      * GameSession constructor.
+     * @param User $user
      * @param Game $game
      */
-    public function __construct(Game $game)
+    public function __construct(Game $game, User $user)
     {
         $this->game = $game;
-        $this->day = new \DateTime('today 00:00:00');
+        $this->user = $user;
         $this->duration = 0;
+        $this->date = new \DateTime('today 00:00:00');
     }
 
     /**
@@ -57,30 +64,27 @@ class GameSession extends AbstractEntity
         $this->duration = $duration;
     }
 
+    /**
+     * @param int $duration
+     */
     public function addDuration(int $duration): void
     {
         $this->duration += $duration;
     }
 
     /**
-     * @return \DateTime
+     * @return User
      */
-    public function getDay()
+    public function getUser(): User
     {
-        return $this->day;
+        return $this->user;
     }
 
     /**
-     * @param \DateTime $day
-     * @deprecated only for migration usage
+     * @return \DateTime
      */
-    public function setDay(\DateTime $day): void
+    public function getDate(): \DateTime
     {
-        $this->day = $day;
-    }
-
-    public function setSlug(): void
-    {
-        $this->slug = $this->slugify($this->getCreatedAt()->format('Y-m-d-') . $this->getGame()->getName());
+        return $this->date;
     }
 }

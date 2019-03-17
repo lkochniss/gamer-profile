@@ -1,7 +1,14 @@
 <div class="panel-footer">
     <span class="pull-left">{% trans from "messages" %}steam_app_id{% endtrans %}</span>
-    <a target="_blank" href="http://store.steampowered.com/app/{{ game.steamAppId }}">
-        <span class="pull-right">{{ game.steamAppId }}</span>
-    </a>
+    {% if gameStats.game.name == 'unknown game' %}
+        <span class="pull-left">: {% trans %}steam_region_lock{% endtrans %}</span>
+        <a target="_blank" href="https://steamdb.info/app/{{ gameStats.game.steamAppId }}">
+            <span class="pull-right">{{ gameStats.game.steamAppId }}</span>
+        </a>
+    {% else %}
+        <a target="_blank" href="http://store.steampowered.com/app/{{ gameStats.game.steamAppId }}">
+            <span class="pull-right">{{ gameStats.game.steamAppId }}</span>
+        </a>
+    {% endif %}
     <div class="clearfix"></div>
 </div>

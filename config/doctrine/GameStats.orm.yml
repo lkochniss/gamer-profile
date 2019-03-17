@@ -1,0 +1,42 @@
+App\Entity\GameStats:
+    type: entity
+    repositoryClass: App\Repository\GameStatsRepository
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        status:
+            type: string
+            nullable: false
+    oneToMany:
+        gameSessions:
+            targetEntity: GameSession
+            mappedBy: gameStats
+        playtimePerMonth:
+            targetEntity: PlaytimePerMonth
+            mappedBy: gameStats
+    manyToOne:
+        achievement:
+            targetEntity: Achievement
+            cascade: ["persist", "refresh"]
+            joinColumn:
+                name: achievement_id
+                referencedColumnName: id
+        playtime:
+            targetEntity: Playtime
+            cascade: ["persist", "refresh"]
+            joinColumn:
+                name: playtime_id
+                referencedColumnName: id
+        user:
+            targetEntity: User
+            joinColumn:
+                name: user_id
+                referenceColumnName: id
+        game:
+            targetEntity: Game
+            joinColumn:
+                name: game_id
+                referencedColumnName: id
+

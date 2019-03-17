@@ -2,7 +2,6 @@ import 'bootstrap';
 import 'select2';
 import $ from 'jquery';
 import dataTables from './data-tables';
-import moneyBarChart from './money-bar-chart';
 import sessionTimeGraph from './session-time-graph';
 import sessionCalendar from './session-calender';
 
@@ -17,7 +16,7 @@ const setWeeklyDashboard = () => {
   const id = '#playtime-last-week';
   if ($(id).length) {
     $.getJSON({
-      url: '/admin/sessions/recently',
+      url: '/sessions/recently',
       success: (data) => {
         sessionTimeGraph(id, data, '%d %b %Y');
       },
@@ -29,7 +28,7 @@ const setMonthlyPlaytimeDashboard = () => {
   const id = '#playtime-per-month';
   if ($(id).length) {
     $.getJSON({
-      url: '/admin/sessions/per-month',
+      url: '/sessions/per-month',
       success: (data) => {
         sessionTimeGraph(id, data, '%b %Y');
       },
@@ -42,7 +41,7 @@ const setMonthlyAverageDashboard = () => {
   const id = '#average-per-month';
   if ($(id).length) {
     $.getJSON({
-      url: '/admin/average/per-month',
+      url: '/average/per-month',
       success: (data) => {
         sessionTimeGraph(id, data, '%b %Y');
       },
@@ -56,7 +55,7 @@ const setPlaytimeGame = () => {
   if ($(id).length) {
     const gameId = $(id).data('game-id');
     $.getJSON({
-      url: `/admin/sessions/game/${gameId}`,
+      url: `/sessions/game/${gameId}`,
       success: (data) => {
         sessionCalendar(id, data, '%d %b %Y', $(id)[0].dataset.year);
       },
@@ -88,7 +87,7 @@ const setSessionsPerMonthForGame = () => {
   if ($(id).length) {
     const gameId = $(id).data('game-id');
     $.getJSON({
-      url: `/admin/sessions/game/${gameId}/per-month`,
+      url: `/sessions/game/${gameId}/per-month`,
       success: (data) => {
         sessionTimeGraph(id, data, '%b %Y');
       },
@@ -102,38 +101,12 @@ const addImgClass = () => {
   image.removeAttr('style');
 };
 
-const setInvestedMoneyPerMonth = () => {
-  const id = '#invested-money-per-month';
-
-  if ($(id).length) {
-    $.getJSON({
-      url: '/admin/money/per-month',
-      success: (data) => {
-        moneyBarChart(id, data, '%b %Y');
-      },
-    });
-  }
-};
-
-const setInvestedMoneyPerYear = () => {
-  const id = '#invested-money-per-year';
-
-  if ($(id).length) {
-    $.getJSON({
-      url: '/admin/money/per-year',
-      success: (data) => {
-        moneyBarChart(id, data, '%Y');
-      },
-    });
-  }
-};
-
 const setSessionsForYear = () => {
   const id = '#sessions-for-year';
 
   if ($(id).length) {
     $.getJSON({
-      url: `/admin/sessions/${$(id)[0].dataset.year}`,
+      url: `/sessions/${$(id)[0].dataset.year}`,
       success: (data) => {
         sessionCalendar(id, data, '%d %b %Y', $(id)[0].dataset.year);
       },
@@ -180,8 +153,6 @@ $(document).ready(() => {
   addPlaytimeGamesYearSelect();
   addImgClass();
   addDataTables();
-  setInvestedMoneyPerMonth();
-  setInvestedMoneyPerYear();
   setSessionsForYear();
   addSessionsForYearSelect();
   setSessionsPerMonthForGame();

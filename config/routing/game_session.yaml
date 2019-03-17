@@ -1,0 +1,9 @@
+game_session_list:
+    path: /session/per-day
+    defaults: { _controller: 'App\Controller\GameSessionController::list' }
+game_session_list_per_month:
+    path: /session/per-month
+    defaults: { _controller: 'App\Controller\GameSessionController::listPerMonth' }
+game_session_list_for_game:
+    path: /game/{id}/session
+    defaults: { _controller: 'App\Controller\GameSessionController::listForGame' }

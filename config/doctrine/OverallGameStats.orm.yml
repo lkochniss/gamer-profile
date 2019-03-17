@@ -6,11 +6,6 @@ App\Entity\OverallGameStats:
             type: integer
             generator: { strategy: AUTO }
     fields:
-        identifier:
-            type: string
-            length: 32
-            nullable: false
-            unique: true
         overallAchievements:
             column: overall_achievements
             type: integer
@@ -19,26 +14,45 @@ App\Entity\OverallGameStats:
             column: player_achievements
             type: integer
             nullable: false
-        recentlyPlayed:
-            column: recently_played
+        recentPlaytime:
+            column: recent_playtime
             type: integer
             nullable: false
-        timePlayed:
-            column: time_played
+        overallPlaytime:
+            column: overall_playtime
             type: integer
             nullable: false
         gameSessions:
             column: game_sessions
             type: integer
             nullable: false
-        investedMoney:
-            column: invested_money
-            type: float
+        statusOpen:
+            column: status_open
+            type: integer
             nullable: false
-        wastedMoney:
-            column: wasted_money
-            type: float
+        statusPaused:
+            column: status_paused
+            type: integer
             nullable: false
-        currency:
-            type: string
-            length: 4
+        statusPlaying:
+            column: status_playing
+            type: integer
+            nullable: false
+        statusFinished:
+            column: status_finished
+            type: integer
+            nullable: false
+        statusGivenUp:
+            column: status_given_up
+            type: integer
+            nullable: false
+        numberOfGames:
+            column: number_of_games
+            type: integer
+            nullable: false
+    manyToOne:
+        user:
+            targetEntity: User
+            joinColumn:
+                name: user_id
+                referenceColumnName: id

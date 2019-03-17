@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <table id="game-list-backend" class="table">
+        <thead>
+        <tr>
+            <th scope="col">
+                {% trans from 'messages' %}name{% endtrans %}
+            </th>
+            <th scope="col">
+                {% trans from 'messages' %}achievements{% endtrans %}
+            </th>
+            <th scope="col">
+                {% trans from 'messages' %}played_for{% endtrans %}
+            </th>
+            <th scope="col">
+                {% trans from 'messages' %}last_played{% endtrans %}
+            </th>
+            <th scope="col">
+                {% trans from 'messages' %}number_of_sessions{% endtrans %}
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                <td>
+                    <a href="{{ path('game_dashboard', {'id': entity.game.id}) }}">{{ entity.game.name }}</a>
+                </td>
+                {% if entity.achievement.overallAchievements > 0 %}
+                    {% set percentage = entity.achievement.playerAchievements / entity.achievement.overallAchievements  * 100 %}
+                    <td data-order="{{ percentage }}">
+                        {{ percentage|round(2) }}%
+                    </td>
+                {% else %}
+                    <td data-order="0">
+                        -
+                    </td>
+                {% endif %}
+                <td data-order="{{ entity.playtime.overallPlaytime }}">
+                    {% if entity.playtime.overallPlaytime > 0 %}
+                        {{ entity.playtime.overallPlaytime | convert_overall_time }}
+                    {% else %}
+                        -
+                    {% endif %}
+                </td>
+
+                {% set lastSession = entity|get_last_game_session %}
+                {% if lastSession %}
+                    <td data-order="{{ lastSession.createdAt | date('Y-m-d') }}">
+                        {{ lastSession.createdAt |date('d.m.Y') }}
+                    </td>
+                {% else %}
+                    <td data-order="0">
+                        -
+                    </td>
+                {% endif %}
+                <td>
+                    {{ entity|get_number_of_sessions }}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

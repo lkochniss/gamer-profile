@@ -9,24 +9,15 @@
         <link rel="stylesheet" type="text/css"
               href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     {% endblock %}
-    <script async src="https://www.googletagmanager.com/gtag/js?id={{ ga_tracking }}"></script>
-    <script>
-      window.dataLayer = window.dataLayer || []
-
-      function gtag () {dataLayer.push(arguments)}
-
-      gtag('js', new Date())
-
-      gtag('config', '{{ ga_tracking }}')
-    </script>
 </head>
 <body>
-{% include 'infotext.html.twig' %}
-{% include('Navigation/frontend-navigation.html.twig') %}
+{%  include('Navigation/navigation.html.twig') %}
 <div class="container-fluid">
-    {% block body %}
+    <div id="page-wrapper">
+        {% block body %}
 
-    {% endblock %}
+        {% endblock %}
+    </div>
 </div>
 </body>
 {% block javascripts %}

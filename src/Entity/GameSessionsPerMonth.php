@@ -23,14 +23,21 @@ class GameSessionsPerMonth extends AbstractEntity
     private $game;
 
     /**
+     * @var User
+     */
+    private $user;
+
+    /**
      * GameSessionsPerMonth constructor.
      * @param \DateTime $month
      * @param Game $game
+     * @param User $user
      */
-    public function __construct(\DateTime $month, Game $game)
+    public function __construct(\DateTime $month, Game $game, User $user)
     {
         $this->month = $month;
         $this->game = $game;
+        $this->user = $user;
         $this->duration = 0;
     }
 
@@ -64,5 +71,13 @@ class GameSessionsPerMonth extends AbstractEntity
     public function getGame(): Game
     {
         return $this->game;
+    }
+
+    /**
+     * @return User
+     */
+    public function getUser(): User
+    {
+        return $this->user;
     }
 }

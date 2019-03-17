@@ -1,7 +1,0 @@
-{% if game.hasGamePurchase %}
-    <div class="panel-footer">
-        <span class="pull-left">{% trans from "messages" %}bought_at{% endtrans %}:</span>
-        <span class="pull-right">{{ game.gamePurchase.boughtAt|date("d.m.Y") }}</span>
-        <div class="clearfix"></div>
-    </div>
-{% endif %}

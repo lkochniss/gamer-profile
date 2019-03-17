@@ -8,11 +8,6 @@ namespace App\Entity;
 class OverallGameStats extends AbstractEntity
 {
     /**
-     * @var string
-     */
-    private $identifier;
-
-    /**
      * @var int
      */
     private $overallAchievements = 0;
@@ -25,12 +20,12 @@ class OverallGameStats extends AbstractEntity
     /**
      * @var int
      */
-    private $recentlyPlayed = 0;
+    private $recentPlaytime = 0;
 
     /**
      * @var int
      */
-    private $timePlayed = 0;
+    private $overallPlaytime = 0;
 
     /**
      * @var int
@@ -38,27 +33,47 @@ class OverallGameStats extends AbstractEntity
     private $gameSessions = 0;
 
     /**
-     * @var float
+     * @var int
      */
-    private $investedMoney = 0.0;
+    private $statusOpen = 0;
 
     /**
-     * @var float
+     * @var int
      */
-    private $wastedMoney = 0.0;
+    private $statusPaused = 0;
 
     /**
-     * @var string
+     * @var int
      */
-    private $currency;
+    private $statusPlaying = 0;
+
+    /**
+     * @var int
+     */
+    private $statusFinished = 0;
+
+    /**
+     * @var int
+     */
+    private $statusGivenUp = 0;
+
+    /**
+     * @var int
+     */
+    private $numberOfGames = 0;
+
+    /**
+     * @var User
+     */
+    private $user;
 
     /**
      * OverallGameStats constructor.
+     * @param User $user
      */
-    public function __construct()
+    public function __construct(User $user)
     {
-        $this->identifier = getenv('STEAM_USER_ID');
-        $this->currency = getenv('DEFAULT_CURRENCY');
+        $this->user = $user;
     }
 
     /**
@@ -96,33 +111,33 @@ class OverallGameStats extends AbstractEntity
     /**
      * @param int $number
      */
-    public function addToRecentlyPlayed(int $number): void
+    public function addToRecentPlaytime(int $number): void
     {
-        $this->recentlyPlayed += $number;
+        $this->recentPlaytime += $number;
     }
 
     /**
      * @return int
      */
-    public function getRecentlyPlayed(): int
+    public function getRecentPlaytime(): int
     {
-        return $this->recentlyPlayed;
+        return $this->recentPlaytime;
     }
 
     /**
      * @param int $number
      */
-    public function addToTimePlayed(int $number): void
+    public function addToOverallPlaytime(int $number): void
     {
-        $this->timePlayed += $number;
+        $this->overallPlaytime += $number;
     }
 
     /**
      * @return int
      */
-    public function getTimePlayed(): int
+    public function getOverallPlaytime(): int
     {
-        return $this->timePlayed;
+        return $this->overallPlaytime;
     }
 
     public function addGameSessions(): void
@@ -147,53 +162,106 @@ class OverallGameStats extends AbstractEntity
     }
 
     /**
-     * @param float $number
+     * @return User
      */
-    public function addToInvestedMoney(float $number): void
+    public function getUser(): User
     {
-        $this->investedMoney += $number;
-    }
-
-    public function resetInvestedMoney(): void
-    {
-        $this->investedMoney = 0;
+        return $this->user;
     }
 
     /**
-     * @return float
+     * @return int
      */
-    public function getInvestedMoney(): float
+    public function getStatusOpen(): int
     {
-        return $this->investedMoney;
+        return $this->statusOpen;
     }
 
     /**
-     * @param float $number
+     * @param int $statusOpen
      */
-    public function addToWastedMoney(float $number): void
+    public function setStatusOpen(int $statusOpen): void
     {
-        $this->wastedMoney += $number;
-    }
-
-    public function resetWastedMoney(): void
-    {
-        $this->wastedMoney = 0;
+        $this->statusOpen = $statusOpen;
     }
 
     /**
-     * @return float
+     * @return int
      */
-    public function getWastedMoney(): float
+    public function getStatusPaused(): int
     {
-        return $this->wastedMoney;
+        return $this->statusPaused;
     }
 
+    /**
+     * @param int $statusPaused
+     */
+    public function setStatusPaused(int $statusPaused): void
+    {
+        $this->statusPaused = $statusPaused;
+    }
 
     /**
-     * @return string
+     * @return int
      */
-    public function getCurrency(): string
+    public function getStatusPlaying(): int
     {
-        return $this->currency;
+        return $this->statusPlaying;
+    }
+
+    /**
+     * @param int $statusPlaying
+     */
+    public function setStatusPlaying(int $statusPlaying): void
+    {
+        $this->statusPlaying = $statusPlaying;
+    }
+
+    /**
+     * @return int
+     */
+    public function getStatusFinished(): int
+    {
+        return $this->statusFinished;
+    }
+
+    /**
+     * @param int $statusFinished
+     */
+    public function setStatusFinished(int $statusFinished): void
+    {
+        $this->statusFinished = $statusFinished;
+    }
+
+    /**
+     * @return int
+     */
+    public function getStatusGivenUp(): int
+    {
+        return $this->statusGivenUp;
+    }
+
+    /**
+     * @param int $statusGivenUp
+     */
+    public function setStatusGivenUp(int $statusGivenUp): void
+    {
+        $this->statusGivenUp = $statusGivenUp;
+    }
+
+    /**
+     * @return int
+     */
+    public function getNumberOfGames(): int
+    {
+        return $this->numberOfGames;
+    }
+
+    /**
+     * @param int $numberOfGames
+     */
+    public function setNumberOfGames(int $numberOfGames): void
+    {
+        $this->numberOfGames = $numberOfGames;
     }
 }

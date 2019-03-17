@@ -4,7 +4,7 @@ namespace App\Listener;
 
 use App\Entity\GameSession;
 use App\Entity\PlaytimePerMonth;
-use App\Service\Stats\PlaytimePerMonthService;
+use App\Service\GameStats\PlaytimePerMonthService;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 
 /**
@@ -56,7 +56,7 @@ class PlaytimePerMonthListener
 
         if (array_key_exists('duration', $changeSet)) {
             $diff = $changeSet['duration'][1] - $changeSet['duration'][0];
-            $playtimePerMonthService->updateSession($diff);
+            $playtimePerMonthService->updateSession($diff, $entity->getUser());
         }
 
         return 'U';

@@ -1,0 +1,25 @@
+App\Entity\Achievement:
+    type: entity
+    repositoryClass: App\Repository\AchievementRepository
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        playerAchievements:
+            type: integer
+            column: player_achievements
+        overallAchievements:
+            type: integer
+            nullable: overall_achievements
+    manyToOne:
+          user:
+              targetEntity: User
+              joinColumn:
+                  name: user_id
+                  referenceColumnName: id
+          game:
+              targetEntity: Game
+              joinColumn:
+                  name: game_id
+                  referenceColumnName: id
