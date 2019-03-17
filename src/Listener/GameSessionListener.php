@@ -29,7 +29,7 @@ class GameSessionListener
         }
 
         $gameSessionsPerMonthRepository = $args->getEntityManager()->getRepository(
-            GameSessionsPerMonthRepository::class
+            GameSessionsPerMonth::class
         );
         $gameSessionsPerMonthService = new GameSessionsPerMonthService($gameSessionsPerMonthRepository);
         $gameSessionsPerMonthService->addGameSession($entity);
@@ -60,7 +60,7 @@ class GameSessionListener
         $changeSet = $unitOfWork->getEntityChangeSet($entity);
 
         $gameSessionsPerMonthRepository = $args->getEntityManager()->getRepository(
-            GameSessionsPerMonthRepository::class
+            GameSessionsPerMonth::class
         );
         $gameSessionsPerMonthService = new GameSessionsPerMonthService($gameSessionsPerMonthRepository);
 

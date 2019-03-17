@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Entity\GameSessionsPerMonth;
 use App\Repository\GameRepository;
 use App\Repository\GameSessionRepository;
 use App\Repository\GameSessionsPerMonthRepository;
