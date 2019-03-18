@@ -1,23 +1,9 @@
 achievements: Achievements
 average_daily_playtime_per_month: 'Average daily playtime per month'
 average_session: 'Average Session'
-blog_post_list: 'List Blog Posts'
-blog_posts: 'Blog Posts'
-bought_at: 'Bought At'
-bought_for: 'Bought For'
-create_new_blog_post: 'Create new Blog Post'
-create_new_purchase: 'Create New Purchase'
-costs: Costs
-costs_per_hour: 'Costs per Hour'
-created_at: 'Created At'
-current_steam_price: 'Current Steam Price'
 dashboard: Dashboard
 date: Date
-default_currency: 'Default Currency'
-dlc_purchase: 'DLC Purchase'
 duration: Duration
-edit: Edit
-EUR: €
 initializing_data: 'initializing data...'
 select_impersonate: 'impersonate'
 users: 'Users'
@@ -25,11 +11,6 @@ impersonate_user: 'impersonate'
 exit_impersonate: 'exit impersonate'
 finished_games: 'Finished Games'
 first_indexed_on: 'First Indexed On'
-ga_tracking: 'Google Analytics Tracking Id'
-game_of_the_month: 'Game Of The Month'
-game_list: 'Game List'
-game_of_the_year: 'Game of the Year'
-game_purchase: 'Game Purchase'
 game_sessions: 'Game Sessions'
 game_sessions_per_day: 'per day'
 game_sessions_per_month: 'per month'
@@ -37,47 +18,26 @@ game: Game
 games: Games
 given_up_games: 'Given up Games'
 information: Information
-ingame_purchase: 'Ingame Purchase'
-invested_money: 'Invested Money'
-invested_money_per_month: 'Invested %currency% last twelve months'
-invested_money_per_year: 'Invested %currency% per year'
 last_session: 'Last Session'
 last_session_date_played_for: 'Last played on %date% for %time%'
 last_played: 'Last Played'
 last_update_on: 'Last Update On'
-latest_blog_post: 'Latest Blog Post'
-latest_posts: 'Latest Posts'
 login: login
 logout: logout
 longest_session: 'Longest Session'
-modified_at: 'Modified At'
 month: 'Month'
-most_played: 'Most Played'
 name: Name
-new_games: 'New Games'
-notice: Notice
-number_of_blog_posts: 'Blog Posts'
 number_of_game_sessions: 'Game Sessions'
-number_of_purchases: 'Purchases'
 number_of_sessions: 'Sessions'
-other_purchase: 'Other Purchase'
-open: 'open'
 open_games: 'Open Games'
-overall_costs: 'Overall Costs'
 overall_playtime: 'Overall Playtime'
-password: Password
 paused_games: 'Paused Games'
 played_for: 'Played For'
-playing: 'playing'
 playing_games: 'Playing Games'
 playtime_game: 'Playtime'
 playtime_since_purchase: 'Played for %time% since purchase'
 playtime_since_purchase_date: 'Played for %time% since %date%'
-price: Price
 profile_not_public: "Your profile is not public some data can't be shown"
-posted_at: 'Posted At'
-purchase_list: 'List Purchases'
-purchases: Purchases
 recent_playtime: 'Recently played for %time%'
 recently_played: 'Recently Played'
 screenshots: Screenshots
@@ -85,16 +45,6 @@ session_time_last_days: 'Session playtime last two weeks'
 session_time_per_month: 'Session playtime per month'
 sessions: Sessions
 session_per_month: 'Sessions per month'
-sessions_this_year: 'Sessions this year'
-settings: Settings
-shortest_session: 'Shortest Session'
-show: Show
-show_all: 'Show All'
-steam_api_key: 'Steam Api Key'
-steam_app_id: 'Steam AppId'
-steam_profile: 'Steam Profile'
-steam_user_id: 'Steam User Id'
-steam_user_name: 'Steam User Name'
 statistics: Statistics
 status: 'Status'
 status_open: 'open'
@@ -102,20 +52,13 @@ status_paused: 'paused'
 status_playing: 'playing'
 status_finished: 'finished'
 status_given_up: 'given up'
-submit: Submit
 switch_to_year: 'Switch to'
-title: Title
 top_played_this_month: 'Top games played this month'
 translate_days: '{0}%count% days|{1}1 day|]1,Inf[%count% days'
 translate_hours: '{0}%count% hours|{1}1 hour|]1,Inf[%count% hours'
 translate_minutes: '{0}%count% minutes|{1}1 minute|]1,Inf[%count% minutes'
-type: Type
 update_information: 'Update Information'
-USD: $
-updated_at: 'Updated At'
-username: Username
-view_all_blog_posts: 'View all Blog Posts'
 view_all_game_sessions: 'View All Game Sessions'
-view_all_purchases: 'View All Purchases'
 view_screenshots: 'View Screenshots'
-wasted_money: 'Wasted Money'
+steam_app_id: 'Steam AppId'
+steam_region_lock: 'Failed due to region lock or timeout'
