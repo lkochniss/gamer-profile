@@ -12,7 +12,7 @@
     "guzzlehttp/guzzle": "^6.3",
     "hybridauth/hybridauth": "^3.0@RC",
     "symfony/asset": "^4.0",
-    "symfony/browser-kit": "^4.0@RC",
+    "symfony/browser-kit": "^4.0",
     "symfony/cache": "^4.0",
     "symfony/console": "^4.0@beta",
     "symfony/flex": "^1.0",

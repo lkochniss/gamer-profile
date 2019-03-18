@@ -52,9 +52,9 @@ class SteamController extends Controller
                 $userRepository->save($user);
             }
 
-            $providerKey = 'admin';
-            $token = new UsernamePasswordToken($user, null, $providerKey, ['ROLE_ADMIN']);
-            $this->get('session')->set('_security_' . $providerKey, serialize($token));
+            $firewallContext = 'admin';
+            $token = new UsernamePasswordToken($user, null, $firewallContext, ['ROLE_USER']);
+            $this->get('session')->set('_security_' . $firewallContext, serialize($token));
             $this->get('security.token_storage')->setToken($token);
         } catch (Exception $exception) {
             echo $exception->getMessage();
