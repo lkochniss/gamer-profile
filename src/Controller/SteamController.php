@@ -18,7 +18,10 @@ class SteamController extends Controller
     const ALLOWED_BETA_USERS = [
         '76561198045607524',
         '76561198049001294',
-        '76561198046898250'
+        '76561198046898250',
+        '76561198036722743',
+        '76561198028339624',
+        '76561198012217484'
     ];
 
     public function authenticate(Request $request, UserRepository $userRepository)
