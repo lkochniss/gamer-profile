@@ -5,13 +5,6 @@ import dataTables from './data-tables';
 import sessionTimeGraph from './session-time-graph';
 import sessionCalendar from './session-calender';
 
-const enableSelect2 = () => {
-  $('#blog_post_game').select2();
-  $('#purchase_game').select2();
-
-  $('.select2-container').addClass('col-form-label');
-};
-
 const setWeeklyDashboard = () => {
   const id = '#playtime-last-week';
   if ($(id).length) {
@@ -134,18 +127,14 @@ const addSessionsForYearSelect = () => {
 };
 
 const addDataTables = () => {
-  dataTables('#blog-post-list', 3, 'DESC');
-  dataTables('#blog-post-for-game-list', 1, 'DESC');
-  dataTables('#blog-post-frontend-list', 1, 'DESC');
   dataTables('#game-list-backend', 4, 'DESC');
   dataTables('#game-session-list');
   dataTables('#game-session-for-game-list', 1, 'DESC');
   dataTables('#game-list');
-  dataTables('#purchase-list', 4, 'DESC');
+  dataTables('#user-list');
 };
 
 $(document).ready(() => {
-  enableSelect2();
   setWeeklyDashboard();
   setMonthlyPlaytimeDashboard();
   setMonthlyAverageDashboard();

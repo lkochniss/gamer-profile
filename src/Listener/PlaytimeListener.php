@@ -43,7 +43,6 @@ class PlaytimeListener
 
     /**
      * @param LifecycleEventArgs $args
-     * @return string
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */

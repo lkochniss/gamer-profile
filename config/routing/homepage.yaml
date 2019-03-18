@@ -1,7 +1,7 @@
-homepage_update_sessions:
-    path: /update/sessions
-    defaults: { _controller: 'App\Controller\HomepageController::updateSessions' }
-
 homepage_dashboard:
     path: /
     defaults: { _controller: 'App\Controller\HomepageController::dashboard' }
+
+homepage_impersonate:
+    path: /users
+    defaults: { _controller: 'App\Controller\HomepageController::selectImpersonate' }

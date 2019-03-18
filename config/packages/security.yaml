@@ -5,6 +5,8 @@ security:
            entity: { class: App\Entity\User, property: steamId }
     encoders:
         Symfony\Component\Security\Core\User\User: plaintext
+    role_hierarchy:
+        ROLE_ADMIN: [ROLE_USER, ROLE_ALLOWED_TO_SWITCH]
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
@@ -12,6 +14,7 @@ security:
         admin:
             anonymous: ~
             pattern: ^/
+            switch_user: true
             form_login:
                 login_path: /login
                 check_path: /login_check
@@ -29,4 +32,4 @@ security:
         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/login_check, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/steam/authenticate, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^, roles: ROLE_ADMIN }
+        - { path: ^, roles: ROLE_USER }

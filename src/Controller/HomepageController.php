@@ -6,6 +6,7 @@ use App\Entity\GameSessionsPerMonth;
 use App\Entity\User;
 use App\Repository\GameSessionsPerMonthRepository;
 use App\Repository\OverallGameStatsRepository;
+use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -42,6 +43,19 @@ class HomepageController extends Controller
             'playedThisMonth' => array_slice($gameSessions, 0, 10),
             'yearsWithSessions' => $yearsWithSessions,
             'currentYear' => $now->format('Y')
+        ]);
+    }
+
+    /**
+     * @param UserRepository $userRepository
+     * @return Response
+     */
+    public function selectImpersonate(UserRepository $userRepository): Response
+    {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
+        return $this->render('Homepage/users.html.twig', [
+            'users' => $userRepository->findAll()
         ]);
     }
 

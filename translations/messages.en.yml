@@ -19,6 +19,10 @@ duration: Duration
 edit: Edit
 EUR: €
 initializing_data: 'initializing data...'
+select_impersonate: 'impersonate'
+users: 'Users'
+impersonate_user: 'impersonate'
+exit_impersonate: 'exit impersonate'
 finished_games: 'Finished Games'
 first_indexed_on: 'First Indexed On'
 ga_tracking: 'Google Analytics Tracking Id'
