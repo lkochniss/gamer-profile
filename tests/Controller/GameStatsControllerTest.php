@@ -6,7 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
-class ApiControllerTest extends WebTestCase
+class GameStatsControllerTest extends WebTestCase
 {
     /**
      * @var LoginHelper
@@ -50,13 +50,11 @@ class ApiControllerTest extends WebTestCase
     public function backendUrlProvider(): array
     {
         return [
-            ['/api/sessions/this-year'],
-            ['/api/sessions/per-month'],
-            ['/api/average/per-month'],
-            ['/api/sessions/recently'],
-            ['/api/sessions/game/1'],
-            ['/api/sessions/game/1/per-month'],
-            ['/api/sessions/2019'],
+            ['/game/1/status/open'],
+            ['/game/1/status/paused'],
+            ['/game/1/status/playing'],
+            ['/game/1/status/finished'],
+            ['/game/1/status/given-up'],
         ];
     }
 }

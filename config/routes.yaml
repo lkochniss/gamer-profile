@@ -1,6 +1,7 @@
 ## Api
 api_admin:
     resource: routing/api.yaml
+    prefix: /api
 
 ## Login
 secruity_admin:
