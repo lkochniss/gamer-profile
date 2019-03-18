@@ -22,12 +22,13 @@ class GameStatsControllerTest extends WebTestCase
      * @param string $url
      * @dataProvider backendUrlProvider
      */
-    public function testActionsReturnOk(string $url): void
+    public function testActionsWorksAndRedircetsToGame(string $url): void
     {
         $client = static::createClient();
         $this->loginHelper->logIn($client, LoginHelper::USER_1);
         $client->request('GET', $url);
-        $this->assertEquals(Response::HTTP_OK, $client->getResponse()->getStatusCode());
+        $crawler = $client->followRedirect();
+        $this->assertContains('/game/1', $crawler->getUri());
     }
 
     /**
