@@ -1,5 +1,4 @@
 import 'bootstrap';
-import 'select2';
 import $ from 'jquery';
 import dataTables from './data-tables';
 import sessionTimeGraph from './session-time-graph';
