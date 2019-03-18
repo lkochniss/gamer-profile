@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "77a54d26234027e4d62c71a0672ef005",
+    "content-hash": "6a9c6ec49471a70f3de26c4719bec635",
     "packages": [
         {
             "name": "api-platform/api-pack",
@@ -8591,7 +8591,6 @@
     "minimum-stability": "beta",
     "stability-flags": {
         "hybridauth/hybridauth": 5,
-        "symfony/browser-kit": 5,
         "symfony/console": 10,
         "symfony/lts": 20,
         "symfony/twig-bundle": 5
