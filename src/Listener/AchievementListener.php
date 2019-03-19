@@ -24,33 +24,28 @@ class AchievementListener
 
     /**
      * @param LifecycleEventArgs $args
-     * @return string
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
-    public function postPersist(LifecycleEventArgs $args): string
+    public function postPersist(LifecycleEventArgs $args): void
     {
         $entity = $args->getEntity();
 
         if ($entity instanceof Achievement === false) {
-            return 'S';
+            return;
         }
 
         $overallGameStatsRepository = $args->getEntityManager()->getRepository(OverallGameStats::class);
         $achievementService = new OverallGameStatsService($overallGameStatsRepository);
-
         $achievementService->addAchievement($entity);
-
-        return 'U';
     }
 
     /**
      * @param LifecycleEventArgs $args
-     * @return string
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
-    public function postUpdate(LifecycleEventArgs $args): string
+    public function postUpdate(LifecycleEventArgs $args): void
     {
         /**
          * @var Game $entity
@@ -58,7 +53,7 @@ class AchievementListener
         $entity = $args->getEntity();
 
         if ($entity instanceof Achievement === false) {
-            return 'S';
+            return;
         }
 
         $overallGameStatsRepository = $args->getEntityManager()->getRepository(OverallGameStats::class);
@@ -78,7 +73,5 @@ class AchievementListener
         }
 
         $achievementService->updateAchievementWithChangeSet($achievementChangeSet);
-
-        return 'U';
     }
 }
