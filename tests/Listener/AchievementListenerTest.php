@@ -67,4 +67,27 @@ class AchievementListenerTest extends TestCase
         $listener = new GameSessionListener();
         $listener->postUpdate($argsMock);
     }
+
+    public function testPostUpdateShouldGetTheGameStatsRepository(): void
+    {
+        $argsMock = $this->createMock(LifecycleEventArgs::class);
+        $argsMock->expects($this->once())
+            ->method('getEntity')
+            ->willReturn(new Achievement(new User(1), new Game(1)));
+
+        $overallGameStatsRepositoryMock = $this->createMock(OverallGameStatsRepository::class);
+
+        $entityManagerMock = $this->createMock(EntityManager::class);
+        $entityManagerMock->expects($this->any())
+            ->method('getRepository')
+            ->with(OverallGameStats::class)
+            ->willReturn($overallGameStatsRepositoryMock);
+
+        $argsMock->expects($this->any())
+            ->method('getEntityManager')
+            ->willReturn($entityManagerMock);
+
+        $listener = new GameSessionListener();
+        $listener->postUpdate($argsMock);
+    }
 }
