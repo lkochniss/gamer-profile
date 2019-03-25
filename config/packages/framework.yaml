@@ -8,6 +8,9 @@ framework:
     session:
     #    # The native PHP session handler will be used
         handler_id: ~
+        cookie_lifetime: 604800
+        cookie_httponly: true
+        cookie_samesite: 'strict'
     #esi: ~
     #fragments: ~
     php_errors:
