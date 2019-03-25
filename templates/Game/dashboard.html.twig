@@ -32,7 +32,7 @@
             </div>
         </div>
     </div>
-    <div class="row dashboardRow">
+    <div class="row">
         <div class="col-md-6">
             <div data-game-id="{{ entity.game.id }}" class="col col-md-12" id="playtime-game" data-year="{{ currentYear }}">
                 <h3>{% trans %}playtime_game{% endtrans %} <span id="selectedYear">{{ currentYear }}</span></h3>
@@ -47,6 +47,8 @@
                 {% endfor %}
             </div>
         </div>
+    </div>
+    <div class="row dashboardRow">
         <div data-game-id="{{ entity.game.id }}" class="col col-md-6 dashboardRow" id="sessions-per-month-for-game">
             <h3>{% trans %}session_per_month{% endtrans %}</h3>
         </div>
