@@ -53,7 +53,7 @@ class SteamController extends Controller
             }
 
             $firewallContext = 'admin';
-            $token = new UsernamePasswordToken($user, null, $firewallContext, ['ROLE_USER']);
+            $token = new UsernamePasswordToken($user, null, $firewallContext, $user->getRoles());
             $this->get('session')->set('_security_' . $firewallContext, serialize($token));
             $this->get('security.token_storage')->setToken($token);
         } catch (Exception $exception) {
