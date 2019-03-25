@@ -13,27 +13,31 @@ class GameStatsListener
 {
     /**
      * @param LifecycleEventArgs $args
-     * @return string
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
-    public function postPersist(LifecycleEventArgs $args): string
+    public function postPersist(LifecycleEventArgs $args): void
     {
         $entity = $args->getEntity();
 
         if ($entity instanceof GameStats === false) {
-            return 'S';
+            return;
         }
 
         $overallGameStatsRepository = $args->getEntityManager()->getRepository(OverallGameStats::class);
 
         $gameStats = $overallGameStatsRepository->findOneBy(['user' => $entity->getUser()]);
+
+        if (is_null($gameStats)) {
+            return;
+        }
+
         $gameStats->setStatusOpen($gameStats->getStatusOpen() + 1);
         $gameStats->setNumberOfGames($gameStats->getNumberOfGames() + 1);
 
         $overallGameStatsRepository->save($gameStats);
 
-        return 'U';
+        return;
     }
 
     /**
