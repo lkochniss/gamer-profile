@@ -190,12 +190,12 @@ class GameUserInformationService
 
         $gameSession = $this->gameSessionRepository->findOneBy([
             'game' => $playtime->getGame(),
-            'user' => $playtime->getUser(),
+            'steamUserId' => $playtime->getSteamUserId(),
             'date' => $date
         ]);
 
         if ($gameSession === null) {
-            $gameSession = new GameSession($playtime->getGame(), $playtime->getUser(), $date);
+            $gameSession = new GameSession($playtime->getGame(), $playtime->getSteamUserId());
         }
 
         if ($userInformation->getRecentPlaytime() > 0 &&

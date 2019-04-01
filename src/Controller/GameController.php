@@ -34,7 +34,7 @@ class GameController extends AbstractCrudController
             throw new NotFoundHttpException();
         }
 
-        $entity = $gameStatsRepository->findOneBy(['game' => $game, 'user' => $user]);
+        $entity = $gameStatsRepository->findOneBy(['game' => $game, 'steamUserId' => $user->getSteamId()]);
 
         if (is_null($entity)) {
             throw new NotFoundHttpException();
@@ -72,7 +72,9 @@ class GameController extends AbstractCrudController
      */
     public function list(UserInterface $user): Response
     {
-        $entities = $this->getDoctrine()->getRepository(GameStats::class)->findBy(['user' => $user]);
+        $entities = $this->getDoctrine()->getRepository(GameStats::class)->findBy([
+            'steamUserId' => $user->getSteamId()
+        ]);
 
         return $this->render(
             sprintf('%s/list.html.twig', $this->getTemplateBasePath()),

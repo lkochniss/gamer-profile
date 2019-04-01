@@ -18,7 +18,10 @@ abstract class AbstractCrudController extends Controller
      */
     public function list(UserInterface $user): Response
     {
-        $entities = $this->getDoctrine()->getRepository($this->getEntityName())->findBy(['user' => $user]);
+        $entities = $this->getDoctrine()->getRepository($this->getEntityName())->findBy([
+            'steamUserId' => $user->getSteamId()
+        ]);
+
         return $this->render(
             sprintf('%s/list.html.twig', $this->getTemplateBasePath()),
             [
@@ -40,7 +43,7 @@ abstract class AbstractCrudController extends Controller
         $game = $gameRepository->find($id);
         $entities = $this->getDoctrine()->getRepository($this->getEntityName())->findBy([
             'game' => $id,
-            'user' => $user
+            'steamUserId' => $user->getSteamId()
         ]);
 
         return $this->render(

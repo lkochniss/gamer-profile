@@ -21,7 +21,7 @@ class GameSessionController extends Controller
      */
     public function list(GameSessionRepository $gameSessionRepository, UserInterface $user): Response
     {
-        $entities = $gameSessionRepository->findBy(['user' => $user]);
+        $entities = $gameSessionRepository->findBy(['steamUserId' => $user->getSteamId()]);
         return $this->render(
             'GameSession/list.html.twig',
             [
@@ -46,7 +46,7 @@ class GameSessionController extends Controller
         UserInterface $user
     ): Response {
         $game = $gameRepository->find($id);
-        $entities = $gameSessionRepository->findBy(['game' => $id, 'user' => $user]);
+        $entities = $gameSessionRepository->findBy(['game' => $id, 'steamUserId' => $user->getSteamId()]);
 
         return $this->render(
             'GameSession/list-for-game.html.twig',
@@ -66,7 +66,7 @@ class GameSessionController extends Controller
         GameSessionsPerMonthRepository $gameSessionsPerMonthRepository,
         UserInterface $user
     ): Response {
-        $gamesPerMonth = $gameSessionsPerMonthRepository->findBy(['user' => $user]);
+        $gamesPerMonth = $gameSessionsPerMonthRepository->findBy(['steamUserId' => $user->getSteamId()]);
 
         return $this->render(
             'GameSession/list-per-month.html.twig',
