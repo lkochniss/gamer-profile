@@ -33,7 +33,7 @@ class PlaytimePerMonthService
      */
     public function addSession(GameSession $gameSession): PlaytimePerMonth
     {
-        $playtimePerMonth = $this->getPlaytimePerMonth($gameSession->steamUserId());
+        $playtimePerMonth = $this->getPlaytimePerMonth($gameSession->getSteamUserId());
 
         $playtimePerMonth->addToDuration($gameSession->getDuration());
         $playtimePerMonth->addSession();
