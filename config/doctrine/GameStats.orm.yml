@@ -12,13 +12,6 @@ App\Entity\GameStats:
         steamUserId:
             type: integer
             column: steam_user_id
-    oneToMany:
-        gameSessions:
-            targetEntity: GameSession
-            mappedBy: gameStats
-        playtimePerMonth:
-            targetEntity: PlaytimePerMonth
-            mappedBy: gameStats
     manyToOne:
         achievement:
             targetEntity: Achievement

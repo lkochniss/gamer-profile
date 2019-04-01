@@ -1,5 +1,4 @@
 import 'bootstrap';
-import 'select2';
 import $ from 'jquery';
 import dataTables from './data-tables';
 import sessionTimeGraph from './session-time-graph';
@@ -9,7 +8,7 @@ const setWeeklyDashboard = () => {
   const id = '#playtime-last-week';
   if ($(id).length) {
     $.getJSON({
-      url: '/sessions/recently',
+      url: '/api/sessions/recently',
       success: (data) => {
         sessionTimeGraph(id, data, '%d %b %Y');
       },
@@ -21,7 +20,7 @@ const setMonthlyPlaytimeDashboard = () => {
   const id = '#playtime-per-month';
   if ($(id).length) {
     $.getJSON({
-      url: '/sessions/per-month',
+      url: '/api/sessions/per-month',
       success: (data) => {
         sessionTimeGraph(id, data, '%b %Y');
       },
@@ -29,12 +28,11 @@ const setMonthlyPlaytimeDashboard = () => {
   }
 };
 
-
 const setMonthlyAverageDashboard = () => {
   const id = '#average-per-month';
   if ($(id).length) {
     $.getJSON({
-      url: '/average/per-month',
+      url: '/api/average/per-month',
       success: (data) => {
         sessionTimeGraph(id, data, '%b %Y');
       },
@@ -48,7 +46,7 @@ const setPlaytimeGame = () => {
   if ($(id).length) {
     const gameId = $(id).data('game-id');
     $.getJSON({
-      url: `/sessions/game/${gameId}`,
+      url: `/api/sessions/game/${gameId}`,
       success: (data) => {
         sessionCalendar(id, data, '%d %b %Y', $(id)[0].dataset.year);
       },
@@ -80,7 +78,7 @@ const setSessionsPerMonthForGame = () => {
   if ($(id).length) {
     const gameId = $(id).data('game-id');
     $.getJSON({
-      url: `/sessions/game/${gameId}/per-month`,
+      url: `/api/sessions/game/${gameId}/per-month`,
       success: (data) => {
         sessionTimeGraph(id, data, '%b %Y');
       },
@@ -99,7 +97,7 @@ const setSessionsForYear = () => {
 
   if ($(id).length) {
     $.getJSON({
-      url: `/sessions/${$(id)[0].dataset.year}`,
+      url: `/api/sessions/${$(id)[0].dataset.year}`,
       success: (data) => {
         sessionCalendar(id, data, '%d %b %Y', $(id)[0].dataset.year);
       },

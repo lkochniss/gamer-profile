@@ -19,6 +19,11 @@ class LoginHelper
      */
     public function logIn(Client &$client, int $userSteamId):void
     {
+        $roles = [
+            $this::USER_1 => 'ROLE_ADMIN',
+            $this::USER_2 => 'ROLE_USER',
+        ];
+
         $session = $client->getContainer()->get('session');
 
         $user = $client->getContainer()->get('doctrine')->getRepository(User::class)->findOneBy([
@@ -28,7 +33,7 @@ class LoginHelper
         // the firewall context defaults to the firewall name
         $firewallContext = 'admin';
 
-        $token = new UsernamePasswordToken($user, null, $firewallContext, ['ROLE_ADMIN']);
+        $token = new UsernamePasswordToken($user, null, $firewallContext, [$roles[$userSteamId]]);
         $session->set('_security_' . $firewallContext, serialize($token));
         $session->save();
 
