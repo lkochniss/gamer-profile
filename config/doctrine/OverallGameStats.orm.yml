@@ -51,7 +51,7 @@ App\Entity\OverallGameStats:
             type: integer
             nullable: false
         steamUserId:
-            type: integer
+            type: bigint
             column: steam_user_id
     manyToOne:
         user:

@@ -61,6 +61,29 @@ class UpdateWithSteamUserIdCommand extends Command
      */
     private $playtimePerMonthRepository;
 
+    /**
+     * UpdateWithSteamUserIdCommand constructor.
+     * @param AchievementRepository $achievementRepository
+     * @param GameSessionRepository $gameSessionRepository
+     * @param GameSessionsPerMonthRepository $gameSessionsPerMonthRepository
+     * @param GameStatsRepository $gameStatsRepository
+     * @param OverallGameStatsRepository $overallGameStatsRepository
+     * @param PlaytimeRepository $playtimeRepository
+     * @param PlaytimePerMonthRepository $playtimePerMonthRepository
+     */
+    public function __construct(AchievementRepository $achievementRepository, GameSessionRepository $gameSessionRepository, GameSessionsPerMonthRepository $gameSessionsPerMonthRepository, GameStatsRepository $gameStatsRepository, OverallGameStatsRepository $overallGameStatsRepository, PlaytimeRepository $playtimeRepository, PlaytimePerMonthRepository $playtimePerMonthRepository)
+    {
+        parent::__construct();
+        $this->achievementRepository = $achievementRepository;
+        $this->gameSessionRepository = $gameSessionRepository;
+        $this->gameSessionsPerMonthRepository = $gameSessionsPerMonthRepository;
+        $this->gameStatsRepository = $gameStatsRepository;
+        $this->overallGameStatsRepository = $overallGameStatsRepository;
+        $this->playtimeRepository = $playtimeRepository;
+        $this->playtimePerMonthRepository = $playtimePerMonthRepository;
+    }
+
+
     protected function configure(): void
     {
         $this->setName('update:with:userId');
