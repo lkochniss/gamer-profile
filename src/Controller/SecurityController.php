@@ -112,7 +112,7 @@ class SecurityController extends AbstractController
                     $form->get('password')->getData()
                 );
 
-                return $this->redirectToRoute('security_login');
+                return $this->render('Security/registration_success.html.twig');
             } catch (CognitoIdentityProviderException $e) {
                 switch ($e->getAwsErrorCode()) {
                     case INVALID_PASSWORD:

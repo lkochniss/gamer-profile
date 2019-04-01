@@ -71,3 +71,7 @@ connect_with_steam_info: 'Connect your gamer profile with steam to access your d
 connect_with_steam_relog: 'After connection you need to log again into your profile.'
 password_invalid: 'Password requirements not met. You need to have at least 8 characters with one uppercase, one lowercase and one digit'
 email_invalid: 'Email not valid'
+registration_success: 'Registration successful'
+registration_success_text: 'Your registration was a success. You will get an email with a verification link. Then you can go to the <a href=%url%> login<a/>.'
+invite_code: 'Your invite code'
+request_password: 'Request new password'

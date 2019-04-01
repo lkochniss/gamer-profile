@@ -11,3 +11,7 @@ security_logout:
 security_registration:
     path: /registration
     controller: App\Controller\SecurityController::registration
+
+secruity_password_reset:
+    path: /reset
+    controller: App\Controller\SecurityController::passwordRecovery

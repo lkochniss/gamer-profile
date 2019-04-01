@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div>
+        <h1 class="h3 d-flex justify-content-center align-items-center">
+            {% trans %}registration_success{% endtrans %}
+        </h1>
+        <div class="d-flex justify-content-center align-items-center">
+            {% trans with {'%url%': path('security_login')} %}registration_success_text{% endtrans %}
+        </div>
+    </div>
+{% endblock %}
