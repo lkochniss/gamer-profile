@@ -26,15 +26,6 @@ class Playtime extends AbstractEntity
      * @var Game
      */
     private $game;
-    /**
-     * @var int
-     */
-    private $steamUserId;
-
-    public function setSteamUserID(int $steamUserId): void
-    {
-        $this->steamUserId = $steamUserId;
-    }
 
     /**
      * Playtime constructor.
