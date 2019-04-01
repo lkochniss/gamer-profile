@@ -13,7 +13,7 @@ App\Entity\PlaytimePerMonth:
         sessions:
             type: integer
         steamUserId:
-            type: integer
+            type: bigint
             column: steam_user_id
     manyToOne:
         user:
