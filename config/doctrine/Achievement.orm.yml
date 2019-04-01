@@ -11,9 +11,9 @@ App\Entity\Achievement:
             column: player_achievements
         overallAchievements:
             type: integer
-            column: overall_achievements
+            nullable: overall_achievements
         steamUserId:
-            type: integer
+            type: bigint
             column: steam_user_id
     manyToOne:
           game:

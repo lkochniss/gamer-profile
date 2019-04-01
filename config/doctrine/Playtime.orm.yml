@@ -13,7 +13,7 @@ App\Entity\Playtime:
             type: integer
             nullable: overall_playtime
         steamUserId:
-            type: integer
+            type: bigint
             column: steam_user_id
     manyToOne:
           game:

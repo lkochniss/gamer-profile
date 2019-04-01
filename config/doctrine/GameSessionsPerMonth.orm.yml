@@ -11,7 +11,7 @@ App\Entity\GameSessionsPerMonth:
         duration:
             type: integer
         steamUserId:
-            type: integer
+            type: bigint
             column: steam_user_id
     manyToOne:
         game:

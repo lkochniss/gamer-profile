@@ -10,7 +10,7 @@ App\Entity\GameStats:
             type: string
             nullable: false
         steamUserId:
-            type: integer
+            type: bigint
             column: steam_user_id
     manyToOne:
         achievement:

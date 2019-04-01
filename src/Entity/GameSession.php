@@ -28,6 +28,16 @@ class GameSession extends AbstractEntity
     private $date;
 
     /**
+     * @var int
+     */
+    private $steamUserId;
+
+    public function setSteamUserID(int $steamUserId): void
+    {
+        $this->steamUserId = $steamUserId;
+    }
+
+    /**
      * GameSession constructor.
      * @param Game $game
      * @param int $steamUserId
