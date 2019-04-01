@@ -66,6 +66,15 @@ class OverallGameStats extends AbstractEntity
      * @var User
      */
     private $user;
+    /**
+     * @var int
+     */
+    private $steamUserId;
+
+    public function setSteamUserID(int $steamUserId): void
+    {
+        $this->steamUserId = $steamUserId;
+    }
 
     /**
      * OverallGameStats constructor.

@@ -9,6 +9,9 @@ App\Entity\GameStats:
         status:
             type: string
             nullable: false
+        steamUserId:
+            type: integer
+            column: steam_user_id
     oneToMany:
         gameSessions:
             targetEntity: GameSession
