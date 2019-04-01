@@ -67,7 +67,7 @@ class AchievementChangeSet
     /**
      * @param int $steamUserId
      */
-    public function setUser(int $steamUserId): void
+    public function setSteamUserId(int $steamUserId): void
     {
         $this->steamUserId = $steamUserId;
     }
