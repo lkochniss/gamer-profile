@@ -139,7 +139,7 @@ class GameUserInformationService
     {
         $userInformation = $this->getPlaytimeForGame(
             $playtime->getGame()->getSteamAppId(),
-            $playtime->getUser()->getSteamId()
+            $playtime-getSteamUserId()
         );
 
         if ($userInformation === null) {
@@ -181,7 +181,7 @@ class GameUserInformationService
 
         $userInformation = $this->getPlaytimeForGame(
             $playtime->getGame()->getSteamAppId(),
-            $playtime->getUser()->getSteamId()
+            $playtime->getSteamUserId()
         );
 
         if ($userInformation === null) {
