@@ -15,7 +15,9 @@ class PasswordRecoveryFormType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
-     * @param array                $options
+     * @param array $options
+     *
+     * @SuppressWarnings("unused")
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -41,8 +43,7 @@ class PasswordRecoveryFormType extends AbstractType
                     ],
                     'label' => 'request_password',
                 ]
-            )
-        ;
+            );
     }
 
     /**

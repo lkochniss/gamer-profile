@@ -19,7 +19,9 @@ class RegistrationFormType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
-     * @param array                $options
+     * @param array $options
+     *
+     * @SuppressWarnings("unused")
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -67,8 +69,7 @@ class RegistrationFormType extends AbstractType
                     ],
                     'label' => 'create_account',
                 ]
-            )
-        ;
+            );
     }
 
     /**

@@ -19,6 +19,8 @@ use Symfony\Component\Security\Http\Util\TargetPathTrait;
 
 /**
  * Class CognitoAuthenticator
+ *
+ * @SuppressWarnings("CouplingBetweenObjects")
  */
 class CognitoAuthenticator extends AbstractFormLoginAuthenticator
 {
@@ -116,6 +118,8 @@ class CognitoAuthenticator extends AbstractFormLoginAuthenticator
      * @param UserInterface $user
      *
      * @return bool
+     *
+     * @SuppressWarnings("unused")
      */
     public function checkCredentials($credentials, UserInterface $user)
     {
@@ -137,6 +141,8 @@ class CognitoAuthenticator extends AbstractFormLoginAuthenticator
      * @param string $providerKey
      *
      * @return null|RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     *
+     * @SuppressWarnings("unused")
      */
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
     {
