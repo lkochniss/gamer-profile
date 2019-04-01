@@ -26,7 +26,7 @@ class GameStatsListener
 
         $overallGameStatsRepository = $args->getEntityManager()->getRepository(OverallGameStats::class);
 
-        $gameStats = $overallGameStatsRepository->findOneBy(['user' => $entity->getUser()]);
+        $gameStats = $overallGameStatsRepository->findOneBy(['steamUserId' => $entity->getSteamUserId()]);
 
         if (is_null($gameStats)) {
             return;
@@ -79,7 +79,7 @@ class GameStatsListener
         $changeSet = $unitOfWork->getEntityChangeSet($entity);
 
         $overallGameStatsRepository = $args->getEntityManager()->getRepository(OverallGameStats::class);
-        $gameStats = $overallGameStatsRepository->findOneBy(['user' => $entity->getUser()]);
+        $gameStats = $overallGameStatsRepository->findOneBy(['steamUserId' => $entity->getSteamUserId()]);
 
         if (array_key_exists('status', $changeSet)) {
             // add one to the new status

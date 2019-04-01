@@ -2,7 +2,7 @@
 
 namespace App\Service\GameStats;
 
-use App\Repository\UserRepository;
+use App\Service\Security\AwsCognitoClient;
 
 class UpdateAchievementForAllUsersService
 {
@@ -12,27 +12,27 @@ class UpdateAchievementForAllUsersService
     private $updateAchievementForUserService;
 
     /**
-     * @var UserRepository
+     * @var AwsCognitoClient
      */
-    private $userRepository;
+    private $cognitoClient;
 
     /**
      * UpdateAchievementForAllUsersService constructor.
      * @param UpdateAchievementForUserService $updateAchievementForUserService
-     * @param UserRepository $userRepository
+     * @param AwsCognitoClient $cognitoClient
      */
     public function __construct(
         UpdateAchievementForUserService $updateAchievementForUserService,
-        UserRepository $userRepository
+        AwsCognitoClient $cognitoClient
     ) {
         $this->updateAchievementForUserService = $updateAchievementForUserService;
-        $this->userRepository = $userRepository;
+        $this->cognitoClient = $cognitoClient;
     }
 
 
     public function execute(): void
     {
-        $users = $this->userRepository->findAll();
+        $users = $this->cognitoClient->getAllUsers();
 
         foreach ($users as $user) {
             $this->updateAchievementForUserService->execute($user);

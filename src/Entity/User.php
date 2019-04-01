@@ -10,7 +10,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 class User implements UserInterface
 {
     /**
-     * @var
+     * @var int
      */
     private $id;
 
@@ -20,12 +20,20 @@ class User implements UserInterface
     private $steamId;
 
     /**
-     * User constructor.
-     * @param int $steamId
+     * @var string
      */
-    public function __construct(int $steamId)
+    private $email;
+
+    /**
+     * @var string
+     */
+    private $password;
+
+    /**
+     * User constructor.
+     */
+    public function __construct()
     {
-        $this->steamId = $steamId;
     }
 
     /**
@@ -37,19 +45,51 @@ class User implements UserInterface
     }
 
     /**
+     * @param int $steamId
+     */
+    public function setSteamId(int $steamId): void
+    {
+        $this->steamId = $steamId;
+    }
+
+    /**
      * @return int
      */
     public function getSteamId(): int
     {
-        return $this->steamId;
+        return $this->steamId?: 0;
     }
+
+    /**
+     * @return string|null
+     */
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    /**
+     * @param string $email
+     *
+     * @return User
+     */
+    public function setEmail(string $email): self
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUsername(): string
+    {
+        return (string) $this->email;
+    }
+
 
     public function __toString(): string
-    {
-        return strval($this->getSteamId());
-    }
-
-    public function getUsername(): string
     {
         return strval($this->getSteamId());
     }
@@ -61,16 +101,27 @@ class User implements UserInterface
 
     public function getRoles(): array
     {
-        if ($this->getSteamId() === 76561198045607524) {
-            return  ['ROLE_ADMIN'];
-        }
-
         return ['ROLE_USER'];
     }
 
-    public function getPassword()
+    /**
+     * @return string
+     */
+    public function getPassword(): string
     {
-        return null;
+        return (string) $this->password;
+    }
+
+    /**
+     * @param string $password
+     *
+     * @return User
+     */
+    public function setPassword(string $password): self
+    {
+        $this->password = $password;
+
+        return $this;
     }
 
     public function eraseCredentials()

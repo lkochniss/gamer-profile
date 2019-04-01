@@ -46,37 +46,28 @@ class GameStats
     private $game;
 
     /**
-     * @var User
+     * @var int
      */
-    private $user;
+    private $steamUserId;
 
     /**
      * @var string
      */
     private $status;
-    /**
-     * @var int
-     */
-    private $steamUserId;
-
-    public function setSteamUserID(int $steamUserId): void
-    {
-        $this->steamUserId = $steamUserId;
-    }
 
     /**
      * GameStats constructor.
-     * @param User $user
+     * @param int $steamUserId
      * @param Game $game
      * @param Achievement $achievement
      * @param Playtime $playtime
      */
-    public function __construct(User $user, Game $game, Achievement $achievement, Playtime $playtime)
+    public function __construct(int $steamUserId, Game $game, Achievement $achievement, Playtime $playtime)
     {
         $this->achievement = $achievement;
         $this->playtime = $playtime;
         $this->game = $game;
-        $this->user = $user;
+        $this->steamUserId = $steamUserId;
         $this->status = $this::OPEN;
 
         $this->playtimePerMonth = new ArrayCollection();
@@ -117,11 +108,11 @@ class GameStats
     }
 
     /**
-     * @return User
+     * @return int
      */
-    public function getUser(): User
+    public function getSteamUserId(): int
     {
-        return $this->user;
+        return $this->steamUserId;
     }
 
     /**
@@ -131,7 +122,6 @@ class GameStats
     {
         if (!$this->gameSessions->contains($gameSession)) {
             $this->gameSessions->add($gameSession);
-            $gameSession->setGameStats($this);
         }
     }
 
@@ -150,7 +140,6 @@ class GameStats
     {
         if (!$this->playtimePerMonth->contains($playtimePerMonth)) {
             $this->playtimePerMonth->add($playtimePerMonth);
-            $playtimePerMonth->setGameStats($this);
         }
     }
 

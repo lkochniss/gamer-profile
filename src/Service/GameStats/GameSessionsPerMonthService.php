@@ -35,7 +35,7 @@ class GameSessionsPerMonthService
      */
     public function addGameSession(GameSession $gameSession): GameSessionsPerMonth
     {
-        $gameSessionPerMonth = $this->getGameSessionsPerMonth($gameSession->getGame(), $gameSession->getUser());
+        $gameSessionPerMonth = $this->getGameSessionsPerMonth($gameSession->getGame(), $gameSession->getSteamUserId());
         $gameSessionPerMonth->addToDuration($gameSession->getDuration());
 
         $this->gameSessionsPerMonthRepository->save($gameSessionPerMonth);
@@ -62,20 +62,20 @@ class GameSessionsPerMonthService
 
     /**
      * @param Game $game
-     * @param User $user
+     * @param string $steamUserId
      * @return GameSessionsPerMonth
      */
-    private function getGameSessionsPerMonth(Game $game, User $user): GameSessionsPerMonth
+    private function getGameSessionsPerMonth(Game $game, string $steamUserId): GameSessionsPerMonth
     {
         $month = new \DateTime('first day of this month 00:00:00');
         $gameSessionsPerMonth = $this->gameSessionsPerMonthRepository->findOneBy([
             'month' => $month,
             'game' => $game,
-            'user' => $user,
+            'steamUserId' => $steamUserId,
         ]);
 
         if (is_null($gameSessionsPerMonth)) {
-            $gameSessionsPerMonth = new GameSessionsPerMonth($month, $game, $user);
+            $gameSessionsPerMonth = new GameSessionsPerMonth($month, $game, $steamUserId);
         }
 
         return $gameSessionsPerMonth;

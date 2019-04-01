@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\Service;
+namespace App\Tests\Service\Steam;
 
 use App\Service\Steam\GameService;
 use App\Service\Steam\GamesForUserService;

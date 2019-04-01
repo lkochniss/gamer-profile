@@ -2,7 +2,7 @@
 
 namespace App\Service\GameStats;
 
-use App\Repository\UserRepository;
+use App\Service\Security\AwsCognitoClient;
 
 class UpdatePlaytimeForAllUsersService
 {
@@ -12,26 +12,26 @@ class UpdatePlaytimeForAllUsersService
     private $updatePlaytimeForUserService;
 
     /**
-     * @var UserRepository
+     * @var AwsCognitoClient
      */
-    private $userRepository;
+    private $cognitoClient;
 
     /**
      * UpdatePlaytimeForAllUsersService constructor.
      * @param UpdatePlaytimeForUserService $updatePlaytimeForUserService
-     * @param UserRepository $userRepository
+     * @param AwsCognitoClient $cognitoClient
      */
     public function __construct(
         UpdatePlaytimeForUserService $updatePlaytimeForUserService,
-        UserRepository $userRepository
+        AwsCognitoClient $cognitoClient
     ) {
         $this->updatePlaytimeForUserService = $updatePlaytimeForUserService;
-        $this->userRepository = $userRepository;
+        $this->cognitoClient = $cognitoClient;
     }
 
     public function execute(): void
     {
-        $users = $this->userRepository->findAll();
+        $users = $this->cognitoClient->getAllUsers();
 
         foreach ($users as $user) {
             $this->updatePlaytimeForUserService->execute($user);

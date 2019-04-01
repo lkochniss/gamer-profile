@@ -24,20 +24,24 @@ class GameSessionService
     }
 
     /**
-     * @param User $user
+     * @param string $steamUserId
      * @param Game $game
      * @return GameSession
      */
-    public function getTodaysGameSession(User $user, Game $game): GameSession
+    public function getTodaysGameSession(string $steamUserId, Game $game): GameSession
     {
         $today = new \DateTime('today 00:00:00');
-        $gameSession = $this->gameSessionRepository->findOneBy(['user' => $user, 'game' => $game, 'date' => $today]);
+        $gameSession = $this->gameSessionRepository->findOneBy([
+            'steamUserId' => $steamUserId,
+            'game' => $game,
+            'date' => $today
+        ]);
 
         if (!is_null($gameSession)) {
             return $gameSession;
         }
 
-        $gameSession = new GameSession($game, $user);
+        $gameSession = new GameSession($game, $steamUserId);
 
         return $gameSession;
     }

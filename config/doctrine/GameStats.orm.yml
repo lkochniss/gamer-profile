@@ -25,11 +25,6 @@ App\Entity\GameStats:
             joinColumn:
                 name: playtime_id
                 referencedColumnName: id
-        user:
-            targetEntity: User
-            joinColumn:
-                name: user_id
-                referenceColumnName: id
         game:
             targetEntity: Game
             joinColumn:

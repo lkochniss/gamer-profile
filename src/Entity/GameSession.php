@@ -18,9 +18,9 @@ class GameSession extends AbstractEntity
     private $duration;
 
     /**
-     * @var User
+     * @var int
      */
-    private $user;
+    private $steamUserId;
 
     /**
      * @var \DateTime
@@ -28,24 +28,14 @@ class GameSession extends AbstractEntity
     private $date;
 
     /**
-     * @var int
-     */
-    private $steamUserId;
-
-    public function setSteamUserID(int $steamUserId): void
-    {
-        $this->steamUserId = $steamUserId;
-    }
-
-    /**
      * GameSession constructor.
-     * @param User $user
      * @param Game $game
+     * @param int $steamUserId
      */
-    public function __construct(Game $game, User $user)
+    public function __construct(Game $game, int $steamUserId)
     {
         $this->game = $game;
-        $this->user = $user;
+        $this->steamUserId = $steamUserId;
         $this->duration = 0;
         $this->date = new \DateTime('today 00:00:00');
     }
@@ -83,11 +73,11 @@ class GameSession extends AbstractEntity
     }
 
     /**
-     * @return User
+     * @return int
      */
-    public function getUser(): User
+    public function getSteamUserId(): int
     {
-        return $this->user;
+        return $this->steamUserId;
     }
 
     /**

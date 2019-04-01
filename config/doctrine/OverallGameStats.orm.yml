@@ -53,9 +53,3 @@ App\Entity\OverallGameStats:
         steamUserId:
             type: bigint
             column: steam_user_id
-    manyToOne:
-        user:
-            targetEntity: User
-            joinColumn:
-                name: user_id
-                referenceColumnName: id

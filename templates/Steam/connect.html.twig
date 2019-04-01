@@ -1,0 +1,14 @@
+<div>
+    <h3 class="d-flex align-items-center justify-content-center">{% trans %}connect_with_steam{% endtrans %}</h3>
+    <div class="d-flex align-items-center justify-content-center">
+        {% trans %}connect_with_steam_info{% endtrans %}
+    </div>
+    <div class="d-flex align-items-center justify-content-center">
+        <a href="{{ path('steam_connect') }}">
+            <img src="https://steamcommunity-a.akamaihd.net/public/images/signinthroughsteam/sits_01.png"/>
+        </a>
+    </div>
+    <div class="d-flex align-items-center justify-content-center text-danger">
+        {% trans %}connect_with_steam_relog{% endtrans %}
+    </div>
+</div>

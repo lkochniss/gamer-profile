@@ -13,17 +13,17 @@ class GameSessionsPerMonthRepository extends AbstractRepository
 {
     /**
      * @param \DateTime $month
-     * @param User $user
+     * @param string $steamUserId
      * @return array|null
      */
-    public function findByMonth(\DateTime $month, User $user): ?array
+    public function findByMonth(\DateTime $month, string $steamUserId): ?array
     {
 
         $query = $this->createQueryBuilder('game_sessions_per_month')
             ->where('game_sessions_per_month.month = :month')
-            ->andWhere('game_sessions_per_month.user = :user')
+            ->andWhere('game_sessions_per_month.steamUserId = :steamUserId')
             ->setParameter('month', $month)
-            ->setParameter('user', $user)
+            ->setParameter('steamUserId', $steamUserId)
             ->getQuery();
 
         return $query->getResult();
@@ -31,10 +31,10 @@ class GameSessionsPerMonthRepository extends AbstractRepository
 
     /**
      * @param int $year
-     * @param User $user
+     * @param string $steamUserId
      * @return array|null
      */
-    public function findByYear(int $year, User $user): ?array
+    public function findByYear(int $year, string $steamUserId): ?array
     {
         $start = new \DateTime('first day of January ' . $year . ' 00:00:00');
         $end = new \DateTime('last day of December ' . $year);
@@ -42,10 +42,10 @@ class GameSessionsPerMonthRepository extends AbstractRepository
         $query = $this->createQueryBuilder('game_sessions_per_month')
             ->where('game_sessions_per_month.month >= :start')
             ->andWhere('game_sessions_per_month.month < :end')
-            ->andWhere('game_sessions_per_month.user = :user')
+            ->andWhere('game_sessions_per_month.steamUserId = :steamUserId')
             ->setParameter('start', $start)
             ->setParameter('end', $end)
-            ->setParameter('user', $user)
+            ->setParameter('steamUserId', $steamUserId)
             ->getQuery();
 
         return $query->getResult();

@@ -6,7 +6,6 @@ use App\Entity\GameSessionsPerMonth;
 use App\Entity\User;
 use App\Repository\GameSessionsPerMonthRepository;
 use App\Repository\OverallGameStatsRepository;
-use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -29,7 +28,7 @@ class HomepageController extends Controller
     ): Response {
 
         $month = new \DateTime('first day of this month 00:00:00');
-        $gameSessions = $gameSessionsPerMonthRepository->findByMonth($month, $user);
+        $gameSessions = $gameSessionsPerMonthRepository->findByMonth($month, $user->getSteamId());
 
         usort($gameSessions, function (GameSessionsPerMonth $sessionA, GameSessionsPerMonth $sessionB) {
             return $sessionA->getDuration() > $sessionB->getDuration() ? -1: 1;
@@ -39,23 +38,10 @@ class HomepageController extends Controller
         $yearsWithSessions = $this->getYearsWithGameSessions($gameSessionsPerMonthRepository, $user);
 
         return $this->render('Homepage/dashboard.html.twig', [
-            'gameStats' => $overallGameStatsRepository->findOneBy(['user' => $user]),
+            'gameStats' => $overallGameStatsRepository->findOneBy(['steamUserId' => $user->getSteamId()]),
             'playedThisMonth' => array_slice($gameSessions, 0, 10),
             'yearsWithSessions' => $yearsWithSessions,
             'currentYear' => $now->format('Y')
-        ]);
-    }
-
-    /**
-     * @param UserRepository $userRepository
-     * @return Response
-     */
-    public function selectImpersonate(UserRepository $userRepository): Response
-    {
-        $this->denyAccessUnlessGranted('ROLE_ADMIN');
-
-        return $this->render('Homepage/users.html.twig', [
-            'users' => $userRepository->findAll()
         ]);
     }
 
@@ -77,7 +63,7 @@ class HomepageController extends Controller
         }
 
         for ($i = $oldestEntry->getMonth()->format('Y'); $i <= $now->format('Y'); $i++) {
-            if ($gameSessionsPerMonthRepository->findByYear($i, $user)) {
+            if ($gameSessionsPerMonthRepository->findByYear($i, $user->getSteamId())) {
                 $yearsWithSessions[] = $i;
             }
         }

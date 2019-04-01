@@ -40,7 +40,7 @@ class GameSessionListener
             $overallGameStatsRepository
         );
 
-        $overallGameStatsService->addSession($entity->getUser());
+        $overallGameStatsService->addSession($entity->getSteamUserId());
     }
 
     /**

@@ -23,28 +23,19 @@ class PlaytimePerMonth extends AbstractEntity
     private $sessions;
 
     /**
-     * @var User
-     */
-    private $user;
-    /**
      * @var int
      */
     private $steamUserId;
 
-    public function setSteamUserID(int $steamUserId): void
-    {
-        $this->steamUserId = $steamUserId;
-    }
-
     /**
      * PlaytimePerMonth constructor.
      * @param \DateTime $month
-     * @param User $user
+     * @param int $steamUserId
      */
-    public function __construct(\DateTime $month, User $user)
+    public function __construct(\DateTime $month, int $steamUserId)
     {
         $this->month = $month;
-        $this->user = $user;
+        $this->steamUserId = $steamUserId;
         $this->duration = 0;
         $this->sessions = 0;
     }
@@ -87,10 +78,10 @@ class PlaytimePerMonth extends AbstractEntity
     }
 
     /**
-     * @return User
+     * @return int
      */
-    public function getUser(): User
+    public function getSteamUserId(): int
     {
-        return $this->user;
+        return $this->steamUserId;
     }
 }

@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Tests\Service;
+namespace App\Tests\Service\Steam;
 
 use App\Entity\Game;
+use App\Entity\JSON\JsonGame;
 use App\Repository\GameRepository;
 use App\Service\Steam\GameService;
 use App\Service\Transformation\GameInformationService;
@@ -32,7 +33,7 @@ class GameServiceTest extends TestCase
 
         $gameInformationServiceMock = $this->createMock(GameInformationService::class);
         $gameInformationServiceMock->expects($this->never())
-            ->method('getGameInformationForSteamAppId');
+            ->method('getGameInformationEntityForSteamAppId');
 
         $GameServiceCreate = new GameService($gameRepositoryMock, $gameInformationServiceMock);
         $GameServiceCreate->create($this->steamAppId);
@@ -47,7 +48,7 @@ class GameServiceTest extends TestCase
 
         $gameInformationServiceMock = $this->createMock(GameInformationService::class);
         $gameInformationServiceMock->expects($this->once())
-            ->method('getGameInformationForSteamAppId');
+            ->method('getGameInformationEntityForSteamAppId');
 
         $GameServiceCreate = new GameService($gameRepositoryMock, $gameInformationServiceMock);
         $GameServiceCreate->create($this->steamAppId);
@@ -62,8 +63,8 @@ class GameServiceTest extends TestCase
 
         $gameInformationServiceMock = $this->createMock(GameInformationService::class);
         $gameInformationServiceMock->expects($this->once())
-            ->method('getGameInformationForSteamAppId')
-            ->willReturn([]);
+            ->method('getGameInformationEntityForSteamAppId')
+            ->willReturn(new JsonGame());
 
         $expectedGame = new Game($this->steamAppId);
         $expectedGame->setName(Game::NAME_FAILED);
@@ -90,11 +91,11 @@ class GameServiceTest extends TestCase
 
         $gameInformationServiceMock = $this->createMock(GameInformationService::class);
         $gameInformationServiceMock->expects($this->once())
-            ->method('getGameInformationForSteamAppId')
-            ->willReturn([
+            ->method('getGameInformationEntityForSteamAppId')
+            ->willReturn(new JsonGame([
                 'name' => $expectedGame->getName(),
                 'header_image' => $expectedGame->getHeaderImagePath()
-            ]);
+            ]));
 
         $gameRepositoryMock->expects($this->once())
             ->method('save')

@@ -18,32 +18,23 @@ class Playtime extends AbstractEntity
     private $overallPlaytime;
 
     /**
-     * @var User
+     * @var int
      */
-    private $user;
+    private $steamUserId;
 
     /**
      * @var Game
      */
     private $game;
-    /**
-     * @var int
-     */
-    private $steamUserId;
-
-    public function setSteamUserID(int $steamUserId): void
-    {
-        $this->steamUserId = $steamUserId;
-    }
 
     /**
      * Playtime constructor.
-     * @param User $user
+     * @param int $steamUserId
      * @param Game $game
      */
-    public function __construct(User $user, Game $game)
+    public function __construct(int $steamUserId, Game $game)
     {
-        $this->user = $user;
+        $this->steamUserId = $steamUserId;
         $this->game = $game;
         $this->recentPlaytime = 0;
         $this->overallPlaytime = 0;
@@ -82,11 +73,11 @@ class Playtime extends AbstractEntity
     }
 
     /**
-     * @return User
+     * @return int
      */
-    public function getUser(): User
+    public function getSteamUserId(): int
     {
-        return $this->user;
+        return $this->steamUserId;
     }
 
     /**

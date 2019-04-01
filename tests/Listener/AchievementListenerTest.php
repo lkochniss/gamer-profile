@@ -36,7 +36,7 @@ class AchievementListenerTest extends TestCase
         $argsMock = $this->createMock(LifecycleEventArgs::class);
         $argsMock->expects($this->once())
             ->method('getEntity')
-            ->willReturn(new Achievement(new User(1), new Game(1)));
+            ->willReturn(new Achievement(1, new Game(1)));
 
         $overallGameStatsRepositoryMock = $this->createMock(OverallGameStatsRepository::class);
 
@@ -73,7 +73,7 @@ class AchievementListenerTest extends TestCase
         $argsMock = $this->createMock(LifecycleEventArgs::class);
         $argsMock->expects($this->once())
             ->method('getEntity')
-            ->willReturn(new Achievement(new User(1), new Game(1)));
+            ->willReturn(new Achievement(1, new Game(1)));
 
         $overallGameStatsRepositoryMock = $this->createMock(OverallGameStatsRepository::class);
 

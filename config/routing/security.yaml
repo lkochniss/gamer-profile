@@ -1,7 +1,13 @@
 security_login:
     path:   /login
     defaults: { _controller: 'App\Controller\SecurityController::login'  }
+
 security_login_check:
     path:   /login_check
+
 security_logout:
     path:   /logout
+
+security_registration:
+    path: /registration
+    controller: App\Controller\SecurityController::registration
