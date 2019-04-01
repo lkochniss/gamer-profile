@@ -112,7 +112,7 @@ class PlaytimeService
      */
     public function updateGameForUser(Game $game, User $user): void
     {
-        $playtime = $this->playtimeRepository->findOneBy(['game' => $game, 'user' => $user]);
+        $playtime = $this->playtimeRepository->findOneBy(['game' => $game, 'steamUserId' => $user->getSteamId()]);
 
         if (!is_null($playtime)) {
             $this->update($playtime);

@@ -44,7 +44,7 @@ class GameSessionExtension extends AbstractExtension
     {
         return $this->gameSessionRepository->findBy([
             'game' => $gameStats->getGame(),
-            'user' => $gameStats->getUser()
+            'steamUserId' => $gameStats->getUser()->getSteamId()
         ]);
     }
 
@@ -56,7 +56,7 @@ class GameSessionExtension extends AbstractExtension
     {
         $gameSessions = $this->gameSessionRepository->findBy([
             'game' => $gameStats->getGame(),
-            'user' => $gameStats->getUser()
+            'steamUserId' => $gameStats->getUser()->getSteamId()
         ]);
 
         return end($gameSessions)?: null;
@@ -71,7 +71,7 @@ class GameSessionExtension extends AbstractExtension
     {
         $gameSessions = $this->gameSessionRepository->findBy([
             'game' => $gameStats->getGame(),
-            'user' => $gameStats->getUser()
+            'steamUserId' => $gameStats->getUser()->getSteamId()
         ]);
 
         return count($gameSessions);

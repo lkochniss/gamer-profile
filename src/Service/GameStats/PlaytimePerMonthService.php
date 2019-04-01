@@ -71,7 +71,7 @@ class PlaytimePerMonthService
         $month = new \DateTime('first day of this month 00:00:00');
         $playtimePerMonth = $this->playtimePerMonthRepository->findOneBy([
             'month' => $month,
-            'user' => $user
+            'steamUserId' => $user->getSteamId()
         ]);
 
         if (is_null($playtimePerMonth)) {

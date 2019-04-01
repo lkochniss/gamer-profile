@@ -82,7 +82,7 @@ class GameStatsController extends Controller
         $game = $this->getDoctrine()->getRepository(Game::class)->find($id);
         $entity = $this->getDoctrine()->getRepository($this->getEntityName())->findOneBy([
             'game' => $game,
-            'user' => $user
+            'steamUserId' => $user->getSteamId()
         ]);
 
         if (is_null($entity)) {

@@ -42,7 +42,7 @@ class CreateGameStatsService
 
     public function execute(User $user, Game $game): void
     {
-        $gameStats = $this->gameStatsRepository->findOneBy(['user' => $user, 'game' => $game]);
+        $gameStats = $this->gameStatsRepository->findOneBy(['steamUserId' => $user->getSteamId(), 'game' => $game]);
         if (!is_null($gameStats)) {
             return;
         }

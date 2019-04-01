@@ -17,12 +17,12 @@ class SteamController extends Controller
 {
 
     /**
-     * @param string $username
      * @param Request $request
      * @param UserProvider $userProvider
+     * @param UserInterface $user
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function connect(string $username, Request $request, UserProvider $userProvider)
+    public function connect(Request $request, UserProvider $userProvider, UserInterface $user)
     {
         $config = [
             'callback' => $request->getUri() ,
@@ -39,7 +39,7 @@ class SteamController extends Controller
 
             $prefix = 'https://steamcommunity.com/openid/id/';
             $steamUserId = intval(substr($userProfile->identifier, strlen($prefix)));
-            $userProvider->saveSteamUserId($username, $steamUserId);
+            $userProvider->saveSteamUserId($user->getUsername(), $steamUserId);
         } catch (Exception $exception) {
             echo $exception->getMessage();
         }
