@@ -20,9 +20,9 @@ class PlaytimeChangeSet
     private $overallPlaytime = 0;
 
     /**
-     * @var User
+     * @var int
      */
-    private $user;
+    private $steamUserId;
 
     /**
      * @return int
@@ -57,18 +57,18 @@ class PlaytimeChangeSet
     }
 
     /**
-     * @return User
+     * @return int
      */
-    public function getUser(): User
+    public function getSteamUserId(): int
     {
-        return $this->user;
+        return $this->steamUserId;
     }
 
     /**
-     * @param User $user
+     * @param int $steamUserId
      */
-    public function setUser(User $user): void
+    public function setSteamUserId(int $steamUserId): void
     {
-        $this->user = $user;
+        $this->steamUserId = $steamUserId;
     }
 }
