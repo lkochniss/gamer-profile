@@ -38,7 +38,7 @@ class AwsCognitoClient
         string $region = 'eu-central-1',
         string $version = 'latest'
     ) {
-        $this->client = CognitoIdentityProviderClient::factory([
+        $this->client = new CognitoIdentityProviderClient([
             'region' => $region,
             'version' => $version
         ]);

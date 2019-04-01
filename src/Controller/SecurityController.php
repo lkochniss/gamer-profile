@@ -116,13 +116,11 @@ class SecurityController extends AbstractController
             } catch (CognitoIdentityProviderException $e) {
                 switch ($e->getAwsErrorCode()) {
                     case INVALID_PASSWORD:
-                        {
-                            $form->get('password')->addError(
-                                new FormError($translator->trans('password_invalid'))
-                            );
-                            break;
-                        }
-                    default :
+                        $form->get('password')->addError(
+                            new FormError($translator->trans('password_invalid'))
+                        );
+                        break;
+                    default:
                         $form->get('email')->addError(
                             new FormError($translator->trans('email_invalid'))
                         );
