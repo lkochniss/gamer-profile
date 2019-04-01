@@ -96,29 +96,42 @@ class SecurityController extends AbstractController
                 $form->get('inviteCode')->addError(
                     new FormError($translator->trans('invite_code_invalid'))
                 );
-            } else {
-                try {
-                    $awsCognitoClient->signUp(
-                        $form->get('email')->getData(),
-                        $form->get('password')->getData()
-                    );
 
-                    return $this->redirectToRoute('security_login');
-                } catch (CognitoIdentityProviderException $e) {
-                    if ($e->getAwsErrorCode() === INVALID_PASSWORD) {
-                        $form->get('password')->addError(
-                            new FormError($translator->trans('password_invalid'))
-                        );
-                    } else {
+                return $this->render(
+                    'Security/registration.html.twig',
+                    [
+                        'form' => $form->createView(),
+                        'last_username' => $lastUsername,
+                    ]
+                );
+            }
+
+            try {
+                $awsCognitoClient->signUp(
+                    $form->get('email')->getData(),
+                    $form->get('password')->getData()
+                );
+
+                return $this->redirectToRoute('security_login');
+            } catch (CognitoIdentityProviderException $e) {
+                switch ($e->getAwsErrorCode()) {
+                    case INVALID_PASSWORD:
+                        {
+                            $form->get('password')->addError(
+                                new FormError($translator->trans('password_invalid'))
+                            );
+                            break;
+                        }
+                    default :
                         $form->get('email')->addError(
                             new FormError($translator->trans('email_invalid'))
                         );
-                    }
-                } catch (\InvalidArgumentException $e) {
-                    $form->get('password')->addError(
-                        new FormError($translator->trans('password_invalid'))
-                    );
+                        break;
                 }
+            } catch (\InvalidArgumentException $e) {
+                $form->get('password')->addError(
+                    new FormError($translator->trans('password_invalid'))
+                );
             }
         }
 
