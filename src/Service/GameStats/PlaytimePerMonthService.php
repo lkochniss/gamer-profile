@@ -4,7 +4,6 @@ namespace App\Service\GameStats;
 
 use App\Entity\GameSession;
 use App\Entity\PlaytimePerMonth;
-use App\Entity\User;
 use App\Repository\PlaytimePerMonthRepository;
 
 /**
@@ -34,7 +33,7 @@ class PlaytimePerMonthService
      */
     public function addSession(GameSession $gameSession): PlaytimePerMonth
     {
-        $playtimePerMonth = $this->getPlaytimePerMonth($gameSession->getUser());
+        $playtimePerMonth = $this->getPlaytimePerMonth($gameSession->steamUserId());
 
         $playtimePerMonth->addToDuration($gameSession->getDuration());
         $playtimePerMonth->addSession();
@@ -46,14 +45,14 @@ class PlaytimePerMonthService
 
     /**
      * @param int $diff
-     * @param User $user
+     * @param int $steamUserId
      * @return PlaytimePerMonth
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
-    public function updateSession(int $diff, User $user): PlaytimePerMonth
+    public function updateSession(int $diff, int $steamUserId): PlaytimePerMonth
     {
-        $playtimePerMonth = $this->getPlaytimePerMonth($user);
+        $playtimePerMonth = $this->getPlaytimePerMonth($steamUserId);
 
         $playtimePerMonth->addToDuration($diff);
 
@@ -63,19 +62,19 @@ class PlaytimePerMonthService
     }
 
     /**
-     * @param User $user
+     * @param int $steamUserId
      * @return PlaytimePerMonth
      */
-    private function getPlaytimePerMonth(User $user): PlaytimePerMonth
+    private function getPlaytimePerMonth(int $steamUserId): PlaytimePerMonth
     {
         $month = new \DateTime('first day of this month 00:00:00');
         $playtimePerMonth = $this->playtimePerMonthRepository->findOneBy([
             'month' => $month,
-            'steamUserId' => $user->getSteamId()
+            'steamUserId' => $steamUserId
         ]);
 
         if (is_null($playtimePerMonth)) {
-            $playtimePerMonth = new PlaytimePerMonth($month, $user);
+            $playtimePerMonth = new PlaytimePerMonth($month, $steamUserId);
         }
 
         return $playtimePerMonth;
