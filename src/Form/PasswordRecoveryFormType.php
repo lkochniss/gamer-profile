@@ -30,7 +30,7 @@ class PasswordRecoveryFormType extends AbstractType
                     'attr' =>
                         [
                             'class' => 'form-control',
-                            'placeholder' => 'your_mail',
+                            'placeholder' => 'email',
                         ],
                 ]
             )
@@ -39,7 +39,7 @@ class PasswordRecoveryFormType extends AbstractType
                 SubmitType::class,
                 [
                     'attr' => [
-                        'class' => 'btn bg-blue btn-block',
+                        'class' => 'form-control btn btn-primary',
                     ],
                     'label' => 'request_password',
                 ]

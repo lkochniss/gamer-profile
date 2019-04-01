@@ -102,6 +102,7 @@ class UserProvider implements UserProviderInterface
     private function setupUser(array $result): UserInterface
     {
         $user = new User();
+        // var_dump($result['Attributes']);
         foreach ($result['Attributes'] as $attribute) {
             switch ($attribute['Name']) {
                 case 'email':

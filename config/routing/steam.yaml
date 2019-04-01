@@ -1,3 +1,3 @@
 steam_connect:
-    path:   /steam/connect
+    path:   /steam/connect/{username}
     defaults: { _controller: 'App\Controller\SteamController::connect'  }
