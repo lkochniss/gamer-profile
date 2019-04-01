@@ -15,9 +15,9 @@ use PHPUnit\Framework\TestCase;
 class PlaytimeServiceTest extends TestCase
 {
     /**
-     * @var User
+     * @var string
      */
-    private $user;
+    private $steamUserId;
 
     /**
      * @var Game
@@ -26,7 +26,7 @@ class PlaytimeServiceTest extends TestCase
 
     public function setUp()
     {
-        $this->user = new User(1);
+        $this->steamUserId = 1;
         $this->game = new Game(2);
     }
 
@@ -35,7 +35,7 @@ class PlaytimeServiceTest extends TestCase
         $PlaytimeRepositoryMock = $this->createMock(PlaytimeRepository::class);
         $PlaytimeRepositoryMock->expects($this->once())
             ->method('findOneBy')
-            ->with(['game' => $this->game, 'user' => $this->user]);
+            ->with(['game' => $this->game, 'steamUserId' => $this->steamUserId]);
 
         $gameUserInformationServiceMock = $this->createMock(GameUserInformationService::class);
 
@@ -46,16 +46,16 @@ class PlaytimeServiceTest extends TestCase
             $PlaytimeRepositoryMock,
             $gameSessionServiceMock
         );
-        $createPlaytimeService->create($this->user, $this->game);
+        $createPlaytimeService->create($this->steamUserId, $this->game);
     }
 
     public function testPlaytimeCreateShouldReturnExistingPlaytimes(): void
     {
-        $expectedPlaytime = new Playtime($this->user, $this->game);
+        $expectedPlaytime = new Playtime($this->steamUserId, $this->game);
         $PlaytimeRepositoryMock = $this->createMock(PlaytimeRepository::class);
         $PlaytimeRepositoryMock->expects($this->once())
             ->method('findOneBy')
-            ->with(['game' => $this->game, 'user' => $this->user])
+            ->with(['game' => $this->game, 'steamUserId' => $this->steamUserId])
             ->willReturn($expectedPlaytime);
 
         $gameUserInformationServiceMock = $this->createMock(GameUserInformationService::class);
@@ -67,7 +67,7 @@ class PlaytimeServiceTest extends TestCase
             $PlaytimeRepositoryMock,
             $gameSessionServiceMock
         );
-        $this->assertEquals($expectedPlaytime, $createPlaytimeService->create($this->user, $this->game));
+        $this->assertEquals($expectedPlaytime, $createPlaytimeService->create($this->steamUserId, $this->game));
     }
 
     public function testPlaytimeCreateShouldCallGameUserInformationService(): void
@@ -75,7 +75,7 @@ class PlaytimeServiceTest extends TestCase
         $PlaytimeRepositoryMock = $this->createMock(PlaytimeRepository::class);
         $PlaytimeRepositoryMock->expects($this->once())
             ->method('findOneBy')
-            ->with(['game' => $this->game, 'user' => $this->user])
+            ->with(['game' => $this->game, 'steamUserId' => $this->steamUserId])
             ->willReturn(null);
 
         $gameUserInformationServiceMock = $this->createMock(GameUserInformationService::class);
@@ -87,19 +87,19 @@ class PlaytimeServiceTest extends TestCase
             $PlaytimeRepositoryMock,
             $gameSessionServiceMock
         );
-        $createPlaytimeService->create($this->user, $this->game);
+        $createPlaytimeService->create($this->steamUserId, $this->game);
     }
 
     public function testPlaytimeCreateShouldPersistPlaytime(): void
     {
-        $expectedPlaytime = new Playtime($this->user, $this->game);
+        $expectedPlaytime = new Playtime($this->steamUserId, $this->game);
         $expectedPlaytime->setRecentPlaytime(0);
         $expectedPlaytime->setOverallPlaytime(0);
 
         $PlaytimeRepositoryMock = $this->createMock(PlaytimeRepository::class);
         $PlaytimeRepositoryMock->expects($this->once())
             ->method('findOneBy')
-            ->with(['game' => $this->game, 'user' => $this->user])
+            ->with(['game' => $this->game, 'steamUserId' => $this->steamUserId])
             ->willReturn(null);
 
         $gameUserInformationServiceMock = $this->createMock(GameUserInformationService::class);
@@ -118,19 +118,19 @@ class PlaytimeServiceTest extends TestCase
             $PlaytimeRepositoryMock,
             $gameSessionServiceMock
         );
-        $createPlaytimeService->create($this->user, $this->game);
+        $createPlaytimeService->create($this->steamUserId, $this->game);
     }
 
     public function testPlaytimeCreateShouldReturnPlaytime(): void
     {
-        $expectedPlaytime = new Playtime($this->user, $this->game);
+        $expectedPlaytime = new Playtime($this->steamUserId, $this->game);
         $expectedPlaytime->setRecentPlaytime(10);
         $expectedPlaytime->setOverallPlaytime(20);
 
         $PlaytimeRepositoryMock = $this->createMock(PlaytimeRepository::class);
         $PlaytimeRepositoryMock->expects($this->once())
             ->method('findOneBy')
-            ->with(['game' => $this->game, 'user' => $this->user])
+            ->with(['game' => $this->game, 'steamUserId' => $this->steamUserId])
             ->willReturn(null);
 
         $gameUserInformationServiceMock = $this->createMock(GameUserInformationService::class);
@@ -148,12 +148,12 @@ class PlaytimeServiceTest extends TestCase
             $PlaytimeRepositoryMock,
             $gameSessionServiceMock
         );
-        $this->assertEquals($expectedPlaytime, $createPlaytimeService->create($this->user, $this->game));
+        $this->assertEquals($expectedPlaytime, $createPlaytimeService->create($this->steamUserId, $this->game));
     }
 
     public function testPlaytimeUpdateShouldPersistPlaytime(): void
     {
-        $expectedPlaytime = new Playtime($this->user, $this->game);
+        $expectedPlaytime = new Playtime($this->steamUserId, $this->game);
         $expectedPlaytime->setRecentPlaytime(0);
         $expectedPlaytime->setRecentPlaytime(0);
 
@@ -175,17 +175,16 @@ class PlaytimeServiceTest extends TestCase
             $PlaytimeRepositoryMock,
             $gameSessionServiceMock
         );
-        $createPlaytimeService->update(new Playtime($this->user, $this->game));
+        $createPlaytimeService->update(new Playtime($this->steamUserId, $this->game));
     }
 
     public function testPlaytimeUpdateShouldReturnPlaytime(): void
     {
-        $expectedPlaytime = new Playtime($this->user, $this->game);
+        $expectedPlaytime = new Playtime($this->steamUserId, $this->game);
         $expectedPlaytime->setRecentPlaytime(10);
         $expectedPlaytime->setOverallPlaytime(20);
 
         $PlaytimeRepositoryMock = $this->createMock(PlaytimeRepository::class);
-
         $gameUserInformationServiceMock = $this->createMock(GameUserInformationService::class);
         $gameUserInformationServiceMock->expects($this->once())
             ->method('getPlaytimeForGame')
@@ -201,6 +200,10 @@ class PlaytimeServiceTest extends TestCase
             $PlaytimeRepositoryMock,
             $gameSessionServiceMock
         );
-        $this->assertEquals($expectedPlaytime, $createPlaytimeService->update(new Playtime($this->user, $this->game)));
+
+        $this->assertEquals(
+            $expectedPlaytime,
+            $createPlaytimeService->update(new Playtime($this->steamUserId, $this->game))
+        );
     }
 }

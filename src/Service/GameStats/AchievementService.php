@@ -34,13 +34,13 @@ class AchievementService
     }
 
     /**
-     * @param User $user
+     * @param string $steamUserId
      * @param Game $game
      * @return Achievement
      */
-    public function create(User $user, Game $game): Achievement
+    public function create(string $steamUserId, Game $game): Achievement
     {
-        $achievement = $this->achievementRepository->findOneBy(['game' => $game, 'user' => $user]);
+        $achievement = $this->achievementRepository->findOneBy(['game' => $game, 'steamUserId' => $steamUserId]);
 
         if (!is_null($achievement)) {
             return $achievement;
@@ -48,10 +48,10 @@ class AchievementService
 
         $gameAchievements = $this->gameUserInformationService->getAchievementsForGame(
             $game->getSteamAppId(),
-            $user->getSteamId()
+            $steamUserId
         );
 
-        $achievement = new Achievement($user, $game);
+        $achievement = new Achievement($steamUserId, $game);
         $achievement->setOverallAchievements($gameAchievements->getOverallAchievements());
         $achievement->setPlayerAchievements($gameAchievements->getPlayerAchievements());
 
@@ -72,7 +72,7 @@ class AchievementService
     {
         $gameAchievements = $this->gameUserInformationService->getAchievementsForGame(
             $achievement->getGame()->getSteamAppId(),
-            $achievement->getUser()->getSteamId()
+            $achievement->getSteamUserId()
         );
 
         $achievement->setOverallAchievements($gameAchievements->getOverallAchievements());
@@ -89,11 +89,11 @@ class AchievementService
 
     /**
      * @param Game $game
-     * @param User $user
+     * @param string $steamUserId
      */
-    public function updateGameForUser(Game $game, User $user): void
+    public function updateGameForUser(Game $game, string $steamUserId): void
     {
-        $achievement = $this->achievementRepository->findOneBy(['game' => $game, 'user' => $user]);
+        $achievement = $this->achievementRepository->findOneBy(['game' => $game, 'steamUserId' => $steamUserId]);
 
         if (!is_null($achievement)) {
             $this->update($achievement);

@@ -36,9 +36,14 @@ class GameStatsListenerTest extends TestCase
 
     public function testPostPersistShouldGetTheGameStatsRepository(): void
     {
-        $user = new User(1);
+        $steamUserId = 1;
         $game = new Game(1);
-        $gameStats = new GameStats($user, $game, new Achievement($user, $game), new Playtime($user, $game));
+        $gameStats = new GameStats(
+            $steamUserId,
+            $game,
+            new Achievement($steamUserId, $game),
+            new Playtime($steamUserId, $game)
+        );
         $argsMock = $this->createMock(LifecycleEventArgs::class);
         $argsMock->expects($this->once())
             ->method('getEntity')

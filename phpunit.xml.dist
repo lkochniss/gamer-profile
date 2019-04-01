@@ -16,6 +16,12 @@
         <!-- define your env variables for the test env here -->
         <env name="GA_TRACKING" value="TRACKING" />
         <env name="STEAM_API_KEY" value="unittest" />
+        <env name="COGNITO_POOL_ID" value="unittest" />
+        <env name="COGNITO_CLIENT_ID" value="unittest" />
+        <env name="AWS_REGION" value="unittest" />
+        <env name="AWS_ACCESS_KEY_ID" value="unittest" />
+        <env name="AWS_SECRET_ACCESS_KEY" value="unittest" />
+        <env name="INVITE_CODE" value="unittest" />
         <env name="CSRF_SECURITY_LOGIN_TOKEN" value="token" />
         <!-- ###+ doctrine/doctrine-bundle ### -->
         <!-- Format described at http://docs.doctrine-project.org/projects/doctrine-dbal/en/latest/reference/configuration.html#connecting-using-a-url -->

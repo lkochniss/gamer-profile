@@ -42,13 +42,13 @@ class PlaytimeService
     }
 
     /**
-     * @param User $user
+     * @param string $steamUserId
      * @param Game $game
      * @return Playtime
      */
-    public function create(User $user, Game $game): Playtime
+    public function create(string $steamUserId, Game $game): Playtime
     {
-        $playtime = $this->playtimeRepository->findOneBy(['game' => $game, 'user' => $user]);
+        $playtime = $this->playtimeRepository->findOneBy(['game' => $game, 'steamUserId' => $steamUserId]);
 
         if (!is_null($playtime)) {
             return $playtime;
@@ -56,10 +56,10 @@ class PlaytimeService
 
         $gamePlaytime = $this->gameUserInformationService->getPlaytimeForGame(
             $game->getSteamAppId(),
-            $user->getSteamId()
+            $steamUserId
         );
 
-        $playtime = new Playtime($user, $game);
+        $playtime = new Playtime($steamUserId, $game);
         $playtime->setOverallPlaytime($gamePlaytime->getOverallPlaytime());
         $playtime->setRecentPlaytime($gamePlaytime->getRecentPlaytime());
 
@@ -80,11 +80,14 @@ class PlaytimeService
     {
         $gamePlaytime = $this->gameUserInformationService->getPlaytimeForGame(
             $playtime->getGame()->getSteamAppId(),
-            $playtime->getUser()->getSteamId()
+            $playtime->getSteamUserId()
         );
 
 
-        $gameSession = $this->gameSessionService->getTodaysGameSession($playtime->getUser(), $playtime->getGame());
+        $gameSession = $this->gameSessionService->getTodaysGameSession(
+            $playtime->getSteamUserId(),
+            $playtime->getGame()
+        );
         $this->gameSessionService->updateGameSession(
             $gameSession,
             $playtime->getOverallPlaytime(),

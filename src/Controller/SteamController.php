@@ -40,7 +40,6 @@ class SteamController extends Controller
             $prefix = 'https://steamcommunity.com/openid/id/';
             $steamUserId = intval(substr($userProfile->identifier, strlen($prefix)));
             $userProvider->saveSteamUserId($username, $steamUserId);
-
         } catch (Exception $exception) {
             echo $exception->getMessage();
         }

@@ -38,7 +38,7 @@ class GameSessionListenerTest extends TestCase
         $argsMock = $this->createMock(LifecycleEventArgs::class);
         $argsMock->expects($this->once())
             ->method('getEntity')
-            ->willReturn(new GameSession(new Game(1), new User(1)));
+            ->willReturn(new GameSession(new Game(1), 1));
 
         $entityManagerMock = $this->createMock(EntityManager::class);
         $entityManagerMock->expects($this->exactly(2))
@@ -75,7 +75,7 @@ class GameSessionListenerTest extends TestCase
 
     public function testPostUpdateShouldGetTheGameStatsRepository(): void
     {
-        $gameSession = new GameSession(new Game(1), new User(1));
+        $gameSession = new GameSession(new Game(1), 1);
         $argsMock = $this->createMock(LifecycleEventArgs::class);
         $argsMock->expects($this->once())
             ->method('getEntity')

@@ -2,8 +2,6 @@
 
 namespace App\Controller;
 
-namespace App\Controller;
-
 use App\Form\PasswordRecoveryFormType;
 use App\Form\RegistrationFormType;
 use App\Service\Security\AwsCognitoClient;
@@ -87,21 +85,18 @@ class SecurityController extends AbstractController
         AuthenticationUtils $authenticationUtils,
         AwsCognitoClient $awsCognitoClient,
         TranslatorInterface $translator
-    ): Response
-    {
+    ): Response {
         $lastUsername = $authenticationUtils->getLastUsername();
 
         $form = $this->createForm(RegistrationFormType::class);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             if ($form->get('inviteCode')->getData() !== getenv('INVITE_CODE')) {
                 $form->get('inviteCode')->addError(
                     new FormError($translator->trans('invite_code_invalid'))
                 );
             } else {
-
                 try {
                     $awsCognitoClient->signUp(
                         $form->get('email')->getData(),
@@ -114,7 +109,7 @@ class SecurityController extends AbstractController
                         $form->get('password')->addError(
                             new FormError($translator->trans('password_invalid'))
                         );
-                    }else {
+                    } else {
                         $form->get('email')->addError(
                             new FormError($translator->trans('email_invalid'))
                         );

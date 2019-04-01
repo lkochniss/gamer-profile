@@ -66,14 +66,14 @@ class OverallGameStatsService
     }
 
     /**
-     * @param User $user
+     * @param int $steamUserId
      * @return OverallGameStats
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
-    public function addSession(User $user): OverallGameStats
+    public function addSession(int $steamUserId): OverallGameStats
     {
-        $overallGameStats = $this->getOverallGameStats($user);
+        $overallGameStats = $this->getOverallGameStats($steamUserId);
         $overallGameStats->addGameSessions();
 
         $this->overallGameStatsRepository->save($overallGameStats);
@@ -119,15 +119,15 @@ class OverallGameStatsService
 
 
     /**
-     * @param User $user
+     * @param int $steamUserId
      * @return OverallGameStats
      */
-    private function getOverallGameStats(User $user): OverallGameStats
+    private function getOverallGameStats(int $steamUserId): OverallGameStats
     {
-        $overallGameStats = $this->overallGameStatsRepository->findOneBy(['user' => $user]);
+        $overallGameStats = $this->overallGameStatsRepository->findOneBy(['steamUserId' => $steamUserId]);
 
         if (is_null($overallGameStats)) {
-            $overallGameStats = new OverallGameStats($user);
+            $overallGameStats = new OverallGameStats($steamUserId);
         }
 
         return $overallGameStats;

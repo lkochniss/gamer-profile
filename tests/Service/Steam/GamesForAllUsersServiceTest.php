@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Tests\Service;
+namespace App\Tests\Service\Steam;
 
 use App\Entity\User;
-use App\Repository\UserRepository;
+use App\Service\Security\UserProvider;
 use App\Service\Steam\GamesForAllUsersService;
 use App\Service\Steam\GamesForUserService;
 use PHPUnit\Framework\TestCase;
@@ -12,32 +12,31 @@ class GamesForAllUsersServiceTest extends TestCase
 {
     public function testGamesForAllUsersCreateShouldCallUserRepository(): void
     {
-        $userRepositoryMock = $this->createMock(UserRepository::class);
-        $userRepositoryMock
+        $userProvider = $this->createMock(UserProvider::class);
+        $userProvider
             ->expects($this->once())
-            ->method('findAll')
-            ->willReturn([new User(1)]);
+            ->method('loadUsers')
+            ->willReturn([new User()]);
 
         $createGamesForUserMock = $this->createMock(GamesForUserService::class);
 
-        $createGamesForUsersService = new GamesForAllUsersService($userRepositoryMock, $createGamesForUserMock);
+        $createGamesForUsersService = new GamesForAllUsersService($userProvider, $createGamesForUserMock);
         $createGamesForUsersService->create();
     }
 
     public function testGamesForAllUsersCreateShouldCallCreateGamesForUserService(): void
     {
-        $userRepositoryMock = $this->createMock(UserRepository::class);
-        $userRepositoryMock
+        $userProvider = $this->createMock(UserProvider::class);
+        $userProvider
             ->expects($this->once())
-            ->method('findAll')
-            ->willReturn([new User(1)]);
+            ->method('loadUsers')
+            ->willReturn([new User()]);
 
         $createGamesForUserMock = $this->createMock(GamesForUserService::class);
         $createGamesForUserMock->expects($this->once())
-            ->method('create')
-            ->with(1);
+            ->method('create');
 
-        $createGamesForUsersService = new GamesForAllUsersService($userRepositoryMock, $createGamesForUserMock);
+        $createGamesForUsersService = new GamesForAllUsersService($userProvider, $createGamesForUserMock);
         $createGamesForUsersService->create();
     }
 }
