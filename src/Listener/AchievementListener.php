@@ -63,7 +63,7 @@ class AchievementListener
         $changeSet = $unitOfWork->getEntityChangeSet($entity);
 
         $achievementChangeSet = new AchievementChangeSet();
-        $achievementChangeSet->setUser($entity->getUser());
+        $achievementChangeSet->setUser($entity->getSteamUserId());
 
         foreach ($this->statProperties as $key => $statProperty) {
             if (array_key_exists($statProperty, $changeSet)) {
