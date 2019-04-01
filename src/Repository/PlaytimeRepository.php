@@ -23,15 +23,15 @@ class PlaytimeRepository extends AbstractRepository
     }
 
     /**
-     * @param User $user
-     * @return Playtime[]
+     * @param string $steamUserId
+     * @return array
      */
-    public function getRecentPlaytime(User $user): array
+    public function getRecentPlaytime(string $steamUserId): array
     {
         $query = $this->createQueryBuilder('playtime')
             ->where('playtime.recentPlaytime > 0')
-            ->andWhere('playtime.user = :user')
-            ->setParameter('user', $user)
+            ->andWhere('playtime.steamUserId = :steamUserId')
+            ->setParameter('steamUserId', $steamUserId)
             ->orderBy('playtime.recentPlaytime', 'DESC')
             ->getQuery();
 
@@ -40,15 +40,15 @@ class PlaytimeRepository extends AbstractRepository
 
     /**
      * @param int $number
-     * @param User $user
+     * @param string $steamUserId
      * @return Playtime[]
      */
-    public function getTopPlaytime(int $number, User $user): array
+    public function getTopPlaytime(int $number, string $steamUserId): array
     {
         $query = $this->createQueryBuilder('playtime')
             ->where('playtime.overallPlaytime > 0')
-            ->andWhere('playtime.user = :user')
-            ->setParameter('user', $user)
+            ->andWhere('playtime.steamUserId = :steamUserId')
+            ->setParameter('steamUserId', $steamUserId)
             ->orderBy('playtime.overallPlaytime', 'DESC')
             ->setMaxResults($number)
             ->getQuery();

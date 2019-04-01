@@ -2,13 +2,7 @@
 
 namespace App\Service\GameStats;
 
-use App\Entity\Game;
-use App\Entity\GameStats;
-use App\Entity\User;
-use App\Repository\GameRepository;
-use App\Repository\GameStatsRepository;
-use App\Repository\UserRepository;
-use App\Service\Transformation\GameUserInformationService;
+use App\Service\Security\UserProvider;
 
 class CreateGameStatsForAllUsersService
 {
@@ -19,26 +13,26 @@ class CreateGameStatsForAllUsersService
     private $createGameStatsForUsersGamesService;
 
     /**
-     * @var UserRepository
+     * @var UserProvider
      */
-    private $userRepository;
+    private $userProvider;
 
     /**
      * CreateGameStatsForAllUsersService constructor.
      * @param CreateGameStatsForUsersGamesService $createGameStatsForUsersGamesService
-     * @param UserRepository $userRepository
+     * @param UserProvider $userProvider
      */
     public function __construct(
         CreateGameStatsForUsersGamesService $createGameStatsForUsersGamesService,
-        UserRepository $userRepository
+        UserProvider $userProvider
     ) {
         $this->createGameStatsForUsersGamesService = $createGameStatsForUsersGamesService;
-        $this->userRepository = $userRepository;
+        $this->userProvider = $userProvider;
     }
 
     public function execute()
     {
-        $users = $this->userRepository->findAll();
+        $users = $this->userProvider->loadUsers();
 
         foreach ($users as $user) {
             $this->createGameStatsForUsersGamesService->execute($user);

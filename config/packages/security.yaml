@@ -1,10 +1,8 @@
 security:
     # https://symfony.com/doc/current/book/security.html#where-do-users-come-from-user-providers
     providers:
-        user_db:
-           entity: { class: App\Entity\User, property: steamId }
-    encoders:
-        Symfony\Component\Security\Core\User\User: plaintext
+        app_user_provider:
+            id: App\Service\Security\UserProvider
     role_hierarchy:
         ROLE_ADMIN: [ROLE_USER, ROLE_ALLOWED_TO_SWITCH]
     firewalls:
@@ -13,8 +11,10 @@ security:
             security: false
         admin:
             anonymous: ~
+            guard:
+                authenticators:
+                - App\Service\Security\CognitoAuthenticator
             pattern: ^/
-            switch_user: true
             form_login:
                 login_path: /login
                 check_path: /login_check
@@ -25,11 +25,8 @@ security:
             logout:
                 path: /logout
                 target: /login
-        frontend:
-            anonymous: ~
-            pattern: ^/
     access_control:
         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/registration, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/login_check, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/steam/authenticate, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^, roles: ROLE_USER }

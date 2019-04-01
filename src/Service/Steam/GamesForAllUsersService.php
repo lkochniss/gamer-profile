@@ -2,14 +2,14 @@
 
 namespace App\Service\Steam;
 
-use App\Repository\UserRepository;
+use App\Service\Security\UserProvider;
 
 class GamesForAllUsersService
 {
     /**
-     * @var UserRepository
+     * @var UserProvider
      */
-    private $userRepository;
+    private $userProvider;
 
     /**
      * @var GamesForUserService;
@@ -18,18 +18,18 @@ class GamesForAllUsersService
 
     /**
      * GamesForAllUsersService constructor.
-     * @param UserRepository $userRepository
+     * @param UserProvider $userProvider
      * @param GamesForUserService $gamesForUserService
      */
-    public function __construct(UserRepository $userRepository, GamesForUserService $gamesForUserService)
+    public function __construct(UserProvider $userProvider, GamesForUserService $gamesForUserService)
     {
-        $this->userRepository = $userRepository;
+        $this->userProvider = $userProvider;
         $this->gamesForUserService = $gamesForUserService;
     }
 
     public function create(): void
     {
-        $users = $this->userRepository->findAll();
+        $users = $this->userProvider->loadUsers();
 
         foreach ($users as $user) {
             $this->gamesForUserService->create($user->getSteamId());
@@ -38,7 +38,7 @@ class GamesForAllUsersService
 
     public function updateRecentlyPlayed(): void
     {
-        $users = $this->userRepository->findAll();
+        $users = $this->userProvider->loadUsers();
 
         foreach ($users as $user) {
             $this->gamesForUserService->updateRecentlyPlayed($user->getSteamId());

@@ -63,17 +63,17 @@ class OverallGameStats extends AbstractEntity
     private $numberOfGames = 0;
 
     /**
-     * @var User
+     * @var int
      */
-    private $user;
+    private $steamUserId;
 
     /**
      * OverallGameStats constructor.
-     * @param User $user
+     * @param int $steamUserId
      */
-    public function __construct(User $user)
+    public function __construct(int $steamUserId)
     {
-        $this->user = $user;
+        $this->steamUserId = $steamUserId;
     }
 
     /**
@@ -162,11 +162,11 @@ class OverallGameStats extends AbstractEntity
     }
 
     /**
-     * @return User
+     * @return int
      */
-    public function getUser(): User
+    public function getSteamUserId(): int
     {
-        return $this->user;
+        return $this->steamUserId;
     }
 
     /**

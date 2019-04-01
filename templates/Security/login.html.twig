@@ -1,15 +1,23 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <div class="container">
-        <div class="col-md-3 offset-md-4">
-            <form action="{{ path('steam_authenticate') }}" method="post">
-                <h2>{% trans from "messages" %}login{% endtrans %} </h2>
+    <div class="d-flex justify-content-center align-items-center">
+        <form method="post">
+            <h1 class="h3 mb-3 font-weight-normal">{% trans %}login_gamer_profile{% endtrans %}</h1>
 
-                <button type="submit">
-                    <img src="https://steamcommunity-a.akamaihd.net/public/images/signinthroughsteam/sits_01.png"/>
-                </button>
-            </form>
-        </div>
+            <label for="inputEmail" class="sr-only">Email</label>
+            <input type="email" name="email" id="email" class="form-control"
+                   placeholder="{% trans %}email{% endtrans %}" required autofocus>
+
+            <label for="inputPassword" class="sr-only">{% trans %}password{% endtrans %}</label>
+            <input type="password" name="password" id="password" class="form-control mb-3"
+                   placeholder="{% trans %}password{% endtrans %}" required>
+
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('login') }}">
+            <button class="btn btn-primary form-control" type="submit">
+                {% trans %}login{% endtrans %}
+            </button>
+            <a href="{{ path('security_registration') }}">{% trans %}or_registration{% endtrans %}</a>
+        </form>
     </div>
 {% endblock %}

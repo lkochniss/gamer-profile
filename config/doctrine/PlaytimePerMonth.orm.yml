@@ -12,9 +12,6 @@ App\Entity\PlaytimePerMonth:
             type: integer
         sessions:
             type: integer
-    manyToOne:
-        user:
-            targetEntity: User
-            joinColumn:
-                name: user_id
-                referenceColumnName: id
+        steamUserId:
+            type: integer
+            column: steam_user_id

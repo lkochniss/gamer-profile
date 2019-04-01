@@ -12,7 +12,7 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
 class GameStatsRepository extends ServiceEntityRepository
 {
     /**
-     * UserRepository constructor.
+     * GameStatsRepository constructor.
      * @param RegistryInterface $registry
      */
     public function __construct(RegistryInterface $registry)

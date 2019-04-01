@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="d-flex justify-content-center align-items-center">
+        <div class="login-form">
+            {{ form_start(form) }}
+            <div class="text-center mb-3">
+                <h1 class="h3 font-weight-normal">{% trans %}create_account{% endtrans %}</h1>
+            </div>
+
+            {{ form_widget(form.email) }}
+            {% if form.children.email.vars.errors|length %}
+                <div id="invalid-email" class="validation-invalid-label">
+                    {{ form_errors(form.email) }}
+                </div>
+            {% endif %}
+            {{ form_widget(form.password) }}
+            {% if form.children.password.vars.errors|length %}
+                <div id="invalid-password" class="validation-invalid-label">
+                    {{ form_errors(form.password) }}
+                </div>
+            {% endif %}
+            {{ form_widget(form.inviteCode) }}
+            {% if form.children.inviteCode.vars.errors|length %}
+                <div id="invalid-invite-code" class="validation-invalid-label">
+                    {{ form_errors(form.inviteCode) }}
+                </div>
+            {% endif %}
+            {{ form_widget(form.submit) }}
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}

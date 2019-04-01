@@ -11,13 +11,11 @@ App\Entity\Achievement:
             column: player_achievements
         overallAchievements:
             type: integer
-            nullable: overall_achievements
+            column: overall_achievements
+        steamUserId:
+            type: integer
+            column: steam_user_id
     manyToOne:
-          user:
-              targetEntity: User
-              joinColumn:
-                  name: user_id
-                  referenceColumnName: id
           game:
               targetEntity: Game
               joinColumn:

@@ -63,3 +63,8 @@ services:
         tags:
         - { name: doctrine.event_listener, event: postPersist }
         - { name: doctrine.event_listener, event: postUpdate }
+
+    App\Service\Security\AwsCognitoClient:
+        arguments:
+            $poolId: '%env(COGNITO_POOL_ID)%'
+            $clientId: '%env(COGNITO_CLIENT_ID)%'

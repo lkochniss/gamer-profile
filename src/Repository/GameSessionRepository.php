@@ -23,60 +23,60 @@ class GameSessionRepository extends AbstractRepository#
     }
 
     /**
-     * @param User $user
+     * @param string $steamUserId
      * @return array|null
      */
-    public function findForLastDays(User $user): ?array
+    public function findForLastDays(string $steamUserId): ?array
     {
         $start = new \DateTime('-15 day');
         $end = new \DateTime();
         $query = $this->createQueryBuilder('game_session')
             ->where('game_session.createdAt > :start')
             ->andWhere('game_session.createdAt < :end')
-            ->andWhere('game_session.user = :user')
+            ->andWhere('game_session.steamUserId = :steamUserId')
             ->setParameter('start', $start)
             ->setParameter('end', $end)
-            ->setParameter('user', $user)
+            ->setParameter('steamUserId', $steamUserId)
             ->getQuery();
 
         return $query->getResult();
     }
 
     /**
-     * @param User $user
+     * @param string $steamUserId
      * @return array|null
      */
-    public function findForThisMonth(User $user): ?array
+    public function findForThisMonth(string $steamUserId): ?array
     {
         $start = new \DateTime('first day of this month');
         $end = new \DateTime('last day of this month');
         $query = $this->createQueryBuilder('game_session')
             ->where('game_session.createdAt > :start')
             ->andWhere('game_session.createdAt < :end')
-            ->andWhere('game_session.user = :user')
+            ->andWhere('game_session.steamUserId = :steamUserId')
             ->setParameter('start', $start)
             ->setParameter('end', $end)
-            ->setParameter('user', $user)
+            ->setParameter('steamUserId', $steamUserId)
             ->getQuery();
 
         return $query->getResult();
     }
 
     /**
-     * @param User $user
+     * @param string $steamUserId
      * @return array|null
      */
-    public function findForThisYear(User $user): ?array
+    public function findForThisYear(string $steamUserId): ?array
     {
         $start = new \DateTime('first day of January');
         $end = new \DateTime('last day of December');
         $query = $this->createQueryBuilder('game_session')
             ->where('game_session.createdAt > :start')
             ->andWhere('game_session.createdAt < :end')
-            ->andWhere('game_session.user = :user')
+            ->andWhere('game_session.steamUserId = :steamUserId')
             ->setParameter('start', $start)
             ->setParameter('end', $end)
-            ->setParameter('user', $user)
+            ->setParameter('steamUserId', $steamUserId)
             ->getQuery();
 
         return $query->getResult();
@@ -84,20 +84,20 @@ class GameSessionRepository extends AbstractRepository#
 
     /**
      * @param int $year
-     * @param User $user
+     * @param string $steamUserId
      * @return array|null
      */
-    public function findForYear(int $year, User $user): ?array
+    public function findForYear(int $year, string $steamUserId): ?array
     {
         $start = new \DateTime('first day of January '. $year);
         $end = new \DateTime('last day of December '. $year);
         $query = $this->createQueryBuilder('game_session')
             ->where('game_session.createdAt > :start')
             ->andWhere('game_session.createdAt < :end')
-            ->andWhere('game_session.user = :user')
+            ->andWhere('game_session.steamUserId = :steamUserId')
             ->setParameter('start', $start)
             ->setParameter('end', $end)
-            ->setParameter('user', $user)
+            ->setParameter('steamUserId', $steamUserId)
             ->getQuery();
 
         return $query->getResult();

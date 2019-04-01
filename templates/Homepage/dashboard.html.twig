@@ -9,150 +9,154 @@
     </div>
 
     {% if gameStats is defined and gameStats is not null %}
-    <div class="row text-center">
-        <div class="col-sm">
-            <div class="card mb-4">
-                <div class="card-header">
-                    {% trans from "messages" %}achievements{% endtrans %}
-                </div>
-                <div class="card-body">
-                    {% if gameStats.overallAchievements > 0 %}
-                        {{ gameStats.playerAchievements }}/{{ gameStats.overallAchievements }}
-                        {% set percentage = gameStats.playerAchievements / gameStats.overallAchievements  * 100 %}
-                        ({{ percentage|round(2) }}%)
-                    {% else %}
-                        {% trans from "messages" %}profile_not_public{% endtrans %}
-                    {% endif %}
-                </div>
-            </div>
-        </div>
-        <div class="col-sm">
-            <div class="card mb-4">
-                <div class="card-header">
-                    {% trans from "messages" %}recently_played{% endtrans %}
-                </div>
-                <div class="card-body">
-                    {{ gameStats.recentPlaytime|convert_overall_time }}
-                </div>
-            </div>
-        </div>
-        <div class="col-sm">
-            <div class="card mb-4">
-                <div class="card-header">
-                    {% trans from "messages" %}overall_playtime{% endtrans %}
-                </div>
-                <div class="card-body">
-                    {{ gameStats.overallPlaytime|convert_overall_time }}
-                </div>
-            </div>
-        </div>
-        <div class="col-sm">
-            <div class="card mb-4">
-                <div class="card-header">
-                    {% trans from "messages" %}game_sessions{% endtrans %}
-                </div>
-                <div class="card-body">
-                    {{ gameStats.gameSessions }}
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row text-center">
-        <div class="col-sm">
-            <div class="card mb-4">
-                <div class="card-header">
-                    {% trans from "messages" %}open_games{% endtrans %}
-                </div>
-                <div class="card-body">
-                    {% set percentage = gameStats.statusOpen / gameStats.numberOfGames  * 100 %}
-                    {{ gameStats.statusOpen }} / {{ gameStats.numberOfGames }} ({{ percentage|round(2) }}%)
-                </div>
-            </div>
-        </div>
-        <div class="col-sm">
-            <div class="card mb-4">
-                <div class="card-header">
-                    {% trans from "messages" %}paused_games{% endtrans %}
-                </div>
-                <div class="card-body">
-                    {% set percentage = gameStats.statusPaused  / gameStats.numberOfGames  * 100 %}
-                    {{ gameStats.statusPaused }} / {{ gameStats.numberOfGames }} ({{ percentage|round(2) }}%)
-                </div>
-            </div>
-        </div>
-        <div class="col-sm">
-            <div class="card mb-4">
-                <div class="card-header">
-                    {% trans from "messages" %}playing_games{% endtrans %}
-                </div>
-                <div class="card-body">
-                    {% set percentage = gameStats.statusPlaying  / gameStats.numberOfGames  * 100 %}
-                    {{ gameStats.statusPlaying }} / {{ gameStats.numberOfGames }} ({{ percentage|round(2) }}%)
-                </div>
-            </div>
-        </div>
-        <div class="col-sm">
-            <div class="card mb-4">
-                <div class="card-header">
-                    {% trans from "messages" %}finished_games{% endtrans %}
-                </div>
-                <div class="card-body">
-                    {% set percentage = gameStats.statusFinished  / gameStats.numberOfGames  * 100 %}
-                    {{ gameStats.statusFinished }} / {{ gameStats.numberOfGames }} ({{ percentage|round(2) }}%)
-                </div>
-            </div>
-        </div>
-        <div class="col-sm">
-            <div class="card mb-4">
-                <div class="card-header">
-                    {% trans from "messages" %}given_up_games{% endtrans %}
-                </div>
-                <div class="card-body">
-                    {% set percentage = gameStats.statusGivenUp  / gameStats.numberOfGames  * 100 %}
-                    {{ gameStats.statusGivenUp }} / {{ gameStats.numberOfGames }} ({{ percentage|round(2) }}%)
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row mb-5" style="height: 180px">
-        <div class="col-md-12" id="sessions-for-year" data-year="{{ currentYear }}">
-            <h3>{% trans %}sessions{% endtrans %} <span id="selectedYear">{{ currentYear }}</span></h3>
-        </div>
-        <div class="col">
-            {% trans %}switch_to_year{% endtrans %}:
-            {% for year in yearsWithSessions %}
-                <a href='#' class="sessions-for-year-select" data-year="{{ year }}">{{ year }}</a>
-                {% if not loop.last %}
-                    |
-                {% endif %}
-            {% endfor %}
-        </div>
-    </div>
-    <div class="row mb-5 dashboardRow">
-        <div class="col-md-6" id="playtime-last-week">
-            <h3>{% trans %}session_time_last_days{% endtrans %}</h3>
-        </div>
-        <div class="col-md-6" id="playtime-last-week">
-            <h3>{% trans %}top_played_this_month{% endtrans %}</h3>
-            {% for topGame in playedThisMonth %}
-                <div class="row">
-                    <div class="col">
-                        <a href="{{ path('game_dashboard', {'id': topGame.game.id}) }}">{{ topGame.game.name }}</a>
+        <div class="row text-center">
+            <div class="col-sm">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        {% trans from "messages" %}achievements{% endtrans %}
                     </div>
-                    <div class="col">{{ topGame.duration|convert_recent_time }}</div>
+                    <div class="card-body">
+                        {% if gameStats.overallAchievements > 0 %}
+                            {{ gameStats.playerAchievements }}/{{ gameStats.overallAchievements }}
+                            {% set percentage = gameStats.playerAchievements / gameStats.overallAchievements  * 100 %}
+                            ({{ percentage|round(2) }}%)
+                        {% else %}
+                            {% trans from "messages" %}profile_not_public{% endtrans %}
+                        {% endif %}
+                    </div>
                 </div>
-            {% endfor %}
+            </div>
+            <div class="col-sm">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        {% trans from "messages" %}recently_played{% endtrans %}
+                    </div>
+                    <div class="card-body">
+                        {{ gameStats.recentPlaytime|convert_overall_time }}
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        {% trans from "messages" %}overall_playtime{% endtrans %}
+                    </div>
+                    <div class="card-body">
+                        {{ gameStats.overallPlaytime|convert_overall_time }}
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        {% trans from "messages" %}game_sessions{% endtrans %}
+                    </div>
+                    <div class="card-body">
+                        {{ gameStats.gameSessions }}
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
-    <div class="row mb-5 dashboardRow">
-        <div class="col-md-6 dashboardRow" id="playtime-per-month">
-            <h3>{% trans %}session_time_per_month{% endtrans %}</h3>
+        <div class="row text-center">
+            <div class="col-sm">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        {% trans from "messages" %}open_games{% endtrans %}
+                    </div>
+                    <div class="card-body">
+                        {% set percentage = gameStats.statusOpen / gameStats.numberOfGames  * 100 %}
+                        {{ gameStats.statusOpen }} / {{ gameStats.numberOfGames }} ({{ percentage|round(2) }}%)
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        {% trans from "messages" %}paused_games{% endtrans %}
+                    </div>
+                    <div class="card-body">
+                        {% set percentage = gameStats.statusPaused  / gameStats.numberOfGames  * 100 %}
+                        {{ gameStats.statusPaused }} / {{ gameStats.numberOfGames }} ({{ percentage|round(2) }}%)
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        {% trans from "messages" %}playing_games{% endtrans %}
+                    </div>
+                    <div class="card-body">
+                        {% set percentage = gameStats.statusPlaying  / gameStats.numberOfGames  * 100 %}
+                        {{ gameStats.statusPlaying }} / {{ gameStats.numberOfGames }} ({{ percentage|round(2) }}%)
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        {% trans from "messages" %}finished_games{% endtrans %}
+                    </div>
+                    <div class="card-body">
+                        {% set percentage = gameStats.statusFinished  / gameStats.numberOfGames  * 100 %}
+                        {{ gameStats.statusFinished }} / {{ gameStats.numberOfGames }} ({{ percentage|round(2) }}%)
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        {% trans from "messages" %}given_up_games{% endtrans %}
+                    </div>
+                    <div class="card-body">
+                        {% set percentage = gameStats.statusGivenUp  / gameStats.numberOfGames  * 100 %}
+                        {{ gameStats.statusGivenUp }} / {{ gameStats.numberOfGames }} ({{ percentage|round(2) }}%)
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="col-md-6 dashboardRow" id="average-per-month">
-            <h3>{% trans %}average_daily_playtime_per_month{% endtrans %}</h3>
+        <div class="row mb-5" style="height: 180px">
+            <div class="col-md-12" id="sessions-for-year" data-year="{{ currentYear }}">
+                <h3>{% trans %}sessions{% endtrans %} <span id="selectedYear">{{ currentYear }}</span></h3>
+            </div>
+            <div class="col">
+                {% trans %}switch_to_year{% endtrans %}:
+                {% for year in yearsWithSessions %}
+                    <a href='#' class="sessions-for-year-select" data-year="{{ year }}">{{ year }}</a>
+                    {% if not loop.last %}
+                        |
+                    {% endif %}
+                {% endfor %}
+            </div>
         </div>
-    </div>
+        <div class="row mb-5 dashboardRow">
+            <div class="col-md-6" id="playtime-last-week">
+                <h3>{% trans %}session_time_last_days{% endtrans %}</h3>
+            </div>
+            <div class="col-md-6" id="playtime-last-week">
+                <h3>{% trans %}top_played_this_month{% endtrans %}</h3>
+                {% for topGame in playedThisMonth %}
+                    <div class="row">
+                        <div class="col">
+                            <a href="{{ path('game_dashboard', {'id': topGame.game.id}) }}">{{ topGame.game.name }}</a>
+                        </div>
+                        <div class="col">{{ topGame.duration|convert_recent_time }}</div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="row mb-5 dashboardRow">
+            <div class="col-md-6 dashboardRow" id="playtime-per-month">
+                <h3>{% trans %}session_time_per_month{% endtrans %}</h3>
+            </div>
+            <div class="col-md-6 dashboardRow" id="average-per-month">
+                <h3>{% trans %}average_daily_playtime_per_month{% endtrans %}</h3>
+            </div>
+        </div>
     {% else %}
-        {% trans %}initializing_data{% endtrans %}
+        {% if app.user.steamId %}
+            {% trans %}initializing_data{% endtrans %}
+        {% else %}
+            {% include 'Steam/connect.html.twig' %}
+        {% endif %}
     {% endif %}
 {% endblock %}

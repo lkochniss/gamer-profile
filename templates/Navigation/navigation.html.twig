@@ -36,16 +36,6 @@
                     </a>
                 </div>
             </li>
-            <li class="nav-item">
-                {% if is_granted('ROLE_ADMIN') %}
-                    <a class="nav-link" href="{{ path('homepage_impersonate') }}">{% trans %}select_impersonate{% endtrans %}</a>
-                {% endif %}
-            </li>
-            <li class="nav-item">
-                {% if is_granted('ROLE_PREVIOUS_ADMIN') %}
-                    <a class="nav-link" href="{{ path('homepage_dashboard', {'_switch_user': '_exit'}) }}">{% trans %}exit_impersonate{% endtrans %}</a>
-                {% endif %}
-            </li>
         </ul>
         <ul class="navbar-nav mr-auto right">
             <li class="nav-item ">

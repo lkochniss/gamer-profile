@@ -18,23 +18,23 @@ class Achievement extends AbstractEntity
     private $overallAchievements;
 
     /**
-     * @var User
-     */
-    private $user;
-
-    /**
      * @var Game
      */
     private $game;
 
     /**
+     * @var int
+     */
+    private $steamUserId;
+
+    /**
      * Achievement constructor.
-     * @param User $user
+     * @param int $steamUserId
      * @param Game $game
      */
-    public function __construct(User $user, Game $game)
+    public function __construct(int $steamUserId, Game $game)
     {
-        $this->user = $user;
+        $this->steamUserId = $steamUserId;
         $this->game = $game;
         $this->playerAchievements = 0;
         $this->overallAchievements = 0;
@@ -73,11 +73,11 @@ class Achievement extends AbstractEntity
     }
 
     /**
-     * @return User
+     * @return int
      */
-    public function getUser(): User
+    public function getSteamUserId(): int
     {
-        return $this->user;
+        return $this->steamUserId;
     }
 
     /**
