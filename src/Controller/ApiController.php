@@ -42,7 +42,7 @@ class ApiController extends Controller
         PlaytimePerMonthRepository $playtimePerMonthRepository,
         UserInterface $user
     ): JsonResponse {
-        $playtimePerMonth = $playtimePerMonthRepository->findBy(['user' => $user]);
+        $playtimePerMonth = $playtimePerMonthRepository->findBy(['steamUserId' => $user->getSteamId()]);
 
         $data = [];
         foreach ($playtimePerMonth as $playtime) {
@@ -65,7 +65,7 @@ class ApiController extends Controller
         PlaytimePerMonthRepository $playtimePerMonthRepository,
         UserInterface $user
     ): JsonResponse {
-        $playtimePerMonth = $playtimePerMonthRepository->findBy(['user' => $user]);
+        $playtimePerMonth = $playtimePerMonthRepository->findBy(['steamUserId' => $user->getSteamId()]);
         $today = new \DateTime();
 
         $data = [];
@@ -120,7 +120,7 @@ class ApiController extends Controller
         if (!$game) {
             throw new NotFoundHttpException();
         }
-        $sessions = $sessionRepository->findBy(['game' => $game, 'user' => $user]);
+        $sessions = $sessionRepository->findBy(['game' => $game, 'steamUserId' => $user->getSteamId()]);
 
         $data = [];
 
@@ -156,7 +156,7 @@ class ApiController extends Controller
             throw new NotFoundHttpException();
         }
 
-        $sessions = $gameSessionsPerMonthRepository->findBy(['game' => $game, 'user' => $user]);
+        $sessions = $gameSessionsPerMonthRepository->findBy(['game' => $game, 'steamUserId' => $user->getSteamId()]);
         $data = [];
 
         /**
