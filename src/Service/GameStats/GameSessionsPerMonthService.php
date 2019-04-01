@@ -52,7 +52,7 @@ class GameSessionsPerMonthService
      */
     public function updateGameSession(int $diff, GameSession $gameSession): GameSessionsPerMonth
     {
-        $gameSessionPerMonth = $this->getGameSessionsPerMonth($gameSession->getGame(), $gameSession->steamUserId());
+        $gameSessionPerMonth = $this->getGameSessionsPerMonth($gameSession->getGame(), $gameSession->getSteamUserId());
         $gameSessionPerMonth->addToDuration($diff);
 
         $this->gameSessionsPerMonthRepository->save($gameSessionPerMonth);
