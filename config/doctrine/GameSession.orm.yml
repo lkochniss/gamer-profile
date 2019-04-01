@@ -10,6 +10,9 @@ App\Entity\GameSession:
             type: datetime
         duration:
             type: integer
+        steamUserId:
+            type: integer
+            column: steam_user_id
     manyToOne:
         user:
             targetEntity: User

@@ -28,6 +28,16 @@ class GameSessionsPerMonth extends AbstractEntity
     private $user;
 
     /**
+     * @var int
+     */
+    private $steamUserId;
+
+    public function setSteamUserID(int $steamUserId): void
+    {
+        $this->steamUserId = $steamUserId;
+    }
+
+    /**
      * GameSessionsPerMonth constructor.
      * @param \DateTime $month
      * @param Game $game

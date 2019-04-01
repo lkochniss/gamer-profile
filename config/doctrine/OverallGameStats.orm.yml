@@ -50,6 +50,9 @@ App\Entity\OverallGameStats:
             column: number_of_games
             type: integer
             nullable: false
+        steamUserId:
+            type: integer
+            column: steam_user_id
     manyToOne:
         user:
             targetEntity: User
