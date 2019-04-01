@@ -64,7 +64,7 @@ class PlaytimeListener
         $changeSet = $unitOfWork->getEntityChangeSet($entity);
 
         $playtimeChangeSet  = new PlaytimeChangeSet();
-        $playtimeChangeSet->setUser($entity->getSteamUserId());
+        $playtimeChangeSet->setSteamUserId($entity->getSteamUserId());
         foreach ($this->statProperties as $key => $statProperty) {
             if (array_key_exists($statProperty, $changeSet)) {
                 $diff = $changeSet[$statProperty][1] - $changeSet[$statProperty][0];
