@@ -37,7 +37,7 @@ class OverallGameStatsService
      */
     public function addAchievement(Achievement $achievement): OverallGameStats
     {
-        $overallGameStats = $this->getOverallGameStats($achievement->getUser());
+        $overallGameStats = $this->getOverallGameStats($achievement->getSteamUserId());
 
         $overallGameStats->addToOverallAchievements($achievement->getOverallAchievements());
         $overallGameStats->addToPlayerAchievements($achievement->getPlayerAchievements());
@@ -55,7 +55,7 @@ class OverallGameStatsService
      */
     public function updateAchievementWithChangeSet(AchievementChangeSet $achievementChangeSet): OverallGameStats
     {
-        $overallGameStats = $this->getOverallGameStats($achievementChangeSet->getUser());
+        $overallGameStats = $this->getOverallGameStats($achievementChangeSet->getSteamUserId());
 
         $overallGameStats->addToOverallAchievements($achievementChangeSet->getOverallAchievements());
         $overallGameStats->addToPlayerAchievements($achievementChangeSet->getPlayerAchievements());
@@ -89,7 +89,7 @@ class OverallGameStatsService
      */
     public function addPlaytime(Playtime $playtime): OverallGameStats
     {
-        $overallGameStats = $this->getOverallGameStats($playtime->getUser());
+        $overallGameStats = $this->getOverallGameStats($playtime->getSteamUserId());
 
         $overallGameStats->addToRecentPlaytime($playtime->getRecentPlaytime());
         $overallGameStats->addToOverallPlaytime($playtime->getOverallPlaytime());
@@ -107,7 +107,7 @@ class OverallGameStatsService
      */
     public function updatePlaytimeWithChangeSet(PlaytimeChangeSet $playtimeChangeSet): OverallGameStats
     {
-        $overallGameStats = $this->getOverallGameStats($playtimeChangeSet->getUser());
+        $overallGameStats = $this->getOverallGameStats($playtimeChangeSet->getSteamUserId());
 
         $overallGameStats->addToRecentPlaytime($playtimeChangeSet->getRecentPlaytime());
         $overallGameStats->addToOverallPlaytime($playtimeChangeSet->getOverallPlaytime());
