@@ -7,8 +7,6 @@ use Hybridauth\Exception\Exception;
 use Hybridauth\Provider\OpenID;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
-use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Class SteamController

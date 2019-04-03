@@ -11,9 +11,11 @@ security:
             security: false
         admin:
             anonymous: ~
+            provider: app_user_provider
             guard:
                 authenticators:
-                - App\Service\Security\CognitoAuthenticator
+                    - App\Service\Security\CognitoAuthenticator
+                entry_point: App\Service\Security\CognitoAuthenticator
             pattern: ^/
             form_login:
                 login_path: /login

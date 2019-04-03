@@ -1,0 +1,21 @@
+security:
+    # https://symfony.com/doc/current/book/security.html#where-do-users-come-from-user-providers
+    providers:
+        app_user_provider:
+            id: App\Service\Security\TestMocks\EmptyProvider
+        test_user_provider:
+            memory:
+                users:
+                    admin: { password: 'admin', roles: ['ROLE_ADMIN']}
+                    user: { password: 'user', roles: ['ROLE_USER']}
+    role_hierarchy:
+        ROLE_ADMIN: [ROLE_USER]
+    firewalls:
+        admin:
+            anonymous: ~
+            pattern: ^/
+            provider: app_user_provider
+            guard:
+                authenticators:
+                    - App\Service\Security\TestMocks\AuthenticatorHelper
+                entry_point: App\Service\TestMocks\Security\AuthenticatorHelper
