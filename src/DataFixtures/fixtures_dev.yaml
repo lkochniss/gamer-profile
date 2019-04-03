@@ -9,20 +9,18 @@ App\Entity\GameSession:
     game_session_1:
         __construct:
           0: '@game_1'
-          1: '76561198045607524'
-          2: '<dateTimeBetween("now", "now")>'
+          1: 76561198045607524
         duration: '<numberBetween(1, 100)>'
     game_session_2:
         __construct:
          0: '@game_1'
-         1: '76561198045607524'
-         2: '<dateTimeBetween("-2 days", "-2 days")>'
+         1: 76561198045607524
         duration: '<numberBetween(1, 50)>'
 
 App\Entity\Achievement:
     achievement_1:
         __construct:
-          0: '76561198045607524'
+          0: 76561198045607524
           1: '@game_1'
         playerAchievements: '<numberBetween(1, 100)>'
         overallAchievements: '<numberBetween(1, 100)>'
@@ -30,13 +28,13 @@ App\Entity\Achievement:
 App\Entity\Playtime:
     playtime_1:
         __construct:
-          0: '76561198045607524'
+          0: 76561198045607524
           1: '@game_1'
 
 App\Entity\GameStats:
     gameStats_1:
         __construct:
-          0: '76561198045607524'
+          0: 76561198045607524
           1: '@game_1'
           2: '@achievement_1'
           3: '@playtime_1'
