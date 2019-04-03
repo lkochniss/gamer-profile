@@ -59,6 +59,8 @@ class AuthenticatorHelper extends AbstractFormLoginAuthenticator
     /**
      * @param Request $request
      * @return array
+     *
+     * @SuppressWarnings("unused")
      */
     public function getCredentials(Request $request): array
     {
@@ -76,6 +78,8 @@ class AuthenticatorHelper extends AbstractFormLoginAuthenticator
      * @param UserProviderInterface $userProvider
      *
      * @return null|UserInterface
+     *
+     * @SuppressWarnings("unused")
      */
     public function getUser($credentials, UserProviderInterface $userProvider)
     {
