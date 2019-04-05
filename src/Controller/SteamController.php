@@ -5,13 +5,13 @@ namespace App\Controller;
 use App\Service\Security\UserProvider;
 use Hybridauth\Exception\Exception;
 use Hybridauth\Provider\OpenID;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Class SteamController
  */
-class SteamController extends Controller
+class SteamController extends AbstractController
 {
 
     /**
@@ -39,7 +39,6 @@ class SteamController extends Controller
             $steamUserId = intval(substr($userProfile->identifier, strlen($prefix)));
             $userProvider->saveSteamUserId($username, $steamUserId);
         } catch (Exception $exception) {
-            echo $exception->getMessage();
         }
 
         return $this->redirectToRoute('homepage_dashboard');

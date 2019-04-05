@@ -5,12 +5,12 @@ namespace App\Controller;
 
 use App\Entity\Game;
 use App\Entity\GameStats;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\User\UserInterface;
 
-class GameStatsController extends Controller
+class GameStatsController extends AbstractController
 {
     /**
      * @param int $id

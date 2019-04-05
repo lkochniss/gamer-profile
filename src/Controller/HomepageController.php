@@ -6,14 +6,14 @@ use App\Entity\GameSessionsPerMonth;
 use App\Entity\User;
 use App\Repository\GameSessionsPerMonthRepository;
 use App\Repository\OverallGameStatsRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Class HomepageController
  */
-class HomepageController extends Controller
+class HomepageController extends AbstractController
 {
     /**
      * @param OverallGameStatsRepository $overallGameStatsRepository

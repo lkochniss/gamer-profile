@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\GameStats;
 use App\Repository\GameSessionsPerMonthRepository;
 use App\Repository\GameStatsRepository;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -12,7 +13,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 /**
  * Class GameController
  */
-class GameController extends AbstractCrudController
+class GameController extends AbstractController
 {
     /**
      * @param int $id

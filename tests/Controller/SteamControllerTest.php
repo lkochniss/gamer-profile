@@ -22,6 +22,6 @@ class SteamControllerTest extends WebTestCase
         $this->loginHelper->logIn($client, LoginHelper::USER_1);
         $client->request('GET', '/steam/connect/1');
         $crawler = $client->followRedirect();
-        $this->assertContains('/login', $crawler->getUri());
+        $this->assertContains('/', $crawler->getUri());
     }
 }

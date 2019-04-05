@@ -9,7 +9,7 @@ use App\Repository\GameSessionRepository;
 use App\Repository\GameSessionsPerMonthRepository;
 use App\Repository\PlaytimePerMonthRepository;
 use App\Service\Util\TimeConverterUtil;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -17,7 +17,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 /**
  * Class ApiController
  */
-class ApiController extends Controller
+class ApiController extends AbstractController
 {
     /**
      * @var TimeConverterUtil
