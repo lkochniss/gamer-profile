@@ -44,6 +44,6 @@ class UpdateRecentlyPlayedGamesCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $this->gamesForAllUsersService->create();
+        $this->gamesForAllUsersService->updateRecentlyPlayed();
     }
 }

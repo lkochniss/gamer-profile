@@ -18,7 +18,7 @@ class UpdateRecentlyPlayedGamesCommandTest extends KernelTestCase
 
         $serviceMock = $this->createMock(GamesForAllUsersService::class);
         $serviceMock->expects($this->once())
-            ->method('create');
+            ->method('updateRecentlyPlayed');
 
         $application->add(new UpdateRecentlyPlayedGamesCommand($serviceMock));
 
