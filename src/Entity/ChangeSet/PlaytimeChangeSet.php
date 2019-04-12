@@ -2,8 +2,6 @@
 
 namespace App\Entity\ChangeSet;
 
-use App\Entity\User;
-
 /**
  * Class PlaytimeChangeSet
  */

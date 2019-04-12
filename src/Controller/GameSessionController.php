@@ -5,14 +5,14 @@ namespace App\Controller;
 use App\Repository\GameRepository;
 use App\Repository\GameSessionRepository;
 use App\Repository\GameSessionsPerMonthRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Class SessionController
  */
-class GameSessionController extends Controller
+class GameSessionController extends AbstractController
 {
     /**
      * @param GameSessionRepository $gameSessionRepository
