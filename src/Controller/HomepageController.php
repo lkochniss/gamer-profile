@@ -45,6 +45,80 @@ class HomepageController extends AbstractController
         ]);
     }
 
+    public function gameOfTheMonth(
+        ?int $year,
+        GameSessionsPerMonthRepository $gameSessionsPerMonthRepository,
+        UserInterface $user
+    ) {
+        $now = new \DateTime();
+        if (is_null($year)) {
+            $year = $now->format('Y');
+        }
+
+        $yearsWithSessions = $this->getYearsWithGameSessions($gameSessionsPerMonthRepository, $user);
+
+        $gamesPerMonth = $gameSessionsPerMonthRepository->findByYear($year, $user->getSteamId());
+        $bestGamePerMonth = [];
+
+        /**
+         * @var GameSessionsPerMonth $gamePerMonth
+         */
+        foreach ($gamesPerMonth as $gamePerMonth) {
+            $yearMonthKey = $gamePerMonth->getMonth()->format('Y-m');
+            if (!array_key_exists($yearMonthKey, $bestGamePerMonth)) {
+                $bestGamePerMonth[$yearMonthKey] = $gamePerMonth;
+            }
+            if ($bestGamePerMonth[$yearMonthKey]->getDuration() < $gamePerMonth->getDuration()) {
+                $bestGamePerMonth[$yearMonthKey] = $gamePerMonth;
+            }
+        }
+
+
+        return $this->render('Homepage/game-of-the-month.html.twig', [
+            'bestGamePerMonth' => $bestGamePerMonth,
+            'yearsWithSessions' => $yearsWithSessions,
+            'currentYear' => $year
+        ]);
+    }
+
+    public function gameOfTheYear(GameSessionsPerMonthRepository $gameSessionsPerMonthRepository, UserInterface $user)
+    {
+        $now = new \DateTime();
+        $oldestEntry = $gameSessionsPerMonthRepository->findOneBy([]);
+        $gameSessionsPerYear = [];
+
+        for ($i = $oldestEntry->getMonth()->format('Y'); $i <= $now->format('Y'); $i++) {
+            $sessionsPerYear = $gameSessionsPerMonthRepository->findByYear($i, $user->getSteamId());
+
+            if (!array_key_exists($i, $gameSessionsPerYear)) {
+                $gameSessionsPerYear[$i] = [];
+            }
+
+            /**
+             * @var GameSessionsPerMonth $session
+             */
+            foreach ($sessionsPerYear as $session) {
+                if (!array_key_exists($session->getGame()->getSteamAppId(), $gameSessionsPerYear[$i])) {
+                    $gameSessionsPerYear[$i][$session->getGame()->getSteamAppId()] = [
+                        'game' => $session->getGame(),
+                        'duration' => 0
+                    ];
+                }
+                $gameSessionsPerYear[$i][$session->getGame()->getSteamAppId()]['duration'] += $session->getDuration();
+            }
+
+            usort($gameSessionsPerYear[$i], function (array $sessionA, array $sessionB) {
+                return $sessionA['duration'] > $sessionB['duration'] ? -1: 1;
+            });
+
+            array_splice($gameSessionsPerYear[$i], 3);
+        }
+
+        return $this->render('Homepage/game-of-the-year.html.twig', [
+            'bestGamesPerYear' => $gameSessionsPerYear,
+        ]);
+    }
+
     /**
      * @param GameSessionsPerMonthRepository $gameSessionsPerMonthRepository
      * @param User $user

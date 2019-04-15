@@ -5,7 +5,7 @@
     {% endif %}
     <div class="col-lg-4 col-md col-sm">
         <div class="card">
-            <a href="{{ path('game_show', {'slug': gamePerMonth.game.slug}) }}">
+            <a href="{{ path('game_dashboard', {'id': gamePerMonth.game.id}) }}">
                 <div class="card-header">
                     <h3 class="card-title">
                         {{ gamePerMonth.month|date('F') }}

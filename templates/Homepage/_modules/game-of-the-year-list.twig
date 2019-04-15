@@ -4,7 +4,7 @@
     {% for gameKey, game in year %}
         <div class="col-lg-4 col-md col-sm">
             <div class="card">
-                <a href="{{ path('game_show', {'slug': game.game.slug}) }}">
+                <a href="{{ path('game_dashboard', {'id': game.game.id}) }}">
                     <div class="card-header">
                         <h3 class="card-title">
                             {% transchoice gameKey with {'year': yearKey}%}

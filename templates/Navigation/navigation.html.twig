@@ -36,6 +36,20 @@
                     </a>
                 </div>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('homepage_game_of_month_this_year') }}">
+                    <i class="fa fa-trophy" aria-hidden="true">
+                        {% trans from "messages" %}game_of_the_month{% endtrans %}
+                    </i>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('homepage_game_of_year') }}">
+                    <i class="fa fa-trophy" aria-hidden="true">
+                        {% trans from "messages" %}game_of_the_year{% endtrans %}
+                    </i>
+                </a>
+            </li>
         </ul>
         <ul class="navbar-nav mr-auto right">
             <li class="nav-item ">

@@ -2,10 +2,11 @@
 
 namespace App\Tests\Listener;
 
-use App\Entity\Achievement;
 use App\Entity\Game;
 use App\Entity\OverallGameStats;
-use App\Listener\AchievementListener;
+use App\Entity\Playtime;
+use App\Entity\PlaytimePerMonth;
+use App\Listener\PlaytimeListener;
 use App\Repository\OverallGameStatsRepository;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Event\LifecycleEventArgs;
@@ -13,9 +14,9 @@ use Doctrine\ORM\UnitOfWork;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Class AchievementListenerTest
+ * Class PlaytimeListenerTest
  */
-class AchievementListenerTest extends TestCase
+class PlaytimeListenerTest extends TestCase
 {
     public function testPostPersistShouldSkipsOnWrongEntity(): void
     {
@@ -27,30 +28,35 @@ class AchievementListenerTest extends TestCase
         $argsMock->expects($this->never())
             ->method('getEntityManager');
 
-        $listener = new AchievementListener();
+        $listener = new PlaytimeListener();
         $listener->postPersist($argsMock);
     }
 
-    public function testPostPersistShouldGetTheGameStatsRepository(): void
+    public function testPostPersistShouldGetTheOverallGameStatsRepository(): void
     {
+        $steamUserId = 1;
+        $game = new Game(1);
+        $playtime = new Playtime(
+            $steamUserId,
+            $game
+        );
         $argsMock = $this->createMock(LifecycleEventArgs::class);
         $argsMock->expects($this->once())
             ->method('getEntity')
-            ->willReturn(new Achievement(1, new Game(1)));
+            ->willReturn($playtime);
 
-        $overallGameStatsRepositoryMock = $this->createMock(OverallGameStatsRepository::class);
-
+        $repositoryMock = $this->createMock(OverallGameStatsRepository::class);
         $entityManagerMock = $this->createMock(EntityManager::class);
-        $entityManagerMock->expects($this->any())
+        $entityManagerMock->expects($this->once())
             ->method('getRepository')
             ->with(OverallGameStats::class)
-            ->willReturn($overallGameStatsRepositoryMock);
+            ->willReturn($repositoryMock);
 
         $argsMock->expects($this->any())
             ->method('getEntityManager')
             ->willReturn($entityManagerMock);
 
-        $listener = new AchievementListener();
+        $listener = new PlaytimeListener();
         $listener->postPersist($argsMock);
     }
 
@@ -64,49 +70,14 @@ class AchievementListenerTest extends TestCase
         $argsMock->expects($this->never())
             ->method('getEntityManager');
 
-        $listener = new AchievementListener();
-        $listener->postUpdate($argsMock);
-    }
-
-    public function testPostUpdateShouldGetTheOverallGameStatsRepository(): void
-    {
-        $entity = new Achievement(1, new Game(1));
-
-        $argsMock = $this->createMock(LifecycleEventArgs::class);
-        $argsMock->expects($this->once())
-            ->method('getEntity')
-            ->willReturn($entity);
-
-        $overallGameStatsRepositoryMock = $this->createMock(OverallGameStatsRepository::class);
-
-        $entityManagerMock = $this->createMock(EntityManager::class);
-        $entityManagerMock->expects($this->any())
-            ->method('getRepository')
-            ->with(OverallGameStats::class)
-            ->willReturn($overallGameStatsRepositoryMock);
-
-        $unitOfWorkMock = $this->createMock(UnitOfWork::class);
-        $unitOfWorkMock->expects($this->once())
-            ->method('getEntityChangeSet')
-            ->with($entity)
-            ->willReturn([]);
-
-        $entityManagerMock->expects($this->once())
-            ->method('getUnitOfWork')
-            ->willReturn($unitOfWorkMock);
-
-        $argsMock->expects($this->any())
-            ->method('getEntityManager')
-            ->willReturn($entityManagerMock);
-
-        $listener = new AchievementListener();
+        $listener = new PlaytimeListener();
         $listener->postUpdate($argsMock);
     }
 
     public function testPostUpdateShouldSaveTheChangeSet(): void
     {
         $steamUserId = 1;
-        $entity = new Achievement($steamUserId, new Game(1));
+        $entity = new Playtime($steamUserId, new Game(1));
 
         $argsMock = $this->createMock(LifecycleEventArgs::class);
         $argsMock->expects($this->once())
@@ -126,11 +97,11 @@ class AchievementListenerTest extends TestCase
             ->method('getEntityChangeSet')
             ->with($entity)
             ->willReturn([
-                'overallAchievements' => [
+                'overallPlaytime' => [
                     1,
                     1
                 ],
-                'playerAchievements' => [
+                'recentPlaytime' => [
                     0,
                     1
                 ]
@@ -145,11 +116,11 @@ class AchievementListenerTest extends TestCase
             ->willReturn($entityManagerMock);
 
         $expectedStats = new OverallGameStats($steamUserId);
-        $expectedStats->addToOverallAchievements(1);
-        $expectedStats->addToPlayerAchievements(1);
+        $expectedStats->addToOverallPlaytime(1);
+        $expectedStats->addToRecentPlaytime(1);
 
         $overallGameStats = new OverallGameStats(1);
-        $overallGameStats->addToOverallAchievements(1);
+        $overallGameStats->addToOverallPlaytime(1);
         $overallGameStatsRepositoryMock->expects($this->once())
             ->method('findOneBy')
             ->with([
@@ -161,7 +132,7 @@ class AchievementListenerTest extends TestCase
             ->method('save')
             ->with($expectedStats);
 
-        $listener = new AchievementListener();
+        $listener = new PlaytimeListener();
         $listener->postUpdate($argsMock);
     }
 }

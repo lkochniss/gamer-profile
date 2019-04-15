@@ -1,3 +1,15 @@
+homepage_game_of_month_this_year:
+    path: /game-of-the-month
+    defaults: { _controller: 'App\Controller\HomepageController::gameOfTheMonth' }
+
+homepage_game_of_month_for_year:
+    path: /game-of-the-month/{year}
+    defaults: { _controller: 'App\Controller\HomepageController::gameOfTheMonth' }
+
+homepage_game_of_year:
+    path: /game-of-the-year
+    defaults: { _controller: 'App\Controller\HomepageController::gameOfTheYear' }
+
 homepage_dashboard:
     path: /
     defaults: { _controller: 'App\Controller\HomepageController::dashboard' }
