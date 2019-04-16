@@ -34,6 +34,12 @@ services:
         autowire: true
         public: true
 
+    Aws\CognitoIdentityProvider\CognitoIdentityProviderClient:
+        autowire: true
+        public: true
+        arguments:
+            0: { region: '%env(AWS_REGION)%', version: 'latest' }
+
     App\Listener\AchievementListener:
         class: App\Listener\AchievementListener
         tags:
