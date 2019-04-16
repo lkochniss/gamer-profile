@@ -274,7 +274,10 @@ class GameUserInformationServiceTest extends TestCase
 
         $service = new GameUserInformationService($apiMock, $repositoryMock);
 
-        $this->assertEquals(['appid' => $steamAppId], $service->getUserInformationForSteamAppId($steamAppId, $steamUserId));
+        $this->assertEquals(
+            ['appid' => $steamAppId],
+            $service->getUserInformationForSteamAppId($steamAppId, $steamUserId)
+        );
     }
 
     public function testGetUserInformationForSteamAppIdShouldReturnEmptyArrayOnMissingAppId(): void

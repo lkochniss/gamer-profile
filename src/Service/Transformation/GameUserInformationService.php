@@ -31,8 +31,7 @@ class GameUserInformationService
     public function __construct(
         UserApiClientService $userApiClientService,
         GameSessionRepository $gameSessionRepository
-    )
-    {
+    ) {
         $this->userApiClientService = $userApiClientService;
         $this->gameSessionRepository = $gameSessionRepository;
     }
