@@ -50,7 +50,7 @@ class CreateGameStatsService
         $achievement = $this->achievementService->create($user, $game);
         $playtime = $this->playtimeService->create($user, $game);
 
-        $gameStats = new GameStats($user, $game, $achievement, $playtime);
+        $gameStats = new GameStats($user->getSteamId(), $game, $achievement, $playtime);
 
         try {
             $this->gameStatsRepository->save($gameStats);
