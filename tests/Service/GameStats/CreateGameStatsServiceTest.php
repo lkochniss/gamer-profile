@@ -192,5 +192,4 @@ class CreateGameStatsServiceTest extends TestCase
 
         $service->execute($user, $game);
     }
-
 }
