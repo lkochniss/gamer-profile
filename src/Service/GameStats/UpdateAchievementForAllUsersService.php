@@ -30,12 +30,21 @@ class UpdateAchievementForAllUsersService
     }
 
 
-    public function execute(): void
+    public function recently(): void
     {
         $users = $this->userProvider->loadUsers();
 
         foreach ($users as $user) {
-            $this->updateAchievementForUserService->execute($user);
+            $this->updateAchievementForUserService->recently($user);
+        }
+    }
+
+    public function noneExisting(): void
+    {
+        $users = $this->userProvider->loadUsers();
+
+        foreach ($users as $user) {
+            $this->updateAchievementForUserService->noneExisting($user);
         }
     }
 }

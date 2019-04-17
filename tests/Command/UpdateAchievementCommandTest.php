@@ -11,14 +11,32 @@ use Symfony\Component\Console\Tester\CommandTester;
 
 class UpdateAchievementCommandTest extends KernelTestCase
 {
-    public function testExecute()
+    public function testExecuteShouldCallRecently()
     {
         $kernel = static::createKernel();
         $application = new Application($kernel);
 
         $serviceMock = $this->createMock(UpdateAchievementForAllUsersService::class);
         $serviceMock->expects($this->once())
-            ->method('execute');
+            ->method('recently');
+
+        $application->add(new UpdateAchievementCommand($serviceMock));
+
+        $command = $application->find('steam:update:achievement');
+        $commandTester = new CommandTester($command);
+        $commandTester->execute([
+            'command'  => $command->getName(),
+        ]);
+    }
+
+    public function testExecuteShouldCallNoneExisting()
+    {
+        $kernel = static::createKernel();
+        $application = new Application($kernel);
+
+        $serviceMock = $this->createMock(UpdateAchievementForAllUsersService::class);
+        $serviceMock->expects($this->once())
+            ->method('noneExisting');
 
         $application->add(new UpdateAchievementCommand($serviceMock));
 

@@ -99,4 +99,17 @@ class AchievementService
             $this->update($achievement);
         }
     }
+
+    /**
+     * @param Game $game
+     * @param string $steamUserId
+     */
+    public function updateGameForUserIfNoneExisting(Game $game, string $steamUserId): void
+    {
+        $achievement = $this->achievementRepository->findOneBy(['game' => $game, 'steamUserId' => $steamUserId]);
+
+        if (!is_null($achievement) && $achievement->getOverallAchievements() === 0) {
+            $this->update($achievement);
+        }
+    }
 }

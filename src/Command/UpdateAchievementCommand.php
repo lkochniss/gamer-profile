@@ -43,6 +43,7 @@ class UpdateAchievementCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $this->updateAchievementForAllUsersService->execute();
+        $this->updateAchievementForAllUsersService->recently();
+        $this->updateAchievementForAllUsersService->noneExisting();
     }
 }
