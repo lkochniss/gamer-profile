@@ -42,7 +42,7 @@ class UpdateAchievementForUserService
     /**
      * @param User $user
      */
-    public function execute(User $user): void
+    public function recently(User $user): void
     {
         $recentlyPlayedGames = $this->gameUserInformationService->getRecentlyPlayedGames($user->getSteamId());
 
@@ -50,6 +50,21 @@ class UpdateAchievementForUserService
             $game  = $this->gameRepository->findOneBySteamAppId($gameArray['appid']);
             if (!is_null($game)) {
                 $this->achievementService->updateGameForUser($game, $user);
+            }
+        }
+    }
+
+    /**
+     * @param User $user
+     */
+    public function noneExisting(User $user): void
+    {
+        $allGames = $this->gameUserInformationService->getAllGames($user->getSteamId());
+
+        foreach ($allGames as $gameArray) {
+            $game  = $this->gameRepository->findOneBySteamAppId($gameArray['appid']);
+            if (!is_null($game)) {
+                $this->achievementService->updateGameForUserIfNoneExisting($game, $user);
             }
         }
     }

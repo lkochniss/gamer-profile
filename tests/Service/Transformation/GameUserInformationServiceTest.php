@@ -3,6 +3,7 @@
 namespace tests\App\Service\Steam;
 
 use App\Entity\JSON\JsonAchievement;
+use App\Entity\JSON\JsonPlaytime;
 use App\Repository\GameSessionRepository;
 use App\Service\Api\UserApiClientService;
 use App\Service\Transformation\GameUserInformationService;
@@ -242,5 +243,133 @@ class GameUserInformationServiceTest extends TestCase
         $actualJson = $service->getAchievementsForGame($steamAppId, $steamUserId);
 
         $this->assertEquals(new JsonAchievement([]), $actualJson);
+    }
+
+    public function testGetUserInformationForSteamAppIdShouldReturnGamesArray(): void
+    {
+        $steamUserId = 1;
+        $steamAppId = 2;
+
+        $apiMock = $this->createMock(UserApiClientService::class);
+        $apiMock->expects($this->once())
+            ->method('get')
+            ->with(
+                '/IPlayerService/GetOwnedGames/v0001/',
+                $steamUserId
+            )
+            ->willReturn([
+                'response' => [
+                    'games' => [
+                        [
+                            'appid' => $steamAppId
+                        ],
+                        [
+                            'appid' => 6
+                        ]
+                    ]
+                ]
+            ]);
+
+        $repositoryMock = $this->createMock(GameSessionRepository::class);
+
+        $service = new GameUserInformationService($apiMock, $repositoryMock);
+
+        $this->assertEquals(
+            ['appid' => $steamAppId],
+            $service->getUserInformationForSteamAppId($steamAppId, $steamUserId)
+        );
+    }
+
+    public function testGetUserInformationForSteamAppIdShouldReturnEmptyArrayOnMissingAppId(): void
+    {
+        $steamUserId = 1;
+        $steamAppId = 2;
+
+        $apiMock = $this->createMock(UserApiClientService::class);
+        $apiMock->expects($this->once())
+            ->method('get')
+            ->with(
+                '/IPlayerService/GetOwnedGames/v0001/',
+                $steamUserId
+            )
+            ->willReturn([
+                'response' => [
+                    'games' => [
+                        [
+                            'appid' => 6
+                        ]
+                    ]
+                ]
+            ]);
+
+        $repositoryMock = $this->createMock(GameSessionRepository::class);
+
+        $service = new GameUserInformationService($apiMock, $repositoryMock);
+
+        $this->assertEquals([], $service->getUserInformationForSteamAppId($steamAppId, $steamUserId));
+    }
+
+    public function testGetPlaytimeForGameShouldReturnJsonPlaytime(): void
+    {
+        $steamUserId = 1;
+        $steamAppId = 2;
+
+        $response = [
+            'appid' => $steamAppId,
+            'playtime_forever' => 10,
+            'playtime_2weeks' => 5
+        ];
+
+        $apiMock = $this->createMock(UserApiClientService::class);
+        $apiMock->expects($this->once())
+            ->method('get')
+            ->with(
+                '/IPlayerService/GetOwnedGames/v0001/',
+                $steamUserId
+            )
+            ->willReturn([
+                'response' => [
+                    'games' => [
+                        $response
+                    ]
+                ]
+            ]);
+
+        $repositoryMock = $this->createMock(GameSessionRepository::class);
+
+        $service = new GameUserInformationService($apiMock, $repositoryMock);
+
+        $this->assertEquals(new JsonPlaytime($response), $service->getPlaytimeForGame($steamAppId, $steamUserId));
+    }
+
+    public function testGetPlaytimeForGameShouldReturnFallbackJsonPlaytime(): void
+    {
+        $steamUserId = 1;
+        $steamAppId = 2;
+
+        $response = [
+            'appid' => $steamAppId,
+        ];
+
+        $apiMock = $this->createMock(UserApiClientService::class);
+        $apiMock->expects($this->once())
+            ->method('get')
+            ->with(
+                '/IPlayerService/GetOwnedGames/v0001/',
+                $steamUserId
+            )
+            ->willReturn([
+                'response' => [
+                    'games' => [
+                        $response
+                    ]
+                ]
+            ]);
+
+        $repositoryMock = $this->createMock(GameSessionRepository::class);
+
+        $service = new GameUserInformationService($apiMock, $repositoryMock);
+
+        $this->assertEquals(new JsonPlaytime(), $service->getPlaytimeForGame($steamAppId, $steamUserId));
     }
 }

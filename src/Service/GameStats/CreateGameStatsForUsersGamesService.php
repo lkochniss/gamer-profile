@@ -46,12 +46,10 @@ class CreateGameStatsForUsersGamesService
     {
         $games = $this->gameUserInformationService->getAllGames($user->getSteamId());
 
-        if (!empty($games)) {
-            foreach ($games as $gameArray) {
-                $game = $this->gameRepository->findOneBySteamAppId($gameArray['appid']);
-                if (!is_null($game)) {
-                    $this->createGameStatsService->execute($user, $game);
-                }
+        foreach ($games as $gameArray) {
+            $game = $this->gameRepository->findOneBySteamAppId($gameArray['appid']);
+            if (!is_null($game)) {
+                $this->createGameStatsService->execute($user, $game);
             }
         }
     }

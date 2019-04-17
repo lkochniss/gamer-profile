@@ -29,19 +29,14 @@ class AwsCognitoClient
      * AwsCognitoClient constructor.
      * @param string $poolId
      * @param string $clientId
-     * @param string $region
-     * @param string $version
+     * @param CognitoIdentityProviderClient $client
      */
     public function __construct(
         string $poolId,
         string $clientId,
-        string $region = 'eu-central-1',
-        string $version = 'latest'
+        CognitoIdentityProviderClient $client
     ) {
-        $this->client = new CognitoIdentityProviderClient([
-            'region' => $region,
-            'version' => $version
-        ]);
+        $this->client = $client;
         $this->poolId = $poolId;
         $this->clientId = $clientId;
     }
