@@ -4,7 +4,6 @@ namespace App\Service\Transformation;
 
 use App\Entity\JSON\JsonAchievement;
 use App\Entity\JSON\JsonPlaytime;
-use App\Repository\GameSessionRepository;
 use App\Service\Api\UserApiClientService;
 use GuzzleHttp\Exception\ClientException;
 
@@ -18,22 +17,14 @@ class GameUserInformationService
      */
     private $userApiClientService;
 
-    /**
-     * @var GameSessionRepository
-     */
-    private $gameSessionRepository;
 
     /**
      * GameUserInformationService constructor.
      * @param UserApiClientService $userApiClientService
-     * @param GameSessionRepository $gameSessionRepository
      */
-    public function __construct(
-        UserApiClientService $userApiClientService,
-        GameSessionRepository $gameSessionRepository
-    ) {
+    public function __construct(UserApiClientService $userApiClientService)
+    {
         $this->userApiClientService = $userApiClientService;
-        $this->gameSessionRepository = $gameSessionRepository;
     }
 
     /**
