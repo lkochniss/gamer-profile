@@ -53,10 +53,6 @@ jobs:
           at: /tmp/php-static-code-analysis
 
       - run:
-          name: Copy Environment
-          command: cp .env.circleci .env
-
-      - run:
           name: Launch php-linting
           command: ./vendor/bin/phplint
 
@@ -76,10 +72,6 @@ jobs:
     <<: *php-docker-image
     steps:
       - *attach_whole_workspace
-
-      - run:
-          name: Copy Environment
-          command: cp .env.circleci .env
 
       - run:
           name: Create fake manifest.json
