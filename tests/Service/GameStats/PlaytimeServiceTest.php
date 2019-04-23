@@ -5,7 +5,6 @@ namespace App\Tests\Service\GameStats;
 use App\Entity\Playtime;
 use App\Entity\Game;
 use App\Entity\JSON\JsonPlaytime;
-use App\Entity\User;
 use App\Repository\PlaytimeRepository;
 use App\Service\GameStats\PlaytimeService;
 use App\Service\GameStats\GameSessionService;

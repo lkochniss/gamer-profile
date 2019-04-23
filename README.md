@@ -1,6 +1,7 @@
 # Gamer-Profile - a way to share your game experience
 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/e75e4c16407042fba61f9531c8f79d8f)](https://app.codacy.com/app/lkochniss/gamer-profile?utm_source=github.com&utm_medium=referral&utm_content=lkochniss/gamer-profile&utm_campaign=Badge_Grade_Dashboard)
+[![Codacy Badge](https://api.codacy.com/project/badge/Coverage/9129eba354d24974abe4f789cf089293)](https://www.codacy.com/app/lkochniss/gamer-profile?utm_source=github.com&utm_medium=referral&utm_content=lkochniss/gamer-profile&utm_campaign=Badge_Coverage)
 
 My current idea is to access a Steam Profile, copy some basic information like the title and the header image of a game and also persist the overall playtime and recent playtime based on a Steam UserID.
 

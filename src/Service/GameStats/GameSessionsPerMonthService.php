@@ -5,7 +5,6 @@ namespace App\Service\GameStats;
 use App\Entity\Game;
 use App\Entity\GameSession;
 use App\Entity\GameSessionsPerMonth;
-use App\Entity\User;
 use App\Repository\GameSessionsPerMonthRepository;
 
 /**
