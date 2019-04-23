@@ -7,7 +7,6 @@ use App\Entity\ChangeSet\AchievementChangeSet;
 use App\Entity\ChangeSet\PlaytimeChangeSet;
 use App\Entity\OverallGameStats;
 use App\Entity\Playtime;
-use App\Entity\User;
 use App\Repository\OverallGameStatsRepository;
 
 /**
