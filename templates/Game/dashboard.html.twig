@@ -4,13 +4,12 @@
     <div class="row mb-4">
         <div class="col">
             <div class="row">
-                <div class="col">
+                <div class="col col-12 col-md-6">
                     <h1 class="page-header">
                         {{ entity.game.name }}
                     </h1>
                 </div>
-                <div class="col text-right">
-                    {% trans %}status{% endtrans %}:
+                <div class="col col-12 col-md-6 mb-3 text-right">
                     <a class="btn-sm {{ entity.status == 'open' ? 'btn-primary' : 'btn-light' }}"
                        href="{{ path('game_status_open', {'id': entity.game.id}) }}">{% trans %}status_open{% endtrans %}</a>
                     <a class="btn-sm {{ entity.status == 'paused' ? 'btn-primary' : 'btn-light' }}"
@@ -33,7 +32,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-6 d-none d-md-flex">
             <div data-game-id="{{ entity.game.id }}" class="col col-md-12" id="playtime-game" data-year="{{ currentYear }}">
                 <h3>{% trans %}playtime_game{% endtrans %} <span id="selectedYear">{{ currentYear }}</span></h3>
             </div>
