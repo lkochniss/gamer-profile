@@ -7,7 +7,7 @@ use App\Entity\GameSession;
 use App\Repository\GameRepository;
 use App\Repository\GameSessionRepository;
 use App\Repository\GameSessionsPerMonthRepository;
-use App\Repository\PlaytimePerMonthRepository;
+use App\Service\Api\PlaytimePerMonthApiService;
 use App\Service\Util\TimeConverterUtil;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -34,57 +34,23 @@ class ApiController extends AbstractController
     }
 
     /**
-     * @param PlaytimePerMonthRepository $playtimePerMonthRepository
+     * @param PlaytimePerMonthApiService $apiService
      * @param UserInterface $user
      * @return JsonResponse
      */
-    public function sessionsPerMonth(
-        PlaytimePerMonthRepository $playtimePerMonthRepository,
-        UserInterface $user
-    ): JsonResponse {
-        $playtimePerMonth = $playtimePerMonthRepository->findBy(['steamUserId' => $user->getSteamId()]);
-
-        $data = [];
-        foreach ($playtimePerMonth as $playtime) {
-            $data[] = [
-                'date' => $playtime->getMonth()->format('M Y'),
-                'timeInMinutes' => $playtime->getDuration(),
-                'timeForTooltip' => $this->timeConverterService->convertOverallTime($playtime->getDuration())
-            ];
-        }
-
-        return new JsonResponse($data);
+    public function sessionsPerMonth(PlaytimePerMonthApiService $apiService, UserInterface $user): JsonResponse
+    {
+        return $apiService->getSessionsPerMonth($user);
     }
 
     /**
-     * @param PlaytimePerMonthRepository $playtimePerMonthRepository
+     * @param PlaytimePerMonthApiService $apiService
      * @param UserInterface $user
      * @return JsonResponse
      */
-    public function averagePerMonth(
-        PlaytimePerMonthRepository $playtimePerMonthRepository,
-        UserInterface $user
-    ): JsonResponse {
-        $playtimePerMonth = $playtimePerMonthRepository->findBy(['steamUserId' => $user->getSteamId()]);
-        $today = new \DateTime();
-
-        $data = [];
-        foreach ($playtimePerMonth as $playtime) {
-            $lastDayOfMonth = new \DateTime(' last day of ' . $playtime->getMonth()->format('M Y'));
-
-            if ($today->format('M-Y') == $lastDayOfMonth->format('M-Y')) {
-                $lastDayOfMonth = $today;
-            }
-
-            $average = $playtime->getDuration() / $lastDayOfMonth->format('d');
-            $data[] = [
-                'date' => $playtime->getMonth()->format('M Y'),
-                'timeInMinutes' => $average,
-                'timeForTooltip' => $this->timeConverterService->convertRecentTime($average)
-            ];
-        }
-
-        return new JsonResponse($data);
+    public function averagePerMonth(PlaytimePerMonthApiService $apiService, UserInterface $user): JsonResponse
+    {
+        return $apiService->getAveragePlaytimePerMonth($user);
     }
 
     /**
