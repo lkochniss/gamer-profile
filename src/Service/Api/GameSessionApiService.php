@@ -79,7 +79,8 @@ class GameSessionApiService
         return new JsonResponse($this->mapSessionData($sessions));
     }
 
-    public function getSessionsForGame(int $gameId, User $user): JsonResponse {
+    public function getSessionsForGame(int $gameId, User $user): JsonResponse
+    {
         $game = $this->gameRepository->find($gameId);
         $data = [];
 

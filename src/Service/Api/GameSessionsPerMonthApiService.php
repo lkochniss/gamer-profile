@@ -35,8 +35,11 @@ class GameSessionsPerMonthApiService
      * @param GameRepository $gameRepository
      * @param TimeConverterUtil $timeConverterService
      */
-    public function __construct(GameSessionsPerMonthRepository $gameSessionsPerMonthRepository, GameRepository $gameRepository, TimeConverterUtil $timeConverterService)
-    {
+    public function __construct(
+        GameSessionsPerMonthRepository $gameSessionsPerMonthRepository,
+        GameRepository $gameRepository,
+        TimeConverterUtil $timeConverterService
+    ) {
         $this->gameSessionsPerMonthRepository = $gameSessionsPerMonthRepository;
         $this->gameRepository = $gameRepository;
         $this->timeConverterService = $timeConverterService;
@@ -47,7 +50,8 @@ class GameSessionsPerMonthApiService
      * @param User $user
      * @return JsonResponse
      */
-    public function getSessionsPerMonthForGame(int $gameId, User $user): JsonResponse {
+    public function getSessionsPerMonthForGame(int $gameId, User $user): JsonResponse
+    {
         $game = $this->gameRepository->find($gameId);
         $data = [];
 

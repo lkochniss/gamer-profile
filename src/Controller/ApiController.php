@@ -70,7 +70,7 @@ class ApiController extends AbstractController
         GameSessionApiService $apiService,
         UserInterface $user
     ): JsonResponse {
-       return $apiService->getSessionsForGame($id, $user);
+        return $apiService->getSessionsForGame($id, $user);
     }
 
     /**
@@ -94,7 +94,7 @@ class ApiController extends AbstractController
      */
     public function sessionsThisYear(GameSessionApiService $apiService, UserInterface $user): JsonResponse
     {
-      return $apiService->getSessionsThisYear($user);
+        return $apiService->getSessionsThisYear($user);
     }
 
     /**
