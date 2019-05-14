@@ -10,6 +10,10 @@ homepage_game_of_year:
     path: /game-of-the-year
     defaults: { _controller: 'App\Controller\HomepageController::gameOfTheYear' }
 
+homepage_most_played:
+    path: /most-played-games
+    defaults: { _controller: 'App\Controller\HomepageController::mostPlayedGames' }
+
 homepage_dashboard:
     path: /
     defaults: { _controller: 'App\Controller\HomepageController::dashboard' }
