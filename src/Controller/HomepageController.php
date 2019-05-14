@@ -4,7 +4,9 @@ namespace App\Controller;
 
 use App\Entity\GameSessionsPerMonth;
 use App\Entity\User;
+use App\Repository\GameRepository;
 use App\Repository\GameSessionsPerMonthRepository;
+use App\Repository\GameStatsRepository;
 use App\Repository\OverallGameStatsRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -116,6 +118,13 @@ class HomepageController extends AbstractController
 
         return $this->render('Homepage/game-of-the-year.html.twig', [
             'bestGamesPerYear' => $gameSessionsPerYear,
+        ]);
+    }
+
+    public function mostPlayedGames(GameStatsRepository $gameStatsRepository, UserInterface $user): Response
+    {
+        return $this->render('Homepage/most-played-games.html.twig', [
+            'gamesStats' => $gameStatsRepository->getMostPlayedGames(12, $user->getSteamId())
         ]);
     }
 

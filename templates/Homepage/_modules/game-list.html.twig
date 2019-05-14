@@ -1,20 +1,19 @@
-{% for key, game in games %}
+{% for key, gamesStat in gamesStats %}
  {% if key % 3 == 0 %}
 <div class="row mb-4">
     {% endif %}
     <div class="col-sm-4">
         <div class="card mb-4">
-            <a href="{{ path('game_show', {'slug': game.slug}) }}">
+            <a href="{{ path('game_dashboard', {'id': gamesStat.game.id}) }}">
                 <div class="card-header">
-                    <h3 class="card-title">{{ game.name }}</h3>
+                    <h3 class="card-title">{{ gamesStat.game.name }}</h3>
                 </div>
-                <img src='{{ game.headerImagePath }}' alt='{{ game.name }}' class='img-responsive card-img-top'/>
+                <img src='{{ gamesStat.game.headerImagePath }}' alt='{{ gamesStat.game.name }}' class='img-responsive card-img-top'/>
             </a>
-            <div class="card-body list-group p-0">
-                <h4 class='list-group-item'>{% trans from 'messages' %}statistics{% endtrans %}</h4>
-                {% include 'Homepage/_modules/last-session.html.twig' with { game: game } %}
-                {% include 'Homepage/_modules/recently-played.html.twig' with { game: game } %}
-                {% include 'Homepage/_modules/overall-played.html.twig' with { game: game } %}
+            <div class="card-body list-group p-0 text-right">
+                <div class="list-group-item">
+                    {{ gamesStat.playtime.overallPlaytime|convert_overall_time }}
+                </div>
             </div>
         </div>
     </div>
