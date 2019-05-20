@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\GameStats;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\ORMException;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
@@ -40,13 +41,54 @@ class GameStatsRepository extends ServiceEntityRepository
     }
 
     /**
+     * @param int $steamUserId
+     * @return GameStats[]
+     */
+    public function getByRecentlyPlayed(int $steamUserId): array
+    {
+        $query = $this->createQueryBuilder('gameStats')
+            ->innerJoin('gameStats.playtime', 'playtime')
+            ->addSelect('playtime')
+            ->andWhere('playtime.recentPlaytime > 0')
+            ->andWhere('gameStats.steamUserId = :steamUserId')
+            ->andWhere('gameStats.status = :statusOpen')
+            ->orWhere('playtime.recentPlaytime > 0')
+            ->andWhere('gameStats.steamUserId = :steamUserId')
+            ->andWhere('gameStats.status = :statusPaused')
+            ->setParameter('steamUserId', $steamUserId)
+            ->setParameter('statusOpen', GameStats::OPEN)
+            ->setParameter('statusPaused', GameStats::PAUSED)
+            ->getQuery();
+        return $query->getResult();
+    }
+
+    /**
+     * @param int $steamUserId
+     * @return GameStats[]
+     */
+    public function getByPlayingStatusWithoutRecentPlaytime(int $steamUserId): array
+    {
+        $query = $this->createQueryBuilder('gameStats')
+            ->innerJoin('gameStats.playtime', 'playtime')
+            ->addSelect('playtime')
+            ->andWhere('playtime.recentPlaytime = 0')
+            ->andWhere('gameStats.steamUserId = :steamUserId')
+            ->andWhere('gameStats.status = :status')
+            ->setParameter('steamUserId', $steamUserId)
+            ->setParameter('status', GameStats::PLAYING)
+            ->getQuery();
+        return $query->getResult();
+    }
+
+    /**
      * @param GameStats $gameStats
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
      */
     public function save(GameStats $gameStats): void
     {
-        $this->getEntityManager()->persist($gameStats);
-        $this->getEntityManager()->flush($gameStats);
+        try {
+            $this->getEntityManager()->persist($gameStats);
+            $this->getEntityManager()->flush($gameStats);
+        } catch (ORMException $exception) {
+        }
     }
 }

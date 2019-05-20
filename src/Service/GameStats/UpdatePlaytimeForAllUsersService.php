@@ -12,6 +12,11 @@ class UpdatePlaytimeForAllUsersService
     private $updatePlaytimeForUserService;
 
     /**
+     * @var UpdateGameStatusForUserService;
+     */
+    private $updateGameStatusForUserService;
+
+    /**
      * @var UserProvider
      */
     private $userProvider;
@@ -19,13 +24,16 @@ class UpdatePlaytimeForAllUsersService
     /**
      * UpdatePlaytimeForAllUsersService constructor.
      * @param UpdatePlaytimeForUserService $updatePlaytimeForUserService
+     * @param UpdateGameStatusForUserService $updateGameStatusForUserService
      * @param UserProvider $userProvider
      */
     public function __construct(
         UpdatePlaytimeForUserService $updatePlaytimeForUserService,
+        UpdateGameStatusForUserService $updateGameStatusForUserService,
         UserProvider $userProvider
     ) {
         $this->updatePlaytimeForUserService = $updatePlaytimeForUserService;
+        $this->updateGameStatusForUserService = $updateGameStatusForUserService;
         $this->userProvider = $userProvider;
     }
 
@@ -35,6 +43,8 @@ class UpdatePlaytimeForAllUsersService
 
         foreach ($users as $user) {
             $this->updatePlaytimeForUserService->execute($user);
+            $this->updateGameStatusForUserService->setStatusPausedForPlayingGamesWithoutRecentPlayed($user);
+            $this->updateGameStatusForUserService->setStatusPlayingForRecentPlayed($user);
         }
     }
 }
