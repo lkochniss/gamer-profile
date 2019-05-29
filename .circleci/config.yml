@@ -8,6 +8,10 @@ php-docker-image: &php-docker-image
   docker:
     - image: lkochniss/php7-for-circleci-and-development
 
+npm-docker-image: &npm-docker-image
+  docker:
+    - image: circleci/node:8
+
 attach_whole_workspace: &attach_whole_workspace
   attach_workspace:
     at: ~/project
@@ -97,6 +101,15 @@ jobs:
          name: Send CodeCov to codacy
          command: ./vendor/bin/codacycoverage clover build/cloverreport.xml
 
+  yarn-install:
+    <<: *npm-docker-image
+    steps:
+      - *attach_whole_workspace
+      - run:
+         name: run yarn install
+         command: yarn install
+      - *persist_whole_workspace
+
 workflows:
   version: 2
   test_and_analyse:
@@ -119,3 +132,7 @@ workflows:
       - send-code-coverage:
           requires:
             - php-unittests
+
+      - yarn-install:
+          requires:
+            - checkout
