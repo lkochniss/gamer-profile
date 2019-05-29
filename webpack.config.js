@@ -72,6 +72,5 @@ module.exports = {
       jQuery: 'jquery',
       d3: 'd3',
     }),
-  ],
-  watch: true,
+  ]
 };

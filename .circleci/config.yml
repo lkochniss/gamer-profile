@@ -117,6 +117,18 @@ jobs:
       - save_cache:
            paths: vendor
            key: yarn-dependencies-{{ checksum "yarn.lock" }}
+
+      - *persist_whole_workspace
+
+  execute-webpack:
+    <<: *npm-docker-image
+    steps:
+      - *attach_whole_workspace
+
+      - run:
+         name: execute webpack
+         command: yarn webpack
+
       - *persist_whole_workspace
 
 workflows:
@@ -145,3 +157,7 @@ workflows:
       - yarn-install:
           requires:
             - checkout
+
+      - execute-webpack:
+          requires:
+            - yarn-install
