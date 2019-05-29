@@ -20,7 +20,7 @@
     "popper.js": "^1.12.9",
     "postcss-loader": "^3.0.0",
     "precss": "^2.0.0",
-    "resolve-url-loader": "^2.2.1",
+    "resolve-url-loader": "^3.1.0",
     "sass-loader": "^6.0.6",
     "style-loader": "^0.23.1",
     "url-loader": "^0.6.2",
