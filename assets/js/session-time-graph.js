@@ -31,8 +31,8 @@ export default (id, data, xFormat) => {
     );
 
   data.forEach((d) => {
-    d.date = parseTime(d.date);
-    d.timeInMinutes = +d.timeInMinutes;
+    d.date = parseTime(d.date); // eslint-disable-line no-param-reassign
+    d.timeInMinutes = +d.timeInMinutes; // eslint-disable-line no-param-reassign
   });
 
   x.domain(d3.extent(data, d => d.date));

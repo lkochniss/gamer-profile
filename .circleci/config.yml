@@ -131,6 +131,17 @@ jobs:
 
       - *persist_whole_workspace
 
+  run-eslint:
+    <<: *npm-docker-image
+    steps:
+      - *attach_whole_workspace
+
+      - run:
+          name: run eslint
+          command: yarn eslint assets
+
+      - *persist_whole_workspace
+
 workflows:
   version: 2
   test_and_analyse:
@@ -159,5 +170,9 @@ workflows:
             - checkout
 
       - execute-webpack:
+          requires:
+            - yarn-install
+
+      - run-eslint:
           requires:
             - yarn-install
