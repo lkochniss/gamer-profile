@@ -3038,16 +3038,16 @@
         },
         {
             "name": "symfony/flex",
-            "version": "v1.2.0",
+            "version": "v1.2.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/flex.git",
-                "reference": "7f04fb50c5da6d020e4df743b4c764c188bb24bf"
+                "reference": "27909122a3da4676c3dc5dc34c8f82323c610d69"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/flex/zipball/7f04fb50c5da6d020e4df743b4c764c188bb24bf",
-                "reference": "7f04fb50c5da6d020e4df743b4c764c188bb24bf",
+                "url": "https://api.github.com/repos/symfony/flex/zipball/27909122a3da4676c3dc5dc34c8f82323c610d69",
+                "reference": "27909122a3da4676c3dc5dc34c8f82323c610d69",
                 "shasum": ""
             },
             "require": {
@@ -3083,7 +3083,7 @@
                 }
             ],
             "description": "Composer plugin for Symfony",
-            "time": "2019-02-21T11:31:25+00:00"
+            "time": "2019-05-07T08:10:46+00:00"
         },
         {
             "name": "symfony/form",
@@ -5628,7 +5628,7 @@
                     "homepage": "https://nette.org/contributors"
                 }
             ],
-            "description": "? Nette Bootstrap: the simple way to configure and bootstrap your Nette application.",
+            "description": "🅱 Nette Bootstrap: the simple way to configure and bootstrap your Nette application.",
             "homepage": "https://nette.org",
             "keywords": [
                 "bootstrapping",
@@ -5697,7 +5697,7 @@
                     "homepage": "https://nette.org/contributors"
                 }
             ],
-            "description": "? Nette Dependency Injection Container: Flexible, compiled and full-featured DIC with perfectly usable autowiring and support for all new PHP 7.1 features.",
+            "description": "💎 Nette Dependency Injection Container: Flexible, compiled and full-featured DIC with perfectly usable autowiring and support for all new PHP 7.1 features.",
             "homepage": "https://nette.org",
             "keywords": [
                 "compiled",
@@ -5882,7 +5882,7 @@
                     "homepage": "https://nette.org/contributors"
                 }
             ],
-            "description": "? Nette PHP Generator: generates neat PHP code for you. Supports new PHP 7.3 features.",
+            "description": "🐘 Nette PHP Generator: generates neat PHP code for you. Supports new PHP 7.3 features.",
             "homepage": "https://nette.org",
             "keywords": [
                 "code",
@@ -6067,7 +6067,7 @@
                     "homepage": "https://nette.org/contributors"
                 }
             ],
-            "description": "? Nette Utils: lightweight utilities for string & array manipulation, image handling, safe JSON encoding/decoding, validation, slug or strong password generating etc.",
+            "description": "🛠 Nette Utils: lightweight utilities for string & array manipulation, image handling, safe JSON encoding/decoding, validation, slug or strong password generating etc.",
             "homepage": "https://nette.org",
             "keywords": [
                 "array",
@@ -8397,6 +8397,7 @@
     "aliases": [],
     "minimum-stability": "beta",
     "stability-flags": {
+        "hybridauth/hybridauth": 5,
         "symfony/console": 10,
         "symfony/lts": 20,
         "symfony/twig-bundle": 5
