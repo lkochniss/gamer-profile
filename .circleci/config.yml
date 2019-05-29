@@ -105,9 +105,18 @@ jobs:
     <<: *npm-docker-image
     steps:
       - *attach_whole_workspace
+
+      - restore_cache:
+          keys:
+          - yarn-dependencies-{{ checksum "yarn.lock" }}
+
       - run:
          name: run yarn install
          command: yarn install
+
+      - save_cache:
+           paths: vendor
+           key: yarn-dependencies-{{ checksum "yarn.lock" }}
       - *persist_whole_workspace
 
 workflows:
