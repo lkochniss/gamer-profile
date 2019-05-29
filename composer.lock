@@ -1573,16 +1573,16 @@
         },
         {
             "name": "hybridauth/hybridauth",
-            "version": "v3.0.0-rc.9",
+            "version": "v3.0.0-rc.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/hybridauth/hybridauth.git",
-                "reference": "6123c31700bda7acd49cef7f1f0c138b60f39070"
+                "reference": "877f0388ace7f54be48f59a9be744f1a84794338"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/hybridauth/hybridauth/zipball/6123c31700bda7acd49cef7f1f0c138b60f39070",
-                "reference": "6123c31700bda7acd49cef7f1f0c138b60f39070",
+                "url": "https://api.github.com/repos/hybridauth/hybridauth/zipball/877f0388ace7f54be48f59a9be744f1a84794338",
+                "reference": "877f0388ace7f54be48f59a9be744f1a84794338",
                 "shasum": ""
             },
             "require": {
@@ -1626,7 +1626,7 @@
                 "social",
                 "twitter"
             ],
-            "time": "2019-01-03T11:08:24+00:00"
+            "time": "2019-03-25T21:44:58+00:00"
         },
         {
             "name": "jdorn/sql-formatter",
@@ -3768,7 +3768,7 @@
                 },
                 {
                     "name": "Gert de Pagter",
-                    "email": "backendtea@gmail.com"
+                    "email": "BackEndTea@gmail.com"
                 }
             ],
             "description": "Symfony polyfill for ctype functions",
@@ -5395,7 +5395,7 @@
                     "homepage": "https://nette.org/contributors"
                 }
             ],
-            "description": "🅱 Nette Bootstrap: the simple way to configure and bootstrap your Nette application.",
+            "description": "? Nette Bootstrap: the simple way to configure and bootstrap your Nette application.",
             "homepage": "https://nette.org",
             "keywords": [
                 "bootstrapping",
@@ -5463,7 +5463,7 @@
                     "homepage": "https://nette.org/contributors"
                 }
             ],
-            "description": "💎 Nette Dependency Injection Container: Flexible, compiled and full-featured DIC with perfectly usable autowiring and support for all new PHP 7.1 features.",
+            "description": "? Nette Dependency Injection Container: Flexible, compiled and full-featured DIC with perfectly usable autowiring and support for all new PHP 7.1 features.",
             "homepage": "https://nette.org",
             "keywords": [
                 "compiled",
@@ -5528,7 +5528,7 @@
                     "homepage": "https://nette.org/contributors"
                 }
             ],
-            "description": "🔍 Nette Finder: find files and directories with an intuitive API.",
+            "description": "? Nette Finder: find files and directories with an intuitive API.",
             "homepage": "https://nette.org",
             "keywords": [
                 "filesystem",
@@ -5588,7 +5588,7 @@
                     "homepage": "https://nette.org/contributors"
                 }
             ],
-            "description": "🍸 Nette NEON: encodes and decodes NEON file format.",
+            "description": "? Nette NEON: encodes and decodes NEON file format.",
             "homepage": "http://ne-on.org",
             "keywords": [
                 "export",
@@ -5651,7 +5651,7 @@
                     "homepage": "https://nette.org/contributors"
                 }
             ],
-            "description": "🐘 Nette PHP Generator: generates neat PHP code for you. Supports new PHP 7.3 features.",
+            "description": "? Nette PHP Generator: generates neat PHP code for you. Supports new PHP 7.3 features.",
             "homepage": "https://nette.org",
             "keywords": [
                 "code",
@@ -5712,7 +5712,7 @@
                     "homepage": "https://nette.org/contributors"
                 }
             ],
-            "description": "🍀 Nette RobotLoader: high performance and comfortable autoloader that will search and autoload classes within your application.",
+            "description": "? Nette RobotLoader: high performance and comfortable autoloader that will search and autoload classes within your application.",
             "homepage": "https://nette.org",
             "keywords": [
                 "autoload",
@@ -5782,7 +5782,7 @@
                     "homepage": "https://nette.org/contributors"
                 }
             ],
-            "description": "🛠 Nette Utils: lightweight utilities for string & array manipulation, image handling, safe JSON encoding/decoding, validation, slug or strong password generating etc.",
+            "description": "? Nette Utils: lightweight utilities for string & array manipulation, image handling, safe JSON encoding/decoding, validation, slug or strong password generating etc.",
             "homepage": "https://nette.org",
             "keywords": [
                 "array",
@@ -8154,7 +8154,6 @@
     "aliases": [],
     "minimum-stability": "beta",
     "stability-flags": {
-        "hybridauth/hybridauth": 5,
         "symfony/console": 10,
         "symfony/lts": 20,
         "symfony/twig-bundle": 5
