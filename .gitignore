@@ -16,6 +16,8 @@ public/*
 node_modules/
 npm-debug.log
 yarn-error.log
+infection.log
+infection.phar.asc
 
 ###> phpunit/phpunit ###
 /phpunit.xml
