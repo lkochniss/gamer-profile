@@ -63,11 +63,7 @@ class PlaytimeService
         $playtime->setOverallPlaytime($gamePlaytime->getOverallPlaytime());
         $playtime->setRecentPlaytime($gamePlaytime->getRecentPlaytime());
 
-        try {
-            $this->playtimeRepository->save($playtime);
-        } catch (\Doctrine\ORM\OptimisticLockException $optimisticLockException) {
-        } catch (\Doctrine\ORM\ORMException $exception) {
-        }
+        $this->playtimeRepository->save($playtime);
 
         return $playtime;
     }
@@ -97,11 +93,7 @@ class PlaytimeService
         $playtime->setOverallPlaytime($gamePlaytime->getOverallPlaytime());
         $playtime->setRecentPlaytime($gamePlaytime->getRecentPlaytime());
 
-        try {
-            $this->playtimeRepository->save($playtime);
-        } catch (\Doctrine\ORM\OptimisticLockException $optimisticLockException) {
-        } catch (\Doctrine\ORM\ORMException $exception) {
-        }
+        $this->playtimeRepository->save($playtime);
 
         return $playtime;
     }
@@ -124,12 +116,7 @@ class PlaytimeService
      */
     public function resetRecentPlaytime(Playtime $playtime): void
     {
-        $playtime->setRecentPlaytime(0);
-        try {
-            $this->playtimeRepository->save($playtime);
-        } catch (\Doctrine\ORM\OptimisticLockException $optimisticLockException) {
-        } catch (\Doctrine\ORM\ORMException $exception) {
-        }
+        $this->playtimeRepository->save($playtime);
     }
 
     /**

@@ -4,7 +4,6 @@ namespace App\Service\GameStats;
 
 use App\Entity\Achievement;
 use App\Entity\Game;
-use App\Entity\User;
 use App\Repository\AchievementRepository;
 use App\Service\Transformation\GameUserInformationService;
 
@@ -55,11 +54,7 @@ class AchievementService
         $achievement->setOverallAchievements($gameAchievements->getOverallAchievements());
         $achievement->setPlayerAchievements($gameAchievements->getPlayerAchievements());
 
-        try {
-            $this->achievementRepository->save($achievement);
-        } catch (\Doctrine\ORM\OptimisticLockException $optimisticLockException) {
-        } catch (\Doctrine\ORM\ORMException $exception) {
-        }
+        $this->achievementRepository->save($achievement);
 
         return $achievement;
     }
@@ -78,11 +73,7 @@ class AchievementService
         $achievement->setOverallAchievements($gameAchievements->getOverallAchievements());
         $achievement->setPlayerAchievements($gameAchievements->getPlayerAchievements());
 
-        try {
-            $this->achievementRepository->save($achievement);
-        } catch (\Doctrine\ORM\OptimisticLockException $optimisticLockException) {
-        } catch (\Doctrine\ORM\ORMException $exception) {
-        }
+        $this->achievementRepository->save($achievement);
 
         return $achievement;
     }

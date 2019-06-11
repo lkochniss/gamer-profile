@@ -29,8 +29,6 @@ class GameSessionsPerMonthService
     /**
      * @param GameSession $gameSession
      * @return GameSessionsPerMonth
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
      */
     public function addGameSession(GameSession $gameSession): GameSessionsPerMonth
     {
@@ -46,8 +44,6 @@ class GameSessionsPerMonthService
      * @param int $diff
      * @param GameSession $gameSession
      * @return GameSessionsPerMonth
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
      */
     public function updateGameSession(int $diff, GameSession $gameSession): GameSessionsPerMonth
     {

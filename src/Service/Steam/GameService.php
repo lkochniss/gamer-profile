@@ -46,10 +46,7 @@ class GameService
         $game->setName($gameInformation->getName());
         $game->setHeaderImagePath($gameInformation->getHeaderImagePath());
 
-        try {
-            $this->gameRepository->save($game);
-        } catch (\Doctrine\ORM\ORMException $exception) {
-        }
+        $this->gameRepository->save($game);
     }
 
     /**
@@ -63,10 +60,8 @@ class GameService
             $game->setName($gameInformation->getName());
             $game->setHeaderImagePath($gameInformation->getHeaderImagePath());
         }
-        try {
-            $this->gameRepository->save($game);
-        } catch (\Doctrine\ORM\ORMException $exception) {
-        }
+
+        $this->gameRepository->save($game);
     }
 
     public function updateFailed()
