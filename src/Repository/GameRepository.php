@@ -60,7 +60,7 @@ class GameRepository extends AbstractRepository
         try {
             $this->getEntityManager()->persist($entity);
             $this->getEntityManager()->flush($entity);
-        }catch (ORMException $exception) {
+        } catch (ORMException $exception) {
         }
     }
 
