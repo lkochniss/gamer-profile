@@ -13,8 +13,6 @@ class GameStatsListener
 {
     /**
      * @param LifecycleEventArgs $args
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
      */
     public function postPersist(LifecycleEventArgs $args): void
     {
@@ -43,8 +41,6 @@ class GameStatsListener
     /**
      * @param LifecycleEventArgs $args
      * @return string
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
      */
     public function postUpdate(LifecycleEventArgs $args): string
     {

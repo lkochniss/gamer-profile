@@ -28,8 +28,6 @@ class PlaytimePerMonthService
     /**
      * @param GameSession $gameSession
      * @return PlaytimePerMonth
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
      */
     public function addSession(GameSession $gameSession): PlaytimePerMonth
     {
@@ -47,8 +45,6 @@ class PlaytimePerMonthService
      * @param int $diff
      * @param int $steamUserId
      * @return PlaytimePerMonth
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
      */
     public function updateSession(int $diff, int $steamUserId): PlaytimePerMonth
     {

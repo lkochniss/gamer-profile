@@ -120,4 +120,24 @@ class GameSessionServiceTest extends TestCase
         $service = new GameSessionService($repositoryMock);
         $service->updateGameSession($gameSession, $oldTime, $newTime);
     }
+
+    public function testUpdateGameSessionShouldThrowErrorOnTooHighDiff()
+    {
+        $oldTime = 0;
+        $newTime = 100;
+
+        $steamUserId = 1;
+        $game = new Game(2);
+        $game->setName('Test Game');
+
+        $gameSession = new GameSession($game, $steamUserId);
+
+        $repositoryMock = $this->createMock(GameSessionRepository::class);
+        $repositoryMock->expects($this->never())
+            ->method('save');
+
+        $this->expectException(\LogicException::class);
+        $service = new GameSessionService($repositoryMock);
+        $service->updateGameSession($gameSession, $oldTime, $newTime);
+    }
 }

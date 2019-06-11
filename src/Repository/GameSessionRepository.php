@@ -4,22 +4,23 @@ namespace App\Repository;
 
 use App\Entity\AbstractEntity;
 use App\Entity\GameSession;
-use App\Entity\User;
+use Doctrine\ORM\ORMException;
 
 /**
  * Class GameSessionRepository
  */
-class GameSessionRepository extends AbstractRepository#
+class GameSessionRepository extends AbstractRepository
 {
     /**
      * @param AbstractEntity $entity
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
      */
     public function save(AbstractEntity $entity): void
     {
-        $this->getEntityManager()->persist($entity);
-        $this->getEntityManager()->flush($entity);
+        try {
+            $this->getEntityManager()->persist($entity);
+            $this->getEntityManager()->flush($entity);
+        } catch (ORMException $exception) {
+        }
     }
 
     /**
@@ -89,8 +90,8 @@ class GameSessionRepository extends AbstractRepository#
      */
     public function findForYear(int $year, string $steamUserId): ?array
     {
-        $start = new \DateTime('first day of January '. $year);
-        $end = new \DateTime('last day of December '. $year);
+        $start = new \DateTime('first day of January ' . $year);
+        $end = new \DateTime('last day of December ' . $year);
         $query = $this->createQueryBuilder('game_session')
             ->where('game_session.createdAt > :start')
             ->andWhere('game_session.createdAt < :end')

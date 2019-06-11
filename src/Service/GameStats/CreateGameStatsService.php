@@ -40,6 +40,10 @@ class CreateGameStatsService
         $this->gameStatsRepository = $gameStatsRepository;
     }
 
+    /**
+     * @param User $user
+     * @param Game $game
+     */
     public function execute(User $user, Game $game): void
     {
         $gameStats = $this->gameStatsRepository->findOneBy(['steamUserId' => $user->getSteamId(), 'game' => $game]);
@@ -52,10 +56,6 @@ class CreateGameStatsService
 
         $gameStats = new GameStats($user->getSteamId(), $game, $achievement, $playtime);
 
-        try {
-            $this->gameStatsRepository->save($gameStats);
-        } catch (\Doctrine\ORM\OptimisticLockException $optimisticLockException) {
-        } catch (\Doctrine\ORM\ORMException $exception) {
-        }
+        $this->gameStatsRepository->save($gameStats);
     }
 }

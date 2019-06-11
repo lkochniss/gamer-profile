@@ -4,7 +4,6 @@ namespace App\Service\GameStats;
 
 use App\Entity\Game;
 use App\Entity\GameSession;
-use App\Entity\User;
 use App\Repository\GameSessionRepository;
 
 class GameSessionService
@@ -46,17 +45,30 @@ class GameSessionService
         return $gameSession;
     }
 
+    /**
+     * @param GameSession $gameSession
+     * @param int $oldTime
+     * @param int $newTime
+     */
     public function updateGameSession(GameSession $gameSession, int $oldTime, int $newTime): void
     {
+        $diff = $newTime - $oldTime;
+
+        if ($diff > 70) {
+            throw new \LogicException(sprintf(
+                'Something is wrong with the session for %s. The diff was %s based on old duration % and new %s',
+                $gameSession->getGame()->getName(),
+                $diff,
+                $oldTime,
+                $newTime
+            ));
+        }
+
+
         if ($newTime > $oldTime) {
-            $diff = $newTime - $oldTime;
             $gameSession->addDuration($diff);
 
-            try {
-                $this->gameSessionRepository->save($gameSession);
-            } catch (\Doctrine\ORM\OptimisticLockException $optimisticLockException) {
-            } catch (\Doctrine\ORM\ORMException $exception) {
-            }
+            $this->gameSessionRepository->save($gameSession);
         }
     }
 }

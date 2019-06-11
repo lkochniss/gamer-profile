@@ -4,7 +4,7 @@ namespace App\Repository;
 
 use App\Entity\AbstractEntity;
 use App\Entity\GameSessionsPerMonth;
-use App\Entity\User;
+use Doctrine\ORM\ORMException;
 
 /**
  * Class GameSessionsPerMonthRepository
@@ -53,13 +53,14 @@ class GameSessionsPerMonthRepository extends AbstractRepository
 
     /**
      * @param AbstractEntity $entity
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
      */
     public function save(AbstractEntity $entity): void
     {
-        $this->getEntityManager()->persist($entity);
-        $this->getEntityManager()->flush($entity);
+        try {
+            $this->getEntityManager()->persist($entity);
+            $this->getEntityManager()->flush($entity);
+        } catch (ORMException $exception) {
+        }
     }
 
     /**
