@@ -136,7 +136,6 @@ class GameSessionServiceTest extends TestCase
         $repositoryMock->expects($this->never())
             ->method('save');
 
-        $this->expectException(\LogicException::class);
         $service = new GameSessionService($repositoryMock);
         $service->updateGameSession($gameSession, $oldTime, $newTime);
     }
