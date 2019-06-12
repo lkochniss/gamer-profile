@@ -55,13 +55,15 @@ class GameSessionService
         $diff = $newTime - $oldTime;
 
         if ($diff > 70) {
-            throw new \LogicException(sprintf(
+            echo sprintf(
                 'Something is wrong with the session for %s. The diff was %s based on old duration %s and new %s',
                 $gameSession->getGame()->getName(),
                 $diff,
                 $oldTime,
                 $newTime
-            ));
+            );
+            
+            return;
         }
 
 
