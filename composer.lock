@@ -4605,22 +4605,22 @@
         },
         {
             "name": "symfony/translation",
-            "version": "v4.2.4",
+            "version": "v4.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/translation.git",
-                "reference": "748464177a77011f8f4cdd076773862ce4915f8f"
+                "reference": "5dda505e5f65d759741dfaf4e54b36010a4b57aa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/translation/zipball/748464177a77011f8f4cdd076773862ce4915f8f",
-                "reference": "748464177a77011f8f4cdd076773862ce4915f8f",
+                "url": "https://api.github.com/repos/symfony/translation/zipball/5dda505e5f65d759741dfaf4e54b36010a4b57aa",
+                "reference": "5dda505e5f65d759741dfaf4e54b36010a4b57aa",
                 "shasum": ""
             },
             "require": {
                 "php": "^7.1.3",
-                "symfony/contracts": "^1.0.2",
-                "symfony/polyfill-mbstring": "~1.0"
+                "symfony/polyfill-mbstring": "~1.0",
+                "symfony/translation-contracts": "^1.1.2"
             },
             "conflict": {
                 "symfony/config": "<3.4",
@@ -4628,7 +4628,7 @@
                 "symfony/yaml": "<3.4"
             },
             "provide": {
-                "symfony/translation-contracts-implementation": "1.0"
+                "symfony/translation-implementation": "1.0"
             },
             "require-dev": {
                 "psr/log": "~1.0",
@@ -4636,7 +4636,10 @@
                 "symfony/console": "~3.4|~4.0",
                 "symfony/dependency-injection": "~3.4|~4.0",
                 "symfony/finder": "~2.8|~3.0|~4.0",
+                "symfony/http-kernel": "~3.4|~4.0",
                 "symfony/intl": "~3.4|~4.0",
+                "symfony/service-contracts": "^1.1.2",
+                "symfony/var-dumper": "~3.4|~4.0",
                 "symfony/yaml": "~3.4|~4.0"
             },
             "suggest": {
@@ -4647,7 +4650,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "4.2-dev"
+                    "dev-master": "4.3-dev"
                 }
             },
             "autoload": {
@@ -4674,7 +4677,7 @@
             ],
             "description": "Symfony Translation Component",
             "homepage": "https://symfony.com",
-            "time": "2019-02-27T03:31:50+00:00"
+            "time": "2019-06-03T20:27:40+00:00"
         },
         {
             "name": "symfony/twig-bridge",
