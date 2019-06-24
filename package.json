@@ -9,7 +9,7 @@
     "eslint-config-airbnb": "^17.1.0",
     "eslint-plugin-import": "^2.17.3",
     "eslint-plugin-jsx-a11y": "^6.0.3",
-    "eslint-plugin-react": "^7.13.0",
+    "eslint-plugin-react": "^7.14.0",
     "extract-text-webpack-plugin": "^4.0.0-beta.0",
     "file-loader": "^4.0.0",
     "jshint": "^2.9.5",
@@ -24,10 +24,10 @@
     "sass-loader": "^7.1.0",
     "style-loader": "^0.23.1",
     "url-loader": "^2.0.0",
-    "webpack": "^4.34.0",
+    "webpack": "^4.35.0",
     "webpack-assets-manifest": "^3.0.1",
-    "webpack-cli": "^3.3.4",
-    "webpack-dev-server": "^3.7.1"
+    "webpack-cli": "^3.3.5",
+    "webpack-dev-server": "^3.7.2"
   },
   "dependencies": {
     "bootstrap": "^4.3.1",
