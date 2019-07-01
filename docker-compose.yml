@@ -29,7 +29,7 @@ services:
         volumes:
             - .logs/nginx/:/var/log/nginx:cached
     yarn:
-        image: node:9
+        image: node:8
         volumes_from:
             - php
         working_dir: /var/www/symfony
