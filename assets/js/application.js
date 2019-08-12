@@ -1,4 +1,6 @@
 import 'bootstrap';
+import 'jquery-datatables-checkboxes/js/dataTables.checkboxes.min';
+
 import $ from 'jquery';
 import dataTables from './data-tables';
 import sessionTimeGraph from './session-time-graph';
@@ -125,11 +127,61 @@ const addSessionsForYearSelect = () => {
 };
 
 const addDataTables = () => {
-  dataTables('#game-list-backend', 4, 'DESC');
+  $('#game-list-backend').DataTable({
+    columnDefs: [
+      {
+        targets: 0,
+        checkboxes: {
+          selectAllPages: false,
+        },
+      },
+    ],
+  });
+
+  const changeStatus = (status) => {
+    document.getElementById('overlay').style.display = 'flex';
+
+    setTimeout(() => {
+      const numberOfItems = document.querySelectorAll('input.dt-checkboxes:checked').length;
+      let processedItems = 0;
+
+      document.querySelectorAll('input.dt-checkboxes:checked').forEach((item) => {
+        $.ajax({
+          url: `/game/${item.parentElement.dataset.gameId}/status/${status}`,
+          success: () => {
+            processedItems += 1;
+            if (processedItems === numberOfItems) {
+              window.location.reload();
+            }
+          },
+        });
+      });
+    }, 1);
+  };
+
+  $('#selected_open').on('click', () => {
+    changeStatus('open');
+  });
+
+  $('#selected_paused').on('click', () => {
+    changeStatus('paused');
+  });
+
+  $('#selected_playing').on('click', () => {
+    changeStatus('playing');
+  });
+
+  $('#selected_finished').on('click', () => {
+    changeStatus('finished');
+  });
+
+  $('#selected_given-up').on('click', () => {
+    changeStatus('given-up');
+  });
+
   dataTables('#game-session-list');
   dataTables('#game-session-for-game-list', 1, 'DESC');
   dataTables('#game-list');
-  dataTables('#user-list');
 };
 
 $(document).ready(() => {

@@ -1,8 +1,24 @@
 {% extends 'base.html.twig' %}
 {% block body %}
-    <table id="game-list-backend" class="table">
+    <div id="overlay" class="justify-content-center">
+        <div class="spinner-border text-light align-self-center" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col text-right mb-2">
+            {% trans %}set_status_to{% endtrans %}:
+            <input id="selected_open" class="btn-sm btn-outline-dark" type="submit" value="{% trans %}status_open{% endtrans %}">
+            <input id="selected_paused" class="btn-sm btn-outline-dark" type="submit" value="{% trans %}status_paused{% endtrans %}">
+            <input id="selected_playing" class="btn-sm btn-outline-dark" type="submit" value="{% trans %}status_playing{% endtrans %}">
+            <input id="selected_finished" class="btn-sm btn-outline-dark" type="submit" value="{% trans %}status_finished{% endtrans %}">
+            <input id="selected_given-up" class="btn-sm btn-outline-dark" type="submit" value="{% trans %}status_given_up{% endtrans %}">
+        </div>
+    </div>
+    <table data-order='[[5, "DESC"]]' id="game-list-backend" class="display table">
         <thead>
         <tr>
+            <th scope="col"></th>
             <th scope="col">
                 {% trans from 'messages' %}name{% endtrans %}
             </th>
@@ -26,6 +42,7 @@
         <tbody>
         {% for entity in entities %}
             <tr>
+                <td data-game-id="{{ entity.game.id }}"></td>
                 <td>
                     <a href="{{ path('game_dashboard', {'id': entity.game.id}) }}">{{ entity.game.name }}</a>
                 </td>

@@ -1766,6 +1766,13 @@ dashdash@^1.12.0:
   dependencies:
     assert-plus "^1.0.0"
 
+datatables.net@>=1.10.8:
+  version "1.10.19"
+  resolved "https://registry.yarnpkg.com/datatables.net/-/datatables.net-1.10.19.tgz#97a1ed41c85e62d61040603481b59790a172dd1f"
+  integrity sha512-+ljXcI6Pj3PTGy5pesp3E5Dr3x3AV45EZe0o1r0gKENN2gafBKXodVnk2ypKwl2tTmivjxbkiqoWnipTefyBTA==
+  dependencies:
+    jquery ">=1.7"
+
 datatables@^1.10.13:
   version "1.10.18"
   resolved "https://registry.yarnpkg.com/datatables/-/datatables-1.10.18.tgz#fee16e82aa70b17c5faf1a6954ac68f404f33a70"
@@ -3303,6 +3310,14 @@ isobject@^3.0.0, isobject@^3.0.1:
 isstream@~0.1.2:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/isstream/-/isstream-0.1.2.tgz#47e63f7af55afa6f92e1500e690eb8b8529c099a"
+
+jquery-datatables-checkboxes@^1.2.11:
+  version "1.2.11"
+  resolved "https://registry.yarnpkg.com/jquery-datatables-checkboxes/-/jquery-datatables-checkboxes-1.2.11.tgz#49574c7108712e14a13e28d29010224f6ff14af6"
+  integrity sha512-ljpryBBWEkysHPwSVqeMU6zpEkUDt8P8aopBs8nez7VIwLwLNVYflxvM23OYfO2FyvH+t2lYw1LtpZpY7WJJNA==
+  dependencies:
+    datatables.net ">=1.10.8"
+    jquery ">=1.7"
 
 jquery@>=1.7, jquery@^3.4.1:
   version "3.4.1"

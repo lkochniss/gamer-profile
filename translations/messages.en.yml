@@ -43,6 +43,7 @@ sessions: Sessions
 session_per_month: 'Sessions per month'
 statistics: Statistics
 status: 'Status'
+set_status_to: 'Set status for selected games to'
 status_open: 'open'
 status_paused: 'paused'
 status_playing: 'playing'
