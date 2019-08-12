@@ -4365,16 +4365,16 @@
         },
         {
             "name": "symfony/security-core",
-            "version": "v4.3.2",
+            "version": "v4.3.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/security-core.git",
-                "reference": "489f3a13362bf692df974f84367fba954b1d78a8"
+                "reference": "6b06369e0d624b18e3b206b9218461eb6c3b45d8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/security-core/zipball/489f3a13362bf692df974f84367fba954b1d78a8",
-                "reference": "489f3a13362bf692df974f84367fba954b1d78a8",
+                "url": "https://api.github.com/repos/symfony/security-core/zipball/6b06369e0d624b18e3b206b9218461eb6c3b45d8",
+                "reference": "6b06369e0d624b18e3b206b9218461eb6c3b45d8",
                 "shasum": ""
             },
             "require": {
@@ -4433,11 +4433,11 @@
             ],
             "description": "Symfony Security Component - Core Library",
             "homepage": "https://symfony.com",
-            "time": "2019-06-26T06:50:02+00:00"
+            "time": "2019-07-24T13:33:23+00:00"
         },
         {
             "name": "symfony/security-csrf",
-            "version": "v4.3.2",
+            "version": "v4.3.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/security-csrf.git",
@@ -5118,19 +5118,19 @@
             "authors": [
                 {
                     "name": "Fabien Potencier",
+                    "role": "Lead Developer",
                     "email": "fabien@symfony.com",
-                    "homepage": "http://fabien.potencier.org",
-                    "role": "Lead Developer"
+                    "homepage": "http://fabien.potencier.org"
                 },
                 {
                     "name": "Armin Ronacher",
-                    "email": "armin.ronacher@active-4.com",
-                    "role": "Project Founder"
+                    "role": "Project Founder",
+                    "email": "armin.ronacher@active-4.com"
                 },
                 {
                     "name": "Twig Team",
-                    "homepage": "https://twig.symfony.com/contributors",
-                    "role": "Contributors"
+                    "role": "Contributors",
+                    "homepage": "https://twig.symfony.com/contributors"
                 }
             ],
             "description": "Twig, the flexible, fast, and secure template language for PHP",
@@ -6327,18 +6327,18 @@
             "authors": [
                 {
                     "name": "Arne Blankerts",
-                    "email": "arne@blankerts.de",
-                    "role": "Developer"
+                    "role": "Developer",
+                    "email": "arne@blankerts.de"
                 },
                 {
                     "name": "Sebastian Heuer",
-                    "email": "sebastian@phpeople.de",
-                    "role": "Developer"
+                    "role": "Developer",
+                    "email": "sebastian@phpeople.de"
                 },
                 {
                     "name": "Sebastian Bergmann",
-                    "email": "sebastian@phpunit.de",
-                    "role": "Developer"
+                    "role": "Developer",
+                    "email": "sebastian@phpunit.de"
                 }
             ],
             "description": "Component for reading phar.io manifest information from a PHP Archive (PHAR)",
@@ -6374,18 +6374,18 @@
             "authors": [
                 {
                     "name": "Arne Blankerts",
-                    "email": "arne@blankerts.de",
-                    "role": "Developer"
+                    "role": "Developer",
+                    "email": "arne@blankerts.de"
                 },
                 {
                     "name": "Sebastian Heuer",
-                    "email": "sebastian@phpeople.de",
-                    "role": "Developer"
+                    "role": "Developer",
+                    "email": "sebastian@phpeople.de"
                 },
                 {
                     "name": "Sebastian Bergmann",
-                    "email": "sebastian@phpunit.de",
-                    "role": "Developer"
+                    "role": "Developer",
+                    "email": "sebastian@phpunit.de"
                 }
             ],
             "description": "Library for handling version information and constraints",
@@ -6584,8 +6584,8 @@
             "authors": [
                 {
                     "name": "Sebastian Bergmann",
-                    "email": "sebastian@phpunit.de",
-                    "role": "lead"
+                    "role": "lead",
+                    "email": "sebastian@phpunit.de"
                 }
             ],
             "description": "A tool for quickly measuring the size of a PHP project.",
@@ -6941,8 +6941,8 @@
             "authors": [
                 {
                     "name": "Sebastian Bergmann",
-                    "email": "sb@sebastian-bergmann.de",
-                    "role": "lead"
+                    "role": "lead",
+                    "email": "sb@sebastian-bergmann.de"
                 }
             ],
             "description": "FilterIterator implementation that filters files based on a list of suffixes.",
@@ -6983,8 +6983,8 @@
             "authors": [
                 {
                     "name": "Sebastian Bergmann",
-                    "email": "sebastian@phpunit.de",
-                    "role": "lead"
+                    "role": "lead",
+                    "email": "sebastian@phpunit.de"
                 }
             ],
             "description": "Simple template engine.",
@@ -7032,8 +7032,8 @@
             "authors": [
                 {
                     "name": "Sebastian Bergmann",
-                    "email": "sb@sebastian-bergmann.de",
-                    "role": "lead"
+                    "role": "lead",
+                    "email": "sb@sebastian-bergmann.de"
                 }
             ],
             "description": "Utility class for timing",
@@ -7545,8 +7545,8 @@
             "authors": [
                 {
                     "name": "Sebastian Bergmann",
-                    "email": "sebastian@phpunit.de",
-                    "role": "lead"
+                    "role": "lead",
+                    "email": "sebastian@phpunit.de"
                 }
             ],
             "description": "FinderFacade is a convenience wrapper for Symfony's Finder component.",
@@ -7738,8 +7738,8 @@
             "authors": [
                 {
                     "name": "Sebastian Bergmann",
-                    "email": "sebastian@phpunit.de",
-                    "role": "lead"
+                    "role": "lead",
+                    "email": "sebastian@phpunit.de"
                 }
             ],
             "description": "Copy/Paste Detector (CPD) for PHP code.",
@@ -7876,8 +7876,8 @@
             "authors": [
                 {
                     "name": "Sebastian Bergmann",
-                    "email": "sebastian@phpunit.de",
-                    "role": "lead"
+                    "role": "lead",
+                    "email": "sebastian@phpunit.de"
                 }
             ],
             "description": "Library that helps with managing the version number of Git-hosted PHP projects",
@@ -8464,7 +8464,8 @@
     "stability-flags": {
         "hybridauth/hybridauth": 5,
         "symfony/console": 10,
-        "symfony/lts": 20
+        "symfony/lts": 20,
+        "symfony/twig-bundle": 5
     },
     "prefer-stable": false,
     "prefer-lowest": false,
