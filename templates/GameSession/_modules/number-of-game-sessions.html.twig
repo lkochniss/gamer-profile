@@ -1,5 +1,5 @@
 <div class="panel-footer mb-3">
-    <span class="pull-left">{% trans from "messages" %}number_of_game_sessions{% endtrans %}</span>
+    <a href="{{ path('game_session_list_for_game', {id: gameStats.game.id}) }}"><span class="pull-left">{% trans from "messages" %}number_of_game_sessions{% endtrans %}</span></a>
     <span class="pull-right">{{ gameStats|get_number_of_sessions }}</span>
     <div class="clearfix"></div>
 </div>
