@@ -3,8 +3,10 @@
 namespace App\Service\Security;
 
 use Aws\CognitoIdentityProvider\Exception\CognitoIdentityProviderException;
+use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Exception\CustomUserMessageAuthenticationException;
@@ -140,18 +142,30 @@ class CognitoAuthenticator extends AbstractFormLoginAuthenticator
      * @param TokenInterface $token
      * @param string $providerKey
      *
-     * @return null|RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     * @return null|RedirectResponse|Response
      *
      * @SuppressWarnings("unused")
      */
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
     {
+        $cookie = new Cookie(
+            'darkTheme',
+            $token->getUser()->isDarkTheme() ? 'true' : 'false',
+            time() + (3600 * 24 * 365)
+        );
+
         if ($targetPath = $this->getTargetPath($request->getSession(), $providerKey)
         ) {
-            return new RedirectResponse($targetPath);
+            $response =  new RedirectResponse($targetPath);
+            $response->headers->setCookie($cookie);
+
+            return $response;
         }
 
-        return new RedirectResponse($this->router->generate('homepage_dashboard'));
+        $response =  new RedirectResponse($this->router->generate('homepage_dashboard'));
+        $response->headers->setCookie($cookie);
+
+        return $response;
     }
 
     /**

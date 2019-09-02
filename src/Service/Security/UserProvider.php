@@ -3,6 +3,7 @@
 namespace App\Service\Security;
 
 use App\Entity\User;
+use Aws\Result;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -79,10 +80,23 @@ class UserProvider implements UserProviderInterface
     /**
      * @param string $username
      * @param int $steamUserId
+     *
+     * @return Result
      */
-    public function saveSteamUserId(string $username, int $steamUserId): void
+    public function saveSteamUserId(string $username, int $steamUserId): Result
     {
-        $this->cognitoClient->setSteamUserId($username, $steamUserId);
+        return $this->cognitoClient->setSteamUserId($username, $steamUserId);
+    }
+
+    /**
+     * @param string $username
+     * @param bool $isDarkThem
+     *
+     * @return Result
+     */
+    public function setDarkTheme(string $username, bool $isDarkThem): Result
+    {
+        return $this->cognitoClient->setDarkTheme($username, $isDarkThem);
     }
 
     /**
@@ -110,6 +124,9 @@ class UserProvider implements UserProviderInterface
                     break;
                 case 'custom:steamUserId':
                     $user->setSteamId($attribute['Value']);
+                    break;
+                case 'custom:darkTheme':
+                    $user->setDarkTheme($attribute['Value']);
                     break;
             };
         }

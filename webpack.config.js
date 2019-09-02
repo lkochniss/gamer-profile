@@ -13,6 +13,7 @@ module.exports = {
   entry: {
     'js/application': path.resolve(__dirname, 'assets/js/application.js'),
     'css/application': path.resolve(__dirname, 'assets/js/styles.js'),
+    'css/dark-theme': path.resolve(__dirname, 'assets/js/dark-theme.js'),
   },
   /* Export class constructor as entrypoint */
   output: {

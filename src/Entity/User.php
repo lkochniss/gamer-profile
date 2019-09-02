@@ -30,6 +30,11 @@ class User implements UserInterface
     private $password;
 
     /**
+     * @var bool
+     */
+    private $darkTheme;
+
+    /**
      * User constructor.
      */
     public function __construct()
@@ -78,6 +83,22 @@ class User implements UserInterface
         $this->email = $email;
 
         return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isDarkTheme(): bool
+    {
+        return $this->darkTheme ?: false;
+    }
+
+    /**
+     * @param bool $darkTheme
+     */
+    public function setDarkTheme(bool $darkTheme): void
+    {
+        $this->darkTheme = $darkTheme;
     }
 
     /**

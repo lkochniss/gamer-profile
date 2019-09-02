@@ -59,6 +59,19 @@
             </li>
         </ul>
         <ul class="navbar-nav mr-auto right">
+            {% if app.request|is_dark_theme %}
+                <li class="nav-item ">
+                    <a class="nav-link" href="{{ path('homepage_default_theme') }}">
+                        {% trans from "messages" %}switch_to_default_theme{% endtrans %}
+                    </a>
+                </li>
+            {% else %}
+                <li class="nav-item ">
+                    <a class="nav-link" href="{{ path('homepage_dark_theme') }}">
+                        {% trans from "messages" %}switch_to_dark_theme{% endtrans %}
+                    </a>
+                </li>
+            {% endif %}
             <li class="nav-item ">
                 <a class="nav-link" href="{{ path('security_logout') }}">
                     <i class="fa fa-sign-out fa-fw"></i>

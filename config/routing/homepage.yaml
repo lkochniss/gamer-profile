@@ -14,6 +14,14 @@ homepage_most_played:
     path: /most-played-games
     defaults: { _controller: 'App\Controller\HomepageController::mostPlayedGames' }
 
+homepage_dark_theme:
+    path: dark-theme
+    defaults: { _controller: 'App\Controller\HomepageController::darkTheme' }
+
+homepage_default_theme:
+    path: default-theme
+    defaults: { _controller: 'App\Controller\HomepageController::defaultTheme' }
+
 homepage_dashboard:
     path: /
     defaults: { _controller: 'App\Controller\HomepageController::dashboard' }
