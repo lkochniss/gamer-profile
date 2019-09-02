@@ -135,6 +135,27 @@ class AwsCognitoClient
 
     /**
      * @param string $username
+     * @param bool $isDarkTheme
+     *
+     * @return Result
+     */
+    public function setDarkTheme(string $username, bool $isDarkTheme): Result
+    {
+        return $this->client->adminUpdateUserAttributes([
+            'UserPoolId' => $this->poolId,
+            'Username' => $username,
+            'UserAttributes' => [
+                [
+                    'Name' => 'custom:darkTheme',
+                    'Value' => $isDarkTheme ? '1' : '0',
+                ],
+            ]
+        ]);
+    }
+
+
+    /**
+     * @param string $username
      *
      * @return Result
      */

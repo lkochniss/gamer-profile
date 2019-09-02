@@ -8,7 +8,10 @@ use App\Repository\GameRepository;
 use App\Repository\GameSessionsPerMonthRepository;
 use App\Repository\GameStatsRepository;
 use App\Repository\OverallGameStatsRepository;
+use App\Service\Security\UserProvider;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Cookie;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -33,7 +36,7 @@ class HomepageController extends AbstractController
         $gameSessions = $gameSessionsPerMonthRepository->findByMonth($month, $user->getSteamId());
 
         usort($gameSessions, function (GameSessionsPerMonth $sessionA, GameSessionsPerMonth $sessionB) {
-            return $sessionA->getDuration() > $sessionB->getDuration() ? -1: 1;
+            return $sessionA->getDuration() > $sessionB->getDuration() ? -1 : 1;
         });
 
         $now = new \DateTime();
@@ -110,7 +113,7 @@ class HomepageController extends AbstractController
             }
 
             usort($gameSessionsPerYear[$i], function (array $sessionA, array $sessionB) {
-                return $sessionA['duration'] > $sessionB['duration'] ? -1: 1;
+                return $sessionA['duration'] > $sessionB['duration'] ? -1 : 1;
             });
 
             array_splice($gameSessionsPerYear[$i], 3);
@@ -126,6 +129,32 @@ class HomepageController extends AbstractController
         return $this->render('Homepage/most-played-games.html.twig', [
             'gamesStats' => $gameStatsRepository->getMostPlayedGames(12, $user->getSteamId())
         ]);
+    }
+
+    /**
+     * @param UserProvider $provider
+     * @param UserInterface $user
+     *
+     * @return RedirectResponse
+     */
+    public function darkTheme(UserProvider $provider, UserInterface $user): RedirectResponse
+    {
+        $provider->setDarkTheme($user->getUsername(), true);
+
+        return $this->setDarkThemeCookie(new RedirectResponse($this->generateUrl('homepage_dashboard')), true);
+    }
+
+    /**
+     * @param UserProvider $provider
+     * @param UserInterface $user
+     *
+     * @return RedirectResponse
+     */
+    public function defaultTheme(UserProvider $provider, UserInterface $user): RedirectResponse
+    {
+        $provider->setDarkTheme($user->getUsername(), false);
+
+        return $this->setDarkThemeCookie(new RedirectResponse($this->generateUrl('homepage_dashboard')), false);
     }
 
     /**
@@ -152,5 +181,19 @@ class HomepageController extends AbstractController
         }
 
         return $yearsWithSessions;
+    }
+
+    /**
+     * @param RedirectResponse $redirectResponse
+     * @param bool $isDarkTheme
+     *
+     * @return RedirectResponse
+     */
+    private function setDarkThemeCookie(RedirectResponse $redirectResponse, bool $isDarkTheme): RedirectResponse
+    {
+        $cookie = new Cookie('darkTheme', $isDarkTheme ? 'true' : 'false', time() + (3600 * 24 * 365));
+        $redirectResponse->headers->setCookie($cookie);
+
+        return $redirectResponse;
     }
 }

@@ -1,0 +1,351 @@
+/*
+ *  Autor: Justin (SpielefreakJ)
+ *  Pr0gramm: https://pr0gramm.com/user/SpielefreakJ
+ *
+ *  Weitergabe nur mit zustimmung des Authors!
+*/
+
+/* Navbar */
+nav.navbar-light, /* Navbar background */
+div.navbar-brand /* Navbar pagetitle */
+{
+  background-color: #ee4d2e !important;
+  color: #f2f5f4 !important;
+}
+
+ul.navbar-nav > li.nav-item > a /* Navbar text */
+{
+  color: #f2f5f4 !important;
+}
+
+ul.navbar-nav > li.nav-item > div, /* Navbar dropdown background */
+ul.navbar-nav > li.nav-item > div > a /* Navbar dropdown text*/
+{
+  background-color: #212121 !important;
+  color: #75c0c7 !important;
+}
+
+/* Body (Background) */
+body {
+  background-color: #161618;
+}
+
+
+/*
+    Pages
+*/
+
+
+/* Login Page | /login */
+div.justify-content-center > form > h1.mb-3.font-weight-normal /* Page title */
+{
+  color: #f2f5f4;
+}
+
+div.justify-content-center > form > input#email.form-control, /* E-Mail txb */
+div.justify-content-center > form > input#password.form-control /* PW txb */
+{
+  background-color: #212121;
+  color: #f2f5f4;
+}
+
+div.justify-content-center > form > button.btn-primary.form-control /* Login Button */
+{
+  background-color: #75c0c7;
+  color: #2a2e31;
+  border-color: #2a2e31;
+}
+
+div.justify-content-center > form > a /* Register-page link */
+{
+  color: #75c0c7;
+}
+
+
+/* Register | /registration */
+div.justify-content-center > div.login-form > form > div.text-center.mb-3 > h1.h3.font-weight-normal /* Page title */
+{
+  color: #f2f5f4;
+}
+
+div.justify-content-center > div.login-form > form > input#registration_form_email.form-control, /* E-Mail txb */
+div.justify-content-center > div.login-form > form > input#registration_form_password.form-control, /* PW txb */
+div.justify-content-center > div.login-form > form > input#registration_form_inviteCode.form-control /* Invite-Code txb */
+{
+  background-color: #212121;
+  color: #f2f5f4;
+}
+
+div.justify-content-center > div.login-form > form > button#registration_form_submit.form-control /* Register Button */
+{
+  background-color: #75c0c7;
+  color: #2a2e31;
+  border-color: #2a2e31;
+}
+
+
+/* Dashb0ard | / */
+h1.page-header /* Header title Dashboard */
+{
+  color: #f2f5f4;
+}
+
+/* Cards */
+div.card /* Dashboard stats cards */
+{
+  background-color: #212121;
+  color: #888;
+}
+
+/* Sessions */
+div#sessions-for-year, /* Header title Sessions (+ year) */
+div#page-wrapper > div.row.mb-5 > div.col /* "Switch to" year changer under title Sessions */
+{
+  color: #f2f5f4;
+}
+
+div#page-wrapper > div.row.mb-5 > div.col > a.sessions-for-year-select /* year changer under title Sessions */
+{
+  color: #75c0c7;
+}
+
+div#sessions-for-year > svg.RdYlGn, /* activity graph */
+div#sessions-for-year > svg.RdYlGn > g > text {
+  background-color: #161618;
+  color: #f2f5f4 !important;
+  text-anchor: middle;
+}
+
+div#sessions-for-year > svg.RdYlGn > g > rect.day:not(.q0-11):not(.q1-11):not(.q2-11):not(.q3-11):not(.q4-11):not(.q5-11):not(.q6-11):not(.q7-11):not(.q8-11):not(.q9-11):not(.q10-11):not(.q11-11), /* Graph on dashboard */
+div#playtime-game > svg.RdYlGn > g > rect.day:not(.q0-11):not(.q1-11):not(.q2-11):not(.q3-11):not(.q4-11):not(.q5-11):not(.q6-11):not(.q7-11):not(.q8-11):not(.q9-11):not(.q10-11):not(.q11-11) /* Graph on game */
+{
+  background-color: #888;
+  fill: #212121;
+  stroke: #888;
+}
+
+/* Playtime graphs */
+div#playtime-last-week /* stats last twoweeks */
+{
+  color: #f2f5f4;
+}
+
+div#playtime-last-week > svg > g > circle /* dots in stats last two weeks */
+{
+  fill: #888;
+}
+
+div#playtime-last-week > svg > g > path.line /* lane between dots in stats last two weeks */
+{
+  stroke: #ee4d2a;
+}
+
+div#playtime-last-week > div.row > div.col > a /* link to game */
+{
+  color: #75c0c7;
+}
+
+/* stats per month */
+div#playtime-per-month, /* playtime */
+div#average-per-month /* average */
+{
+  color: #f2f5f4;
+}
+
+div#playtime-per-month > svg > g > circle, /* dots in playtime */
+div#average-per-month > svg > g > circle /* dots in average */
+{
+  fill: #888;
+}
+
+div#playtime-per-month > svg > g > path.line, /* lane between dots in playtime */
+div#average-per-month > svg > g > path.line /* lane between dots in average */
+{
+  stroke: #ee4d2a;
+}
+
+
+/* Games | /game */
+div.dataTables_length > label /* text "show x entries" */
+{
+  color: #f2f5f4;
+}
+
+div.dataTables_length > label > select, /* text in selecter */
+div.dataTables_length > label > select > option /* selectables */
+{
+  background-color: #212121 !important;
+  color: #f2f4f5 !important;
+}
+
+div.dataTables_filter > label, /* text "Search:" */
+div#page-wrapper > div.row > div.text-right.mb-2 {
+  color: #f2f4f5;
+}
+
+div#page-wrapper > div.row > div.text-right.mb-2 > input.btn-sm /* button set game status */
+{
+  background-color: #2a2e31;
+  color: #f2f5f4;
+}
+
+div.dataTables_filter > label > input /* search input */
+{
+  background-color: #2a2e31;
+  color: #f2f5f4;
+}
+
+table > thead > tr > th.sorting, /* Table header */
+table > thead > tr > th.dt-checkboxes-cell {
+  background-color: #222;
+  color: #f2f5f4;
+}
+
+table > tbody > tr > td > a /* link in r0ws */
+{
+  color: #75c0c7;
+}
+
+table > tbody > tr.odd, /* odd r0ws */
+table > tbody > tr.odd > td.sorting_1 {
+  background-color: #2a2e31 !important;
+  color: #f2f5f4;
+}
+
+table > tbody > tr.even, /* even r0ws */
+table > tbody > tr.even > td.sorting_1 {
+  background-color: #212121 !important;
+  color: #f2f5f4;
+}
+
+div.dataTables_paginate > span > span.ellipsis /* "..." */
+{
+  color: #f2f5f4;
+}
+
+div.dataTables_info, /* text under table "Showing x of x of x entries" */
+div#game-list-backend_paginate.dataTables_paginate > a.paginate_button, /* Prev/Next butt0ns */
+div#game-list-backend_paginate.dataTables_paginate > span > a.paginate_button /* Pages */
+{
+  color: #f2f5f4 !important;
+}
+
+div#game-list-backend_paginate.dataTables_paginate > span > a.paginate_button.current /* Current page */
+{
+  color: #2a2e31 !important;
+}
+
+
+/* Game Sessions - per day | /session/per-day */
+/* Game Sessions - per month | /session/per-month */
+div#game-session-for-game-list_paginate.dataTables_paginate > a.paginate_button, /* Prev/Next butt0ns */
+div#game-session-for-game-list_paginate.dataTables_paginate > span > a.paginate_button /* Pages */
+{
+  color: #f2f5f4 !important;
+}
+
+div#game-session-for-game-list_paginate.dataTables_paginate > span > a.paginate_button.current /* Current page */
+{
+  color: #2a2e31 !important;
+}
+
+
+/* Game of the month | /game-of-the-month */
+/* Top 3 games of the year | /game-of-the-year */
+/* Most played games | /most-played-games */
+div#page-wrapper > h2 /* title */
+{
+  color: #f2f5f4;
+}
+
+div#page-wrapper > div.text-right /* archive */
+{
+  color: #f2f5f4;
+}
+
+div.container-fluid > div#page-wrapper > div.text-right > a, /* Game of the month (Archive extra) */
+div.card-header > h3.card-title /* Game title*/
+{
+  color: #75c0c7 !important;
+}
+
+div.card-body.list-group > div.list-group-item {
+  background-color: #2a2e31;
+  color: #888;
+}
+
+/* Game Dashb0ard | /game/x/dashboard */
+div#page-wrapper > div.mb-4 > div.col > div.row > div.col-12.col-md-6.mb-3.text-right > a.btn-sm.btn-primary /* butt0n game status selected status */
+{
+  background-color: #f7c516;
+  color: #212121;
+}
+
+div#page-wrapper > div.mb-4 > div.col > div.row > div.col-12.col-md-6.mb-3.text-right > a.btn-sm.btn-light /* butt0n game status not selected status */
+{
+  background-color: #2a2e31;
+  color: #f2f5f4;
+}
+
+div.card-header.bg-info /* Info Card header (Steam) */
+{
+  background-color: #171A21 !important; /* background color from steam */
+  color: #BFBDBB; /* text color from steam */
+}
+
+div.card-header.bg-danger /* Danger Card header (Sessions) */
+{
+  color: #f2f5f4;
+}
+
+div.card-body > div.panel-footer > span.pull-left /* Card body text left */
+div.card-body > div.panel-footer > span.pull-right /* Card body text right */
+{
+  color: #888;
+}
+
+div.card-body > div.panel-footer > a /* Card body link */
+{
+  color: #75c0c7;
+}
+
+div#page-wrapper > div.row > div.col-md-12 > div.col-md-12 > h3, /* Header title Playtime (+ year) */
+div#page-wrapper > div.row > div.col-md-12 > div.col /* "Switch to" year changer under title Playtime */
+{
+  color: #f2f5f4;
+}
+
+div#page-wrapper > div.row > div.col-md-12 > div.col > a.playtime-game-year-select /* link year changer under title Playtime */
+{
+  color: #75c0c7;
+}
+
+div#page-wrapper > div.row.dashboardRow > div.col-md-6 {
+  color: #f2f5f4;
+}
+
+/* Graph */
+div#sessions-per-month-for-game > svg > g > circle /* game dashboard */
+{
+  color: #f2f5f4;
+  fill: #888 !important;
+}
+
+div#sessions-per-month-for-game > svg > g > path.line /* lane between dots in average */
+{
+  stroke: #ee4d2a;
+}
+
+
+/* Game Sessions | /game/x/session */
+
+div.container-fluid > div#page-wrapper > h1 {
+  color: #f2f5f4;
+}
+
+
+/* Page 404 */
+body > div.container > h2,
+body > div.container > p {
+  color: #f2f5f4;
+}
