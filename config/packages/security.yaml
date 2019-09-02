@@ -17,6 +17,10 @@ security:
                     - App\Service\Security\CognitoAuthenticator
                 entry_point: App\Service\Security\CognitoAuthenticator
             pattern: ^/
+            remember_me:
+                secret:   '%kernel.secret%'
+                lifetime: 31556952 # 1 year in seconds
+                path:     /
             form_login:
                 login_path: /login
                 check_path: /login_check

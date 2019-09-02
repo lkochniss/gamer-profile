@@ -36,6 +36,7 @@ playtime_since_purchase_date: 'Played for %time% since %date%'
 profile_not_public: "Your profile is not public some data can't be shown"
 recent_playtime: 'Recently played for %time%'
 recently_played: 'Recently Played'
+remember_me: 'Keep logged in'
 screenshots: Screenshots
 session_time_last_days: 'Session playtime last two weeks'
 session_time_per_month: 'Session playtime per month'
