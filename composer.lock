@@ -2161,16 +2161,16 @@
         },
         {
             "name": "symfony/asset",
-            "version": "v4.3.3",
+            "version": "v4.3.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/asset.git",
-                "reference": "eecf6d6c952c2c80c9b4fa3ec089d222420f1569"
+                "reference": "3f97e57596884f7b9158d564a533112a0d19dbdd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/asset/zipball/eecf6d6c952c2c80c9b4fa3ec089d222420f1569",
-                "reference": "eecf6d6c952c2c80c9b4fa3ec089d222420f1569",
+                "url": "https://api.github.com/repos/symfony/asset/zipball/3f97e57596884f7b9158d564a533112a0d19dbdd",
+                "reference": "3f97e57596884f7b9158d564a533112a0d19dbdd",
                 "shasum": ""
             },
             "require": {
@@ -2213,7 +2213,7 @@
             ],
             "description": "Symfony Asset Component",
             "homepage": "https://symfony.com",
-            "time": "2019-05-30T16:10:05+00:00"
+            "time": "2019-08-03T21:50:52+00:00"
         },
         {
             "name": "symfony/browser-kit",
@@ -6374,18 +6374,18 @@
             "authors": [
                 {
                     "name": "Arne Blankerts",
-                    "role": "Developer",
-                    "email": "arne@blankerts.de"
+                    "email": "arne@blankerts.de",
+                    "role": "Developer"
                 },
                 {
                     "name": "Sebastian Heuer",
-                    "role": "Developer",
-                    "email": "sebastian@phpeople.de"
+                    "email": "sebastian@phpeople.de",
+                    "role": "Developer"
                 },
                 {
                     "name": "Sebastian Bergmann",
-                    "role": "Developer",
-                    "email": "sebastian@phpunit.de"
+                    "email": "sebastian@phpunit.de",
+                    "role": "Developer"
                 }
             ],
             "description": "Library for handling version information and constraints",
@@ -6895,8 +6895,8 @@
             "authors": [
                 {
                     "name": "Sebastian Bergmann",
-                    "role": "lead",
-                    "email": "sebastian@phpunit.de"
+                    "email": "sebastian@phpunit.de",
+                    "role": "lead"
                 }
             ],
             "description": "Library that provides collection, processing, and rendering functionality for PHP code coverage information.",
@@ -8468,7 +8468,8 @@
     "stability-flags": {
         "hybridauth/hybridauth": 5,
         "symfony/console": 10,
-        "symfony/lts": 20
+        "symfony/lts": 20,
+        "symfony/twig-bundle": 5
     },
     "prefer-stable": false,
     "prefer-lowest": false,
