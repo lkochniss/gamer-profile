@@ -61,6 +61,11 @@ div.justify-content-center > form > a /* Register-page link */
   color: #75c0c7;
 }
 
+div.form-check > label /* Text "Keep logged in" */
+{
+  color: #f2f5f4;
+}
+
 
 /* Register | /registration */
 div.justify-content-center > div.login-form > form > div.text-center.mb-3 > h1.h3.font-weight-normal /* Page title */
@@ -112,7 +117,7 @@ div#page-wrapper > div.row.mb-5 > div.col > a.sessions-for-year-select /* year c
 div#sessions-for-year > svg.RdYlGn, /* activity graph */
 div#sessions-for-year > svg.RdYlGn > g > text {
   background-color: #161618;
-  color: #f2f5f4 !important;
+  fill: #f2f5f4 !important;
   text-anchor: middle;
 }
 
