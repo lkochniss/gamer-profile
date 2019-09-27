@@ -9,6 +9,7 @@ class Game extends AbstractEntity
 {
     const NAME_FAILED = 'unknown game';
     const IMAGE_FAILED = '';
+    const CATEGORIES_FAILED = '[{}]';
 
     /**
      * @var int
@@ -24,6 +25,11 @@ class Game extends AbstractEntity
      * @var string
      */
     private $headerImagePath;
+
+    /**
+     * @var string
+     */
+    private $categories;
 
     /**
      * Game constructor.
@@ -89,5 +95,63 @@ class Game extends AbstractEntity
     public function setHeaderImagePath(string $headerImagePath): void
     {
         $this->headerImagePath = $headerImagePath;
+    }
+
+    /**
+     * @return array
+     */
+    public function getCategories(): array
+    {
+        return json_decode($this->categories, true) ?: [];
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasSinglePlayer(): bool
+    {
+        foreach ($this->getCategories() as $category) {
+            if ($category['id'] === 2) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasMultiPlayer(): bool
+    {
+        foreach ($this->getCategories() as $category) {
+            if ($category['id'] === 1) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasCoOp(): bool
+    {
+        foreach ($this->getCategories() as $category) {
+            if ($category['id'] === 38) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * @param string $categories
+     */
+    public function setCategories(string $categories): void
+    {
+        $this->categories = $categories;
     }
 }

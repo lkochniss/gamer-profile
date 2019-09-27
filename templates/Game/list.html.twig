@@ -8,19 +8,33 @@
     <div class="row">
         <div class="col text-right mb-2">
             {% trans %}set_status_to{% endtrans %}:
-            <input id="selected_open" class="btn-sm btn-outline-dark" type="submit" value="{% trans %}status_open{% endtrans %}">
-            <input id="selected_paused" class="btn-sm btn-outline-dark" type="submit" value="{% trans %}status_paused{% endtrans %}">
-            <input id="selected_playing" class="btn-sm btn-outline-dark" type="submit" value="{% trans %}status_playing{% endtrans %}">
-            <input id="selected_finished" class="btn-sm btn-outline-dark" type="submit" value="{% trans %}status_finished{% endtrans %}">
-            <input id="selected_given-up" class="btn-sm btn-outline-dark" type="submit" value="{% trans %}status_given_up{% endtrans %}">
+            <input id="selected_open" class="btn-sm btn-outline-dark" type="submit"
+                   value="{% trans %}status_open{% endtrans %}">
+            <input id="selected_paused" class="btn-sm btn-outline-dark" type="submit"
+                   value="{% trans %}status_paused{% endtrans %}">
+            <input id="selected_playing" class="btn-sm btn-outline-dark" type="submit"
+                   value="{% trans %}status_playing{% endtrans %}">
+            <input id="selected_finished" class="btn-sm btn-outline-dark" type="submit"
+                   value="{% trans %}status_finished{% endtrans %}">
+            <input id="selected_given-up" class="btn-sm btn-outline-dark" type="submit"
+                   value="{% trans %}status_given_up{% endtrans %}">
         </div>
     </div>
-    <table data-order='[[5, "DESC"]]' id="game-list-backend" class="display table">
+    <table data-order='[[8, "DESC"]]' id="game-list-backend" class="display table">
         <thead>
         <tr>
             <th scope="col"></th>
             <th scope="col">
                 {% trans from 'messages' %}name{% endtrans %}
+            </th>
+            <th scope="col">
+                {% trans from 'messages' %}single_player{% endtrans %}
+            </th>
+            <th scope="col">
+                {% trans from 'messages' %}multi_player{% endtrans %}
+            </th>
+            <th scope="col">
+                {% trans from 'messages' %}co_op{% endtrans %}
             </th>
             <th scope="col">
                 {% trans from 'messages' %}status{% endtrans %}
@@ -46,6 +60,33 @@
                 <td>
                     <a href="{{ path('game_dashboard', {'id': entity.game.id}) }}">{{ entity.game.name }}</a>
                 </td>
+                {% if entity.game.categories is not empty %}
+                    {% if entity.game.hasSinglePlayer %}
+                        <td data-order="1"><i class="fa fa-check" aria-hidden="true"></i></td>
+                    {% else %}
+                        <td data-order="0"><i class="fa fa-times" aria-hidden="true"></i></td>
+                    {% endif %}
+                {% else %}
+                    <td data-order="-1"><i class="fa fa-question" aria-hidden="true"></i></td>
+                {% endif %}
+                {% if entity.game.categories is not empty %}
+                    {% if entity.game.hasMultiPlayer %}
+                        <td data-order="1"><i class="fa fa-check" aria-hidden="true"></i></td>
+                    {% else %}
+                        <td data-order="0"><i class="fa fa-times" aria-hidden="true"></i></td>
+                    {% endif %}
+                {% else %}
+                    <td data-order="-1"><i class="fa fa-question" aria-hidden="true"></i></td>
+                {% endif %}
+                {% if entity.game.categories is not empty %}
+                    {% if entity.game.hasCoOp %}
+                        <td data-order="1"><i class="fa fa-check" aria-hidden="true"></i></td>
+                    {% else %}
+                        <td data-order="0"><i class="fa fa-times" aria-hidden="true"></i></td>
+                    {% endif %}
+                {% else %}
+                    <td data-order="-1"><i class="fa fa-question" aria-hidden="true"></i></td>
+                {% endif %}
                 <td>{{ entity.status }}</td>
                 {% if entity.achievement.overallAchievements > 0 %}
                     {% set percentage = entity.achievement.playerAchievements / entity.achievement.overallAchievements  * 100 %}

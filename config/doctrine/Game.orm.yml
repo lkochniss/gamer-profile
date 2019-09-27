@@ -17,3 +17,6 @@ App\Entity\Game:
         headerImagePath:
             column: header_image_path
             type: string
+        categories:
+            type: text
+            length: 65535
