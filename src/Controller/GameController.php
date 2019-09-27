@@ -5,7 +5,9 @@ namespace App\Controller;
 use App\Entity\GameStats;
 use App\Repository\GameSessionsPerMonthRepository;
 use App\Repository\GameStatsRepository;
+use App\Service\Steam\CompareGamesForUserService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -81,6 +83,33 @@ class GameController extends AbstractController
             sprintf('%s/list.html.twig', $this->getTemplateBasePath()),
             [
                 'entities' => $entities,
+            ]
+        );
+    }
+
+    /**
+     * @param Request $request
+     * @param UserInterface $user
+     * @param CompareGamesForUserService $service
+     * @return Response
+     */
+    public function compare(
+        Request $request,
+        UserInterface $user,
+        CompareGamesForUserService $service
+    ): Response {
+        $friendsSteamUserId = $request->get('steamUserId') ?: null;
+
+        $games = [];
+        if ($friendsSteamUserId !== null) {
+            $games = $service->compareMyGamesWithFriend($user->getSteamId(), $friendsSteamUserId);
+        }
+
+        return $this->render(
+            sprintf('%s/compare.html.twig', $this->getTemplateBasePath()),
+            [
+                'games' => $games,
+                'friendsSteamUserId' => $friendsSteamUserId
             ]
         );
     }

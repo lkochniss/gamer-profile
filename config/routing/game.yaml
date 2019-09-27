@@ -5,3 +5,8 @@ game_list:
 game_dashboard:
     path: /game/{id}/dashboard
     defaults: { _controller: 'App\Controller\GameController::dashboard' }
+
+games_compare:
+    path: /game/compare
+    defaults: { _controller: 'App\Controller\GameController::compare' }
+

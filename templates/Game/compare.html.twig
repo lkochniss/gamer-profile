@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <h3>{% trans %}find_coop_or_multiplayer{% endtrans %}</h3>
+    <p>
+    <form>
+        <input type="text" name="steamUserId" placeholder="{{ 'friends_user_id'|trans }}">
+        <input type="submit" value="{{ 'compare_now'|trans }}">
+    </form>
+    </p>
+
+    {% if games is not empty %}
+        <h4>{% trans %}compare_with{% endtrans %}: {{ friendsSteamUserId }}</h4>
+        <div id="overlay" class="justify-content-center">
+            <div class="spinner-border text-light align-self-center" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+        <table id="game-session-list" class="display table">
+            <thead>
+            <tr>
+                <th scope="col">
+                    {% trans from 'messages' %}name{% endtrans %}
+                </th>
+                <th scope="col">
+                    {% trans from 'messages' %}multi_player{% endtrans %}
+                </th>
+                <th scope="col">
+                    {% trans from 'messages' %}co_op{% endtrans %}
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for game in games %}
+                {% if game.categories is not empty %}
+                    {% if game.hasCoOp or game.hasMultiPlayer %}
+                        <tr>
+                            <td>
+                                {{ game.name }}
+                            </td>
+                            {% if game.hasMultiPlayer %}
+                                <td data-order="1"><i class="fa fa-check" aria-hidden="true"></i></td>
+                            {% else %}
+                                <td data-order="0"><i class="fa fa-times" aria-hidden="true"></i></td>
+                            {% endif %}
+                            {% if game.hasCoOp %}
+                                <td data-order="1"><i class="fa fa-check" aria-hidden="true"></i></td>
+                            {% else %}
+                                <td data-order="0"><i class="fa fa-times" aria-hidden="true"></i></td>
+                            {% endif %}
+                        </tr>
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+{% endblock %}
