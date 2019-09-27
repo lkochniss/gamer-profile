@@ -57,6 +57,13 @@
                     </i>
                 </a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('games_compare') }}">
+                    <i class="fa fa-search" aria-hidden="true">
+                        {% trans from "messages" %}compare_with_friend{% endtrans %}
+                    </i>
+                </a>
+            </li>
         </ul>
         <ul class="navbar-nav mr-auto right">
             {% if app.request|is_dark_theme %}
