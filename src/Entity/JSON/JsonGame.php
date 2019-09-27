@@ -20,6 +20,11 @@ class JsonGame
     private $headerImagePath;
 
     /**
+     * @var string
+     */
+    private $categories;
+
+    /**
      * GameInformation constructor.
      * @param array $gameInformation
      */
@@ -34,6 +39,11 @@ class JsonGame
             'header_image',
             $gameInformation
         ) ? $gameInformation['header_image'] : Game::IMAGE_FAILED;
+
+        $this->categories = array_key_exists(
+            'categories',
+            $gameInformation
+        ) ? json_encode($gameInformation['categories']) : Game::CATEGORIES_FAILED;
     }
 
     /**
@@ -50,5 +60,13 @@ class JsonGame
     public function getHeaderImagePath(): string
     {
         return $this->headerImagePath;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCategories(): string
+    {
+        return $this->categories;
     }
 }

@@ -59,6 +59,7 @@ class GameService
         if ($gameInformation->getName() !== Game::NAME_FAILED) {
             $game->setName($gameInformation->getName());
             $game->setHeaderImagePath($gameInformation->getHeaderImagePath());
+            $game->setCategories($gameInformation->getCategories());
         }
 
         $this->gameRepository->save($game);
