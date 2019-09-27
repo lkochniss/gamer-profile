@@ -2,7 +2,7 @@
 
 namespace App\Command;
 
-use App\Service\Steam\AllGamesService;
+use App\Service\Steam\GameService;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -10,29 +10,29 @@ use Symfony\Component\Console\Output\OutputInterface;
 /**
  * Class UpdateAllGamesCommand
  */
-class UpdateAllGamesCommand extends Command
+class UpdateOldGamesCommand extends Command
 {
 
     /**
-     * @var AllGamesService
+     * @var GameService
      */
-    private $allGamesService;
+    private $gameService;
 
     /**
      * UpdateAllGamesCommand constructor.
-     * @param AllGamesService $allGamesService
+     * @param GameService $gameService
      */
-    public function __construct(AllGamesService $allGamesService)
+    public function __construct(GameService $gameService)
     {
         parent::__construct();
-        $this->allGamesService = $allGamesService;
+        $this->gameService = $gameService;
     }
 
 
     protected function configure(): void
     {
-        $this->setName('steam:update:all');
-        $this->setDescription('Updates all games for all users');
+        $this->setName('steam:update:old');
+        $this->setDescription('Updates oldest games based on updatedAt date');
     }
 
     /**
@@ -44,6 +44,6 @@ class UpdateAllGamesCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $this->allGamesService->update();
+        $this->gameService->updateOldest();
     }
 }

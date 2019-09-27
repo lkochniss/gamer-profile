@@ -125,7 +125,7 @@ class Game extends AbstractEntity
     public function hasMultiPlayer(): bool
     {
         foreach ($this->getCategories() as $category) {
-            if ($category['id'] === 1) {
+            if ($category['id'] === 1 || $category['id'] === 36) {
                 return true;
             }
         }
@@ -139,7 +139,7 @@ class Game extends AbstractEntity
     public function hasCoOp(): bool
     {
         foreach ($this->getCategories() as $category) {
-            if ($category['id'] === 38) {
+            if ($category['id'] === 38 || $category['id'] === 9) {
                 return true;
             }
         }
