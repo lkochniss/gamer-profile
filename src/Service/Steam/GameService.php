@@ -45,6 +45,7 @@ class GameService
         $game = new Game($steamAppId);
         $game->setName($gameInformation->getName());
         $game->setHeaderImagePath($gameInformation->getHeaderImagePath());
+        $game->setCategories($gameInformation->getCategories());
 
         $this->gameRepository->save($game);
     }
@@ -71,6 +72,15 @@ class GameService
 
         foreach ($failedGames as $failedGame) {
             $this->update($failedGame);
+        }
+    }
+
+    public function updateOldest()
+    {
+        $oldGames = $this->gameRepository->getLeastUpdatedGames(20);
+
+        foreach ($oldGames as $oldGame) {
+            $this->update($oldGame);
         }
     }
 
