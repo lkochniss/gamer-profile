@@ -69,6 +69,7 @@ class GameServiceTest extends TestCase
         $expectedGame = new Game($this->steamAppId);
         $expectedGame->setName(Game::NAME_FAILED);
         $expectedGame->setHeaderImagePath(Game::IMAGE_FAILED);
+        $expectedGame->setCategories('[{}]');
 
         $gameRepositoryMock->expects($this->once())
             ->method('save')
@@ -88,6 +89,7 @@ class GameServiceTest extends TestCase
         $expectedGame = new Game($this->steamAppId);
         $expectedGame->setName('just a game');
         $expectedGame->setHeaderImagePath('image.jpg');
+        $expectedGame->setCategories('[{}]');
 
         $gameInformationServiceMock = $this->createMock(GameInformationService::class);
         $gameInformationServiceMock->expects($this->once())
