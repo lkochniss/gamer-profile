@@ -4,7 +4,7 @@ cleanUp() {
     ./bin/console --env=test do:da:dr --force
 }
 
-trap cleanUp EXIT
+trap cleanUp EXIT $?
 
 rm -Rf var/cache/test
 
