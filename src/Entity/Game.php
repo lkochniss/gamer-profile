@@ -111,7 +111,7 @@ class Game extends AbstractEntity
     public function hasSinglePlayer(): bool
     {
         foreach ($this->getCategories() as $category) {
-            if ($category['id'] === 2) {
+            if (array_key_exists('id', $category) && $category['id'] === 2) {
                 return true;
             }
         }
