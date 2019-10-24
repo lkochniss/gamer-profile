@@ -37,6 +37,9 @@
                 {% trans from 'messages' %}co_op{% endtrans %}
             </th>
             <th scope="col">
+                {% trans from 'messages' %}local_co_op{% endtrans %}
+            </th>
+            <th scope="col">
                 {% trans from 'messages' %}status{% endtrans %}
             </th>
             <th scope="col">
@@ -80,6 +83,15 @@
                 {% endif %}
                 {% if entity.game.categories is not empty %}
                     {% if entity.game.hasCoOp %}
+                        <td data-order="1"><i class="fa fa-check" aria-hidden="true"></i></td>
+                    {% else %}
+                        <td data-order="0"><i class="fa fa-times" aria-hidden="true"></i></td>
+                    {% endif %}
+                {% else %}
+                    <td data-order="-1"><i class="fa fa-question" aria-hidden="true"></i></td>
+                {% endif %}
+                {% if entity.game.categories is not empty %}
+                    {% if entity.game.hasLocalCoOp %}
                         <td data-order="1"><i class="fa fa-check" aria-hidden="true"></i></td>
                     {% else %}
                         <td data-order="0"><i class="fa fa-times" aria-hidden="true"></i></td>
