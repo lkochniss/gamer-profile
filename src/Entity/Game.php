@@ -139,7 +139,21 @@ class Game extends AbstractEntity
     public function hasCoOp(): bool
     {
         foreach ($this->getCategories() as $category) {
-            if ($category['id'] === 38 || $category['id'] === 9) {
+            if ($category['id'] === 9) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasLocalCoOp(): bool
+    {
+        foreach ($this->getCategories() as $category) {
+            if ($category['id'] === 38) {
                 return true;
             }
         }

@@ -90,6 +90,8 @@ jobs:
           command: rm public/manifest.json
 
       - *persist_whole_workspace
+      - store_test_results:
+          path:  build/unitreport.xml
       - store_artifacts:
           path: var/log/test.log
 
