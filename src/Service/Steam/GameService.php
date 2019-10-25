@@ -61,6 +61,7 @@ class GameService
             $game->setName($gameInformation->getName());
             $game->setHeaderImagePath($gameInformation->getHeaderImagePath());
             $game->setCategories($gameInformation->getCategories());
+            $game->setModifiedAt();
         }
 
         $this->gameRepository->save($game);
@@ -77,7 +78,7 @@ class GameService
 
     public function updateOldest()
     {
-        $oldGames = $this->gameRepository->getLeastUpdatedGames(20);
+        $oldGames = $this->gameRepository->getLeastUpdatedGames(40);
 
         foreach ($oldGames as $oldGame) {
             $this->update($oldGame);
