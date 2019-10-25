@@ -25,17 +25,17 @@
                     {% trans from 'messages' %}multi_player{% endtrans %}
                 </th>
                 <th scope="col">
-                    {% trans from 'messages' %}local_co_op{% endtrans %}
+                    {% trans from 'messages' %}co_op{% endtrans %}
                 </th>
                 <th scope="col">
-                    {% trans from 'messages' %}co_op{% endtrans %}
+                    {% trans from 'messages' %}remote_play_together{% endtrans %}
                 </th>
             </tr>
             </thead>
             <tbody>
             {% for game in games %}
                 {% if game.categories is not empty %}
-                    {% if game.hasCoOp or game.hasLocalCoOp or game.hasMultiPlayer %}
+                    {% if game.hasCoOp or game.hasRemotePlayTogether or game.hasMultiPlayer %}
                         <tr>
                             <td>
                                 {{ game.name }}
@@ -45,12 +45,12 @@
                             {% else %}
                                 <td data-order="0"><i class="fa fa-times" aria-hidden="true"></i></td>
                             {% endif %}
-                            {% if game.hasLocalCoOp %}
+                            {% if game.hasCoOp %}
                                 <td data-order="1"><i class="fa fa-check" aria-hidden="true"></i></td>
                             {% else %}
                                 <td data-order="0"><i class="fa fa-times" aria-hidden="true"></i></td>
                             {% endif %}
-                            {% if game.hasCoOp %}
+                            {% if game.hasRemotePlayTogether %}
                                 <td data-order="1"><i class="fa fa-check" aria-hidden="true"></i></td>
                             {% else %}
                                 <td data-order="0"><i class="fa fa-times" aria-hidden="true"></i></td>

@@ -37,7 +37,7 @@
                 {% trans from 'messages' %}co_op{% endtrans %}
             </th>
             <th scope="col">
-                {% trans from 'messages' %}local_co_op{% endtrans %}
+                {% trans from 'messages' %}remote_play_together{% endtrans %}
             </th>
             <th scope="col">
                 {% trans from 'messages' %}status{% endtrans %}
@@ -91,7 +91,7 @@
                     <td data-order="-1"><i class="fa fa-question" aria-hidden="true"></i></td>
                 {% endif %}
                 {% if entity.game.categories is not empty %}
-                    {% if entity.game.hasLocalCoOp %}
+                    {% if entity.game.hasRemotePlayTogether %}
                         <td data-order="1"><i class="fa fa-check" aria-hidden="true"></i></td>
                     {% else %}
                         <td data-order="0"><i class="fa fa-times" aria-hidden="true"></i></td>
