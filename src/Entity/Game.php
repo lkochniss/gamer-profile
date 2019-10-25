@@ -139,7 +139,7 @@ class Game extends AbstractEntity
     public function hasCoOp(): bool
     {
         foreach ($this->getCategories() as $category) {
-            if (array_key_exists('id', $category) && $category['id'] === 9) {
+            if (array_key_exists('id', $category) && ($category['id'] === 9 || $category['id'] === 38)) {
                 return true;
             }
         }
@@ -150,10 +150,10 @@ class Game extends AbstractEntity
     /**
      * @return bool
      */
-    public function hasLocalCoOp(): bool
+    public function hasRemotePlayTogether(): bool
     {
         foreach ($this->getCategories() as $category) {
-            if (array_key_exists('id', $category) && $category['id'] === 38) {
+            if (array_key_exists('id', $category) && $category['id'] === 40) {
                 return true;
             }
         }
