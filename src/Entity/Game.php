@@ -153,7 +153,7 @@ class Game extends AbstractEntity
     public function hasRemotePlayTogether(): bool
     {
         foreach ($this->getCategories() as $category) {
-            if (array_key_exists('id', $category) && $category['id'] === 40) {
+            if (array_key_exists('id', $category) && $category['id'] === 44) {
                 return true;
             }
         }
