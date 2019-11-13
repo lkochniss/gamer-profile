@@ -2555,16 +2555,16 @@
         },
         {
             "name": "symfony/debug",
-            "version": "v4.3.6",
+            "version": "v4.4.0-BETA2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/debug.git",
-                "reference": "5ea9c3e01989a86ceaa0283f21234b12deadf5e2"
+                "reference": "b24b791f817116b29e52a63e8544884cf9a40757"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/debug/zipball/5ea9c3e01989a86ceaa0283f21234b12deadf5e2",
-                "reference": "5ea9c3e01989a86ceaa0283f21234b12deadf5e2",
+                "url": "https://api.github.com/repos/symfony/debug/zipball/b24b791f817116b29e52a63e8544884cf9a40757",
+                "reference": "b24b791f817116b29e52a63e8544884cf9a40757",
                 "shasum": ""
             },
             "require": {
@@ -2575,12 +2575,12 @@
                 "symfony/http-kernel": "<3.4"
             },
             "require-dev": {
-                "symfony/http-kernel": "~3.4|~4.0"
+                "symfony/http-kernel": "^3.4|^4.0|^5.0"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "4.3-dev"
+                    "dev-master": "4.4-dev"
                 }
             },
             "autoload": {
@@ -2607,7 +2607,7 @@
             ],
             "description": "Symfony Debug Component",
             "homepage": "https://symfony.com",
-            "time": "2019-10-28T17:07:32+00:00"
+            "time": "2019-11-10T17:54:30+00:00"
         },
         {
             "name": "symfony/dependency-injection",
@@ -2835,16 +2835,16 @@
         },
         {
             "name": "symfony/event-dispatcher",
-            "version": "v4.3.6",
+            "version": "v4.4.0-BETA2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/event-dispatcher.git",
-                "reference": "6229f58993e5a157f6096fc7145c0717d0be8807"
+                "reference": "ab1c43e17fff802bef0a898f3bc088ac33b8e0e1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/event-dispatcher/zipball/6229f58993e5a157f6096fc7145c0717d0be8807",
-                "reference": "6229f58993e5a157f6096fc7145c0717d0be8807",
+                "url": "https://api.github.com/repos/symfony/event-dispatcher/zipball/ab1c43e17fff802bef0a898f3bc088ac33b8e0e1",
+                "reference": "ab1c43e17fff802bef0a898f3bc088ac33b8e0e1",
                 "shasum": ""
             },
             "require": {
@@ -2860,12 +2860,12 @@
             },
             "require-dev": {
                 "psr/log": "~1.0",
-                "symfony/config": "~3.4|~4.0",
-                "symfony/dependency-injection": "~3.4|~4.0",
-                "symfony/expression-language": "~3.4|~4.0",
-                "symfony/http-foundation": "^3.4|^4.0",
-                "symfony/service-contracts": "^1.1",
-                "symfony/stopwatch": "~3.4|~4.0"
+                "symfony/config": "^3.4|^4.0|^5.0",
+                "symfony/dependency-injection": "^3.4|^4.0|^5.0",
+                "symfony/expression-language": "^3.4|^4.0|^5.0",
+                "symfony/http-foundation": "^3.4|^4.0|^5.0",
+                "symfony/service-contracts": "^1.1|^2",
+                "symfony/stopwatch": "^3.4|^4.0|^5.0"
             },
             "suggest": {
                 "symfony/dependency-injection": "",
@@ -2874,7 +2874,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "4.3-dev"
+                    "dev-master": "4.4-dev"
                 }
             },
             "autoload": {
@@ -2901,7 +2901,7 @@
             ],
             "description": "Symfony EventDispatcher Component",
             "homepage": "https://symfony.com",
-            "time": "2019-10-01T16:40:32+00:00"
+            "time": "2019-11-08T22:40:51+00:00"
         },
         {
             "name": "symfony/event-dispatcher-contracts",
@@ -3318,31 +3318,31 @@
         },
         {
             "name": "symfony/http-foundation",
-            "version": "v4.3.6",
+            "version": "v4.4.0-BETA2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/http-foundation.git",
-                "reference": "38f63e471cda9d37ac06e76d14c5ea2ec5887051"
+                "reference": "e6e2b4e3fc2b25724701235ed5a9065da0bd06a8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/http-foundation/zipball/38f63e471cda9d37ac06e76d14c5ea2ec5887051",
-                "reference": "38f63e471cda9d37ac06e76d14c5ea2ec5887051",
+                "url": "https://api.github.com/repos/symfony/http-foundation/zipball/e6e2b4e3fc2b25724701235ed5a9065da0bd06a8",
+                "reference": "e6e2b4e3fc2b25724701235ed5a9065da0bd06a8",
                 "shasum": ""
             },
             "require": {
                 "php": "^7.1.3",
-                "symfony/mime": "^4.3",
+                "symfony/mime": "^4.3|^5.0",
                 "symfony/polyfill-mbstring": "~1.1"
             },
             "require-dev": {
                 "predis/predis": "~1.0",
-                "symfony/expression-language": "~3.4|~4.0"
+                "symfony/expression-language": "^3.4|^4.0|^5.0"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "4.3-dev"
+                    "dev-master": "4.4-dev"
                 }
             },
             "autoload": {
@@ -3369,20 +3369,20 @@
             ],
             "description": "Symfony HttpFoundation Component",
             "homepage": "https://symfony.com",
-            "time": "2019-10-30T12:58:49+00:00"
+            "time": "2019-11-13T07:39:40+00:00"
         },
         {
             "name": "symfony/http-kernel",
-            "version": "v4.3.6",
+            "version": "v4.3.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/http-kernel.git",
-                "reference": "56acfda9e734e8715b3b0e6859cdb4f5b28757bf"
+                "reference": "5fdf186f26f9080de531d3f1d024348b2f0ab12f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/http-kernel/zipball/56acfda9e734e8715b3b0e6859cdb4f5b28757bf",
-                "reference": "56acfda9e734e8715b3b0e6859cdb4f5b28757bf",
+                "url": "https://api.github.com/repos/symfony/http-kernel/zipball/5fdf186f26f9080de531d3f1d024348b2f0ab12f",
+                "reference": "5fdf186f26f9080de531d3f1d024348b2f0ab12f",
                 "shasum": ""
             },
             "require": {
@@ -3461,20 +3461,20 @@
             ],
             "description": "Symfony HttpKernel Component",
             "homepage": "https://symfony.com",
-            "time": "2019-11-01T10:00:03+00:00"
+            "time": "2019-11-13T09:07:28+00:00"
         },
         {
             "name": "symfony/inflector",
-            "version": "v4.3.6",
+            "version": "v4.4.0-BETA2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/inflector.git",
-                "reference": "fc488a52c79b2bbe848fa9def35f2cccb47c4798"
+                "reference": "98581481d9ddabe4db3a66e10202fe1fa08d791b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/inflector/zipball/fc488a52c79b2bbe848fa9def35f2cccb47c4798",
-                "reference": "fc488a52c79b2bbe848fa9def35f2cccb47c4798",
+                "url": "https://api.github.com/repos/symfony/inflector/zipball/98581481d9ddabe4db3a66e10202fe1fa08d791b",
+                "reference": "98581481d9ddabe4db3a66e10202fe1fa08d791b",
                 "shasum": ""
             },
             "require": {
@@ -3484,7 +3484,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "4.3-dev"
+                    "dev-master": "4.4-dev"
                 }
             },
             "autoload": {
@@ -3519,7 +3519,7 @@
                 "symfony",
                 "words"
             ],
-            "time": "2019-09-17T11:12:06+00:00"
+            "time": "2019-11-06T12:02:32+00:00"
         },
         {
             "name": "symfony/intl",
@@ -4186,24 +4186,24 @@
         },
         {
             "name": "symfony/property-access",
-            "version": "v4.3.6",
+            "version": "v4.4.0-BETA2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/property-access.git",
-                "reference": "bb0c302375ffeef60c31e72a4539611b7f787565"
+                "reference": "4df120cbe473d850eb59f75c341915955e45f25b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/property-access/zipball/bb0c302375ffeef60c31e72a4539611b7f787565",
-                "reference": "bb0c302375ffeef60c31e72a4539611b7f787565",
+                "url": "https://api.github.com/repos/symfony/property-access/zipball/4df120cbe473d850eb59f75c341915955e45f25b",
+                "reference": "4df120cbe473d850eb59f75c341915955e45f25b",
                 "shasum": ""
             },
             "require": {
                 "php": "^7.1.3",
-                "symfony/inflector": "~3.4|~4.0"
+                "symfony/inflector": "^3.4|^4.0|^5.0"
             },
             "require-dev": {
-                "symfony/cache": "~3.4|~4.0"
+                "symfony/cache": "^3.4|^4.0|^5.0"
             },
             "suggest": {
                 "psr/cache-implementation": "To cache access methods."
@@ -4211,7 +4211,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "4.3-dev"
+                    "dev-master": "4.4-dev"
                 }
             },
             "autoload": {
@@ -4249,7 +4249,7 @@
                 "property path",
                 "reflection"
             ],
-            "time": "2019-08-26T08:26:39+00:00"
+            "time": "2019-10-12T00:35:04+00:00"
         },
         {
             "name": "symfony/routing",
@@ -4413,35 +4413,36 @@
         },
         {
             "name": "symfony/security-core",
-            "version": "v4.3.6",
+            "version": "v4.4.0-BETA2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/security-core.git",
-                "reference": "8c46ea77fe0738f2495eacc08fa34e1e19ff0b0d"
+                "reference": "e51090a1ff375c4394f095e12f8f11556f9a54cc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/security-core/zipball/8c46ea77fe0738f2495eacc08fa34e1e19ff0b0d",
-                "reference": "8c46ea77fe0738f2495eacc08fa34e1e19ff0b0d",
+                "url": "https://api.github.com/repos/symfony/security-core/zipball/e51090a1ff375c4394f095e12f8f11556f9a54cc",
+                "reference": "e51090a1ff375c4394f095e12f8f11556f9a54cc",
                 "shasum": ""
             },
             "require": {
                 "php": "^7.1.3",
-                "symfony/event-dispatcher-contracts": "^1.1",
-                "symfony/service-contracts": "^1.1"
+                "symfony/event-dispatcher-contracts": "^1.1|^2",
+                "symfony/service-contracts": "^1.1.6|^2"
             },
             "conflict": {
-                "symfony/event-dispatcher": "<4.3",
+                "symfony/event-dispatcher": "<4.3|>=5",
+                "symfony/ldap": "<4.4",
                 "symfony/security-guard": "<4.3"
             },
             "require-dev": {
                 "psr/container": "^1.0",
                 "psr/log": "~1.0",
                 "symfony/event-dispatcher": "^4.3",
-                "symfony/expression-language": "~3.4|~4.0",
-                "symfony/http-foundation": "~3.4|~4.0",
-                "symfony/ldap": "~3.4|~4.0",
-                "symfony/validator": "^3.4.31|^4.3.4"
+                "symfony/expression-language": "^3.4|^4.0|^5.0",
+                "symfony/http-foundation": "^3.4|^4.0|^5.0",
+                "symfony/ldap": "^4.4|^5.0",
+                "symfony/validator": "^3.4.31|^4.3.4|^5.0"
             },
             "suggest": {
                 "psr/container-implementation": "To instantiate the Security class",
@@ -4454,7 +4455,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "4.3-dev"
+                    "dev-master": "4.4-dev"
                 }
             },
             "autoload": {
@@ -4481,7 +4482,7 @@
             ],
             "description": "Symfony Security Component - Core Library",
             "homepage": "https://symfony.com",
-            "time": "2019-10-28T17:07:32+00:00"
+            "time": "2019-11-12T14:51:11+00:00"
         },
         {
             "name": "symfony/security-csrf",
@@ -4598,16 +4599,16 @@
         },
         {
             "name": "symfony/security-http",
-            "version": "v4.3.6",
+            "version": "v4.3.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/security-http.git",
-                "reference": "a2f67dfe0ecfb713734847f4ada0f4231e28ae71"
+                "reference": "290b23a46a932746c4cf3c313d59d99f82af2a87"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/security-http/zipball/a2f67dfe0ecfb713734847f4ada0f4231e28ae71",
-                "reference": "a2f67dfe0ecfb713734847f4ada0f4231e28ae71",
+                "url": "https://api.github.com/repos/symfony/security-http/zipball/290b23a46a932746c4cf3c313d59d99f82af2a87",
+                "reference": "290b23a46a932746c4cf3c313d59d99f82af2a87",
                 "shasum": ""
             },
             "require": {
@@ -4659,7 +4660,7 @@
             ],
             "description": "Symfony Security Component - HTTP Integration",
             "homepage": "https://symfony.com",
-            "time": "2019-10-30T12:58:49+00:00"
+            "time": "2019-11-12T13:12:56+00:00"
         },
         {
             "name": "symfony/service-contracts",
