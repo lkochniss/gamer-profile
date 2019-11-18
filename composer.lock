@@ -3493,7 +3493,7 @@
         },
         {
             "name": "symfony/inflector",
-            "version": "v4.4.0-BETA2",
+            "version": "v4.4.0-RC1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/inflector.git",
@@ -4214,7 +4214,7 @@
         },
         {
             "name": "symfony/property-access",
-            "version": "v4.4.0-BETA2",
+            "version": "v4.4.0-RC1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/property-access.git",
@@ -4357,16 +4357,16 @@
         },
         {
             "name": "symfony/security-bundle",
-            "version": "v4.3.6",
+            "version": "v4.3.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/security-bundle.git",
-                "reference": "d295626ee5294dde825efa4ef5be5c65a37f21b3"
+                "reference": "9f247c672e08385c67e3ca7cfc1484072bcc6517"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/security-bundle/zipball/d295626ee5294dde825efa4ef5be5c65a37f21b3",
-                "reference": "d295626ee5294dde825efa4ef5be5c65a37f21b3",
+                "url": "https://api.github.com/repos/symfony/security-bundle/zipball/9f247c672e08385c67e3ca7cfc1484072bcc6517",
+                "reference": "9f247c672e08385c67e3ca7cfc1484072bcc6517",
                 "shasum": ""
             },
             "require": {
@@ -4378,7 +4378,7 @@
                 "symfony/security-core": "~4.3",
                 "symfony/security-csrf": "~4.2",
                 "symfony/security-guard": "~4.2",
-                "symfony/security-http": "^4.3"
+                "symfony/security-http": "^4.3.8"
             },
             "conflict": {
                 "symfony/browser-kit": "<4.2",
@@ -4437,11 +4437,11 @@
             ],
             "description": "Symfony SecurityBundle",
             "homepage": "https://symfony.com",
-            "time": "2019-10-30T13:18:51+00:00"
+            "time": "2019-11-12T13:12:56+00:00"
         },
         {
             "name": "symfony/security-core",
-            "version": "v4.4.0-BETA2",
+            "version": "v4.4.0-RC1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/security-core.git",
@@ -4573,21 +4573,21 @@
         },
         {
             "name": "symfony/security-guard",
-            "version": "v4.3.6",
+            "version": "v4.4.0-RC1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/security-guard.git",
-                "reference": "62cc82a384f2c1c75c58189fcf713032f6fef1e9"
+                "reference": "367e7d49648113279baddceb296ffd90c621414a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/security-guard/zipball/62cc82a384f2c1c75c58189fcf713032f6fef1e9",
-                "reference": "62cc82a384f2c1c75c58189fcf713032f6fef1e9",
+                "url": "https://api.github.com/repos/symfony/security-guard/zipball/367e7d49648113279baddceb296ffd90c621414a",
+                "reference": "367e7d49648113279baddceb296ffd90c621414a",
                 "shasum": ""
             },
             "require": {
                 "php": "^7.1.3",
-                "symfony/security-core": "~3.4.22|^4.2.3",
+                "symfony/security-core": "^3.4.22|^4.2.3|^5.0",
                 "symfony/security-http": "^4.3"
             },
             "require-dev": {
@@ -4596,7 +4596,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "4.3-dev"
+                    "dev-master": "4.4-dev"
                 }
             },
             "autoload": {
@@ -4623,7 +4623,7 @@
             ],
             "description": "Symfony Security Component - Guard",
             "homepage": "https://symfony.com",
-            "time": "2019-10-28T17:07:32+00:00"
+            "time": "2019-10-28T20:30:34+00:00"
         },
         {
             "name": "symfony/security-http",
