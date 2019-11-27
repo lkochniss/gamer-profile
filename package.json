@@ -11,7 +11,7 @@
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-react": "^7.16.0",
     "extract-text-webpack-plugin": "^4.0.0-beta.0",
-    "file-loader": "^4.2.0",
+    "file-loader": "^4.3.0",
     "jshint": "^2.10.3",
     "jshint-loader": "^0.8.4",
     "node-libs-browser": "^2.2.1",
