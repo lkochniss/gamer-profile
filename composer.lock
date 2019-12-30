@@ -1622,16 +1622,16 @@
         },
         {
             "name": "hybridauth/hybridauth",
-            "version": "v3.1.0",
+            "version": "v3.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/hybridauth/hybridauth.git",
-                "reference": "040dae5d9f8938c8bbdf72a84840b7df3d676515"
+                "reference": "020be6991e7ae9f1ffaabae6586245d2a9626273"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/hybridauth/hybridauth/zipball/040dae5d9f8938c8bbdf72a84840b7df3d676515",
-                "reference": "040dae5d9f8938c8bbdf72a84840b7df3d676515",
+                "url": "https://api.github.com/repos/hybridauth/hybridauth/zipball/020be6991e7ae9f1ffaabae6586245d2a9626273",
+                "reference": "020be6991e7ae9f1ffaabae6586245d2a9626273",
                 "shasum": ""
             },
             "require": {
@@ -1675,7 +1675,7 @@
                 "social",
                 "twitter"
             ],
-            "time": "2019-12-13T11:30:17+00:00"
+            "time": "2019-12-27T09:26:40+00:00"
         },
         {
             "name": "jdorn/sql-formatter",
