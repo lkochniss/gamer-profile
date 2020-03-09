@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.133.26",
+            "version": "3.133.31",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "0bccb2841d035fe983a811b964d3b485171c0406"
+                "reference": "330a696c1f1de0267921f732602e55fb3ddfd550"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/0bccb2841d035fe983a811b964d3b485171c0406",
-                "reference": "0bccb2841d035fe983a811b964d3b485171c0406",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/330a696c1f1de0267921f732602e55fb3ddfd550",
+                "reference": "330a696c1f1de0267921f732602e55fb3ddfd550",
                 "shasum": ""
             },
             "require": {
@@ -88,7 +88,7 @@
                 "s3",
                 "sdk"
             ],
-            "time": "2020-02-29T00:41:14+00:00"
+            "time": "2020-03-06T19:16:46+00:00"
         },
         {
             "name": "doctrine/annotations",
@@ -5505,6 +5505,7 @@
             ],
             "description": "Sends PHP test coverage information to Codacy.",
             "homepage": "https://github.com/codacy/php-codacy-coverage",
+            "abandoned": true,
             "time": "2020-01-10T10:52:12+00:00"
         },
         {
@@ -8110,6 +8111,7 @@
     "minimum-stability": "beta",
     "stability-flags": {
         "hybridauth/hybridauth": 5,
+        "symfony/console": 10,
         "symfony/lts": 20,
         "symfony/twig-bundle": 5
     },
