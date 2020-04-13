@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.133.41",
+            "version": "3.134.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "9b4a110de75631339329a4ca45ebbaf7ddd1f7f9"
+                "reference": "3ebf1d8b24dc38339d93d943971d7d3e1102327b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/9b4a110de75631339329a4ca45ebbaf7ddd1f7f9",
-                "reference": "9b4a110de75631339329a4ca45ebbaf7ddd1f7f9",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/3ebf1d8b24dc38339d93d943971d7d3e1102327b",
+                "reference": "3ebf1d8b24dc38339d93d943971d7d3e1102327b",
                 "shasum": ""
             },
             "require": {
@@ -88,7 +88,7 @@
                 "s3",
                 "sdk"
             ],
-            "time": "2020-03-20T18:10:54+00:00"
+            "time": "2020-04-08T18:27:07+00:00"
         },
         {
             "name": "doctrine/annotations",
@@ -8106,6 +8106,7 @@
     "minimum-stability": "beta",
     "stability-flags": {
         "hybridauth/hybridauth": 5,
+        "symfony/console": 10,
         "symfony/lts": 20,
         "symfony/twig-bundle": 5
     },
