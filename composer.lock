@@ -1635,16 +1635,16 @@
         },
         {
             "name": "hybridauth/hybridauth",
-            "version": "3.2.0",
+            "version": "3.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/hybridauth/hybridauth.git",
-                "reference": "2edf92f07b94fcc9e17ea14e2a1644b83981af7d"
+                "reference": "51cb2ad2f04d175d298b51e919868dec1d4d8b04"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/hybridauth/hybridauth/zipball/2edf92f07b94fcc9e17ea14e2a1644b83981af7d",
-                "reference": "2edf92f07b94fcc9e17ea14e2a1644b83981af7d",
+                "url": "https://api.github.com/repos/hybridauth/hybridauth/zipball/51cb2ad2f04d175d298b51e919868dec1d4d8b04",
+                "reference": "51cb2ad2f04d175d298b51e919868dec1d4d8b04",
                 "shasum": ""
             },
             "require": {
@@ -1683,7 +1683,7 @@
                 "social",
                 "twitter"
             ],
-            "time": "2020-03-04T14:32:04+00:00"
+            "time": "2020-04-16T08:04:26+00:00"
         },
         {
             "name": "jdorn/sql-formatter",
@@ -8108,7 +8108,6 @@
     "aliases": [],
     "minimum-stability": "beta",
     "stability-flags": {
-        "hybridauth/hybridauth": 5,
         "symfony/console": 10,
         "symfony/lts": 20,
         "symfony/twig-bundle": 5
