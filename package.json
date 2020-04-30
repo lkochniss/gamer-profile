@@ -33,7 +33,7 @@
     "bootstrap": "^4.4.1",
     "d3": "^5.15.0",
     "datatables": "^1.10.13",
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "jquery-datatables-checkboxes": "^1.2.11"
   }
 }
