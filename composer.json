@@ -31,7 +31,7 @@
   "require-dev": {
     "codacy/coverage": "^1.4",
     "nelmio/alice": "^3.1",
-    "overtrue/phplint": "^1.1",
+    "overtrue/phplint": "^2.0",
     "phploc/phploc": "^5.0",
     "phpmd/phpmd": "^2.6",
     "phpstan/phpstan": "^0.12.3",
