@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.148.0",
+            "version": "3.149.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "d3a076ac381150d92661890af0d906477f225295"
+                "reference": "8630a2426622d003e27382e2bd129cde5678ae85"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/d3a076ac381150d92661890af0d906477f225295",
-                "reference": "d3a076ac381150d92661890af0d906477f225295",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/8630a2426622d003e27382e2bd129cde5678ae85",
+                "reference": "8630a2426622d003e27382e2bd129cde5678ae85",
                 "shasum": ""
             },
             "require": {
@@ -89,7 +89,7 @@
                 "s3",
                 "sdk"
             ],
-            "time": "2020-08-07T22:16:51+00:00"
+            "time": "2020-08-14T18:11:00+00:00"
         },
         {
             "name": "composer/package-versions-deprecated",
@@ -7527,6 +7527,7 @@
             "keywords": [
                 "tokenizer"
             ],
+            "abandoned": true,
             "time": "2017-11-27T05:48:46+00:00"
         },
         {
@@ -7988,6 +7989,7 @@
             ],
             "description": "FinderFacade is a convenience wrapper for Symfony's Finder component.",
             "homepage": "https://github.com/sebastianbergmann/finder-facade",
+            "abandoned": true,
             "time": "2017-11-18T17:31:49+00:00"
         },
         {
