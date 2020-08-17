@@ -30,7 +30,7 @@
     "webpack-dev-server": "^3.11.0"
   },
   "dependencies": {
-    "bootstrap": "^4.5.0",
+    "bootstrap": "^4.5.2",
     "d3": "^5.16.0",
     "datatables": "^1.10.13",
     "jquery": "^3.5.1",
