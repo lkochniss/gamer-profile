@@ -31,7 +31,7 @@
   },
   "dependencies": {
     "bootstrap": "^4.5.2",
-    "d3": "^5.16.0",
+    "d3": "^6.2.0",
     "datatables": "^1.10.13",
     "jquery": "^3.5.1",
     "jquery-datatables-checkboxes": "^1.2.12"
