@@ -22,7 +22,7 @@
     "precss": "^4.0.0",
     "resolve-url-loader": "^4.0.0",
     "sass-loader": "^8.0.2",
-    "style-loader": "^1.2.1",
+    "style-loader": "^2.0.0",
     "url-loader": "^2.3.0",
     "webpack": "^4.46.0",
     "webpack-assets-manifest": "^3.0.1",
