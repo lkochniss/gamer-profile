@@ -8689,16 +8689,16 @@
         },
         {
             "name": "symfony/dotenv",
-            "version": "v4.4.20",
+            "version": "v4.4.29",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/dotenv.git",
-                "reference": "4952e5ce9e6df3d737b9e9c337bddf781180a213"
+                "reference": "2b078eff6268875f4639cf16e48e321982c671bb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/dotenv/zipball/4952e5ce9e6df3d737b9e9c337bddf781180a213",
-                "reference": "4952e5ce9e6df3d737b9e9c337bddf781180a213",
+                "url": "https://api.github.com/repos/symfony/dotenv/zipball/2b078eff6268875f4639cf16e48e321982c671bb",
+                "reference": "2b078eff6268875f4639cf16e48e321982c671bb",
                 "shasum": ""
             },
             "require": {
@@ -8751,7 +8751,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-01-27T09:09:26+00:00"
+            "time": "2021-07-27T16:19:30+00:00"
         },
         {
             "name": "symfony/maker-bundle",
